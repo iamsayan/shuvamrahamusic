@@ -145,7 +145,7 @@ export default function Pricing() {
 
   return (
     <section
-      className="relative w-full py-24 px-5 md:px-12 lg:px-20 overflow-visible bg-[#05050A]"
+      className="relative w-full py-12 md:py-16 px-5 md:px-12 lg:px-20 overflow-visible bg-[#05050A]"
       id="pricing"
     >
       {/* Background Ambient Layers */}
@@ -155,29 +155,30 @@ export default function Pricing() {
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-7xl">
-        {/* === Header & Geo-Toggle === */}
-        <div className="text-center mb-16 md:mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-6">
-            <CreditCard className="w-4 h-4 text-emerald-400" />
-            <span className="text-sm font-semibold text-emerald-400 tracking-wide uppercase">
-              Simple Pricing
-            </span>
+        {/* === Compact Header & Geo-Toggle === */}
+        <div className="flex flex-col items-center text-center gap-8 mb-12 w-full">
+          <div className="flex flex-col items-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 mb-6 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+              <CreditCard className="w-4 h-4 text-emerald-400" />
+              <span className="text-xs font-bold text-emerald-400 tracking-widest uppercase">
+                Simple Pricing
+              </span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-4">
+              Choose Your{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500">
+                Plan
+              </span>
+            </h2>
+            <p className="text-gray-400 text-sm sm:text-base lg:text-lg max-w-xl mx-auto">
+              No confusion. Structured coaching based on your goals and
+              location.
+            </p>
           </div>
 
-          <h2 className="text-[2.5rem] sm:text-[3.5rem] lg:text-[4.5rem] font-extrabold tracking-tight text-white mb-6 leading-none">
-            Choose Your <br className="sm:hidden" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500">
-              Learning Plan
-            </span>
-          </h2>
-          <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
-            No confusion. Just structured guitar coaching based on your goals
-            and local country exactly where you are.
-          </p>
-
           {/* Interactive Geo-Toggle Switch */}
-          <div className="flex justify-center mt-10 w-full">
-            <div className="relative flex p-1.5 rounded-full bg-white/[0.03] border border-white/5 backdrop-blur-xl shadow-2xl w-full max-w-[340px] sm:max-w-[420px]">
+          <div className="w-full sm:w-auto mt-2">
+            <div className="relative flex p-1.5 rounded-full bg-white/[0.03] border border-white/5 backdrop-blur-xl shadow-2xl w-full sm:w-[360px] mx-auto">
               {/* Sliding Active Background */}
               <div
                 className={`absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] bg-white/10 border border-white/10 rounded-full transition-transform duration-500 ease-out shadow-lg ${
@@ -187,7 +188,7 @@ export default function Pricing() {
 
               <button
                 onClick={() => setRegion("IN")}
-                className={`flex-1 relative z-10 flex items-center justify-center gap-1.5 sm:gap-2 py-3 sm:py-4 rounded-full text-sm sm:text-base font-bold transition-colors duration-300 ${
+                className={`flex-1 relative z-10 flex items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 rounded-full text-sm font-bold transition-colors duration-300 ${
                   region === "IN"
                     ? "text-white"
                     : "text-gray-400 hover:text-gray-200"
@@ -199,7 +200,7 @@ export default function Pricing() {
 
               <button
                 onClick={() => setRegion("GLOBAL")}
-                className={`flex-1 relative z-10 flex items-center justify-center gap-1.5 sm:gap-2 py-3 sm:py-4 rounded-full text-sm sm:text-base font-bold transition-colors duration-300 ${
+                className={`flex-1 relative z-10 flex items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 rounded-full text-sm font-bold transition-colors duration-300 ${
                   region === "GLOBAL"
                     ? "text-white"
                     : "text-gray-400 hover:text-gray-200"
@@ -212,116 +213,122 @@ export default function Pricing() {
           </div>
         </div>
 
-        {/* === 2-Column Pricing Matrix === */}
-        <div className="flex flex-col md:flex-row justify-center items-center md:items-stretch gap-8 lg:gap-12 w-full max-w-5xl mx-auto mt-20 relative">
-          {currentPlans.map((plan: any, i: number) => {
-            const styles = themeMap[plan.theme];
+        {/* === Unified Pricing Dashboard === */}
+        <div className="w-full max-w-5xl mx-auto mt-10 md:mt-12 rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl overflow-hidden shadow-2xl relative group">
+          {/* Ambient Corner Glows (Dynamic based on selected plans) */}
+          <div
+            className={`absolute top-0 left-0 w-64 h-64 blur-[100px] rounded-full opacity-30 pointer-events-none transition-colors duration-700 ${themeMap[currentPlans[0].theme].glow}`}
+          />
+          <div
+            className={`absolute bottom-0 right-0 w-64 h-64 blur-[100px] rounded-full opacity-30 pointer-events-none transition-colors duration-700 ${themeMap[currentPlans[1].theme].glow}`}
+          />
 
-            return (
-              <div
-                key={`${region}-${i}`}
-                className={`group relative w-full md:w-1/2 flex flex-col rounded-[2.5rem] border backdrop-blur-3xl overflow-visible p-8 md:p-10 transition-all duration-500 ${styles.card} animate-in fade-in slide-in-from-bottom-8 ${plan.popular ? "scale-100 md:scale-[1.03] lg:scale-105 z-30" : "z-10"}`}
-                style={{
-                  animationFillMode: "both",
-                  animationDelay: `${i * 150}ms`,
-                }}
-              >
-                {/* Popular Badge Focus */}
-                {plan.popular && (
-                  <div className="absolute -top-5 left-1/2 -translate-x-1/2 z-20">
-                    <div className="relative flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-amber-500 to-orange-400 rounded-full shadow-[0_0_20px_rgba(245,158,11,0.6)]">
-                      <Sparkles className="w-4 h-4 text-white" />
-                      <span className="text-xs sm:text-sm font-bold text-white uppercase tracking-widest whitespace-nowrap">
-                        Most Popular
+          <div className="grid grid-cols-1 md:grid-cols-2 relative z-10">
+            {currentPlans.map((plan: any, i: number) => {
+              const styles = themeMap[plan.theme];
+              const isFirst = i === 0;
+
+              return (
+                <div
+                  key={`${region}-${i}`}
+                  className={`relative flex flex-col p-6 sm:p-8 lg:p-10 transition-all duration-500 hover:bg-white/[0.02] ${
+                    isFirst
+                      ? "border-b md:border-b-0 md:border-r border-white/5"
+                      : ""
+                  }`}
+                >
+                  {/* Popular Badge */}
+                  {plan.popular && (
+                    <div className="absolute top-0 right-6 sm:right-10 -translate-y-1/2 md:-translate-y-0 md:top-6 z-20">
+                      <div className="flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-amber-500 to-orange-400 rounded-full shadow-[0_0_15px_rgba(245,158,11,0.4)]">
+                        <Sparkles className="w-3 h-3 text-white" />
+                        <span className="text-[10px] sm:text-xs font-bold text-white uppercase tracking-widest whitespace-nowrap">
+                          Popular
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Plan Header */}
+                  <div className="mb-6">
+                    <h3
+                      className={`text-lg sm:text-xl font-bold mb-2 ${styles.text}`}
+                    >
+                      {plan.name}
+                    </h3>
+                    <div className="flex items-baseline gap-2 mb-2">
+                      <span
+                        className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight ${styles.price}`}
+                      >
+                        {plan.currency}
+                        {plan.price}
+                      </span>
+                      <span className="text-gray-400 font-medium text-sm sm:text-base">
+                        {plan.period}
                       </span>
                     </div>
-                  </div>
-                )}
-
-                {/* Internal Card Ambient Glow */}
-                <div
-                  className={`absolute top-0 right-0 w-64 h-64 blur-[100px] rounded-full opacity-50 pointer-events-none transition-all duration-700 group-hover:scale-150 ${styles.glow}`}
-                />
-
-                {/* Plan Header */}
-                <div className="relative z-10 mb-8 border-b border-white/5 pb-8">
-                  <h3
-                    className={`text-xl sm:text-2xl font-bold mb-4 ${styles.text}`}
-                  >
-                    {plan.name}
-                  </h3>
-                  <div className="flex items-baseline gap-2 mb-4">
-                    <span
-                      className={`text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight ${styles.price}`}
-                    >
-                      {plan.currency}
-                      {plan.price}
-                    </span>
-                    <span className="text-gray-400 font-medium text-lg">
-                      {plan.period}
-                    </span>
-                  </div>
-                  <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
-                    {plan.description}
-                  </p>
-                </div>
-
-                {/* Warning / Conditional Banner */}
-                {plan.warning && (
-                  <div className="relative z-10 flex items-start gap-3 p-4 mb-8 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-200/90">
-                    <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-                    <p className="text-sm font-medium leading-snug">
-                      {plan.warning}
+                    <p className="text-gray-400 text-sm leading-relaxed">
+                      {plan.description}
                     </p>
                   </div>
-                )}
 
-                {/* Features List */}
-                <div className="relative z-10 flex-1 flex flex-col mb-10">
-                  <span className="text-white font-bold mb-6 tracking-wide">
-                    Includes:
-                  </span>
-                  <ul className="flex flex-col gap-4">
-                    {plan.includes.map((feature: string, idx: number) => (
-                      <li
-                        key={idx}
-                        className="flex items-start gap-4 text-gray-300 group/li"
-                      >
-                        <div
-                          className={`flex items-center justify-center shrink-0 w-6 h-6 rounded-full ${styles.icon} transition-transform duration-300 group-hover/li:scale-110`}
+                  {/* Warning / Conditional Banner */}
+                  {plan.warning && (
+                    <div className="flex items-start gap-2.5 p-3 mb-6 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-200/90">
+                      <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                      <p className="text-xs sm:text-sm font-medium leading-snug">
+                        {plan.warning}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Features List */}
+                  <div className="flex-1 flex flex-col mb-8">
+                    <span className="text-white text-sm font-bold mb-4 tracking-wide">
+                      Includes:
+                    </span>
+                    <ul className="flex flex-col gap-3">
+                      {plan.includes.map((feature: string, idx: number) => (
+                        <li
+                          key={idx}
+                          className="flex items-start gap-3 text-gray-300 group/li"
                         >
-                          <Check className="w-3.5 h-3.5 stroke-[3]" />
-                        </div>
-                        <span className="text-sm sm:text-base">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Footer Blocks (Best For & CTA) */}
-                <div className="relative z-10 mt-auto flex flex-col gap-6">
-                  <div className="bg-white/[0.03] border border-white/5 rounded-xl p-4 text-center">
-                    <span className="text-gray-400 text-xs uppercase tracking-widest block mb-1">
-                      Best for
-                    </span>
-                    <span className="text-white font-medium text-sm">
-                      {plan.bestFor}
-                    </span>
+                          <div
+                            className={`flex items-center justify-center shrink-0 w-5 h-5 rounded-full ${styles.icon} transition-transform duration-300 group-hover/li:scale-110`}
+                          >
+                            <Check className="w-3 h-3 stroke-[3]" />
+                          </div>
+                          <span className="text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
 
-                  <button
-                    className={`w-full py-4 rounded-2xl font-bold text-lg tracking-wide transition-all duration-300 active:scale-95 ${styles.button}`}
-                  >
-                    {plan.buttonText}
-                  </button>
+                  {/* Footer Blocks (Best For & CTA) */}
+                  <div className="mt-auto flex flex-col gap-4">
+                    <div className="bg-white/[0.03] border border-white/5 rounded-xl p-3 text-center">
+                      <span className="text-gray-500 text-[10px] uppercase tracking-widest block mb-0.5">
+                        Best for
+                      </span>
+                      <span className="text-gray-300 font-medium text-xs sm:text-sm">
+                        {plan.bestFor}
+                      </span>
+                    </div>
+
+                    <button
+                      className={`w-full py-3.5 rounded-xl font-bold text-sm sm:text-base tracking-wide transition-all duration-300 active:scale-[0.98] ${styles.button}`}
+                    >
+                      {plan.buttonText}
+                    </button>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
         {/* Global Geographic Tagline Note */}
-        <div className="mt-20 flex justify-center w-full px-5">
+        <div className="mt-12 flex justify-center w-full px-5">
           <p className="text-gray-500 text-sm md:text-base text-center font-medium max-w-2xl bg-white/[0.02] border border-white/5 rounded-full py-3 px-6">
             <span className="text-red-400 mr-2">📌</span>
             Pricing is structurally based on your country of residence (not

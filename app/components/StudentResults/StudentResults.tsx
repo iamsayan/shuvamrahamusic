@@ -40,7 +40,7 @@ const VideoCard = ({
 export default function StudentResults() {
   return (
     <section
-      className="relative w-full py-20 px-5 md:px-12 lg:px-20 overflow-x-clip bg-[#05050A]"
+      className="relative w-full py-12 md:py-16 px-5 md:px-12 lg:px-20 overflow-x-clip bg-[#05050A]"
       id="results"
     >
       {/* ── Elegant Glowing Separator ── */}
@@ -58,195 +58,152 @@ export default function StudentResults() {
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-7xl">
-        {/* === Section Header === */}
-        <div className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-6">
-            <Sparkles className="w-4 h-4 text-violet-400" />
-            <span className="text-sm font-semibold tracking-wide text-violet-300">
-              Proof That It Works
-            </span>
+        {/* === Compact Section Header === */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 sm:mb-10 w-full border-b border-white/5 pb-6">
+          <div className="flex flex-col items-start">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-violet-500/20 bg-violet-500/10 mb-4">
+              <Sparkles className="w-4 h-4 text-violet-400" />
+              <span className="text-xs font-bold text-violet-400 tracking-widest uppercase">
+                Proof That It Works
+              </span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white">
+              See Real{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-500">
+                Student Results
+              </span>
+            </h2>
           </div>
-          <h2 className="text-[2.5rem] sm:text-[3.5rem] lg:text-[4.5rem] font-extrabold tracking-tight text-white mb-6 leading-tight">
-            See Real{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-500">
-              Student Results
-            </span>
-          </h2>
-          <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto font-medium">
+          <p className="text-gray-400 text-sm sm:text-base max-w-md md:text-right">
             Watch how students go from absolute beginners to highly confident
             players in record time.
           </p>
         </div>
 
-        <div className="flex flex-col gap-28">
-          {/* === 1. Offline Teaching Sessions === */}
-          <div className="relative">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/30">
-                <Tv className="w-5 h-5 text-orange-500" />
-              </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-white">
-                Offline Teaching Sessions
-              </h3>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
-              <VideoCard videoId="Mldyf1c3uxc" />
-              <VideoCard videoId="Mldyf1c3uxc" />
-            </div>
-          </div>
-
-          {/* === 2. Online Class Clips (Shorts Slider) === */}
-          <div className="relative">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30">
-                <MonitorSmartphone className="w-5 h-5 text-blue-400" />
-              </div>
-              <div>
-                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">
-                  Online Class Clips
+        {/* === Bento Grid Architecture === */}
+        <div className="flex flex-col gap-6">
+          {/* ── ROW 1: Live Performances (Left) + Before/After (Right) ── */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Live Performances (Span 7) */}
+            <div className="lg:col-span-7 relative p-4 sm:p-6 rounded-3xl border border-white/5 bg-white/[0.02] overflow-hidden flex flex-col">
+              <div className="flex items-center gap-3 mb-4">
+                <Mic2 className="w-5 h-5 text-rose-500" />
+                <h3 className="text-xl font-bold text-white">
+                  Live Performances
                 </h3>
-                <p className="text-gray-400 text-sm">
-                  How structured sessions work from anywhere in the world.
-                </p>
-              </div>
-            </div>
-
-            {/* Horizontal Slider container for Shorts */}
-            <SliderGallery itemWidth={260}>
-              {[1, 2, 3, 4, 5].map((item) => (
-                <div
-                  key={item}
-                  className="snap-center shrink-0 w-[260px] sm:w-[300px]"
-                >
-                  <VideoCard videoId="rHn8HmNSiPs" isShort />
-                </div>
-              ))}
-            </SliderGallery>
-          </div>
-
-          {/* === 3. Student Playing Videos (Wide Slider) === */}
-          <div className="relative">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30">
-                <Guitar className="w-5 h-5 text-amber-500" />
-              </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-white">
-                Student Playing Videos
-              </h3>
-            </div>
-            {/* Horizontal Slider container for Vods */}
-            <SliderGallery itemWidth={300}>
-              {[1, 2, 3, 4].map((item) => (
-                <div
-                  key={item}
-                  className="snap-center shrink-0 w-[300px] sm:w-[480px] lg:w-[560px]"
-                >
-                  <VideoCard videoId="Mldyf1c3uxc" />
-                </div>
-              ))}
-            </SliderGallery>
-          </div>
-
-          {/* === 4. Before -> After Transformations === */}
-          <div className="relative p-6 sm:p-10 rounded-[2rem] border border-white/10 bg-white/[0.02] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] overflow-hidden">
-            {/* Ambient background glow inside the card */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg h-[500px] bg-fuchsia-600/20 blur-[120px] pointer-events-none rounded-full" />
-
-            <div className="relative z-10 text-center mb-10">
-              <h3 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
-                Before <span className="text-fuchsia-400">→</span> After
-              </h3>
-              <p className="text-gray-300 font-medium">
-                Witness the absolute beginner to confident player journey.
-              </p>
-            </div>
-
-            {/* Split Comparison UI */}
-            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
-              {/* Day 1 Side */}
-              <div className="relative flex flex-col items-center">
-                <span className="absolute -top-4 left-4 sm:left-10 z-20 px-4 py-1.5 rounded-full bg-gray-800 border border-gray-600 text-gray-300 text-sm font-bold shadow-lg">
-                  Day 1
-                </span>
-                <div className="w-full grayscale opacity-80 transition-all hover:grayscale-0 hover:opacity-100">
-                  <VideoCard isShort videoId="rHn8HmNSiPs" />
-                </div>
-              </div>
-
-              {/* The "Versus / Arrow" Middle Bridge */}
-              <div className="hidden md:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 items-center justify-center w-16 h-16 rounded-full bg-[#05050A] border border-fuchsia-500/30 text-fuchsia-400 shadow-[0_0_30px_rgba(217,70,239,0.3)]">
-                <Zap className="w-8 h-8 fill-fuchsia-500/20" />
-              </div>
-
-              {/* Day 30 Side */}
-              <div className="relative flex flex-col items-center">
-                <span className="absolute -top-4 right-4 sm:right-10 z-20 px-4 py-1.5 rounded-full bg-gradient-to-r from-fuchsia-500 to-violet-500 text-white border border-white/20 text-sm font-bold shadow-xl shadow-fuchsia-500/20">
-                  Day 30
-                </span>
-                <div className="w-full relative">
-                  <div className="absolute -inset-2 bg-gradient-to-br from-fuchsia-500/20 to-violet-500/20 rounded-[2rem] blur-lg -z-10" />
-                  <VideoCard isShort videoId="rHn8HmNSiPs" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* === 5. My Live Performances === */}
-          <div className="relative col-span-full">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-10">
-              <div className="flex items-center gap-3">
-                <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/30 shadow-[0_0_20px_rgba(243,24,71,0.2)]">
-                  <Mic2 className="w-6 h-6 text-rose-500" />
-                </div>
-                <div>
-                  <h3 className="text-3xl sm:text-4xl font-extrabold text-white">
-                    Live Performances
-                  </h3>
-                  <p className="text-rose-200/70 mt-1">
-                    Experience the reality of performing on large stages.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-rose-500/20 bg-rose-500/10">
-                <span className="relative flex h-2.5 w-2.5 mr-1">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500"></span>
-                </span>
-                <span className="text-sm font-semibold text-rose-400 tracking-wider uppercase">
-                  Artist Showcase
+                <span className="ml-auto px-2 py-1 rounded text-[10px] font-bold bg-rose-500/20 text-rose-400 uppercase">
+                  Featured
                 </span>
               </div>
-            </div>
-
-            {/* Cinematic Featured Video */}
-            <div className="relative w-full rounded-[2.5rem] p-3 sm:p-5 border border-white/5 bg-white/[0.01] backdrop-blur-sm shadow-2xl">
-              <div className="w-full aspect-video rounded-3xl overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10 pointer-events-none" />
-                <div className="absolute inset-0 z-0">
-                  <YouTubeFacade videoId="Mldyf1c3uxc" />
-                </div>
-
-                {/* Overlay Text / Watermark */}
-                <div className="absolute bottom-6 left-6 sm:bottom-10 sm:left-10 z-20">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                    <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+              <div className="w-full aspect-video rounded-2xl overflow-hidden shadow-2xl relative group">
+                <YouTubeFacade videoId="Mldyf1c3uxc" />
+                <div className="absolute bottom-4 left-4 pointer-events-none">
+                  <div className="flex gap-1 mb-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-3 h-3 fill-amber-400 text-amber-400"
+                      />
+                    ))}
                   </div>
-                  <h4 className="text-white text-2xl sm:text-3xl font-bold">
+                  <h4 className="text-white font-bold drop-shadow-md">
                     Main Stage Show
                   </h4>
                 </div>
               </div>
             </div>
 
-            {/* 3 Grid smaller thumbnails below the main stage */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
-              <VideoCard videoId="Mldyf1c3uxc" />
-              <VideoCard videoId="Mldyf1c3uxc" />
-              <VideoCard videoId="Mldyf1c3uxc" />
+            {/* Before / After Transformation (Span 5) */}
+            <div className="lg:col-span-5 relative p-4 sm:p-6 rounded-3xl border border-white/5 bg-white/[0.02] overflow-hidden flex flex-col">
+              <div className="absolute inset-0 bg-fuchsia-600/5 blur-[80px] pointer-events-none" />
+              <div className="flex items-center gap-3 mb-4 relative z-10">
+                <Zap className="w-5 h-5 text-fuchsia-400" />
+                <h3 className="text-xl font-bold text-white">Transformation</h3>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4 flex-1 relative z-10">
+                {/* Day 1 */}
+                <div className="flex flex-col items-center">
+                  <span className="mb-2 px-3 py-1 rounded-full bg-gray-800 border border-gray-600 text-gray-300 text-xs font-bold">
+                    Day 1
+                  </span>
+                  <div className="w-full grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                    <VideoCard isShort videoId="rHn8HmNSiPs" />
+                  </div>
+                </div>
+                {/* Day 30 */}
+                <div className="flex flex-col items-center">
+                  <span className="mb-2 px-3 py-1 rounded-full bg-gradient-to-r from-fuchsia-500 to-violet-500 text-white text-xs font-bold shadow-lg shadow-fuchsia-500/20">
+                    Day 30
+                  </span>
+                  <div className="w-full relative">
+                    <div className="absolute -inset-2 bg-gradient-to-br from-fuchsia-500/20 to-violet-500/20 rounded-2xl blur-lg -z-10" />
+                    <VideoCard isShort videoId="rHn8HmNSiPs" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ── ROW 2: Student Videos Slider (Left) + Offline Sessions (Right) ── */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Student Playing Videos (Span 8) */}
+            <div className="lg:col-span-8 relative p-4 sm:p-6 rounded-3xl border border-white/5 bg-white/[0.02] overflow-hidden flex flex-col">
+              <div className="flex items-center gap-3 mb-4">
+                <Guitar className="w-5 h-5 text-amber-500" />
+                <h3 className="text-xl font-bold text-white">
+                  Student Mastery
+                </h3>
+              </div>
+              <div className="flex-1 w-full relative">
+                <SliderGallery itemWidth={300}>
+                  {[1, 2, 3, 4].map((item) => (
+                    <div
+                      key={item}
+                      className="snap-center shrink-0 w-[300px] sm:w-[400px]"
+                    >
+                      <VideoCard videoId="Mldyf1c3uxc" />
+                    </div>
+                  ))}
+                </SliderGallery>
+              </div>
+            </div>
+
+            {/* Offline Teaching Sessions (Span 4) */}
+            <div className="lg:col-span-4 relative p-4 sm:p-6 rounded-3xl border border-white/5 bg-white/[0.02] overflow-hidden flex flex-col">
+              <div className="flex items-center gap-3 mb-4">
+                <Tv className="w-5 h-5 text-orange-500" />
+                <h3 className="text-xl font-bold text-white">
+                  Offline Classes
+                </h3>
+              </div>
+              <div className="flex flex-col gap-4 flex-1">
+                <VideoCard videoId="Mldyf1c3uxc" />
+                <VideoCard videoId="Mldyf1c3uxc" />
+              </div>
+            </div>
+          </div>
+
+          {/* ── ROW 3: Online Class Clips (Full Width) ── */}
+          <div className="w-full relative p-4 sm:p-6 rounded-3xl border border-white/5 bg-white/[0.02] overflow-hidden">
+            <div className="absolute right-0 top-0 w-[400px] h-full bg-blue-500/5 blur-[80px] pointer-events-none" />
+            <div className="flex items-center gap-3 mb-6 relative z-10">
+              <MonitorSmartphone className="w-5 h-5 text-blue-400" />
+              <h3 className="text-xl font-bold text-white">
+                Online Class Shorts
+              </h3>
+              <p className="text-gray-400 text-sm hidden sm:block ml-4 border-l border-white/10 pl-4">
+                How structured sessions work globally.
+              </p>
+            </div>
+            <div className="relative z-10 w-full">
+              <SliderGallery itemWidth={220}>
+                {[1, 2, 3, 4, 5, 6].map((item) => (
+                  <div key={item} className="snap-center shrink-0 w-[220px]">
+                    <VideoCard videoId="rHn8HmNSiPs" isShort />
+                  </div>
+                ))}
+              </SliderGallery>
             </div>
           </div>
         </div>
