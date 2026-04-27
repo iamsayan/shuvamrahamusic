@@ -55,14 +55,14 @@ const authorityPoints = [
 
 export default function Instructor() {
   return (
-    <section className="relative w-full py-16 md:py-24 px-5 md:px-12 lg:px-20 overflow-hidden bg-[#05050A]" id="instructor">
+    <section className="relative w-full py-16 md:py-24 overflow-hidden bg-[#05050A]" id="instructor">
       {/* Background Ambient Glow */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-rose-600/5 blur-[120px] mix-blend-screen" />
         <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-violet-600/5 blur-[120px] mix-blend-screen" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl">
+      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
           
           {/* Left: Huge Portrait Profile */}

@@ -107,7 +107,7 @@ export default function Reviews() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-amber-600/5 blur-[150px] mix-blend-screen" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 md:px-12 lg:px-20 mb-12 sm:mb-16 text-center">
+      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20 mb-12 sm:mb-16 text-center">
         <div className="flex flex-col items-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-500/20 bg-amber-500/10 mb-6 shadow-[0_0_15px_rgba(245,158,11,0.15)]">
             <BadgeCheck className="w-4 h-4 text-amber-400" />

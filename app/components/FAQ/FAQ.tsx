@@ -46,14 +46,14 @@ export default function FAQ() {
   };
 
   return (
-    <section className="relative w-full py-16 md:py-24 px-5 md:px-12 lg:px-20 overflow-x-clip bg-[#05050A]" id="faq">
+    <section className="relative w-full py-16 md:py-24 overflow-x-clip bg-[#05050A]" id="faq">
       {/* Background Glows */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute top-[10%] left-[10%] w-[600px] h-[600px] rounded-full bg-indigo-600/5 blur-[120px] mix-blend-screen" />
         <div className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] rounded-full bg-purple-600/5 blur-[120px] mix-blend-screen" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl">
+      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
         
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
           

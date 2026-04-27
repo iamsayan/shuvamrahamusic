@@ -47,14 +47,14 @@ const features = [
 
 export default function WhatYouGet() {
   return (
-    <section className="relative w-full py-16 md:py-24 px-5 md:px-12 lg:px-20 overflow-hidden bg-[#05050A]" id="what-you-get">
+    <section className="relative w-full py-16 md:py-24 overflow-hidden bg-[#05050A]" id="what-you-get">
       {/* Background Ambient Glow */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full bg-cyan-600/5 blur-[120px] mix-blend-screen" />
         <div className="absolute bottom-0 left-0 w-[800px] h-[800px] rounded-full bg-blue-600/5 blur-[120px] mix-blend-screen" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl">
+      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
         
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 mb-6 shadow-[0_0_15px_rgba(6,182,212,0.15)]">

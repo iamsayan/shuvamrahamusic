@@ -31,7 +31,7 @@ export default function WhatYouAchieve() {
 
   return (
     <section
-      className="relative w-full py-12 md:py-16 px-5 md:px-12 lg:px-20 overflow-x-clip bg-[#05050A]"
+      className="relative w-full py-12 md:py-16 overflow-x-clip bg-[#05050A]"
       id="achieve"
     >
       {/* ── Background Glow ── */}
@@ -40,7 +40,7 @@ export default function WhatYouAchieve() {
         <div className="absolute bottom-[20%] left-[10%] w-[600px] h-[600px] rounded-full bg-blue-600/5 blur-[120px] mix-blend-screen" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl">
+      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
         {/* === Compact Section Header === */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 sm:mb-10 w-full border-b border-white/5 pb-6">
           <div className="flex flex-col items-start">

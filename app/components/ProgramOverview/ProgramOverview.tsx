@@ -263,7 +263,7 @@ export default function ProgramOverview() {
 
   return (
     <section
-      className="relative w-full py-16 md:py-24 px-5 md:px-12 lg:px-20 overflow-hidden bg-[#05050A]"
+      className="relative w-full py-16 md:py-24 overflow-hidden bg-[#05050A]"
       id="overview"
     >
       {/* Dynamic Background Glow based on Active Tab */}
@@ -279,7 +279,7 @@ export default function ProgramOverview() {
         )}
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl">
+      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
         {/* === SECTION HEADER & TABS === */}
         <div className="flex flex-col items-center text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white mb-8">

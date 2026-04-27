@@ -107,7 +107,7 @@ const curriculum = [
 export default function WhatYouLearn() {
   return (
     <section
-      className="relative w-full py-16 md:py-24 px-5 md:px-12 lg:px-20 overflow-hidden bg-[#05050A]"
+      className="relative w-full py-16 md:py-24 overflow-hidden bg-[#05050A]"
       id="curriculum"
     >
       {/* ── Background Ambient Glow ── */}
@@ -115,7 +115,7 @@ export default function WhatYouLearn() {
         <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-indigo-600/5 blur-[120px] mix-blend-screen" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl">
+      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
         
         {/* === Premium Section Header === */}
         <div className="flex flex-col items-center text-center mb-12 sm:mb-16">
