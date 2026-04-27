@@ -60,7 +60,7 @@ export default function Header() {
           : "bg-transparent py-5 border-b border-transparent"
       }`}
     >
-      <div className="mx-auto w-full max-w-7xl px-5 md:px-12 lg:px-20">
+      <div className="mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
         <div className="flex items-center justify-between">
           
           {/* Logo */}

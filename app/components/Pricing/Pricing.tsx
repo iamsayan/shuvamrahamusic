@@ -145,7 +145,7 @@ export default function Pricing() {
 
   return (
     <section
-      className="relative w-full py-12 md:py-16 px-5 md:px-12 lg:px-20 overflow-visible bg-[#05050A]"
+      className="relative w-full py-12 md:py-16 overflow-visible bg-[#05050A]"
       id="pricing"
     >
       {/* Background Ambient Layers */}
@@ -154,7 +154,7 @@ export default function Pricing() {
         <div className="absolute bottom-[10%] right-[20%] w-[600px] h-[600px] rounded-full bg-violet-600/5 blur-[150px] mix-blend-screen" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl">
+      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
         {/* === Compact Header & Geo-Toggle === */}
         <div className="flex flex-col items-center text-center gap-8 mb-12 w-full">
           <div className="flex flex-col items-center">

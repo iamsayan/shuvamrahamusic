@@ -22,7 +22,7 @@ export default function TargetAudience() {
 
   return (
     <section
-      className="relative w-full py-8 md:py-10 px-5 md:px-12 lg:px-20 overflow-x-clip bg-[#05050A]"
+      className="relative w-full py-8 md:py-10 overflow-x-clip bg-[#05050A]"
       id="audience"
     >
       {/* ── Glowing Separator ── */}
@@ -37,7 +37,7 @@ export default function TargetAudience() {
         <div className="absolute bottom-[10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-rose-600/5 blur-[130px] mix-blend-screen" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl">
+      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
         {/* === Compact Section Header === */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 w-full border-b border-white/5 pb-6">
           <div className="flex flex-col items-start">

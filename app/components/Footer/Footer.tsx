@@ -69,7 +69,7 @@ export default function Footer() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[300px] md:h-[400px] bg-gradient-to-b from-cyan-900/20 via-blue-900/5 to-transparent blur-[100px] md:blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-indigo-900/10 blur-[100px] md:blur-[150px] pointer-events-none rounded-full" />
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 md:px-12 lg:px-20">
+      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
         
         {/* === TOP SECTION === */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-10 md:gap-12 lg:gap-16 mb-16 md:mb-20">
