@@ -1,24 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
+import { ArrowRight, Award, CheckCircle2, Music, Play, Star, Users, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Star,
-  Play,
-  ArrowRight,
-  Music,
-  CheckCircle2,
-  Award,
-  Users,
-  X,
-} from "lucide-react";
+import { useState } from "react";
 
 export default function HeroCSS() {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   return (
     <section className="relative min-h-[100svh] flex items-center pt-24 md:pt-32 pb-16 overflow-hidden bg-[#020205]">
+      <Image
+        src="/bg-hero.jpeg"
+        alt="Hero Background"
+        fill
+        className="absolute inset-0 object-cover object-center opacity-50"
+      />
+
       {/* Dynamic Keyframes for Floating Elements */}
       <style
         dangerouslySetInnerHTML={{
@@ -38,7 +36,7 @@ export default function HeroCSS() {
       />
 
       {/* Background Ambience */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none hidden">
         {/* Deep blue/cyan ambient lighting */}
         <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-cyan-900/20 blur-[150px] mix-blend-screen" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[800px] h-[800px] rounded-full bg-blue-900/10 blur-[150px] mix-blend-screen" />
@@ -60,10 +58,10 @@ export default function HeroCSS() {
           {/* H1 Headline (SEO Optimized) */}
           <h1 className="font-black tracking-tighter text-white mb-6">
             <span className="block text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-[0.2em] mb-3 ml-1">
-              Online Guitar Classes
+              Online & Offline Guitar Classes
             </span>
             <span className="block text-[3.2rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[1.05] mb-2 text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-400">
-              Stop Guessing.
+              Master Guitar & Play Your Favorite Songs in 30 Days — Guided by Shuvam Raha
             </span>
             <span className="block text-[3.2rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[1.05]">
               Start{" "}
@@ -73,21 +71,30 @@ export default function HeroCSS() {
             </span>
           </h1>
 
-          <p className="max-w-xl text-base sm:text-lg text-gray-400 mb-8 leading-relaxed font-medium">
-            Break past your limits with structured, 1-on-1 guitar coaching.
-            Whether you're an absolute beginner or looking to master advanced
-            solos, learn at your own pace from anywhere in the world.
+          <p className="max-w-xl text-base sm:text-xl text-gray-400 mb-8 leading-relaxed font-medium">
+            Play Your Favorite Songs Confidently - Even as a Beginner.
           </p>
 
           {/* Key Benefits */}
           <ul className="flex flex-col sm:flex-row gap-4 sm:gap-8 mb-10">
             <li className="flex items-center gap-2 text-gray-300 font-medium text-sm">
               <CheckCircle2 className="w-5 h-5 text-cyan-400" />
-              Tailored Curriculum
+              India, USA, UK, Canada
             </li>
             <li className="flex items-center gap-2 text-gray-300 font-medium text-sm">
               <CheckCircle2 className="w-5 h-5 text-cyan-400" />
-              Flexible Timings
+              For Beginners & Profressionals
+            </li>
+            <li className="flex items-center gap-2 text-gray-300 font-medium text-sm">
+              <CheckCircle2 className="w-5 h-5 text-cyan-400" />
+              Flexible Class Timings
+            </li>
+          </ul>
+
+          <ul className="flex flex-col sm:flex-row gap-4 sm:gap-8 mb-10">
+            <li className="flex items-center gap-2 text-gray-300 font-medium text-sm">
+              <CheckCircle2 className="w-5 h-5 text-cyan-400" />
+              1:1 Guitar Sessions
             </li>
           </ul>
 
@@ -107,7 +114,7 @@ export default function HeroCSS() {
               <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 group-hover:bg-white/20 transition-colors">
                 <Play className="w-4 h-4 text-white fill-white ml-0.5" />
               </div>
-              Watch
+              View Plans
             </button>
           </div>
 
@@ -131,21 +138,18 @@ export default function HeroCSS() {
             <div className="flex flex-col">
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-3.5 h-3.5 text-amber-400 fill-amber-400"
-                  />
+                  <Star key={i} className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                 ))}
               </div>
               <span className="text-xs font-medium text-gray-400 mt-0.5">
-                Loved by 100+ students worldwide
+                Trusted by 100+ students worldwide
               </span>
             </div>
           </div>
         </div>
 
         {/* ── Right Column: Hero Visuals ── */}
-        <div className="flex-1 w-full relative mt-16 lg:mt-0">
+        <div className="flex-1 w-full relative mt-16 lg:mt-0 hidden">
           <div className="relative w-full aspect-[4/5] sm:aspect-square max-w-[450px] mx-auto lg:max-w-none lg:ml-auto">
             {/* The Main Image Container */}
             <div className="absolute inset-0 rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.8)] group">
@@ -179,9 +183,7 @@ export default function HeroCSS() {
                 <span className="text-white font-bold text-sm sm:text-base leading-tight">
                   1-on-1 Sessions
                 </span>
-                <span className="text-gray-400 text-xs">
-                  Personalized Focus
-                </span>
+                <span className="text-gray-400 text-xs">Personalized Focus</span>
               </div>
             </div>
 
@@ -194,9 +196,7 @@ export default function HeroCSS() {
                 <span className="text-white font-bold text-sm sm:text-base leading-tight">
                   All Genres
                 </span>
-                <span className="text-gray-400 text-xs">
-                  Rock, Pop, Acoustic
-                </span>
+                <span className="text-gray-400 text-xs">Rock, Pop, Acoustic</span>
               </div>
             </div>
           </div>
