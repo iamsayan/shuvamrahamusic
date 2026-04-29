@@ -11,7 +11,7 @@ export default function HeroCSS() {
   return (
     <section className="relative min-h-[100svh] flex items-center pt-24 md:pt-32 pb-16 overflow-hidden bg-[#020205]">
       <Image
-        src="/bg-hero.jpeg"
+        src="/bg.png"
         alt="Hero Background"
         fill
         className="absolute inset-0 object-cover object-center opacity-50"
@@ -61,12 +61,12 @@ export default function HeroCSS() {
               Online & Offline Guitar Classes
             </span>
             <span className="block text-[3.2rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[1.05] mb-2 text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-400">
-              Master Guitar & Play Your Favorite Songs in 30 Days — Guided by Shuvam Raha
+              Master Guitar & Play Your Favorite Songs in 30 Days
             </span>
             <span className="block text-[3.2rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[1.05]">
-              Start{" "}
+              Guided by{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 drop-shadow-[0_0_30px_rgba(6,182,212,0.4)]">
-                Playing.
+                Shuvam Raha
               </span>
             </span>
           </h1>
