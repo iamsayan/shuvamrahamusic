@@ -34,14 +34,6 @@ export default function Home() {
       </div>
 
       <div className="flex flex-col border-t border-indigo-500/10">
-        <ProgramOverview defaultTab="curriculum" />
-      </div>
-
-      <div className="flex flex-col border-t border-indigo-500/10">
-        <ProgramOverview defaultTab="system" />
-      </div>
-
-      <div className="flex flex-col border-t border-indigo-500/10">
         <FAQ />
       </div>
 

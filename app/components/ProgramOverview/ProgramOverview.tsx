@@ -255,8 +255,8 @@ const features = [
 // MAIN COMPONENT
 // ============================================================================
 
-export default function ProgramOverview({ defaultTab = "instructor" }) {
-  const [activeTab, setActiveTab] = useState<"instructor" | "curriculum" | "system">(defaultTab);
+export default function ProgramOverview() {
+  const [activeTab, setActiveTab] = useState<"instructor" | "curriculum" | "system">("instructor");
 
   return (
     <section className="relative w-full py-16 md:py-24 overflow-hidden bg-[#05050A]" id="overview">
