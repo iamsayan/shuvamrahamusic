@@ -1,25 +1,9 @@
-import {
-  Sparkles,
-  Tv,
-  MonitorSmartphone,
-  Guitar,
-  Sparkle,
-  Mic2,
-  Zap,
-  ArrowRight,
-  Star,
-} from "lucide-react";
-import YouTubeFacade from "../YouTubeFacade/YouTubeFacade";
+import { Guitar, Mic2, MonitorSmartphone, Sparkles, Star, Tv, Zap } from "lucide-react";
 import SliderGallery from "../SliderGallery/SliderGallery";
+import YouTubeFacade from "../YouTubeFacade/YouTubeFacade";
 
 // Standard Video Component wrapper
-const VideoCard = ({
-  videoId,
-  isShort = false,
-}: {
-  videoId: string;
-  isShort?: boolean;
-}) => (
+const VideoCard = ({ videoId, isShort = false }: { videoId: string; isShort?: boolean }) => (
   <div
     className={`relative w-full rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 bg-surface ${
       isShort ? "aspect-[9/16]" : "aspect-video"
@@ -29,9 +13,7 @@ const VideoCard = ({
       <YouTubeFacade videoId={videoId} />
     ) : (
       <div className="absolute inset-0 flex items-center justify-center bg-surface-hover/50 text-muted/50">
-        <span className="text-sm">
-          Placeholder {isShort ? "(Short)" : "(Video)"}
-        </span>
+        <span className="text-sm">Placeholder {isShort ? "(Short)" : "(Video)"}</span>
       </div>
     )}
   </div>
@@ -39,10 +21,7 @@ const VideoCard = ({
 
 export default function StudentResults() {
   return (
-    <section
-      className="relative w-full py-12 md:py-16 overflow-x-clip bg-[#05050A]"
-      id="results"
-    >
+    <section className="relative w-full py-12 md:py-16 overflow-x-clip bg-[#05050A]" id="results">
       {/* ── Elegant Glowing Separator ── */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[80%] md:max-w-4xl h-px bg-gradient-to-r from-transparent via-white/10 to-transparent z-20" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[50%] md:max-w-2xl h-[1px] bg-gradient-to-r from-transparent via-violet-500/40 to-transparent blur-[2px] z-20" />
@@ -75,9 +54,32 @@ export default function StudentResults() {
             </h2>
           </div>
           <p className="text-gray-400 text-sm sm:text-base max-w-md md:text-right">
-            Watch how students go from absolute beginners to highly confident
-            players in record time.
+            Watch how students go from absolute beginners to highly confident players in record
+            time.
           </p>
+        </div>
+
+        {/* ── ROW 3: Online Class Clips (Full Width) ── */}
+        <div className="w-full relative p-4 sm:p-6 rounded-3xl border border-white/5 bg-white/[0.02] overflow-hidden">
+          <div className="absolute right-0 top-0 w-[400px] h-full bg-blue-500/5 blur-[80px] pointer-events-none" />
+          <div className="flex items-center gap-3 mb-6 relative z-10">
+            <MonitorSmartphone className="w-5 h-5 text-blue-400" />
+            <h3 className="text-xl font-bold text-white">Student Playing Videos</h3>
+            <p className="text-gray-400 text-sm hidden sm:block ml-4 border-l border-white/10 pl-4">
+              How structured sessions work globally.
+            </p>
+          </div>
+          <div className="relative z-10 w-full">
+            <SliderGallery itemWidth={220}>
+              {["QAJUivdGB5k", "7rgtIwJlHcc", "461nZ5U9Wiw", "rHn8HmNSiPs", "rHn8HmNSiPs"].map(
+                (item) => (
+                  <div key={item} className="snap-center shrink-0 w-[220px]">
+                    <VideoCard videoId={item} isShort />
+                  </div>
+                ),
+              )}
+            </SliderGallery>
+          </div>
         </div>
 
         {/* === Bento Grid Architecture === */}
@@ -88,9 +90,7 @@ export default function StudentResults() {
             <div className="lg:col-span-7 relative p-4 sm:p-6 rounded-3xl border border-white/5 bg-white/[0.02] overflow-hidden flex flex-col">
               <div className="flex items-center gap-3 mb-4">
                 <Mic2 className="w-5 h-5 text-rose-500" />
-                <h3 className="text-xl font-bold text-white">
-                  Live Performances
-                </h3>
+                <h3 className="text-xl font-bold text-white">Live Performances</h3>
                 <span className="ml-auto px-2 py-1 rounded text-[10px] font-bold bg-rose-500/20 text-rose-400 uppercase">
                   Featured
                 </span>
@@ -100,15 +100,10 @@ export default function StudentResults() {
                 <div className="absolute bottom-4 left-4 pointer-events-none">
                   <div className="flex gap-1 mb-1">
                     {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-3 h-3 fill-amber-400 text-amber-400"
-                      />
+                      <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
                     ))}
                   </div>
-                  <h4 className="text-white font-bold drop-shadow-md">
-                    Main Stage Show
-                  </h4>
+                  <h4 className="text-white font-bold drop-shadow-md">Main Stage Show</h4>
                 </div>
               </div>
             </div>
@@ -125,7 +120,7 @@ export default function StudentResults() {
                 {/* Day 1 */}
                 <div className="flex flex-col items-center">
                   <span className="mb-2 px-3 py-1 rounded-full bg-gray-800 border border-gray-600 text-gray-300 text-xs font-bold">
-                    Day 1
+                    Before
                   </span>
                   <div className="w-full grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
                     <VideoCard isShort videoId="rHn8HmNSiPs" />
@@ -134,7 +129,7 @@ export default function StudentResults() {
                 {/* Day 30 */}
                 <div className="flex flex-col items-center">
                   <span className="mb-2 px-3 py-1 rounded-full bg-gradient-to-r from-fuchsia-500 to-violet-500 text-white text-xs font-bold shadow-lg shadow-fuchsia-500/20">
-                    Day 30
+                    After
                   </span>
                   <div className="w-full relative">
                     <div className="absolute -inset-2 bg-gradient-to-br from-fuchsia-500/20 to-violet-500/20 rounded-2xl blur-lg -z-10" />
@@ -151,17 +146,12 @@ export default function StudentResults() {
             <div className="lg:col-span-8 relative p-4 sm:p-6 rounded-3xl border border-white/5 bg-white/[0.02] overflow-hidden flex flex-col">
               <div className="flex items-center gap-3 mb-4">
                 <Guitar className="w-5 h-5 text-amber-500" />
-                <h3 className="text-xl font-bold text-white">
-                  Student Mastery
-                </h3>
+                <h3 className="text-xl font-bold text-white">Student Mastery</h3>
               </div>
               <div className="flex-1 w-full relative">
                 <SliderGallery itemWidth={300}>
                   {[1, 2, 3, 4].map((item) => (
-                    <div
-                      key={item}
-                      className="snap-center shrink-0 w-[300px] sm:w-[400px]"
-                    >
+                    <div key={item} className="snap-center shrink-0 w-[300px] sm:w-[400px]">
                       <VideoCard videoId="Mldyf1c3uxc" />
                     </div>
                   ))}
@@ -173,37 +163,12 @@ export default function StudentResults() {
             <div className="lg:col-span-4 relative p-4 sm:p-6 rounded-3xl border border-white/5 bg-white/[0.02] overflow-hidden flex flex-col">
               <div className="flex items-center gap-3 mb-4">
                 <Tv className="w-5 h-5 text-orange-500" />
-                <h3 className="text-xl font-bold text-white">
-                  Offline Classes
-                </h3>
+                <h3 className="text-xl font-bold text-white">Offline Classes</h3>
               </div>
               <div className="flex flex-col gap-4 flex-1">
                 <VideoCard videoId="Mldyf1c3uxc" />
                 <VideoCard videoId="Mldyf1c3uxc" />
               </div>
-            </div>
-          </div>
-
-          {/* ── ROW 3: Online Class Clips (Full Width) ── */}
-          <div className="w-full relative p-4 sm:p-6 rounded-3xl border border-white/5 bg-white/[0.02] overflow-hidden">
-            <div className="absolute right-0 top-0 w-[400px] h-full bg-blue-500/5 blur-[80px] pointer-events-none" />
-            <div className="flex items-center gap-3 mb-6 relative z-10">
-              <MonitorSmartphone className="w-5 h-5 text-blue-400" />
-              <h3 className="text-xl font-bold text-white">
-                Online Class Shorts
-              </h3>
-              <p className="text-gray-400 text-sm hidden sm:block ml-4 border-l border-white/10 pl-4">
-                How structured sessions work globally.
-              </p>
-            </div>
-            <div className="relative z-10 w-full">
-              <SliderGallery itemWidth={220}>
-                {[1, 2, 3, 4, 5, 6].map((item) => (
-                  <div key={item} className="snap-center shrink-0 w-[220px]">
-                    <VideoCard videoId="rHn8HmNSiPs" isShort />
-                  </div>
-                ))}
-              </SliderGallery>
             </div>
           </div>
         </div>

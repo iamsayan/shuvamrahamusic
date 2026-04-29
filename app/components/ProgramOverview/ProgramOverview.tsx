@@ -1,30 +1,29 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
 import {
-  Mic,
-  Clock,
-  Headphones,
   Award,
-  Users,
-  Music,
-  Star,
   BadgeCheck,
   BookOpen,
-  PlayCircle,
-  Zap,
   Brain,
-  Crown,
-  Sparkles,
-  CheckCircle2,
-  GraduationCap,
-  ShieldCheck,
-  FileText,
-  MessageCircle,
   Calendar,
+  CheckCircle2,
+  Clock,
+  Crown,
+  FileText,
+  GraduationCap,
+  Headphones,
   Info,
+  MessageCircle,
+  Mic,
+  Music,
+  PlayCircle,
+  ShieldCheck,
+  Star,
+  Users,
+  Zap,
 } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
 
 // ============================================================================
 // DATA STRUCTURES
@@ -256,16 +255,11 @@ const features = [
 // MAIN COMPONENT
 // ============================================================================
 
-export default function ProgramOverview() {
-  const [activeTab, setActiveTab] = useState<
-    "instructor" | "curriculum" | "system"
-  >("instructor");
+export default function ProgramOverview({ defaultTab = "instructor" }) {
+  const [activeTab, setActiveTab] = useState<"instructor" | "curriculum" | "system">(defaultTab);
 
   return (
-    <section
-      className="relative w-full py-16 md:py-24 overflow-hidden bg-[#05050A]"
-      id="overview"
-    >
+    <section className="relative w-full py-16 md:py-24 overflow-hidden bg-[#05050A]" id="overview">
       {/* Dynamic Background Glow based on Active Tab */}
       <div className="absolute inset-0 pointer-events-none z-0 transition-colors duration-1000">
         {activeTab === "instructor" && (
@@ -348,9 +342,7 @@ export default function ProgramOverview() {
                             Verified Instructor
                           </span>
                         </div>
-                        <h3 className="text-3xl font-black text-white">
-                          Shuvam Raha
-                        </h3>
+                        <h3 className="text-3xl font-black text-white">Shuvam Raha</h3>
                         <p className="text-gray-300 font-medium">
                           Professional Guitarist & Educator
                         </p>
@@ -360,8 +352,7 @@ export default function ProgramOverview() {
                 </div>
                 <div className="w-full lg:w-7/12 flex flex-col">
                   <h3 className="text-2xl sm:text-3xl font-bold text-white mb-8 text-center lg:text-left">
-                    Why Learn From{" "}
-                    <span className="text-rose-400">Shuvam?</span>
+                    Why Learn From <span className="text-rose-400">Shuvam?</span>
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {authorityPoints.map((point, idx) => (
@@ -375,12 +366,8 @@ export default function ProgramOverview() {
                           <point.icon className="w-6 h-6" />
                         </div>
                         <div>
-                          <h4 className="text-white font-bold text-lg mb-1">
-                            {point.title}
-                          </h4>
-                          <p className="text-gray-400 text-sm leading-relaxed">
-                            {point.desc}
-                          </p>
+                          <h4 className="text-white font-bold text-lg mb-1">{point.title}</h4>
+                          <p className="text-gray-400 text-sm leading-relaxed">{point.desc}</p>
                         </div>
                       </div>
                     ))}
@@ -456,9 +443,7 @@ export default function ProgramOverview() {
                         <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
                           {feature.title}
                         </h3>
-                        <p className="text-gray-400 text-sm font-medium">
-                          {feature.desc}
-                        </p>
+                        <p className="text-gray-400 text-sm font-medium">{feature.desc}</p>
                       </div>
                     </div>
                     <ul className="flex flex-col gap-4 flex-1">
@@ -466,12 +451,8 @@ export default function ProgramOverview() {
                         <li key={pIdx} className="flex items-start gap-3">
                           <CheckCircle2 className="w-5 h-5 text-cyan-500 shrink-0 mt-0.5" />
                           <div>
-                            <strong className="text-gray-200 block sm:inline">
-                              {point.t} —{" "}
-                            </strong>
-                            <span className="text-gray-400 text-sm sm:text-base">
-                              {point.d}
-                            </span>
+                            <strong className="text-gray-200 block sm:inline">{point.t} — </strong>
+                            <span className="text-gray-400 text-sm sm:text-base">{point.d}</span>
                           </div>
                         </li>
                       ))}
@@ -487,44 +468,34 @@ export default function ProgramOverview() {
                   <div className="flex flex-col gap-4">
                     <div className="flex items-center gap-3 mb-2">
                       <Clock className="w-6 h-6 text-cyan-400" />
-                      <h3 className="text-xl font-bold text-white">
-                        Class Schedule
-                      </h3>
+                      <h3 className="text-xl font-bold text-white">Class Schedule</h3>
                     </div>
-                    <p className="text-gray-400 text-sm mb-2">
-                      Available Timings (IST)
-                    </p>
+                    <p className="text-gray-400 text-sm mb-2">Available Timings (IST)</p>
                     <ul className="flex flex-col gap-3">
                       <li className="flex items-center gap-2 text-gray-200 bg-white/5 px-4 py-2 rounded-lg border border-white/5">
-                        <strong className="w-20">Mon - Wed:</strong>{" "}
-                        <span>10:00 AM – 9:00 PM</span>
+                        <strong className="w-20">Mon - Wed:</strong> <span>10:00 AM – 9:00 PM</span>
                       </li>
                       <li className="flex items-center gap-2 text-gray-200 bg-white/5 px-4 py-2 rounded-lg border border-white/5">
-                        <strong className="w-20">Sat - Sun:</strong>{" "}
-                        <span>10:00 AM – 4:00 PM</span>
+                        <strong className="w-20">Sat - Sun:</strong> <span>10:00 AM – 4:00 PM</span>
                       </li>
                     </ul>
                   </div>
                   <div className="flex flex-col gap-4">
                     <div className="flex items-center gap-3 mb-2">
                       <Calendar className="w-6 h-6 text-blue-400" />
-                      <h3 className="text-xl font-bold text-white">
-                        Booking System
-                      </h3>
+                      <h3 className="text-xl font-bold text-white">Booking System</h3>
                     </div>
                     <ul className="flex flex-col gap-3">
                       <li className="flex items-start gap-3">
                         <CheckCircle2 className="w-5 h-5 text-blue-400 shrink-0" />
                         <span className="text-gray-300 text-sm">
-                          <strong>Fixed Day & Time:</strong> Dedicated slot
-                          required.
+                          <strong>Fixed Day & Time:</strong> Dedicated slot required.
                         </span>
                       </li>
                       <li className="flex items-start gap-3">
                         <CheckCircle2 className="w-5 h-5 text-blue-400 shrink-0" />
                         <span className="text-gray-300 text-sm">
-                          <strong>1-to-1 Attention:</strong> Entirely private
-                          focus.
+                          <strong>1-to-1 Attention:</strong> Entirely private focus.
                         </span>
                       </li>
                     </ul>
@@ -532,16 +503,13 @@ export default function ProgramOverview() {
                   <div className="flex flex-col gap-4">
                     <div className="flex items-center gap-3 mb-2">
                       <Info className="w-6 h-6 text-indigo-400" />
-                      <h3 className="text-xl font-bold text-white">
-                        Important Notes
-                      </h3>
+                      <h3 className="text-xl font-bold text-white">Important Notes</h3>
                     </div>
                     <ul className="flex flex-col gap-3">
                       <li className="flex items-start gap-3">
                         <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0 mt-2" />
                         <span className="text-gray-300 text-sm">
-                          <strong>Month-End Break:</strong> No classes on the
-                          29th–31st.
+                          <strong>Month-End Break:</strong> No classes on the 29th–31st.
                         </span>
                       </li>
                       <li className="flex items-start gap-3">
@@ -553,8 +521,7 @@ export default function ProgramOverview() {
                       <li className="flex items-start gap-3">
                         <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0 mt-2" />
                         <span className="text-gray-300 text-sm">
-                          <strong>Make-up Classes:</strong> Must be completed
-                          within the month.
+                          <strong>Make-up Classes:</strong> Must be completed within the month.
                         </span>
                       </li>
                     </ul>
