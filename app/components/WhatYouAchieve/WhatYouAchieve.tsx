@@ -42,7 +42,7 @@ export default function WhatYouAchieve() {
 
       <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
         {/* === Compact Section Header === */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 sm:mb-10 w-full border-b border-white/5 pb-6">
+        {/* <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 sm:mb-10 w-full border-b border-white/5 pb-6">
           <div className="flex flex-col items-start">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-orange-500/20 bg-orange-500/10 mb-4">
               <Target className="w-4 h-4 text-orange-400" />
@@ -57,12 +57,12 @@ export default function WhatYouAchieve() {
               </span>
             </h2>
           </div>
-        </div>
+        </div> */}
 
         {/* === Compact 4-Column Grid (What You Achieve) === */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full mb-10 md:mb-12">
-          {/* Card 1: Play Songs */}
-          <div className="group relative rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-3xl overflow-hidden p-6 transition-all duration-500 hover:border-orange-500/30 hover:bg-white/[0.04] flex flex-col items-center text-center shadow-lg">
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full mb-10 md:mb-12"> */}
+        {/* Card 1: Play Songs */}
+        {/* <div className="group relative rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-3xl overflow-hidden p-6 transition-all duration-500 hover:border-orange-500/30 hover:bg-white/[0.04] flex flex-col items-center text-center shadow-lg">
             <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 blur-[50px] rounded-full transition-transform duration-700 group-hover:scale-150 group-hover:bg-orange-500/20" />
             <div className="relative z-10 flex flex-col items-center gap-4">
               <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-orange-500/10 border border-orange-500/20 text-orange-500 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_20px_rgba(245,158,11,0.2)]">
@@ -77,10 +77,10 @@ export default function WhatYouAchieve() {
                 </p>
               </div>
             </div>
-          </div>
+          </div> */}
 
-          {/* Card 2: Learn Faster */}
-          <div className="group relative rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-3xl overflow-hidden p-6 transition-all duration-500 hover:border-violet-500/30 hover:bg-white/[0.04] flex flex-col items-center text-center shadow-lg">
+        {/* Card 2: Learn Faster */}
+        {/* <div className="group relative rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-3xl overflow-hidden p-6 transition-all duration-500 hover:border-violet-500/30 hover:bg-white/[0.04] flex flex-col items-center text-center shadow-lg">
             <div className="absolute top-0 left-0 w-32 h-32 bg-violet-500/10 blur-[50px] rounded-full transition-transform duration-700 group-hover:scale-150 group-hover:bg-violet-500/20" />
             <div className="relative z-10 flex flex-col items-center gap-4">
               <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-violet-500/10 border border-violet-500/20 text-violet-400 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_20px_rgba(139,92,246,0.2)]">
@@ -95,10 +95,10 @@ export default function WhatYouAchieve() {
                 </p>
               </div>
             </div>
-          </div>
+          </div> */}
 
-          {/* Card 3: Roadmap */}
-          <div className="group relative rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-3xl overflow-hidden p-6 transition-all duration-500 hover:border-emerald-500/30 hover:bg-white/[0.04] flex flex-col items-center text-center shadow-lg">
+        {/* Card 3: Roadmap */}
+        {/* <div className="group relative rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-3xl overflow-hidden p-6 transition-all duration-500 hover:border-emerald-500/30 hover:bg-white/[0.04] flex flex-col items-center text-center shadow-lg">
             <div className="absolute bottom-0 right-0 w-32 h-32 bg-emerald-500/10 blur-[50px] rounded-full transition-transform duration-700 group-hover:scale-150 group-hover:bg-emerald-500/20" />
             <div className="relative z-10 flex flex-col items-center gap-4">
               <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_20px_rgba(16,185,129,0.2)]">
@@ -113,10 +113,10 @@ export default function WhatYouAchieve() {
                 </p>
               </div>
             </div>
-          </div>
+          </div> */}
 
-          {/* Card 4: Real Improvement */}
-          <div className="group relative rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-3xl overflow-hidden p-6 transition-all duration-500 hover:border-blue-500/30 hover:bg-white/[0.04] flex flex-col items-center text-center shadow-lg">
+        {/* Card 4: Real Improvement */}
+        {/* <div className="group relative rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-3xl overflow-hidden p-6 transition-all duration-500 hover:border-blue-500/30 hover:bg-white/[0.04] flex flex-col items-center text-center shadow-lg">
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-500/10 blur-[50px] rounded-full transition-transform duration-700 group-hover:scale-150 group-hover:bg-blue-500/20" />
             <div className="relative z-10 flex flex-col items-center gap-4">
               <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_20px_rgba(59,130,246,0.2)]">
@@ -131,8 +131,8 @@ export default function WhatYouAchieve() {
                 </p>
               </div>
             </div>
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
 
         {/* === Unified Glassmorphism Panel (Target Audience) === */}
         <div className="relative w-full rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-2xl overflow-hidden flex flex-col lg:flex-row">
