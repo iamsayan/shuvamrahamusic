@@ -8,6 +8,7 @@ import ProgramOverview from "./components/ProgramOverview/ProgramOverview";
 import Reviews from "./components/Reviews/Reviews";
 import StudentResults from "./components/StudentResults/StudentResults";
 import WhatYouAchieve from "./components/WhatYouAchieve/WhatYouAchieve";
+import ThirdSection from "./components/ThirdSection/ThirdSection";
 
 export default function Home() {
   return (
@@ -15,11 +16,12 @@ export default function Home() {
       <Header />
       <HeroCSS />
       <StudentResults />
+      <ProgramOverview />
       <WhatYouAchieve />
 
-      <div className="flex flex-col border-t border-cyan-500/10">
+      {/* <div className="flex flex-col border-t border-cyan-500/10">
         <HowItWorks />
-      </div>
+      </div> */}
 
       <div className="flex flex-col border-t border-cyan-500/10">
         <Pricing />
@@ -29,9 +31,9 @@ export default function Home() {
         <Reviews />
       </div>
 
-      <div className="flex flex-col border-t border-indigo-500/10">
+      {/* <div className="flex flex-col border-t border-indigo-500/10">
         <ProgramOverview />
-      </div>
+      </div> */}
 
       <div className="flex flex-col border-t border-indigo-500/10">
         <FAQ />
