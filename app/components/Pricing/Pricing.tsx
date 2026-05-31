@@ -8,6 +8,7 @@ import {
   Globe,
   MapPin,
   CreditCard,
+  TriangleAlert,
 } from "lucide-react";
 
 type Region = "IN" | "GLOBAL";
@@ -20,7 +21,7 @@ export default function Pricing() {
     IN: [
       {
         name: "Starter Online Plan",
-        price: "1500",
+        price: "1800",
         currency: "₹",
         period: "/month",
         description: "Simple, structured guitar coaching based on your goals.",
@@ -38,7 +39,7 @@ export default function Pricing() {
       },
       {
         name: "Offline Coaching (Studio)",
-        price: "2000",
+        price: "1500",
         currency: "₹",
         period: "/month",
         description:
@@ -58,7 +59,7 @@ export default function Pricing() {
     GLOBAL: [
       {
         name: "Global Guitar Program",
-        price: "49",
+        price: "45",
         currency: "$",
         period: "/month",
         description:
@@ -212,7 +213,6 @@ export default function Pricing() {
             </div>
           </div>
         </div>
-
         {/* === Unified Pricing Dashboard === */}
         <div className="w-full max-w-5xl mx-auto mt-10 md:mt-12 rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl overflow-hidden shadow-2xl relative group">
           {/* Ambient Corner Glows (Dynamic based on selected plans) */}
@@ -243,7 +243,7 @@ export default function Pricing() {
                       <div className="flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-amber-500 to-orange-400 rounded-full shadow-[0_0_15px_rgba(245,158,11,0.4)]">
                         <Sparkles className="w-3 h-3 text-white" />
                         <span className="text-[10px] sm:text-xs font-bold text-white uppercase tracking-widest whitespace-nowrap">
-                          Popular
+                          Most Popular
                         </span>
                       </div>
                     </div>
@@ -326,13 +326,19 @@ export default function Pricing() {
             })}
           </div>
         </div>
-
         {/* Global Geographic Tagline Note */}
-        <div className="mt-12 flex justify-center w-full px-5">
+        <div className="mt-12 flex justify-center w-full">
           <p className="text-gray-500 text-sm md:text-base text-center font-medium max-w-2xl bg-white/[0.02] border border-white/5 rounded-full py-3 px-6">
             <span className="text-red-400 mr-2">📌</span>
             Pricing is structurally based on your country of residence (not
             payment method).
+          </p>
+        </div>
+
+        <div className="mt-6 flex justify-center w-full">
+          <p className="text-gray-500 text-sm md:text-base text-center font-medium max-w-2xl bg-white/[0.02] border border-white/5 rounded-full py-3 px-6 inline-flex items-center">
+            <TriangleAlert className="text-amber-400 mr-2" size={20} />
+            Limited slots available—priority for serious students
           </p>
         </div>
       </div>

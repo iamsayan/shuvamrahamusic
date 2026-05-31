@@ -9,6 +9,11 @@ import {
   Star,
   Users,
   X,
+  GraduationCap,
+  Globe,
+  Guitar,
+  Clock,
+  Phone,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,24 +29,6 @@ export default function HeroCSS() {
         alt="Hero Background"
         fill
         className="absolute inset-0 object-cover object-center opacity-50"
-      />
-
-      {/* Dynamic Keyframes for Floating Elements */}
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-        @keyframes float-1 {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-15px); }
-        }
-        @keyframes float-2 {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(15px); }
-        }
-        .animate-float-1 { animation: float-1 5s ease-in-out infinite; }
-        .animate-float-2 { animation: float-2 6s ease-in-out infinite; }
-      `,
-        }}
       />
 
       {/* Background Ambience */}
@@ -67,7 +54,7 @@ export default function HeroCSS() {
           {/* H1 Headline (SEO Optimized) */}
           <h1 className="font-black tracking-tighter text-white mb-6">
             <span className="block text-sm sm:text-base font-bold text-cyan-400 uppercase tracking-[0.2em] mb-3 ml-1">
-              Online & Offline Guitar Classes
+              Guitar Classes with Shuvam Raha
             </span>
             <span className="block text-[3.2rem] sm:text-[4.5rem] lg:text-[5.5rem] leading-[1.05] mb-2 text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-400">
               Learn Guitar & Play Your Favorite Songs
@@ -81,28 +68,30 @@ export default function HeroCSS() {
           </h1>
 
           <p className="max-w-2xl text-base sm:text-xl text-gray-400 mb-8 leading-relaxed font-medium">
-            Online & Offline Guitar Coaching for Students Worldwide. Perfect for
-            Beginners & Busy Working Professionals. Learn English songs with
-            simple Hindi/Bengali guidance—even if you're starting from zero.
+            Using my proven step-by-step method, you'll master the essential
+            chords and techiniques to play your first few songs in just one
+            month of guided practice.
           </p>
 
           {/* Key Benefits */}
-          <ul className="flex flex-col sm:flex-row gap-4 sm:gap-8 mb-10">
-            <li className="flex items-center gap-2 text-gray-300 font-medium text-sm">
-              <CheckCircle2 className="w-5 h-5 text-cyan-400" />
-              India, USA, UK, Canada
+          <ul className="flex flex-col items-center gap-2 sm:gap-4 mb-10">
+            <li className="flex items-center text-gray-300 font-medium text-sm">
+              <CheckCircle2 className="w-5 h-5 text-cyan-400 mr-2" />
+              Online & Offline Guitar Coaching for Students{" "}
+              <span className="text-cyan-400">Worldwide</span>.
             </li>
-            <li className="flex items-center gap-2 text-gray-300 font-medium text-sm">
-              <CheckCircle2 className="w-5 h-5 text-cyan-400" />
-              For Beginners & Profressionals
+            <li className="flex items-center text-gray-300 font-medium text-sm">
+              <CheckCircle2 className="w-5 h-5 text-cyan-400 mr-2" />
+              Perfect for{" "}
+              <span className="text-cyan-400">
+                Beginners & Busy Working Professionals.
+              </span>
             </li>
-            <li className="flex items-center gap-2 text-gray-300 font-medium text-sm">
-              <CheckCircle2 className="w-5 h-5 text-cyan-400" />
-              Flexible Class Timings
-            </li>
-            <li className="flex items-center gap-2 text-gray-300 font-medium text-sm">
-              <CheckCircle2 className="w-5 h-5 text-cyan-400" />
-              1:1 Guitar Sessions
+            <li className="flex items-center text-gray-300 font-medium text-sm">
+              <CheckCircle2 className="w-5 h-5 text-cyan-400 mr-2" />
+              Learn English songs with simple{" "}
+              <span className="text-cyan-400">Hindi/Bengali guidance</span>—
+              even if you're starting from zero.
             </li>
           </ul>
 
@@ -112,8 +101,8 @@ export default function HeroCSS() {
               href="https://calendly.com/shuvamraha10/intro-call"
               className="group relative flex justify-center items-center gap-2 w-full sm:w-auto rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 text-base font-bold text-white transition-all hover:scale-105 shadow-[0_0_30px_rgba(6,182,212,0.3)] hover:shadow-[0_0_40px_rgba(6,182,212,0.5)] active:scale-95"
             >
+              <Phone className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               Book Free Intro Call
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               href="#pricing"
@@ -123,38 +112,95 @@ export default function HeroCSS() {
                 <Play className="w-4 h-4 text-white fill-white ml-0.5" />
               </div> */}
               Explore Plans
+              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
 
-          {/* Social Proof */}
-          <div className="flex items-center gap-4 mt-10">
-            <div className="flex -space-x-3">
-              {[1, 2, 3, 4].map((i) => (
-                <div
-                  key={i}
-                  className="w-10 h-10 rounded-full border-2 border-[#020205] bg-gray-800 overflow-hidden relative shadow-lg"
-                >
-                  <Image
-                    src={`/hero-guitarist.jpg`}
-                    alt="Student"
-                    fill
-                    className="object-cover opacity-50"
-                  />
+          {/* Trust Metrics Bar */}
+          <div className="w-full max-w-7xl mx-auto mt-16 p-6 md:p-8 rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-2xl relative z-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-0 w-full">
+              {/* 1. 5.0 Rating */}
+              <div className="flex items-start gap-3.5 w-full lg:pr-6">
+                <div className="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center shrink-0">
+                  <Star className="w-5 h-5 fill-amber-500" />
                 </div>
-              ))}
-            </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-3.5 h-3.5 text-amber-400 fill-amber-400"
-                  />
-                ))}
+                <div className="flex flex-col text-left">
+                  <span className="text-white font-bold text-sm sm:text-base leading-tight">
+                    5.0 Rating
+                  </span>
+                  <div className="flex gap-0.5 my-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-3.5 h-3.5 text-amber-400 fill-amber-400"
+                      />
+                    ))}
+                  </div>
+                  <span className="text-xs text-gray-400 leading-normal">
+                    Trusted by 150+ students worldwide
+                  </span>
+                </div>
               </div>
-              <span className="text-xs font-medium text-gray-400 mt-0.5">
-                Trusted by 100+ students worldwide
-              </span>
+
+              {/* 2. 11+ Years Experience */}
+              <div className="flex items-start gap-3.5 w-full lg:px-6 lg:border-l lg:border-white/10">
+                <div className="w-12 h-12 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 flex items-center justify-center shrink-0">
+                  <GraduationCap className="w-5 h-5" />
+                </div>
+                <div className="flex flex-col text-left">
+                  <span className="text-white font-bold text-sm sm:text-base leading-tight">
+                    11+ Years Experience
+                  </span>
+                  <span className="text-xs text-gray-400 leading-normal mt-1">
+                    LCM Certified Instructor
+                  </span>
+                </div>
+              </div>
+
+              {/* 3. Global Reach */}
+              <div className="flex items-start gap-3.5 w-full lg:px-6 lg:border-l lg:border-white/10">
+                <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                  <Globe className="w-5 h-5" />
+                </div>
+                <div className="flex flex-col text-left">
+                  <span className="text-white font-bold text-sm sm:text-base leading-tight">
+                    Global Reach
+                  </span>
+                  <span className="text-xs text-gray-400 leading-normal mt-1">
+                    India, USA, UK, Canada
+                  </span>
+                </div>
+              </div>
+
+              {/* 4. 1:1 Sessions */}
+              <div className="flex items-start gap-3.5 w-full lg:px-6 lg:border-l lg:border-white/10">
+                <div className="w-12 h-12 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center shrink-0">
+                  <Guitar className="w-5 h-5" />
+                </div>
+                <div className="flex flex-col text-left">
+                  <span className="text-white font-bold text-sm sm:text-base leading-tight">
+                    1:1 Sessions
+                  </span>
+                  <span className="text-xs text-gray-400 leading-normal mt-1">
+                    Online & Offline (Personalized Learning)
+                  </span>
+                </div>
+              </div>
+
+              {/* 5. Flexible Timings */}
+              <div className="flex items-start gap-3.5 w-full lg:pl-6 lg:border-l lg:border-white/10">
+                <div className="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
+                  <Clock className="w-5 h-5" />
+                </div>
+                <div className="flex flex-col text-left">
+                  <span className="text-white font-bold text-sm sm:text-base leading-tight">
+                    Flexible Timings
+                  </span>
+                  <span className="text-xs text-gray-400 leading-normal mt-1">
+                    Learn at your convenience
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
