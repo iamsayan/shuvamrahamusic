@@ -5,25 +5,30 @@ import Link from "next/link";
 import { Music, Menu, X, ArrowRight, ChevronDown } from "lucide-react";
 
 type SubItem = { name: string; href: string };
-type NavLink = { name: string; href: string; subItems?: SubItem[] };
+type NavLink = {
+  name: string;
+  href: string;
+  raw?: boolean;
+  subItems?: SubItem[];
+};
 
 const navLinks: NavLink[] = [
   { name: "Home", href: "/" },
   { name: "Biography", href: "/biography" },
-  { name: "Classes", href: "/classes" },
-  { 
-    name: "Gallery", 
+  { name: "Classes", href: "/", raw: true },
+  {
+    name: "Gallery",
     href: "/gallery",
     subItems: [
       { name: "Photos", href: "/gallery/photos" },
       { name: "Audios", href: "/gallery/audios" },
       { name: "Videos", href: "/gallery/videos" },
-    ]
+    ],
   },
   { name: "Events", href: "/events" },
-  { name: "Gears", href: "/gears" },
+  { name: "Gears", href: "/my-gears" },
   { name: "Tutorials", href: "/tutorials" },
-  { name: "Blogs", href: "/blogs" },
+  { name: "Blogs", href: "/news" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -53,20 +58,19 @@ export default function Header() {
   }, [isMobileMenuOpen]);
 
   return (
-    <header 
+    <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ease-out ${
-        isScrolled 
-          ? "bg-[#020205]/70 backdrop-blur-xl border-b border-white/10 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.5)]" 
+        isScrolled
+          ? "bg-[#020205]/70 backdrop-blur-xl border-b border-white/10 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
           : "bg-transparent py-5 border-b border-transparent"
       }`}
     >
       <div className="mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
         <div className="flex items-center justify-between">
-          
           {/* Logo */}
-          <Link 
-            href="/" 
-            className="group flex items-center gap-3 z-50 relative" 
+          <Link
+            href="/"
+            className="group flex items-center gap-3 z-50 relative"
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <div className="flex items-center justify-center w-9 h-9 md:w-11 md:h-11 rounded-[0.8rem] bg-gradient-to-br from-cyan-500 to-blue-600 shadow-[0_0_15px_rgba(6,182,212,0.4)] group-hover:shadow-[0_0_25px_rgba(6,182,212,0.6)] group-hover:scale-105 transition-all duration-300">
@@ -81,8 +85,8 @@ export default function Header() {
           <nav className="hidden xl:flex items-center gap-0.5 bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-full px-2 py-1.5">
             {navLinks.map((link, idx) => (
               <div key={idx} className="relative group">
-                <Link 
-                  href={link.href} 
+                <Link
+                  href={`${link.raw ? link.href : `https://shuvamrahamusic.com${link.href}`}`}
                   className="relative flex items-center gap-1.5 px-3 lg:px-4 py-2 rounded-full overflow-hidden transition-colors"
                 >
                   <span className="relative z-10 text-xs font-bold text-gray-300 group-hover:text-white transition-colors duration-300 whitespace-nowrap">
@@ -100,9 +104,9 @@ export default function Header() {
                   <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 translate-y-4 invisible group-hover:opacity-100 group-hover:translate-y-0 group-hover:visible transition-all duration-300 ease-out">
                     <div className="flex flex-col min-w-[140px] p-2 rounded-2xl bg-[#0a0a0f]/95 backdrop-blur-xl border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
                       {link.subItems.map((sub, sIdx) => (
-                        <Link 
-                          key={sIdx} 
-                          href={sub.href}
+                        <Link
+                          key={sIdx}
+                          href={`https://shuvamrahamusic.com${sub.href}`}
                           className="px-4 py-2.5 rounded-xl text-xs font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
                         >
                           {sub.name}
@@ -117,24 +121,30 @@ export default function Header() {
 
           {/* CTA & Mobile Toggle */}
           <div className="flex items-center gap-4 z-50 relative">
-            <Link 
-              href="#pricing" 
+            <Link
+              href="#pricing"
               className="hidden sm:inline-flex items-center justify-center px-7 py-2.5 rounded-full bg-white text-[#05050A] font-black text-sm hover:bg-gray-200 transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.15)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Book a Call
             </Link>
-            
+
             {/* Mobile Hamburger */}
-            <button 
+            <button
               className="xl:hidden relative w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle Menu"
             >
               <div className="relative w-5 h-5">
-                <span className={`absolute left-0 w-full h-[2px] bg-current transform transition-all duration-300 ${isMobileMenuOpen ? "top-2 rotate-45" : "top-0"}`} />
-                <span className={`absolute left-0 w-full h-[2px] bg-current top-2 transform transition-all duration-300 ${isMobileMenuOpen ? "opacity-0" : "opacity-100"}`} />
-                <span className={`absolute left-0 w-full h-[2px] bg-current transform transition-all duration-300 ${isMobileMenuOpen ? "top-2 -rotate-45" : "top-4"}`} />
+                <span
+                  className={`absolute left-0 w-full h-[2px] bg-current transform transition-all duration-300 ${isMobileMenuOpen ? "top-2 rotate-45" : "top-0"}`}
+                />
+                <span
+                  className={`absolute left-0 w-full h-[2px] bg-current top-2 transform transition-all duration-300 ${isMobileMenuOpen ? "opacity-0" : "opacity-100"}`}
+                />
+                <span
+                  className={`absolute left-0 w-full h-[2px] bg-current transform transition-all duration-300 ${isMobileMenuOpen ? "top-2 -rotate-45" : "top-4"}`}
+                />
               </div>
             </button>
           </div>
@@ -142,43 +152,49 @@ export default function Header() {
       </div>
 
       {/* Mobile Menu Overlay */}
-      <div 
+      <div
         className={`xl:hidden fixed inset-0 top-0 pt-24 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          isMobileMenuOpen 
-            ? "opacity-100 visible pointer-events-auto backdrop-blur-3xl bg-[#020205]/95" 
+          isMobileMenuOpen
+            ? "opacity-100 visible pointer-events-auto backdrop-blur-3xl bg-[#020205]/95"
             : "opacity-0 invisible pointer-events-none backdrop-blur-none bg-[#020205]/0"
         }`}
       >
         <nav className="flex flex-col px-5 h-full overflow-y-auto">
           {navLinks.map((link, idx) => (
             <div key={idx} className="flex flex-col border-b border-white/5">
-              <Link 
-                href={link.href} 
+              <Link
+                href={link.href}
                 className="group py-4 text-xl font-bold text-gray-300 hover:text-white transition-all duration-300 flex items-center justify-between"
                 onClick={() => !link.subItems && setIsMobileMenuOpen(false)}
-                style={{ 
-                  transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(20px)',
+                style={{
+                  transform: isMobileMenuOpen
+                    ? "translateY(0)"
+                    : "translateY(20px)",
                   opacity: isMobileMenuOpen ? 1 : 0,
-                  transitionDelay: `${idx * 40}ms`
+                  transitionDelay: `${idx * 40}ms`,
                 }}
               >
                 {link.name}
-                {!link.subItems && <ArrowRight className="w-5 h-5 text-cyan-400 opacity-0 -translate-x-4 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-x-0" />}
+                {!link.subItems && (
+                  <ArrowRight className="w-5 h-5 text-cyan-400 opacity-0 -translate-x-4 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-x-0" />
+                )}
               </Link>
-              
+
               {/* Mobile Subitems */}
               {link.subItems && (
-                <div 
+                <div
                   className="flex flex-col pl-4 pb-4 gap-4 border-l-2 border-white/10 ml-2 mb-2"
-                  style={{ 
-                    transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(20px)',
+                  style={{
+                    transform: isMobileMenuOpen
+                      ? "translateY(0)"
+                      : "translateY(20px)",
                     opacity: isMobileMenuOpen ? 1 : 0,
-                    transitionDelay: `${idx * 40 + 20}ms`
+                    transitionDelay: `${idx * 40 + 20}ms`,
                   }}
                 >
                   {link.subItems.map((sub, sIdx) => (
-                    <Link 
-                      key={sIdx} 
+                    <Link
+                      key={sIdx}
                       href={sub.href}
                       className="text-base font-medium text-gray-400 hover:text-cyan-400 transition-colors"
                       onClick={() => setIsMobileMenuOpen(false)}
@@ -190,18 +206,20 @@ export default function Header() {
               )}
             </div>
           ))}
-          
-          <div 
+
+          <div
             className="mt-10 mb-8 w-full"
-            style={{ 
-              transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(20px)',
+            style={{
+              transform: isMobileMenuOpen
+                ? "translateY(0)"
+                : "translateY(20px)",
               opacity: isMobileMenuOpen ? 1 : 0,
-              transitionDelay: `${navLinks.length * 50}ms`
+              transitionDelay: `${navLinks.length * 50}ms`,
             }}
           >
-            <Link 
-              href="#pricing" 
-              onClick={() => setIsMobileMenuOpen(false)} 
+            <Link
+              href="#pricing"
+              onClick={() => setIsMobileMenuOpen(false)}
               className="flex items-center justify-center w-full px-6 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-black text-lg shadow-[0_0_30px_rgba(6,182,212,0.3)] active:scale-95 transition-transform duration-300"
             >
               Book a Free Call
