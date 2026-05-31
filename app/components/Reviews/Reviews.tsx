@@ -60,7 +60,9 @@ const ReviewCard = ({ review }: { review: (typeof allReviews)[0] }) => (
         <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
       ))}
     </div>
-    <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-6">"{review.text}"</p>
+    <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-6">
+      "{review.text}"
+    </p>
     <div className="flex items-center justify-between border-t border-white/10 pt-4 mt-auto">
       <div>
         <h4 className="text-white font-bold">{review.name}</h4>
@@ -75,7 +77,10 @@ const ReviewCard = ({ review }: { review: (typeof allReviews)[0] }) => (
 
 export default function Reviews() {
   return (
-    <section className="relative w-full py-16 md:py-24 overflow-hidden bg-[#05050A]" id="reviews">
+    <section
+      className="relative w-full py-16 md:py-24 overflow-hidden bg-[#05050A]"
+      id="reviews"
+    >
       {/* Dynamic CSS for the Infinite Marquee */}
       <style
         dangerouslySetInnerHTML={{
@@ -118,12 +123,12 @@ export default function Reviews() {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white mb-4">
             Trusted By{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">
-              100+ Students
+              150+ Students
             </span>
           </h2>
           <p className="text-gray-400 text-sm sm:text-base lg:text-lg max-w-xl mx-auto">
-            Don't just take our word for it. Here is what actual students have to say about their
-            learning experience.
+            Don't just take our word for it. Here is what actual students have
+            to say about their learning experience.
           </p>
         </div>
       </div>

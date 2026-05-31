@@ -32,7 +32,7 @@ import { useState } from "react";
 const authorityPoints = [
   {
     title: "Professional Performer",
-    desc: "Real stage experience—not just theory-based teaching.",
+    desc: "Real stage experience—not just theory.",
     icon: Mic,
     color: "text-rose-400",
     bg: "bg-rose-500/10",
@@ -40,7 +40,7 @@ const authorityPoints = [
   },
   {
     title: "11+ Years Experience",
-    desc: "A decade of experience teaching students at all levels.",
+    desc: "Over a decade of experience teaching students at all levels.",
     icon: Clock,
     color: "text-amber-400",
     bg: "bg-amber-500/10",
@@ -48,7 +48,7 @@ const authorityPoints = [
   },
   {
     title: "Music Producer",
-    desc: "Deep understanding of sound, tone & modern music production.",
+    desc: "Deep understanding of sound, tone & modern music.",
     icon: Headphones,
     color: "text-violet-400",
     bg: "bg-violet-500/10",
@@ -56,15 +56,15 @@ const authorityPoints = [
   },
   {
     title: "LCM Certified",
-    desc: "Passed with Distinction. Strong academic + practical foundation.",
+    desc: "Strong academic + practical foundation.",
     icon: Award,
     color: "text-emerald-400",
     bg: "bg-emerald-500/10",
     border: "border-emerald-500/20",
   },
   {
-    title: "100+ Students Trained",
-    desc: "Proven track record across India, USA, UK & Canada.",
+    title: "Glonbal Student Base",
+    desc: "Students from India, USA, UK & Canada.",
     icon: Users,
     color: "text-blue-400",
     bg: "bg-blue-500/10",
@@ -72,7 +72,7 @@ const authorityPoints = [
   },
   {
     title: "Multi-Genre Expertise",
-    desc: "Bollywood, English Pop, Rock, Fingerstyle, Acoustic & more.",
+    desc: "Bollywood, English, Pop, Rock, Fingerstyle, Acoustic & more.",
     icon: Music,
     color: "text-orange-400",
     bg: "bg-orange-500/10",
@@ -136,7 +136,7 @@ const curriculum = [
     },
     points: [
       "Lead playing (melodies & solos)",
-      "Vibrato, slides, bends, hammer-ons",
+      "Vibrato, slides, bends, hammer-ons, pull-offs",
       "Fingerstyle & picking techniques",
       "Classic guitar solos",
     ],
@@ -229,7 +229,7 @@ const features = [
       },
       {
         t: "Exam Preparation",
-        d: "Aligned with reputed Western music boards (like LCM/Trinity)",
+        d: "Aligned with reputed Western music boards (like LCM/Trinity/ABRSM)",
       },
       {
         t: "Focused Syllabus",
@@ -262,7 +262,7 @@ export default function ProgramOverview() {
 
   return (
     <section
-      className="relative w-full py-16 md:py-24 overflow-hidden bg-[#05050A]"
+      className="relative w-full pb-16 md:pb-24 overflow-hidden bg-[#05050A]"
       id="overview"
     >
       {/* Dynamic Background Glow based on Active Tab */}
@@ -351,7 +351,7 @@ export default function ProgramOverview() {
                           Shuvam Raha
                         </h3>
                         <p className="text-gray-300 font-medium">
-                          Professional Guitarist & Educator
+                          Guitarist | Performer | Educator
                         </p>
                       </div>
                     </div>
@@ -360,7 +360,7 @@ export default function ProgramOverview() {
                 <div className="w-full lg:w-7/12 flex flex-col">
                   <h3 className="text-2xl sm:text-3xl font-bold text-white mb-8 text-center lg:text-left">
                     Why Learn From{" "}
-                    <span className="text-rose-400">Shuvam?</span>
+                    <span className="text-rose-400">Shuvam Raha?</span>
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {authorityPoints.map((point, idx) => (
@@ -425,7 +425,7 @@ export default function ProgramOverview() {
                             <CheckCircle2
                               className={`w-5 h-5 ${item.styles.iconText} shrink-0 opacity-60 mt-0.5 group-hover:opacity-100 transition-opacity`}
                             />
-                            <span className="text-sm sm:text-base text-gray-300 group-hover:text-white transition-colors">
+                            <span className="text-xs sm:text-sm text-gray-300 group-hover:text-white transition-colors">
                               {point}
                             </span>
                           </li>
@@ -434,6 +434,13 @@ export default function ProgramOverview() {
                     </div>
                   </div>
                 ))}
+              </div>
+              <div className="mt-12 flex justify-center w-full px-5">
+                <p className="text-gray-500 text-sm md:text-base text-center font-medium max-w-2xl bg-white/[0.02] border border-white/5 rounded-full py-3 px-6">
+                  <span className="text-red-400 mr-2">📌</span>
+                  From basics to advanced—everything you need to become a
+                  complete guitarist.
+                </p>
               </div>
             </div>
           )}
@@ -452,7 +459,7 @@ export default function ProgramOverview() {
                         <feature.icon className="w-7 h-7" />
                       </div>
                       <div>
-                        <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
+                        <h3 className="text-base sm:text-xl font-bold text-white mb-1">
                           {feature.title}
                         </h3>
                         <p className="text-gray-400 text-sm font-medium">
@@ -468,7 +475,7 @@ export default function ProgramOverview() {
                             <strong className="text-gray-200 block sm:inline">
                               {point.t} —{" "}
                             </strong>
-                            <span className="text-gray-400 text-sm sm:text-base">
+                            <span className="text-gray-400 text-xs sm:text-sm">
                               {point.d}
                             </span>
                           </div>
@@ -477,88 +484,6 @@ export default function ProgramOverview() {
                     </ul>
                   </div>
                 ))}
-              </div>
-
-              {/* Logistics / Schedule Dashboard */}
-              <div className="relative w-full rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-3xl overflow-hidden p-8 sm:p-12">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-50" />
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
-                  <div className="flex flex-col gap-4">
-                    <div className="flex items-center gap-3 mb-2">
-                      <Clock className="w-6 h-6 text-cyan-400" />
-                      <h3 className="text-xl font-bold text-white">
-                        Class Schedule
-                      </h3>
-                    </div>
-                    <p className="text-gray-400 text-sm mb-2">
-                      Available Timings (IST)
-                    </p>
-                    <ul className="flex flex-col gap-3">
-                      <li className="flex items-center gap-2 text-gray-200 bg-white/5 px-4 py-2 rounded-lg border border-white/5">
-                        <strong className="w-20">Mon - Wed:</strong>{" "}
-                        <span>10:00 AM – 9:00 PM</span>
-                      </li>
-                      <li className="flex items-center gap-2 text-gray-200 bg-white/5 px-4 py-2 rounded-lg border border-white/5">
-                        <strong className="w-20">Sat - Sun:</strong>{" "}
-                        <span>10:00 AM – 4:00 PM</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="flex flex-col gap-4">
-                    <div className="flex items-center gap-3 mb-2">
-                      <Calendar className="w-6 h-6 text-blue-400" />
-                      <h3 className="text-xl font-bold text-white">
-                        Booking System
-                      </h3>
-                    </div>
-                    <ul className="flex flex-col gap-3">
-                      <li className="flex items-start gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-blue-400 shrink-0" />
-                        <span className="text-gray-300 text-sm">
-                          <strong>Fixed Day & Time:</strong> Dedicated slot
-                          required.
-                        </span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-blue-400 shrink-0" />
-                        <span className="text-gray-300 text-sm">
-                          <strong>1-to-1 Attention:</strong> Entirely private
-                          focus.
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="flex flex-col gap-4">
-                    <div className="flex items-center gap-3 mb-2">
-                      <Info className="w-6 h-6 text-indigo-400" />
-                      <h3 className="text-xl font-bold text-white">
-                        Important Notes
-                      </h3>
-                    </div>
-                    <ul className="flex flex-col gap-3">
-                      <li className="flex items-start gap-3">
-                        <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0 mt-2" />
-                        <span className="text-gray-300 text-sm">
-                          <strong>Month-End Break:</strong> No classes on the
-                          29th–31st.
-                        </span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0 mt-2" />
-                        <span className="text-gray-300 text-sm">
-                          <strong>Fees Due:</strong> By the 5th of every month.
-                        </span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0 mt-2" />
-                        <span className="text-gray-300 text-sm">
-                          <strong>Make-up Classes:</strong> Must be completed
-                          within the month.
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
               </div>
             </div>
           )}

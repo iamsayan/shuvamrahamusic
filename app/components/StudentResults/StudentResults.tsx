@@ -85,9 +85,9 @@ export default function StudentResults() {
             <h3 className="text-xl font-bold text-white">
               Student Performance Videos
             </h3>
-            <p className="text-gray-400 text-sm hidden sm:block ml-4 border-l border-white/10 pl-4">
+            {/* <p className="text-gray-400 text-sm hidden sm:block ml-4 border-l border-white/10 pl-4">
               How structured sessions work globally.
-            </p>
+            </p> */}
           </div>
           <div className="relative z-10 w-full">
             <SliderGallery itemWidth={220}>
@@ -116,20 +116,17 @@ export default function StudentResults() {
               <div className="flex items-center gap-3 mb-4">
                 <Mic2 className="w-5 h-5 text-rose-500" />
                 <h3 className="text-xl font-bold text-white">
-                  My Performances
+                  Performances by Shuvam Raha
                 </h3>
-                <span className="ml-auto px-2 py-1 rounded text-[10px] font-bold bg-rose-500/20 text-rose-400 uppercase">
-                  Featured
-                </span>
               </div>
               <div className="w-full aspect-video1 rounded-2xl overflow-hidden shadow-2xl relative group">
                 {/* <YouTubeFacade videoId="Mldyf1c3uxc" /> */}
                 <SliderGallery itemWidth={220}>
                   {[
+                    "F4SwCit-b20",
                     "gnlzLjNdzPQ",
                     "0DO8upx3NAw",
                     "rHn8HmNSiPs",
-                    "F4SwCit-b20",
                     "Ul7A9VNI77o",
                     "8kDGelnc6dQ",
                   ].map((item) => (

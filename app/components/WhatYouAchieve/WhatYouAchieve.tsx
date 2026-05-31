@@ -8,6 +8,9 @@ import {
   Target,
   CheckCircle2,
   XCircle,
+  Clock,
+  Calendar,
+  Info,
 } from "lucide-react";
 
 export default function WhatYouAchieve() {
@@ -23,15 +26,15 @@ export default function WhatYouAchieve() {
 
   const notFor = [
     "You're not ready to commit to regular practice",
-    "You prefer random free tutorials over structured learning",
+    "You prefer random tutorials over structured learning",
     "You're not serious about real progress",
     "You're looking for quick shortcuts instead of building real skills",
-    "You expect instant results without effort",
+    "You're looking for instant results without effort",
   ];
 
   return (
     <section
-      className="relative w-full py-12 md:py-16 overflow-x-clip bg-[#05050A]"
+      className="relative w-full pb-12 md:pb-16 overflow-x-clip bg-[#05050A]"
       id="achieve"
     >
       {/* ── Background Glow ── */}
@@ -193,6 +196,82 @@ export default function WhatYouAchieve() {
                 </li>
               ))}
             </ul>
+          </div>
+        </div>
+
+        {/* Logistics / Schedule Dashboard */}
+        <div className="relative mt-8 w-full rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-3xl overflow-hidden p-8 sm:p-12">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-50" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-3 mb-2">
+                <Clock className="w-6 h-6 text-cyan-400" />
+                <h3 className="text-xl font-bold text-white">Class Schedule</h3>
+              </div>
+              <p className="text-gray-400 text-sm mb-2">
+                Available Timings (IST)
+              </p>
+              <ul className="flex flex-col gap-3">
+                <li className="flex items-center gap-2 text-gray-200 bg-white/5 px-4 py-2 rounded-lg border border-white/5">
+                  <strong className="w-20">Mon - Wed:</strong>{" "}
+                  <span>10:00 AM – 9:00 PM</span>
+                </li>
+                <li className="flex items-center gap-2 text-gray-200 bg-white/5 px-4 py-2 rounded-lg border border-white/5">
+                  <strong className="w-20">Sat - Sun:</strong>{" "}
+                  <span>10:00 AM – 4:00 PM</span>
+                </li>
+              </ul>
+            </div>
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-3 mb-2">
+                <Calendar className="w-6 h-6 text-blue-400" />
+                <h3 className="text-xl font-bold text-white">Booking System</h3>
+              </div>
+              <ul className="flex flex-col gap-3">
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-blue-400 shrink-0" />
+                  <span className="text-gray-300 text-sm">
+                    <strong>Fixed Day & Time:</strong> Dedicated slot required.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-blue-400 shrink-0" />
+                  <span className="text-gray-300 text-sm">
+                    <strong>1-to-1 Attention:</strong> Entirely private focus.
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-3 mb-2">
+                <Info className="w-6 h-6 text-indigo-400" />
+                <h3 className="text-xl font-bold text-white">
+                  Important Notes
+                </h3>
+              </div>
+              <ul className="flex flex-col gap-3">
+                <li className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0 mt-2" />
+                  <span className="text-gray-300 text-sm">
+                    <strong>Month-End Break:</strong> No classes on the
+                    29th–31st.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0 mt-2" />
+                  <span className="text-gray-300 text-sm">
+                    <strong>Fees Due:</strong> By the 5th of every month.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0 mt-2" />
+                  <span className="text-gray-300 text-sm">
+                    <strong>Make-up Classes:</strong> Must be completed within
+                    the month.
+                  </span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
