@@ -121,13 +121,14 @@ export default function Header() {
 
           {/* CTA & Mobile Toggle */}
           <div className="flex items-center gap-4 z-50 relative">
-            <Link
-              href="#pricing"
+            <a
+              href="https://maps.app.goo.gl/sYFmaYbfmikB9MRb7"
+              target="_blank"
               className="hidden sm:inline-flex items-center justify-center px-7 py-2.5 rounded-full bg-white text-[#05050A] font-black text-sm hover:bg-gray-200 transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.15)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Book a Call
-            </Link>
+              Locate
+            </a>
 
             {/* Mobile Hamburger */}
             <button
@@ -217,13 +218,14 @@ export default function Header() {
               transitionDelay: `${navLinks.length * 50}ms`,
             }}
           >
-            <Link
-              href="#pricing"
+            <a
+              href="https://maps.app.goo.gl/sYFmaYbfmikB9MRb7"
+              target="_blank"
               onClick={() => setIsMobileMenuOpen(false)}
               className="flex items-center justify-center w-full px-6 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-black text-lg shadow-[0_0_30px_rgba(6,182,212,0.3)] active:scale-95 transition-transform duration-300"
             >
-              Book a Free Call
-            </Link>
+              Locate
+            </a>
           </div>
 
           {/* Ambient Glow inside Mobile Menu */}

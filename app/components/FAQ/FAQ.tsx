@@ -197,9 +197,12 @@ export default function FAQ() {
                 <p className="text-gray-400 text-sm leading-relaxed mb-4">
                   Can't find the answer you're looking for? We're here to help.
                 </p>
-                <button className="text-indigo-400 text-sm font-bold hover:text-indigo-300 transition-colors flex items-center gap-2 group-hover:gap-3">
+                <a
+                  href="mailto:contact@shuvamrahamusic.com"
+                  className="text-indigo-400 text-sm font-bold hover:text-indigo-300 transition-colors flex items-center gap-2 group-hover:gap-3"
+                >
                   Contact Support <span>→</span>
-                </button>
+                </a>
               </div>
             </div>
           </div>
