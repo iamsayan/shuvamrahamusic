@@ -19,10 +19,6 @@ export default function Home() {
       <ProgramOverview />
       <WhatYouAchieve />
 
-      {/* <div className="flex flex-col border-t border-cyan-500/10">
-        <HowItWorks />
-      </div> */}
-
       <div className="flex flex-col border-t border-cyan-500/10">
         <Pricing />
       </div>
@@ -30,10 +26,6 @@ export default function Home() {
       <div className="flex flex-col border-t border-amber-500/10">
         <Reviews />
       </div>
-
-      {/* <div className="flex flex-col border-t border-indigo-500/10">
-        <ProgramOverview />
-      </div> */}
 
       <div className="flex flex-col border-t border-indigo-500/10">
         <FAQ />
