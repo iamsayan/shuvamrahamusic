@@ -396,7 +396,7 @@ export default async function Page() {
               </h3>
             </div>
             <div className="relative z-10 w-full">
-              <SliderGallery itemWidth={220}>
+              <SliderGallery itemWidth={220} autoScroll={true}>
                 {[
                   "QAJUivdGB5k",
                   "4y2bCPoBtQw",
@@ -422,7 +422,7 @@ export default async function Page() {
               </h3>
             </div>
             <div className="relative z-10 w-full">
-              <SliderGallery itemWidth={220}>
+              <SliderGallery itemWidth={220} autoScroll={true}>
                 {[
                   "F4SwCit-b20",
                   "gnlzLjNdzPQ",
