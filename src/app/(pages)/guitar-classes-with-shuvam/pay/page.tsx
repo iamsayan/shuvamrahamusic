@@ -56,19 +56,17 @@ export default function SecurePayPage() {
       <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-violet-600/5 blur-[100px] rounded-full pointer-events-none" />
 
       <div className="relative z-10 w-full max-w-md px-5 flex flex-col items-center">
-        
         {/* Back Link */}
-        <Link
+        {/* <Link
           href="/guitar-classes-with-shuvam"
           className="group inline-flex items-center gap-1.5 text-xs font-bold text-gray-500 hover:text-white transition-colors mb-6"
         >
           <LuArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
           Back to classes
-        </Link>
+        </Link> */}
 
         {/* Unified Card */}
         <div className="w-full relative p-6 sm:p-8 rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-2xl shadow-2xl overflow-hidden flex flex-col items-center text-center">
-          
           {/* SSL Status */}
           <div className="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold rounded-full mb-6">
             <LuShieldCheck className="w-3.5 h-3.5" />
@@ -90,7 +88,9 @@ export default function SecurePayPage() {
                 setSelectedPlanIdx(0);
               }}
               className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-full text-xs font-bold transition-all duration-300 ${
-                region === "IN" ? "bg-white/10 text-white shadow-md" : "text-gray-400 hover:text-white"
+                region === "IN"
+                  ? "bg-white/10 text-white shadow-md"
+                  : "text-gray-400 hover:text-white"
               }`}
             >
               <LuMapPin className="w-3.5 h-3.5" />
@@ -102,7 +102,9 @@ export default function SecurePayPage() {
                 setSelectedPlanIdx(0);
               }}
               className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-full text-xs font-bold transition-all duration-300 ${
-                region === "GLOBAL" ? "bg-white/10 text-white shadow-md" : "text-gray-400 hover:text-white"
+                region === "GLOBAL"
+                  ? "bg-white/10 text-white shadow-md"
+                  : "text-gray-400 hover:text-white"
               }`}
             >
               <LuGlobe className="w-3.5 h-3.5" />
@@ -127,17 +129,23 @@ export default function SecurePayPage() {
                   }`}
                 >
                   <div className="flex items-center gap-2">
-                    <div className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${
-                      isActive ? "border-cyan-400" : "border-gray-600"
-                    }`}>
-                      {isActive && <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" />}
+                    <div
+                      className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${
+                        isActive ? "border-cyan-400" : "border-gray-600"
+                      }`}
+                    >
+                      {isActive && (
+                        <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                      )}
                     </div>
                     <span className="text-xs font-bold text-white font-heading">
                       {plan.name}
                     </span>
                   </div>
-                  
-                  <span className={`text-xs font-black font-heading ${isActive ? theme.text : "text-gray-400"}`}>
+
+                  <span
+                    className={`text-xs font-black font-heading ${isActive ? theme.text : "text-gray-400"}`}
+                  >
                     {plan.currency}
                     {plan.price}
                   </span>
@@ -152,7 +160,9 @@ export default function SecurePayPage() {
               Total Fee
             </span>
             <div className="flex items-baseline gap-0.5">
-              <span className={`text-3xl font-black ${planTheme.text} font-heading`}>
+              <span
+                className={`text-3xl font-black ${planTheme.text} font-heading`}
+              >
                 {activePlan.currency}
                 {activePlan.price}
               </span>
