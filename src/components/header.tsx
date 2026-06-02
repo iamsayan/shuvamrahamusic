@@ -156,24 +156,17 @@ export default function Header() {
       <div
         className={`xl:hidden fixed inset-0 top-0 pt-24 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           isMobileMenuOpen
-            ? "opacity-100 visible pointer-events-auto backdrop-blur-3xl bg-[#020205]/95"
+            ? "opacity-100 visible pointer-events-auto backdrop-blur-3xl bg-[#020205]/95 mobile-menu-open"
             : "opacity-0 invisible pointer-events-none backdrop-blur-none bg-[#020205]/0"
         }`}
       >
         <nav className="flex flex-col px-5 h-full overflow-y-auto">
           {navLinks.map((link, idx) => (
-            <div key={idx} className="flex flex-col border-b border-white/5">
+            <div key={idx} className="flex flex-col border-b border-white/5 mobile-menu-item">
               <Link
                 href={link.href}
                 className="group py-4 text-xl font-bold text-gray-300 hover:text-white transition-all duration-300 flex items-center justify-between"
                 onClick={() => !link.subItems && setIsMobileMenuOpen(false)}
-                style={{
-                  transform: isMobileMenuOpen
-                    ? "translateY(0)"
-                    : "translateY(20px)",
-                  opacity: isMobileMenuOpen ? 1 : 0,
-                  transitionDelay: `${idx * 40}ms`,
-                }}
               >
                 {link.name}
                 {!link.subItems && (
@@ -183,16 +176,7 @@ export default function Header() {
 
               {/* Mobile Subitems */}
               {link.subItems && (
-                <div
-                  className="flex flex-col pl-4 pb-4 gap-4 border-l-2 border-white/10 ml-2 mb-2"
-                  style={{
-                    transform: isMobileMenuOpen
-                      ? "translateY(0)"
-                      : "translateY(20px)",
-                    opacity: isMobileMenuOpen ? 1 : 0,
-                    transitionDelay: `${idx * 40 + 20}ms`,
-                  }}
-                >
+                <div className="flex flex-col pl-4 pb-4 gap-4 border-l-2 border-white/10 ml-2 mb-2">
                   {link.subItems.map((sub, sIdx) => (
                     <Link
                       key={sIdx}
@@ -208,16 +192,7 @@ export default function Header() {
             </div>
           ))}
 
-          <div
-            className="mt-10 mb-8 w-full"
-            style={{
-              transform: isMobileMenuOpen
-                ? "translateY(0)"
-                : "translateY(20px)",
-              opacity: isMobileMenuOpen ? 1 : 0,
-              transitionDelay: `${navLinks.length * 50}ms`,
-            }}
-          >
+          <div className="mt-10 mb-8 w-full mobile-menu-btn">
             <a
               href="https://maps.app.goo.gl/sYFmaYbfmikB9MRb7"
               target="_blank"

@@ -2,9 +2,9 @@
 
 import React from "react";
 import Link from "next/link";
-import { Mail, MapPin, Phone, ArrowUpRight, Music } from "lucide-react";
+import { Mail, MapPin, Phone, ArrowUpRight, Music, Headphones } from "lucide-react";
 
-// === CUSTOM SOCIAL SVGS ===
+// === LIGHTWEIGHT SOCIAL SVGS ===
 const InstagramIcon = ({ className }: { className?: string }) => (
   <svg
     className={className}
@@ -82,14 +82,14 @@ const socialLinks = [
   },
   {
     name: "Spotify",
-    icon: InstagramIcon,
+    icon: Headphones,
     href: "https://open.spotify.com/artist/4AmYXw6BaXjFN4urc6SyrG",
     hoverColor: "group-hover:text-green-500",
     hoverBg: "group-hover:border-green-500/50 group-hover:bg-green-500/10",
   },
   {
     name: "Apple Music",
-    icon: InstagramIcon,
+    icon: Music,
     href: "https://music.apple.com/us/artist/shuvam-raha/1541472783",
     hoverColor: "group-hover:text-pink-500",
     hoverBg: "group-hover:border-pink-500/50 group-hover:bg-pink-500/10",
@@ -110,20 +110,7 @@ export default function Footer() {
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent blur-[2px]" />
 
-      {/* Dynamic CSS for Infinite Marquee */}
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-        @keyframes scroll-text {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-scroll-text {
-          animation: scroll-text 40s linear infinite;
-        }
-      `,
-        }}
-      />
+
 
       {/* Background Ambient Glows */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[300px] md:h-[400px] bg-gradient-to-b from-cyan-900/20 via-blue-900/5 to-transparent blur-[100px] md:blur-[120px] pointer-events-none" />
