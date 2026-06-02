@@ -373,16 +373,14 @@ export default async function Page() {
 
         <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
           {/* Header */}
-          <div className="flex flex-col items-center gap-4 mb-8 sm:mb-10 w-full border-b border-white/5 pb-6">
-            <div className="flex flex-col items-start w-full text-center sm:text-left">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white font-heading">
-                See Real{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-500">
-                  Student Results
-                </span>
-              </h2>
-            </div>
-            <p className="text-gray-400 text-sm sm:text-base max-w-md md:text-right w-full text-center sm:text-right">
+          <div className="flex flex-col items-center text-center gap-3 mb-8 sm:mb-10 w-full pb-5">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white font-heading">
+              See Real{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-500">
+                Student Results
+              </span>
+            </h2>
+            <p className="text-gray-400 text-sm sm:text-base max-w-md">
               Watch how students go from beginners → confident players.
             </p>
           </div>
