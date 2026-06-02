@@ -1,125 +1,125 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Image from "next/image";
+import { useState } from 'react';
+import Image from 'next/image';
 import {
   LuStar,
   LuGraduationCap,
   LuShieldCheck,
   LuBadgeCheck,
   LuCircleCheck,
-} from "react-icons/lu";
-import { authorityPoints, curriculum, features } from "@/lib/guitar-data";
+} from 'react-icons/lu';
+import { authorityPoints, curriculum, features } from '@/lib/guitar-data';
 
 export default function ProgramTabs() {
   const [activeTab, setActiveTab] = useState<
-    "instructor" | "curriculum" | "system"
-  >("instructor");
+    'instructor' | 'curriculum' | 'system'
+  >('instructor');
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="flex w-full flex-col items-center">
       {/* Segmented Control (Tabs) */}
-      <div className="flex flex-wrap justify-center gap-2 sm:gap-4 p-2 rounded-3xl bg-white/[0.02] border border-white/10 backdrop-blur-md mb-12 sm:mb-16">
+      <div className="mb-12 flex flex-wrap justify-center gap-2 rounded-3xl border border-white/10 bg-white/[0.02] p-2 backdrop-blur-md sm:mb-16 sm:gap-4">
         <button
-          onClick={() => setActiveTab("instructor")}
-          className={`px-5 sm:px-8 py-3 rounded-2xl text-sm sm:text-base font-bold transition-all duration-300 flex items-center gap-2 ${
-            activeTab === "instructor"
-              ? "bg-rose-500/20 text-rose-300 shadow-[0_0_20px_rgba(244,63,94,0.2)] border border-rose-500/30"
-              : "text-gray-400 hover:text-white hover:bg-white/5 border border-transparent"
+          onClick={() => setActiveTab('instructor')}
+          className={`flex items-center gap-2 rounded-2xl px-5 py-3 text-sm font-bold transition-all duration-300 sm:px-8 sm:text-base ${
+            activeTab === 'instructor'
+              ? 'border border-rose-500/30 bg-rose-500/20 text-rose-300 shadow-[0_0_20px_rgba(244,63,94,0.2)]'
+              : 'border border-transparent text-gray-400 hover:bg-white/5 hover:text-white'
           }`}
         >
-          <LuStar className="w-4 h-4" /> Meet Your Coach
+          <LuStar className="h-4 w-4" /> Meet Your Coach
         </button>
         <button
-          onClick={() => setActiveTab("curriculum")}
-          className={`px-5 sm:px-8 py-3 rounded-2xl text-sm sm:text-base font-bold transition-all duration-300 flex items-center gap-2 ${
-            activeTab === "curriculum"
-              ? "bg-indigo-500/20 text-indigo-300 shadow-[0_0_20px_rgba(99,102,241,0.2)] border border-indigo-500/30"
-              : "text-gray-400 hover:text-white hover:bg-white/5 border border-transparent"
+          onClick={() => setActiveTab('curriculum')}
+          className={`flex items-center gap-2 rounded-2xl px-5 py-3 text-sm font-bold transition-all duration-300 sm:px-8 sm:text-base ${
+            activeTab === 'curriculum'
+              ? 'border border-indigo-500/30 bg-indigo-500/20 text-indigo-300 shadow-[0_0_20px_rgba(99,102,241,0.2)]'
+              : 'border border-transparent text-gray-400 hover:bg-white/5 hover:text-white'
           }`}
         >
-          <LuGraduationCap className="w-4 h-4" /> Curriculum
+          <LuGraduationCap className="h-4 w-4" /> Curriculum
         </button>
         <button
-          onClick={() => setActiveTab("system")}
-          className={`px-5 sm:px-8 py-3 rounded-2xl text-sm sm:text-base font-bold transition-all duration-300 flex items-center gap-2 ${
-            activeTab === "system"
-              ? "bg-cyan-500/20 text-cyan-300 shadow-[0_0_20px_rgba(6,182,212,0.2)] border border-cyan-500/30"
-              : "text-gray-400 hover:text-white hover:bg-white/5 border border-transparent"
+          onClick={() => setActiveTab('system')}
+          className={`flex items-center gap-2 rounded-2xl px-5 py-3 text-sm font-bold transition-all duration-300 sm:px-8 sm:text-base ${
+            activeTab === 'system'
+              ? 'border border-cyan-500/30 bg-cyan-500/20 text-cyan-300 shadow-[0_0_20px_rgba(6,182,212,0.2)]'
+              : 'border border-transparent text-gray-400 hover:bg-white/5 hover:text-white'
           }`}
         >
-          <LuShieldCheck className="w-4 h-4" /> Learning System
+          <LuShieldCheck className="h-4 w-4" /> Learning System
         </button>
       </div>
 
       {/* Dynamic Background Glow based on Active Tab */}
-      <div className="absolute inset-0 pointer-events-none z-0 transition-colors duration-1000 overflow-hidden">
-        {activeTab === "instructor" && (
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-rose-600/5 blur-[150px] mix-blend-screen" />
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden transition-colors duration-1000">
+        {activeTab === 'instructor' && (
+          <div className="absolute top-1/2 left-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-600/5 mix-blend-screen blur-[150px]" />
         )}
-        {activeTab === "curriculum" && (
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-indigo-600/5 blur-[150px] mix-blend-screen" />
+        {activeTab === 'curriculum' && (
+          <div className="absolute top-1/2 left-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-600/5 mix-blend-screen blur-[150px]" />
         )}
-        {activeTab === "system" && (
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-cyan-600/5 blur-[150px] mix-blend-screen" />
+        {activeTab === 'system' && (
+          <div className="absolute top-1/2 left-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-600/5 mix-blend-screen blur-[150px]" />
         )}
       </div>
 
       {/* Tab Content */}
-      <div className="relative w-full z-10">
+      <div className="relative z-10 w-full">
         {/* TAB 1: INSTRUCTOR */}
-        {activeTab === "instructor" && (
+        {activeTab === 'instructor' && (
           <div className="animate-in fade-in zoom-in-95 duration-500">
-            <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center">
-              <div className="w-full lg:w-5/12 flex justify-center">
-                <div className="relative w-full max-w-[480px] lg:max-w-full aspect-[4/5] rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl p-4 shadow-[0_20px_60px_rgba(0,0,0,0.5)] group">
-                  <div className="relative w-full h-full rounded-2xl overflow-hidden bg-[#0a0a0f]">
+            <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-16">
+              <div className="flex w-full justify-center lg:w-5/12">
+                <div className="group relative aspect-[4/5] w-full max-w-[480px] rounded-[2rem] border border-white/10 bg-white/[0.02] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-3xl lg:max-w-full">
+                  <div className="relative h-full w-full overflow-hidden rounded-2xl bg-[#0a0a0f]">
                     <Image
                       src="/hero-guitarist.jpg"
                       alt="Shuvam Raha"
                       fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-90"
+                      className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
                       sizes="(max-width: 1024px) 480px, 600px"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#05050A] via-[#05050A]/20 to-transparent" />
-                    <div className="absolute bottom-6 left-6 right-6">
-                      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/10 backdrop-blur-md mb-2">
-                        <LuBadgeCheck className="w-4 h-4 text-blue-400" />
-                        <span className="text-xs font-bold text-white uppercase tracking-wide">
+                    <div className="absolute right-6 bottom-6 left-6">
+                      <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1.5 backdrop-blur-md">
+                        <LuBadgeCheck className="h-4 w-4 text-blue-400" />
+                        <span className="text-xs font-bold tracking-wide text-white uppercase">
                           Verified Instructor
                         </span>
                       </div>
                       <h3 className="text-3xl font-black text-white">
                         Shuvam Raha
                       </h3>
-                      <p className="text-gray-300 font-medium">
+                      <p className="font-medium text-gray-300">
                         Guitarist | Performer | Educator
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="w-full lg:w-7/12 flex flex-col">
-                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-8 text-center lg:text-left font-heading">
-                  Why Learn From{" "}
+              <div className="flex w-full flex-col lg:w-7/12">
+                <h3 className="font-heading mb-8 text-center text-2xl font-bold text-white sm:text-3xl lg:text-left">
+                  Why Learn From{' '}
                   <span className="text-rose-400">Shuvam Raha?</span>
                 </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   {authorityPoints.map((point, idx) => (
                     <div
                       key={idx}
-                      className="flex items-start gap-4 p-5 rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-md hover:bg-white/[0.05] hover:border-white/10 transition-colors"
+                      className="flex items-start gap-4 rounded-2xl border border-white/5 bg-white/[0.02] p-5 backdrop-blur-md transition-colors hover:border-white/10 hover:bg-white/[0.05]"
                     >
                       <div
-                        className={`flex items-center justify-center w-12 h-12 rounded-xl shrink-0 ${point.bg} border ${point.border} ${point.color}`}
+                        className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${point.bg} border ${point.border} ${point.color}`}
                       >
-                        <point.icon className="w-6 h-6" />
+                        <point.icon className="h-6 w-6" />
                       </div>
                       <div>
-                        <h4 className="text-white font-bold text-lg sm:text-xl mb-1 font-heading">
+                        <h4 className="font-heading mb-1 text-lg font-bold text-white sm:text-xl">
                           {point.title}
                         </h4>
-                        <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mt-1">
+                        <p className="mt-1 text-xs leading-relaxed text-gray-400 sm:text-sm">
                           {point.desc}
                         </p>
                       </div>
@@ -132,42 +132,42 @@ export default function ProgramTabs() {
         )}
 
         {/* TAB 2: CURRICULUM */}
-        {activeTab === "curriculum" && (
+        {activeTab === 'curriculum' && (
           <div className="animate-in fade-in zoom-in-95 duration-500">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-6 w-full">
+            <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-6">
               {curriculum.map((item, i) => (
                 <div
                   key={i}
-                  className={`group relative rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl overflow-hidden p-6 sm:p-8 hover:bg-white/[0.04] transition-colors ${item.colSpan}`}
+                  className={`group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.02] p-6 backdrop-blur-3xl transition-colors hover:bg-white/[0.04] sm:p-8 ${item.colSpan}`}
                 >
                   <div
-                    className={`absolute top-0 right-0 w-40 h-40 ${item.styles.ambientGlow} blur-[60px] rounded-full transition-transform duration-700 group-hover:scale-150 opacity-0 group-hover:opacity-100`}
+                    className={`absolute top-0 right-0 h-40 w-40 ${item.styles.ambientGlow} rounded-full opacity-0 blur-[60px] transition-transform duration-700 group-hover:scale-150 group-hover:opacity-100`}
                   />
-                  <div className="relative z-10 flex flex-col h-full">
-                    <div className="flex items-center gap-4 mb-6">
+                  <div className="relative z-10 flex h-full flex-col">
+                    <div className="mb-6 flex items-center gap-4">
                       <div
-                        className={`flex items-center justify-center w-14 h-14 rounded-2xl ${item.styles.iconBg} border ${item.styles.iconBorder} ${item.styles.iconText} shrink-0`}
+                        className={`flex h-14 w-14 items-center justify-center rounded-2xl ${item.styles.iconBg} border ${item.styles.iconBorder} ${item.styles.iconText} shrink-0`}
                       >
-                        <item.icon className="w-7 h-7" />
+                        <item.icon className="h-7 w-7" />
                       </div>
                       <div>
-                        <h3 className="text-lg sm:text-xl font-bold text-white leading-tight font-heading">
+                        <h3 className="font-heading text-lg leading-tight font-bold text-white sm:text-xl">
                           {item.title}
                         </h3>
                         <p
-                          className={`text-xs sm:text-sm font-medium ${item.styles.iconText} mt-1 opacity-80`}
+                          className={`text-xs font-medium sm:text-sm ${item.styles.iconText} mt-1 opacity-80`}
                         >
                           {item.subtitle}
                         </p>
                       </div>
                     </div>
-                    <ul className="flex flex-col gap-3 mt-auto">
+                    <ul className="mt-auto flex flex-col gap-3">
                       {item.points.map((point, idx) => (
                         <li key={idx} className="flex items-start gap-3">
                           <LuCircleCheck
-                            className={`w-5 h-5 ${item.styles.iconText} shrink-0 opacity-60 mt-0.5 group-hover:opacity-100 transition-opacity`}
+                            className={`h-5 w-5 ${item.styles.iconText} mt-0.5 shrink-0 opacity-60 transition-opacity group-hover:opacity-100`}
                           />
-                          <span className="text-xs sm:text-sm text-gray-300 group-hover:text-white transition-colors">
+                          <span className="text-xs text-gray-300 transition-colors group-hover:text-white sm:text-sm">
                             {point}
                           </span>
                         </li>
@@ -177,48 +177,50 @@ export default function ProgramTabs() {
                 </div>
               ))}
             </div>
-            <div className="mt-12 flex justify-center w-full px-5">
-              <p className="text-gray-500 text-sm md:text-base text-center font-medium max-w-2xl bg-white/[0.02] border border-white/5 rounded-full py-3 px-6">
-                <span className="text-red-400 mr-2">📌</span>
-                From basics to advanced—everything you need to become a complete guitarist.
+            <div className="mt-12 flex w-full justify-center px-5">
+              <p className="max-w-2xl rounded-full border border-white/5 bg-white/[0.02] px-6 py-3 text-center text-sm font-medium text-gray-500 md:text-base">
+                <span className="mr-2 text-red-400">📌</span>
+                From basics to advanced—everything you need to become a complete
+                guitarist.
               </p>
             </div>
           </div>
         )}
 
         {/* TAB 3: LEARNING SYSTEM */}
-        {activeTab === "system" && (
+        {activeTab === 'system' && (
           <div className="animate-in fade-in zoom-in-95 duration-500">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-8">
+            <div className="mb-8 grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
               {features.map((feature, idx) => (
                 <div
                   key={idx}
-                  className="flex flex-col p-6 sm:p-8 rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl hover:bg-white/[0.04] transition-colors"
+                  className="flex flex-col rounded-[2rem] border border-white/10 bg-white/[0.02] p-6 backdrop-blur-3xl transition-colors hover:bg-white/[0.04] sm:p-8"
                 >
-                  <div className="flex items-center gap-4 mb-6 border-b border-white/10 pb-6">
-                    <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 shrink-0">
-                      <feature.icon className="w-7 h-7" />
+                  <div className="mb-6 flex items-center gap-4 border-b border-white/10 pb-6">
+                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400">
+                      <feature.icon className="h-7 w-7" />
                     </div>
                     <div>
-                      <h3 className="text-lg sm:text-xl font-bold text-white mb-1 font-heading">
+                      <h3 className="font-heading mb-1 text-lg font-bold text-white sm:text-xl">
                         {feature.title}
                       </h3>
-                      <p className="text-gray-400 text-xs sm:text-sm font-medium mt-1">
+                      <p className="mt-1 text-xs font-medium text-gray-400 sm:text-sm">
                         {feature.desc}
                       </p>
                     </div>
                   </div>
-                  <ul className="flex flex-col gap-4 flex-1">
+                  <ul className="flex flex-1 flex-col gap-4">
                     {feature.points.map((point, pIdx) => (
-                      <li key={pIdx} className="flex items-start gap-3 text-xs sm:text-sm">
-                        <LuCircleCheck className="w-5 h-5 text-cyan-500 shrink-0 mt-0.5" />
+                      <li
+                        key={pIdx}
+                        className="flex items-start gap-3 text-xs sm:text-sm"
+                      >
+                        <LuCircleCheck className="mt-0.5 h-5 w-5 shrink-0 text-cyan-500" />
                         <div>
-                          <strong className="text-gray-200 block sm:inline">
-                            {point.t} —{" "}
+                          <strong className="block text-gray-200 sm:inline">
+                            {point.t} —{' '}
                           </strong>
-                          <span className="text-gray-400">
-                            {point.d}
-                          </span>
+                          <span className="text-gray-400">{point.d}</span>
                         </div>
                       </li>
                     ))}
