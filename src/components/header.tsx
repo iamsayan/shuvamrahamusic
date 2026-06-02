@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { LuMusic, LuArrowRight, LuChevronDown } from "react-icons/lu";
 
 type SubItem = { name: string; href: string };
@@ -76,8 +77,13 @@ export default function Header() {
             className="group flex items-center gap-3 z-50 relative"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <div className="flex items-center justify-center w-8.5 h-8.5 md:w-10 md:h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 shadow-[0_0_15px_rgba(6,182,212,0.4)] group-hover:shadow-[0_0_25px_rgba(6,182,212,0.6)] group-hover:scale-105 transition-all duration-300">
-              <LuMusic className="w-4 h-4 md:w-4.5 md:h-4.5 text-white" />
+            <div className="relative flex items-center justify-center w-8.5 h-8.5 md:w-10 md:h-10 rounded-xl overflow-hidden bg-white/5 border border-white/10 group-hover:border-cyan-500/30 shadow-[0_0_15px_rgba(255,255,255,0.02)] group-hover:shadow-[0_0_25px_rgba(6,182,212,0.2)] group-hover:scale-105 transition-all duration-300">
+              <Image
+                src="/logo.png"
+                alt="Shuvam Raha Logo"
+                fill
+                className="object-contain p-1"
+              />
             </div>
             <span className="text-lg md:text-xl font-black text-white tracking-tight">
               Shuvam Raha

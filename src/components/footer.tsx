@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   LuMail,
   LuMapPin,
@@ -81,8 +82,13 @@ export default function Footer() {
           {/* Left Brand block */}
           <div className="flex flex-col gap-4 max-w-sm w-full">
             <div className="flex items-center gap-2.5">
-              <div className="flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 shadow-[0_0_15px_rgba(6,182,212,0.3)]">
-                <LuMusic className="w-4 h-4 text-white" />
+              <div className="relative flex items-center justify-center w-8 h-8 rounded-xl overflow-hidden bg-white/5 border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.02)]">
+                <Image
+                  src="/logo.png"
+                  alt="Shuvam Raha Logo"
+                  fill
+                  className="object-contain p-0.5"
+                />
               </div>
               <span className="text-base font-black text-white tracking-tight">
                 Shuvam Raha
