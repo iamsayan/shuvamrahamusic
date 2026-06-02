@@ -15,7 +15,7 @@ type NavLink = {
 const navLinks: NavLink[] = [
   { name: "Home", href: "/" },
   { name: "Biography", href: "/biography" },
-  { name: "Classes", href: "/", raw: true },
+  { name: "Classes", href: "/guitar-classes-with-shuvam", raw: true },
   {
     name: "Gallery",
     href: "/gallery",
@@ -63,12 +63,11 @@ export default function Header() {
         isMobileMenuOpen
           ? "h-screen bg-[#020205]/98 backdrop-blur-3xl overflow-y-auto mobile-menu-open"
           : isScrolled
-          ? "bg-[#020205]/75 backdrop-blur-xl border-b border-white/10 py-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
-          : "bg-transparent py-3.5 border-b border-transparent"
+            ? "bg-[#020205]/75 backdrop-blur-xl border-b border-white/10 py-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
+            : "bg-transparent py-3.5 border-b border-transparent"
       }`}
     >
       <div className="mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20 h-full flex flex-col justify-start">
-        
         {/* Top Header Bar */}
         <div className="flex items-center justify-between w-full h-[60px] md:h-[70px] shrink-0">
           {/* Logo */}
@@ -216,7 +215,6 @@ export default function Header() {
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[250px] h-[250px] bg-cyan-600/10 blur-[90px] pointer-events-none rounded-full" />
           </div>
         )}
-
       </div>
     </header>
   );

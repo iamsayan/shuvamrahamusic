@@ -202,19 +202,40 @@ export default function PricingTable() {
         </div>
       </div>
 
-      {/* Global Geographic Tagline Note */}
-      <div className="mt-12 flex justify-center w-full z-10">
-        <p className="text-gray-500 text-sm md:text-base text-center font-medium max-w-2xl bg-white/[0.02] border border-white/5 rounded-full py-3 px-6">
-          <span className="text-red-400 mr-2">📌</span>
-          Pricing is structurally based on your country of residence (not payment method).
-        </p>
-      </div>
+      {/* Global Geographic & Availability Notices Deck */}
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl w-full mx-auto px-4 z-10">
+        {/* Card 1: Residence Policy */}
+        <div className="relative group/note flex gap-4 p-5 rounded-2xl border border-white/[0.04] bg-white/[0.01] backdrop-blur-xl hover:border-white/[0.08] hover:bg-white/[0.02] transition-all duration-300">
+          <div className="absolute inset-0 rounded-2xl bg-cyan-500/[0.01] group-hover/note:bg-cyan-500/[0.02] opacity-0 group-hover/note:opacity-100 blur-xl transition-all duration-500 pointer-events-none" />
+          <div className="flex items-center justify-center shrink-0 w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 group-hover/note:scale-105 transition-transform duration-300">
+            <LuGlobe className="w-5 h-5" />
+          </div>
+          <div className="flex flex-col justify-center">
+            <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-1 block font-heading">
+              Residence Policy
+            </span>
+            <p className="text-gray-300 text-xs sm:text-sm font-medium leading-relaxed font-heading">
+              Pricing is structurally based on your country of residence (not payment method).
+            </p>
+          </div>
+        </div>
 
-      <div className="mt-6 flex justify-center w-full z-10">
-        <p className="text-gray-500 text-sm md:text-base text-center font-medium max-w-2xl bg-white/[0.02] border border-white/5 rounded-full py-3 px-6 inline-flex items-center">
-          <LuTriangleAlert className="text-amber-400 mr-2" size={20} />
-          Limited slots available—priority for serious students
-        </p>
+        {/* Card 2: Slots Notice */}
+        <div className="relative group/note flex gap-4 p-5 rounded-2xl border border-amber-500/10 bg-amber-500/[0.02] backdrop-blur-xl hover:border-amber-500/20 hover:bg-amber-500/[0.04] transition-all duration-300">
+          <div className="absolute inset-0 rounded-2xl bg-amber-500/[0.01] group-hover/note:bg-amber-500/[0.02] opacity-0 group-hover/note:opacity-100 blur-xl transition-all duration-500 pointer-events-none" />
+          <div className="flex items-center justify-center shrink-0 w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 group-hover/note:scale-105 transition-transform duration-300">
+            <LuTriangleAlert className="w-5 h-5" />
+          </div>
+          <div className="flex flex-col justify-center">
+            <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-1 block font-heading">
+              Availability
+            </span>
+            <p className="text-gray-300 text-xs sm:text-sm font-medium leading-relaxed font-heading">
+              Limited slots available—
+              <span className="block mt-0.5">priority for serious students.</span>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
