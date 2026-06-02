@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, HelpCircle, MessageCircle } from "lucide-react";
+import { LuChevronDown, LuCircleHelp, LuMessageCircle } from "react-icons/lu";
 import { categories, allFaqs } from "@/lib/guitar-data";
 
 export default function FaqAccordion() {
@@ -23,7 +23,7 @@ export default function FaqAccordion() {
       <div className="w-full lg:w-1/3 flex flex-col gap-8 lg:sticky lg:top-24">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/10 mb-6 shadow-[0_0_15px_rgba(99,102,241,0.15)]">
-            <HelpCircle className="w-4 h-4 text-indigo-400" />
+            <LuCircleHelp className="w-4 h-4 text-indigo-400" />
             <span className="text-xs font-bold text-indigo-400 tracking-widest uppercase">
               FAQ
             </span>
@@ -68,7 +68,7 @@ export default function FaqAccordion() {
           <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 blur-[40px] rounded-full group-hover:bg-indigo-500/20 transition-colors duration-500" />
           <div className="relative z-10">
             <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-4 shadow-[0_0_15px_rgba(99,102,241,0.15)]">
-              <MessageCircle className="w-6 h-6 animate-pulse" />
+              <LuMessageCircle className="w-6 h-6 animate-pulse" />
             </div>
             <h4 className="text-white text-lg font-bold mb-1 font-heading">
               Still have questions?
@@ -118,7 +118,7 @@ export default function FaqAccordion() {
                       : "bg-white/5 text-gray-500 group-hover:bg-white/10 group-hover:text-gray-300"
                   }`}
                 >
-                  <ChevronDown
+                  <LuChevronDown
                     className={`w-4 h-4 transition-transform duration-500 ${
                       isOpen ? "rotate-180" : ""
                     }`}

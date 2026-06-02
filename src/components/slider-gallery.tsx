@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 
 export default function SliderGallery({
   children,
@@ -77,14 +77,14 @@ export default function SliderGallery({
           onClick={scrollLeft}
           className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-6 z-20 flex items-center justify-center w-12 h-12 rounded-full bg-[#05050A]/90 backdrop-blur-md border border-white/10 text-white shadow-2xl hover:scale-105 hover:bg-white/10 transition-all duration-300"
         >
-          <ChevronLeft className="w-6 h-6 pr-0.5" />
+          <LuChevronLeft className="w-6 h-6 pr-0.5" />
         </button>
 
         <button
           onClick={scrollRight}
           className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-6 z-20 flex items-center justify-center w-12 h-12 rounded-full bg-[#05050A]/90 backdrop-blur-md border border-white/10 text-white shadow-2xl hover:scale-105 hover:bg-white/10 transition-all duration-300"
         >
-          <ChevronRight className="w-6 h-6 pl-0.5" />
+          <LuChevronRight className="w-6 h-6 pl-0.5" />
         </button>
       </div>
 

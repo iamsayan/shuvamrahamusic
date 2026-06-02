@@ -1,20 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Award,
-  CheckCircle2,
-  GraduationCap,
-  Globe,
-  Clock,
-  Phone,
-  ArrowRight,
-  Star,
-  Users,
-  Mic2,
-  MonitorSmartphone,
-  BadgeCheck,
-  MapPin,
-} from "lucide-react";
+  LuAward,
+  LuCircleCheck,
+  LuGraduationCap,
+  LuGlobe,
+  LuClock,
+  LuPhone,
+  LuArrowRight,
+  LuStar,
+  LuUsers,
+  LuMic,
+  LuMonitorSmartphone,
+  LuBadgeCheck,
+  LuMapPin,
+} from "react-icons/lu";
 
 // Client Components
 import SliderGallery from "@/components/slider-gallery";
@@ -148,7 +148,7 @@ export default async function Page() {
           <div className="flex-1 flex flex-col items-center text-center pt-10 lg:pt-0">
             {/* Trust Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 backdrop-blur-md mb-6 shadow-[0_0_20px_rgba(6,182,212,0.15)]">
-              <Award className="w-4 h-4 text-cyan-400" />
+              <LuAward className="w-4 h-4 text-cyan-400" />
               <span className="text-xs sm:text-sm font-bold text-cyan-100 tracking-wide uppercase">
                 LCM Certified Music Instructor
               </span>
@@ -179,14 +179,14 @@ export default async function Page() {
             {/* Key Benefits */}
             <ul className="flex flex-col items-center gap-2 sm:gap-4 mb-10">
               <li className="flex items-center text-gray-300 font-medium text-sm">
-                <CheckCircle2 className="w-5 h-5 text-cyan-400 mr-2 shrink-0" />
+                <LuCircleCheck className="w-5 h-5 text-cyan-400 mr-2 shrink-0" />
                 <span>
                   Online & Offline Guitar Coaching for Students{" "}
                   <span className="text-cyan-400">Worldwide</span>.
                 </span>
               </li>
               <li className="flex items-center text-gray-300 font-medium text-sm">
-                <CheckCircle2 className="w-5 h-5 text-cyan-400 mr-2 shrink-0" />
+                <LuCircleCheck className="w-5 h-5 text-cyan-400 mr-2 shrink-0" />
                 <span>
                   Perfect for{" "}
                   <span className="text-cyan-400">
@@ -195,7 +195,7 @@ export default async function Page() {
                 </span>
               </li>
               <li className="flex items-center text-gray-300 font-medium text-sm">
-                <CheckCircle2 className="w-5 h-5 text-cyan-400 mr-2 shrink-0" />
+                <LuCircleCheck className="w-5 h-5 text-cyan-400 mr-2 shrink-0" />
                 <span>
                   Learn English songs with simple{" "}
                   <span className="text-cyan-400">Hindi/Bengali guidance</span>—
@@ -210,7 +210,7 @@ export default async function Page() {
                 href="https://calendly.com/shuvamraha10/intro-call"
                 className="group relative flex justify-center items-center gap-2 w-full sm:w-auto rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 text-base font-bold text-white transition-all hover:scale-105 shadow-[0_0_30px_rgba(6,182,212,0.3)] hover:shadow-[0_0_40px_rgba(6,182,212,0.5)] active:scale-95 font-heading"
               >
-                <Phone className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                <LuPhone className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                 Book Free Intro Call
               </Link>
               <Link
@@ -218,7 +218,7 @@ export default async function Page() {
                 className="group flex justify-center items-center gap-3 w-full sm:w-auto rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-xl px-8 py-4 text-base font-semibold text-white transition-all hover:bg-white/10 hover:border-white/20 active:scale-95 font-heading"
               >
                 Explore Plans
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                <LuArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
 
@@ -228,7 +228,7 @@ export default async function Page() {
                 {/* 1. 5.0 Rating */}
                 <div className="flex items-center gap-4 w-full p-2 lg:pl-0 lg:pr-4 lg:py-1">
                   <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(245,158,11,0.15)]">
-                    <Star className="w-5 h-5 fill-amber-400" />
+                    <LuStar className="w-5 h-5 fill-amber-400" />
                   </div>
                   <div className="flex flex-col text-left justify-center min-h-[48px]">
                     <div className="flex items-center gap-1.5">
@@ -237,7 +237,7 @@ export default async function Page() {
                       </span>
                       <div className="flex gap-0.5">
                         {[...Array(5)].map((_, i) => (
-                          <Star
+                          <LuStar
                             key={i}
                             className="w-2.5 h-2.5 text-amber-400 fill-amber-400 drop-shadow-[0_0_4px_rgba(245,158,11,0.5)]"
                           />
@@ -253,7 +253,7 @@ export default async function Page() {
                 {/* 2. 11+ Years Experience */}
                 <div className="flex items-center gap-4 w-full p-2 lg:px-4 lg:py-1">
                   <div className="w-12 h-12 rounded-2xl bg-violet-500/10 border border-violet-500/20 text-violet-400 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(139,92,246,0.15)]">
-                    <GraduationCap className="w-5 h-5" />
+                    <LuGraduationCap className="w-5 h-5" />
                   </div>
                   <div className="flex flex-col text-left justify-center min-h-[48px]">
                     <span className="text-white font-extrabold text-sm sm:text-base leading-none font-heading">
@@ -268,7 +268,7 @@ export default async function Page() {
                 {/* 3. Global Reach */}
                 <div className="flex items-center gap-4 w-full p-2 lg:px-4 lg:py-1">
                   <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
-                    <Globe className="w-5 h-5" />
+                    <LuGlobe className="w-5 h-5" />
                   </div>
                   <div className="flex flex-col text-left justify-center min-h-[48px]">
                     <span className="text-white font-extrabold text-sm sm:text-base leading-none font-heading">
@@ -283,7 +283,7 @@ export default async function Page() {
                 {/* 4. 1:1 Sessions */}
                 <div className="flex items-center gap-4 w-full p-2 lg:px-4 lg:py-1">
                   <div className="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(244,63,94,0.15)]">
-                    <Award className="w-5 h-5" />
+                    <LuAward className="w-5 h-5" />
                   </div>
                   <div className="flex flex-col text-left justify-center min-h-[48px]">
                     <span className="text-white font-extrabold text-sm sm:text-base leading-none font-heading">
@@ -298,7 +298,7 @@ export default async function Page() {
                 {/* 5. Flexible Timings */}
                 <div className="flex items-center gap-4 w-full p-2 lg:pl-4 lg:pr-0 lg:py-1">
                   <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
-                    <Clock className="w-5 h-5" />
+                    <LuClock className="w-5 h-5" />
                   </div>
                   <div className="flex flex-col text-left justify-center min-h-[48px]">
                     <span className="text-white font-extrabold text-sm sm:text-base leading-none font-heading">
@@ -334,7 +334,7 @@ export default async function Page() {
               {/* Floating UI Elements */}
               <div className="absolute -left-2 sm:-left-12 top-[15%] sm:top-1/4 flex items-center gap-3 p-3 sm:p-4 rounded-2xl border border-white/10 bg-[#0a0a0f]/80 backdrop-blur-xl shadow-2xl pointer-events-none">
                 <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
-                  <Users className="w-5 h-5 text-blue-400" />
+                  <LuUsers className="w-5 h-5 text-blue-400" />
                 </div>
                 <div className="flex flex-col pr-2">
                   <span className="text-white font-bold text-sm sm:text-base leading-tight font-heading">
@@ -387,7 +387,7 @@ export default async function Page() {
           <div className="w-full relative p-4 sm:p-6 rounded-3xl border border-white/5 bg-white/[0.02] overflow-hidden">
             <div className="absolute right-0 top-0 w-[400px] h-full bg-blue-500/5 blur-[80px] pointer-events-none" />
             <div className="flex items-center gap-3 mb-6 relative z-10">
-              <MonitorSmartphone className="w-5 h-5 text-blue-400" />
+              <LuMonitorSmartphone className="w-5 h-5 text-blue-400" />
               <h3 className="text-xl font-bold text-white font-heading">
                 Student Performance Videos
               </h3>
@@ -415,7 +415,7 @@ export default async function Page() {
             <div className="grid grid-cols-1 gap-6">
               <div className="relative p-4 sm:p-6 rounded-3xl border border-white/5 bg-white/[0.02] overflow-hidden flex flex-col">
                 <div className="flex items-center gap-3 mb-4">
-                  <Mic2 className="w-5 h-5 text-rose-500" />
+                  <LuMic className="w-5 h-5 text-rose-500" />
                   <h3 className="text-xl font-bold text-white font-heading">
                     Performances by Shuvam Raha
                   </h3>
@@ -490,7 +490,7 @@ export default async function Page() {
             <div className="flex-1 w-full p-6 sm:p-8 lg:p-10 relative z-10">
               <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight mb-8 flex items-center gap-3 font-heading">
                 <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-                  <CheckCircle2 className="w-6 h-6" />
+                  <LuCircleCheck className="w-6 h-6" />
                 </div>
                 Perfect For You If...
               </h3>
@@ -501,7 +501,7 @@ export default async function Page() {
                     key={i}
                     className="group flex items-start gap-3 transition-transform duration-300 hover:translate-x-1"
                   >
-                    <CheckCircle2 className="w-5 h-5 text-emerald-500/50 shrink-0 mt-0.5 group-hover:text-emerald-400 transition-colors duration-300" />
+                    <LuCircleCheck className="w-5 h-5 text-emerald-500/50 shrink-0 mt-0.5 group-hover:text-emerald-400 transition-colors duration-300" />
                     <span className="text-sm sm:text-base text-gray-300 group-hover:text-white transition-colors duration-300">
                       {item}
                     </span>
@@ -521,7 +521,7 @@ export default async function Page() {
             <div className="flex-1 w-full p-6 sm:p-8 lg:p-10 relative z-10">
               <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight mb-8 flex items-center gap-3 font-heading">
                 <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 shadow-[0_0_15px_rgba(244,63,94,0.2)]">
-                  <CheckCircle2 className="w-6 h-6" />
+                  <LuCircleCheck className="w-6 h-6" />
                 </div>
                 NOT For You If...
               </h3>
@@ -532,7 +532,7 @@ export default async function Page() {
                     key={i}
                     className="group flex items-start gap-3 transition-transform duration-300 hover:translate-x-1"
                   >
-                    <CheckCircle2 className="w-5 h-5 text-rose-500/50 shrink-0 mt-0.5 group-hover:text-rose-400 transition-colors duration-300" />
+                    <LuCircleCheck className="w-5 h-5 text-rose-500/50 shrink-0 mt-0.5 group-hover:text-rose-400 transition-colors duration-300" />
                     <span className="text-sm sm:text-base text-gray-300 group-hover:text-white transition-colors duration-300">
                       {item}
                     </span>
@@ -548,7 +548,7 @@ export default async function Page() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-3 mb-2">
-                  <Clock className="w-6 h-6 text-cyan-400" />
+                  <LuClock className="w-6 h-6 text-cyan-400" />
                   <h3 className="text-xl font-bold text-white font-heading">
                     Class Schedule
                   </h3>
@@ -570,21 +570,21 @@ export default async function Page() {
 
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-3 mb-2">
-                  <Clock className="w-6 h-6 text-blue-400" />
+                  <LuClock className="w-6 h-6 text-blue-400" />
                   <h3 className="text-xl font-bold text-white font-heading">
                     Booking System
                   </h3>
                 </div>
                 <ul className="flex flex-col gap-3">
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
+                    <LuCircleCheck className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
                     <span className="text-gray-300 text-sm leading-relaxed">
                       <strong>Fixed Day & Time:</strong> Dedicated slot
                       required.
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
+                    <LuCircleCheck className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
                     <span className="text-gray-300 text-sm leading-relaxed">
                       <strong>1-to-1 Attention:</strong> Entirely private focus.
                     </span>
@@ -594,7 +594,7 @@ export default async function Page() {
 
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-3 mb-2">
-                  <Clock className="w-6 h-6 text-indigo-400" />
+                  <LuClock className="w-6 h-6 text-indigo-400" />
                   <h3 className="text-xl font-bold text-white font-heading">
                     Important Notes
                   </h3>
@@ -638,7 +638,7 @@ export default async function Page() {
           <div className="flex flex-col items-center text-center gap-8 mb-12 w-full">
             <div className="flex flex-col items-center">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 mb-6 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
-                <Award className="w-4 h-4 text-emerald-400" />
+                <LuAward className="w-4 h-4 text-emerald-400" />
                 <span className="text-xs font-bold text-emerald-400 tracking-widest uppercase">
                   Simple Pricing
                 </span>
@@ -677,7 +677,7 @@ export default async function Page() {
         <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20 mb-12 sm:mb-16 text-center">
           <div className="flex flex-col items-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-500/20 bg-amber-500/10 mb-6 shadow-[0_0_15px_rgba(245,158,11,0.15)]">
-              <BadgeCheck className="w-4 h-4 text-amber-400" />
+              <LuBadgeCheck className="w-4 h-4 text-amber-400" />
               <span className="text-xs font-bold text-amber-400 tracking-widest uppercase">
                 Student Success Stories
               </span>
@@ -718,7 +718,7 @@ export default async function Page() {
                       <div className="flex items-center justify-between">
                         <div className="flex gap-0.5">
                           {[...Array(5)].map((_, i) => (
-                            <Star
+                            <LuStar
                               key={i}
                               className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 fill-amber-400 drop-shadow-[0_0_6px_rgba(245,158,11,0.4)]"
                             />
@@ -786,7 +786,7 @@ export default async function Page() {
                         <div className="flex items-center justify-between">
                           <div className="flex gap-0.5">
                             {[...Array(5)].map((_, i) => (
-                              <Star
+                              <LuStar
                                 key={i}
                                 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 fill-amber-400 drop-shadow-[0_0_6px_rgba(245,158,11,0.4)]"
                               />
@@ -861,7 +861,7 @@ export default async function Page() {
               <div className="flex flex-col items-center gap-6 relative z-10">
                 {/* Google Icon Facade */}
                 <div className="w-16 h-16 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center shadow-xl">
-                  <MapPin className="w-8 h-8 text-amber-400 fill-amber-400/10 animate-slow-bounce" />
+                  <LuMapPin className="w-8 h-8 text-amber-400 fill-amber-400/10 animate-slow-bounce" />
                 </div>
 
                 {/* CTA Text */}
@@ -880,7 +880,7 @@ export default async function Page() {
                 <div className="flex items-center gap-3 bg-white/[0.02] border border-white/5 px-4 py-2 rounded-full backdrop-blur-md">
                   <div className="flex gap-0.5">
                     {[...Array(5)].map((_, i) => (
-                      <Star
+                      <LuStar
                         key={i}
                         className="w-4 h-4 text-amber-400 fill-amber-400"
                       />
