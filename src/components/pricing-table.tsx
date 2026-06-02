@@ -2,13 +2,12 @@
 
 import { useState } from "react";
 import {
-  Check,
-  AlertTriangle,
-  Sparkles,
-  Globe,
-  MapPin,
-  TriangleAlert,
-} from "lucide-react";
+  LuCheck,
+  LuTriangleAlert,
+  LuSparkles,
+  LuGlobe,
+  LuMapPin,
+} from "react-icons/lu";
 import { Region, Plan, plans } from "@/lib/guitar-data";
 
 export default function PricingTable() {
@@ -77,7 +76,7 @@ export default function PricingTable() {
                 : "text-gray-400 hover:text-gray-200"
             }`}
           >
-            <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
+            <LuMapPin className="w-4 h-4 sm:w-5 sm:h-5" />
             India (INR)
           </button>
 
@@ -89,7 +88,7 @@ export default function PricingTable() {
                 : "text-gray-400 hover:text-gray-200"
             }`}
           >
-            <Globe className="w-4 h-4 sm:w-5 sm:h-5" />
+            <LuGlobe className="w-4 h-4 sm:w-5 sm:h-5" />
             Global (USD)
           </button>
         </div>
@@ -121,7 +120,7 @@ export default function PricingTable() {
                 {plan.popular && (
                   <div className="absolute top-0 right-6 sm:right-10 -translate-y-1/2 md:-translate-y-0 md:top-6 z-20">
                     <div className="flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-amber-500 to-orange-400 rounded-full shadow-[0_0_15px_rgba(245,158,11,0.4)]">
-                      <Sparkles className="w-3 h-3 text-white" />
+                      <LuSparkles className="w-3 h-3 text-white" />
                       <span className="text-[10px] sm:text-xs font-bold text-white uppercase tracking-widest whitespace-nowrap">
                         Most Popular
                       </span>
@@ -151,7 +150,7 @@ export default function PricingTable() {
                 {/* Warning / Conditional Banner */}
                 {plan.warning && (
                   <div className="flex items-start gap-2.5 p-3 mb-6 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-200/90">
-                    <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                    <LuTriangleAlert className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                     <p className="text-xs sm:text-sm font-medium leading-snug">
                       {plan.warning}
                     </p>
@@ -172,7 +171,7 @@ export default function PricingTable() {
                         <div
                           className={`flex items-center justify-center shrink-0 w-5 h-5 rounded-full ${styles.icon} transition-transform duration-300 group-hover/li:scale-110`}
                         >
-                          <Check className="w-3 h-3 stroke-[3]" />
+                          <LuCheck className="w-3 h-3 stroke-[3]" />
                         </div>
                         <span className="text-sm">{feature}</span>
                       </li>
@@ -213,7 +212,7 @@ export default function PricingTable() {
 
       <div className="mt-6 flex justify-center w-full z-10">
         <p className="text-gray-500 text-sm md:text-base text-center font-medium max-w-2xl bg-white/[0.02] border border-white/5 rounded-full py-3 px-6 inline-flex items-center">
-          <TriangleAlert className="text-amber-400 mr-2" size={20} />
+          <LuTriangleAlert className="text-amber-400 mr-2" size={20} />
           Limited slots available—priority for serious students
         </p>
       </div>

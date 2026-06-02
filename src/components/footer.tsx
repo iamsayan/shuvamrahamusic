@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Mail, MapPin, Phone, ArrowUpRight, Music, Headphones } from "lucide-react";
+import { LuMail, LuMapPin, LuPhone, LuArrowUpRight, LuMusic, LuHeadphones } from "react-icons/lu";
 
 // === LIGHTWEIGHT SOCIAL SVGS ===
 const InstagramIcon = ({ className }: { className?: string }) => (
@@ -82,14 +82,14 @@ const socialLinks = [
   },
   {
     name: "Spotify",
-    icon: Headphones,
+    icon: LuHeadphones,
     href: "https://open.spotify.com/artist/4AmYXw6BaXjFN4urc6SyrG",
     hoverColor: "group-hover:text-green-500",
     hoverBg: "group-hover:border-green-500/50 group-hover:bg-green-500/10",
   },
   {
     name: "Apple Music",
-    icon: Music,
+    icon: LuMusic,
     href: "https://music.apple.com/us/artist/shuvam-raha/1541472783",
     hoverColor: "group-hover:text-pink-500",
     hoverBg: "group-hover:border-pink-500/50 group-hover:bg-pink-500/10",
@@ -123,7 +123,7 @@ export default function Footer() {
           <div className="sm:col-span-2 md:col-span-5 flex flex-col items-start">
             <div className="flex items-center gap-3 mb-5 md:mb-6">
               <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 shadow-[0_0_20px_rgba(6,182,212,0.3)]">
-                <Music className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                <LuMusic className="w-5 h-5 md:w-6 md:h-6 text-white" />
               </div>
               <span className="text-xl md:text-2xl font-black text-white tracking-tight">
                 Shuvam Raha
@@ -181,7 +181,7 @@ export default function Footer() {
                     </div>
 
                     {/* Rotating Arrow */}
-                    <ArrowUpRight className="w-4 h-4 text-gray-600 group-hover:text-cyan-400 relative z-10 transform transition-all duration-500 ease-out group-hover:rotate-45 group-hover:scale-110" />
+                    <LuArrowUpRight className="w-4 h-4 text-gray-600 group-hover:text-cyan-400 relative z-10 transform transition-all duration-500 ease-out group-hover:rotate-45 group-hover:scale-110" />
                   </Link>
                 </li>
               ))}
@@ -199,7 +199,7 @@ export default function Footer() {
                 className="group flex items-start gap-4 p-4 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/10 transition-all duration-300"
               >
                 <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 shrink-0 group-hover:scale-110 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all duration-300">
-                  <Mail className="w-4 h-4 text-blue-400" />
+                  <LuMail className="w-4 h-4 text-blue-400" />
                 </div>
                 <div>
                   <p className="text-[10px] sm:text-xs text-gray-500 font-bold uppercase tracking-wider mb-0.5">
@@ -217,7 +217,7 @@ export default function Footer() {
                 className="group flex items-start gap-4 p-4 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/10 transition-all duration-300"
               >
                 <div className="flex items-center justify-center w-10 h-10 rounded-full bg-emerald-500/10 border border-emerald-500/20 shrink-0 group-hover:scale-110 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all duration-300">
-                  <Phone className="w-4 h-4 text-emerald-400" />
+                  <LuPhone className="w-4 h-4 text-emerald-400" />
                 </div>
                 <div>
                   <p className="text-[10px] sm:text-xs text-gray-500 font-bold uppercase tracking-wider mb-0.5">
@@ -235,7 +235,7 @@ export default function Footer() {
                 className="group flex items-start gap-4 p-4 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/10 transition-all duration-300 cursor-pointer"
               >
                 <div className="flex items-center justify-center w-10 h-10 rounded-full bg-rose-500/10 border border-rose-500/20 shrink-0 group-hover:scale-110 group-hover:shadow-[0_0_15px_rgba(244,63,94,0.3)] transition-all duration-300">
-                  <MapPin className="w-4 h-4 text-rose-400" />
+                  <LuMapPin className="w-4 h-4 text-rose-400" />
                 </div>
                 <div>
                   <p className="text-[10px] sm:text-xs text-gray-500 font-bold uppercase tracking-wider mb-0.5">

@@ -3,12 +3,12 @@
 import { useState } from "react";
 import Image from "next/image";
 import {
-  Star,
-  GraduationCap,
-  ShieldCheck,
-  BadgeCheck,
-  CheckCircle2,
-} from "lucide-react";
+  LuStar,
+  LuGraduationCap,
+  LuShieldCheck,
+  LuBadgeCheck,
+  LuCircleCheck,
+} from "react-icons/lu";
 import { authorityPoints, curriculum, features } from "@/lib/guitar-data";
 
 export default function ProgramTabs() {
@@ -28,7 +28,7 @@ export default function ProgramTabs() {
               : "text-gray-400 hover:text-white hover:bg-white/5 border border-transparent"
           }`}
         >
-          <Star className="w-4 h-4" /> Meet Your Coach
+          <LuStar className="w-4 h-4" /> Meet Your Coach
         </button>
         <button
           onClick={() => setActiveTab("curriculum")}
@@ -38,7 +38,7 @@ export default function ProgramTabs() {
               : "text-gray-400 hover:text-white hover:bg-white/5 border border-transparent"
           }`}
         >
-          <GraduationCap className="w-4 h-4" /> Curriculum
+          <LuGraduationCap className="w-4 h-4" /> Curriculum
         </button>
         <button
           onClick={() => setActiveTab("system")}
@@ -48,7 +48,7 @@ export default function ProgramTabs() {
               : "text-gray-400 hover:text-white hover:bg-white/5 border border-transparent"
           }`}
         >
-          <ShieldCheck className="w-4 h-4" /> Learning System
+          <LuShieldCheck className="w-4 h-4" /> Learning System
         </button>
       </div>
 
@@ -84,7 +84,7 @@ export default function ProgramTabs() {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#05050A] via-[#05050A]/20 to-transparent" />
                     <div className="absolute bottom-6 left-6 right-6">
                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/10 backdrop-blur-md mb-2">
-                        <BadgeCheck className="w-4 h-4 text-blue-400" />
+                        <LuBadgeCheck className="w-4 h-4 text-blue-400" />
                         <span className="text-xs font-bold text-white uppercase tracking-wide">
                           Verified Instructor
                         </span>
@@ -164,7 +164,7 @@ export default function ProgramTabs() {
                     <ul className="flex flex-col gap-3 mt-auto">
                       {item.points.map((point, idx) => (
                         <li key={idx} className="flex items-start gap-3">
-                          <CheckCircle2
+                          <LuCircleCheck
                             className={`w-5 h-5 ${item.styles.iconText} shrink-0 opacity-60 mt-0.5 group-hover:opacity-100 transition-opacity`}
                           />
                           <span className="text-xs sm:text-sm text-gray-300 group-hover:text-white transition-colors">
@@ -211,7 +211,7 @@ export default function ProgramTabs() {
                   <ul className="flex flex-col gap-4 flex-1">
                     {feature.points.map((point, pIdx) => (
                       <li key={pIdx} className="flex items-start gap-3 text-xs sm:text-sm">
-                        <CheckCircle2 className="w-5 h-5 text-cyan-500 shrink-0 mt-0.5" />
+                        <LuCircleCheck className="w-5 h-5 text-cyan-500 shrink-0 mt-0.5" />
                         <div>
                           <strong className="text-gray-200 block sm:inline">
                             {point.t} —{" "}

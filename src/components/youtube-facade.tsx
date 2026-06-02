@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Play } from "lucide-react";
+import { LuPlay } from "react-icons/lu";
 
 export default function YouTubeFacade({
   videoId,
@@ -41,7 +41,7 @@ export default function YouTubeFacade({
       
       {/* Beautiful Glassmorphic Play Button */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all duration-300 group-hover:scale-110 group-hover:bg-white/20 group-hover:border-white/40">
-        <Play className="w-5 h-5 sm:w-6 sm:h-6 text-white ml-1 fill-white opacity-90 group-hover:opacity-100" />
+        <LuPlay className="w-5 h-5 sm:w-6 sm:h-6 text-white ml-1 fill-white opacity-90 group-hover:opacity-100" />
       </div>
     </div>
   );

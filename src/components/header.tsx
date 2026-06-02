@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Music, ArrowRight, ChevronDown } from "lucide-react";
+import { LuMusic, LuArrowRight, LuChevronDown } from "react-icons/lu";
 
 type SubItem = { name: string; href: string };
 type NavLink = {
@@ -74,7 +74,7 @@ export default function Header() {
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <div className="flex items-center justify-center w-9 h-9 md:w-11 md:h-11 rounded-[0.8rem] bg-gradient-to-br from-cyan-500 to-blue-600 shadow-[0_0_15px_rgba(6,182,212,0.4)] group-hover:shadow-[0_0_25px_rgba(6,182,212,0.6)] group-hover:scale-105 transition-all duration-300">
-              <Music className="w-4 h-4 md:w-5 md:h-5 text-white" />
+              <LuMusic className="w-4 h-4 md:w-5 md:h-5 text-white" />
             </div>
             <span className="text-xl md:text-2xl font-black text-white tracking-tight">
               Shuvam Raha
@@ -93,7 +93,7 @@ export default function Header() {
                     {link.name}
                   </span>
                   {link.subItems && (
-                    <ChevronDown className="relative z-10 w-3 h-3 text-gray-400 group-hover:text-white transition-transform duration-300 group-hover:rotate-180" />
+                    <LuChevronDown className="relative z-10 w-3 h-3 text-gray-400 group-hover:text-white transition-transform duration-300 group-hover:rotate-180" />
                   )}
                   {/* Pill Hover Effect */}
                   <span className="absolute inset-0 bg-white/10 rounded-full scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 ease-out pointer-events-none" />
@@ -170,7 +170,7 @@ export default function Header() {
               >
                 {link.name}
                 {!link.subItems && (
-                  <ArrowRight className="w-5 h-5 text-cyan-400 opacity-0 -translate-x-4 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-x-0" />
+                  <LuArrowRight className="w-5 h-5 text-cyan-400 opacity-0 -translate-x-4 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-x-0" />
                 )}
               </Link>
 

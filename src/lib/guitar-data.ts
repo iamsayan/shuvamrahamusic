@@ -1,19 +1,19 @@
 import {
-  Mic,
-  Clock,
-  Headphones,
-  Award,
-  Users,
-  Music,
-  BookOpen,
-  PlayCircle,
-  Zap,
-  Brain,
-  Crown,
-  ShieldCheck,
-  FileText,
-  MessageCircle,
-} from "lucide-react";
+  LuMic,
+  LuClock,
+  LuHeadphones,
+  LuAward,
+  LuUsers,
+  LuMusic,
+  LuBookOpen,
+  LuCirclePlay,
+  LuZap,
+  LuBrain,
+  LuCrown,
+  LuShieldCheck,
+  LuFileText,
+  LuMessageCircle,
+} from "react-icons/lu";
 
 export type Region = "IN" | "GLOBAL";
 
@@ -115,7 +115,7 @@ export const authorityPoints = [
   {
     title: "Professional Performer",
     desc: "Real stage experience—not just theory.",
-    icon: Mic,
+    icon: LuMic,
     color: "text-rose-400",
     bg: "bg-rose-500/10",
     border: "border-rose-500/20",
@@ -123,7 +123,7 @@ export const authorityPoints = [
   {
     title: "11+ Years Experience",
     desc: "Over a decade of experience teaching students at all levels.",
-    icon: Clock,
+    icon: LuClock,
     color: "text-amber-400",
     bg: "bg-amber-500/10",
     border: "border-amber-500/20",
@@ -131,7 +131,7 @@ export const authorityPoints = [
   {
     title: "Music Producer",
     desc: "Deep understanding of sound, tone & modern music.",
-    icon: Headphones,
+    icon: LuHeadphones,
     color: "text-violet-400",
     bg: "bg-violet-500/10",
     border: "border-violet-500/20",
@@ -139,7 +139,7 @@ export const authorityPoints = [
   {
     title: "LCM Certified",
     desc: "Strong academic + practical foundation.",
-    icon: Award,
+    icon: LuAward,
     color: "text-emerald-400",
     bg: "bg-emerald-500/10",
     border: "border-emerald-500/20",
@@ -147,7 +147,7 @@ export const authorityPoints = [
   {
     title: "Glonbal Student Base",
     desc: "Students from India, USA, UK & Canada.",
-    icon: Users,
+    icon: LuUsers,
     color: "text-blue-400",
     bg: "bg-blue-500/10",
     border: "border-blue-500/20",
@@ -155,7 +155,7 @@ export const authorityPoints = [
   {
     title: "Multi-Genre Expertise",
     desc: "Bollywood, English, Pop, Rock, Fingerstyle, Acoustic & more.",
-    icon: Music,
+    icon: LuMusic,
     color: "text-orange-400",
     bg: "bg-orange-500/10",
     border: "border-orange-500/20",
@@ -166,7 +166,7 @@ export const curriculum = [
   {
     title: "Core Foundations",
     subtitle: "(Start from Zero)",
-    icon: BookOpen,
+    icon: LuBookOpen,
     colSpan: "lg:col-span-2",
     styles: {
       iconBg: "bg-emerald-500/10",
@@ -186,7 +186,7 @@ export const curriculum = [
   {
     title: "Song Playing & Rhythm",
     subtitle: "(Play along)",
-    icon: PlayCircle,
+    icon: LuCirclePlay,
     colSpan: "lg:col-span-2",
     styles: {
       iconBg: "bg-blue-500/10",
@@ -206,7 +206,7 @@ export const curriculum = [
   {
     title: "Lead Guitar & Techniques",
     subtitle: "(Shred & Solo)",
-    icon: Zap,
+    icon: LuZap,
     colSpan: "lg:col-span-2",
     styles: {
       iconBg: "bg-orange-500/10",
@@ -226,7 +226,7 @@ export const curriculum = [
   {
     title: "Music Theory",
     subtitle: "(Made Simple)",
-    icon: Brain,
+    icon: LuBrain,
     colSpan: "lg:col-span-3",
     styles: {
       iconBg: "bg-violet-500/10",
@@ -246,7 +246,7 @@ export const curriculum = [
   {
     title: "Advanced Skills",
     subtitle: "(For Growth)",
-    icon: Crown,
+    icon: LuCrown,
     colSpan: "lg:col-span-3",
     styles: {
       iconBg: "bg-rose-500/10",
@@ -269,7 +269,7 @@ export const features = [
   {
     title: "Learning Support & Guidance",
     desc: "Everything you need to learn, practice, and improve—fully structured.",
-    icon: ShieldCheck,
+    icon: LuShieldCheck,
     points: [
       {
         t: "Free Introductory Call",
@@ -289,7 +289,7 @@ export const features = [
   {
     title: "Study Materials & Resources",
     desc: "All materials are shared for easy access anytime via WhatsApp or Email.",
-    icon: FileText,
+    icon: LuFileText,
     points: [
       { t: "Practice PDFs", d: "Detailed tabs, notes, and exercises" },
       { t: "Visual Guides", d: "High-quality lesson photos & diagrams" },
@@ -303,7 +303,7 @@ export const features = [
   {
     title: "Certification (Optional)",
     desc: "Ideal for students who want formal certification & structured growth.",
-    icon: Award,
+    icon: LuAward,
     points: [
       {
         t: "Global Recognition",
@@ -322,7 +322,7 @@ export const features = [
   {
     title: "Ongoing Support",
     desc: "Never feel stuck. Get help exactly when you need it.",
-    icon: MessageCircle,
+    icon: LuMessageCircle,
     points: [
       { t: "Direct WhatsApp Support", d: "Ask doubts anytime between classes" },
       {
