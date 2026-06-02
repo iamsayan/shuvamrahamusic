@@ -86,9 +86,9 @@ export default function Footer() {
 
       <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
         {/* === TOP GRID LAYOUT === */}
-        <div className="flex flex-col lg:flex-row items-start justify-between gap-10 w-full">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-10 w-full">
           {/* Left Brand block */}
-          <div className="flex flex-col gap-4 max-w-sm w-full">
+          <div className="flex flex-col items-center lg:items-start gap-4 max-w-sm w-full text-center lg:text-left">
             <div className="flex items-center gap-2.5">
               <div className="relative flex items-center justify-center w-8 h-8 rounded-xl overflow-hidden bg-white/5 border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.02)]">
                 <Image
@@ -110,7 +110,7 @@ export default function Footer() {
             </p>
 
             {/* Brand Social links */}
-            <div className="flex flex-wrap items-center gap-1.5 pt-1">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-1.5 pt-1">
               {socialLinks.map((social, idx) => (
                 <a
                   key={idx}
@@ -129,13 +129,13 @@ export default function Footer() {
           </div>
 
           {/* Right Columns Block (Quick Links + Contact Details) */}
-          <div className="flex flex-col sm:flex-row items-start gap-10 sm:gap-16 lg:gap-24">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-10 sm:gap-16 lg:gap-24 justify-center">
             {/* Quick Links Column */}
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col items-center sm:items-start gap-3">
               <h4 className="text-xs sm:text-sm font-black uppercase tracking-wider text-gray-500">
                 Explore
               </h4>
-              <ul className="flex flex-col gap-2.5">
+              <ul className="flex flex-col items-center sm:items-start gap-2.5">
                 {quickLinks.map((link, idx) => (
                   <li key={idx}>
                     <Link
@@ -153,18 +153,20 @@ export default function Footer() {
             </div>
 
             {/* Contact Details Column */}
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col items-center sm:items-start gap-3">
               <h4 className="text-xs sm:text-sm font-black uppercase tracking-wider text-gray-500">
                 Connect
               </h4>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col items-center sm:items-start gap-2">
                 {/* Email link */}
                 <a
-                  href="mailto:contact@shuvamraha.com"
+                  href="mailto:contact@shuvamrahamusic.com"
                   className="group flex items-center gap-2.5 px-4 py-2 rounded-xl border border-white/[0.04] bg-white/[0.01] hover:bg-white/[0.03] hover:border-cyan-500/20 hover:shadow-[0_0_12px_rgba(6,182,212,0.08)] transition-all duration-300 text-xs sm:text-sm text-gray-400 hover:text-white w-fit"
                 >
                   <LuMail className="w-3.5 h-3.5 text-cyan-400 group-hover:scale-110 transition-transform" />
-                  <span className="font-semibold">contact@shuvamraha.com</span>
+                  <span className="font-semibold">
+                    contact@shuvamrahamusic.com
+                  </span>
                 </a>
 
                 {/* Phone link */}
@@ -193,41 +195,62 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* === BOTTOM COPYRIGHT & ATTRIBUTION ROW === */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 mt-6 border-t border-white/5 relative z-10">
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 text-center sm:text-left">
-            <p className="text-gray-500 text-xs sm:text-sm font-semibold">
-              Copyright &copy; {new Date().getFullYear()} Shuvam Raha Music.
-            </p>
-            {/* <span className="hidden sm:inline text-gray-800">•</span>
-            <p className="text-gray-500 text-xs sm:text-sm font-semibold flex items-center gap-1">
-              <span>Dev:</span>
+        {/* === BOTTOM COPYRIGHT & DISCLAIMER === */}
+        <div className="pt-6 mt-10 border-t border-white/5 relative z-10 flex flex-col gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 text-center sm:text-left">
+              <p className="text-gray-500 text-xs sm:text-sm font-semibold">
+                Copyright &copy; {new Date().getFullYear()} Shuvam Raha Music.
+              </p>
+              <span className="hidden sm:inline text-gray-800">•</span>
+              <p className="text-gray-500 text-xs sm:text-sm font-semibold flex items-center gap-1">
+                <span>Developed By</span>
+                <a
+                  href="https://github.com/iamsayan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-cyan-300 transition-colors"
+                >
+                  Sayan Datta
+                </a>
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3 text-xs sm:text-sm font-semibold">
               <a
-                href="https://github.com/iamsayan"
+                href="https://shuvamrahamusic.com/privacy-policy/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-bold text-cyan-400 hover:text-cyan-300 font-mono tracking-wider transition-colors"
+                className="text-gray-500 hover:text-white transition-colors duration-300"
               >
-                SAYAN DATTA
+                Privacy
               </a>
-            </p> */}
+              <span className="text-gray-800">•</span>
+              <a
+                href="https://shuvamrahamusic.com/terms-of-service/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 hover:text-white transition-colors duration-300"
+              >
+                Terms
+              </a>
+              <span className="text-gray-800">•</span>
+              <a
+                href="https://shuvamrahamusic.com/refund-policy/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 hover:text-white transition-colors duration-300"
+              >
+                Refund Policy
+              </a>
+            </div>
           </div>
 
-          <div className="flex items-center gap-3 text-xs sm:text-sm font-semibold">
-            <Link
-              href="#"
-              className="text-gray-500 hover:text-white transition-colors duration-300"
-            >
-              Privacy Policy
-            </Link>
-            <span className="text-gray-800">•</span>
-            <Link
-              href="#"
-              className="text-gray-500 hover:text-white transition-colors duration-300"
-            >
-              Terms of Service
-            </Link>
-          </div>
+          <p className="text-[10px] sm:text-xs text-gray-500/60 leading-relaxed text-center max-w-6xl mx-auto mt-1">
+            Payments accepted through this website are only for guitar lessons,
+            music education programs, and training services. This website does
+            not sell event tickets or concert passes.
+          </p>
         </div>
       </div>
     </footer>
