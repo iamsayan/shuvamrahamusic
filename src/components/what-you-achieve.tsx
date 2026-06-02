@@ -1,11 +1,5 @@
 import React from "react";
 import {
-  Music,
-  Zap,
-  Route,
-  TrendingUp,
-  Sparkles,
-  Target,
   CheckCircle2,
   XCircle,
   Clock,

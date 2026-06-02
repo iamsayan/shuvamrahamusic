@@ -1,6 +1,6 @@
 "use client";
 
-import { BadgeCheck, MessageSquareQuote, Star } from "lucide-react";
+import { BadgeCheck, Star } from "lucide-react";
 
 // ============================================================================
 // REVIEW DATA
@@ -1814,7 +1814,7 @@ const ReviewCard = ({ review }: { review: (typeof allReviews)[0] }) => (
       ))}
     </div>
     <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-6">
-      "{review.review}"
+      &ldquo;{review.review}&rdquo;
     </p>
     <div className="flex items-center justify-between border-t border-white/10 pt-4 mt-auto">
       <div>
@@ -1822,6 +1822,7 @@ const ReviewCard = ({ review }: { review: (typeof allReviews)[0] }) => (
         <p className="text-gray-500 text-xs sm:text-sm">{review.date}</p>
       </div>
       <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={review.profileImage}
           alt=""
@@ -1884,7 +1885,7 @@ export default function Reviews() {
             </span>
           </h2>
           <p className="text-gray-400 text-sm sm:text-base lg:text-lg max-w-xl mx-auto">
-            Don't just take our word for it. Here is what actual students have
+            Don&apos;t just take our word for it. Here is what actual students have
             to say about their learning experience.
           </p>
         </div>

@@ -1,14 +1,10 @@
 import {
-  Guitar,
   Mic2,
   MonitorSmartphone,
-  Sparkles,
-  Star,
-  Tv,
   Zap,
 } from "lucide-react";
-import SliderGallery from "../SliderGallery/SliderGallery";
-import YouTubeFacade from "../YouTubeFacade/YouTubeFacade";
+import SliderGallery from "./slider-gallery";
+import YouTubeFacade from "./youtube-facade";
 
 // Standard Video Component wrapper
 const VideoCard = ({

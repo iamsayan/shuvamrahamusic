@@ -13,11 +13,25 @@ import {
 
 type Region = "IN" | "GLOBAL";
 
+interface Plan {
+  name: string;
+  price: string;
+  currency: string;
+  period: string;
+  description: string;
+  includes: string[];
+  warning?: string | null;
+  bestFor: string;
+  buttonText: string;
+  theme: string;
+  popular?: boolean;
+}
+
 export default function Pricing() {
   const [region, setRegion] = useState<Region>("GLOBAL");
 
   // Plan Data Structure
-  const plans = {
+  const plans: Record<Region, Plan[]> = {
     IN: [
       {
         name: "Starter Online Plan",
@@ -102,7 +116,7 @@ export default function Pricing() {
   };
 
   // Tailwind purge-safe theme mappings
-  const themeMap: Record<string, any> = {
+  const themeMap: Record<string, Record<string, string>> = {
     emerald: {
       card: "border-emerald-500/20 bg-emerald-950/10 hover:border-emerald-500/40 hover:bg-emerald-900/10 shadow-[0_0_30px_rgba(16,185,129,0.02)]",
       glow: "bg-emerald-500/10",
@@ -224,7 +238,7 @@ export default function Pricing() {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 relative z-10">
-            {currentPlans.map((plan: any, i: number) => {
+            {currentPlans.map((plan: Plan, i: number) => {
               const styles = themeMap[plan.theme];
               const isFirst = i === 0;
 
