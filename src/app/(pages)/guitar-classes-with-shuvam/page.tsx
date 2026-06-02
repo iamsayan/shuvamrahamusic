@@ -14,6 +14,9 @@ import {
   LuMonitorSmartphone,
   LuBadgeCheck,
   LuMapPin,
+  LuCircleX,
+  LuCircleAlert,
+  LuCalendarDays,
 } from "react-icons/lu";
 
 // Client Components
@@ -410,41 +413,32 @@ export default async function Page() {
             </div>
           </div>
 
-          {/* Bento Grid performances */}
-          <div className="flex flex-col gap-6 mt-5">
-            <div className="grid grid-cols-1 gap-6">
-              <div className="relative p-4 sm:p-6 rounded-3xl border border-white/5 bg-white/[0.02] overflow-hidden flex flex-col">
-                <div className="flex items-center gap-3 mb-4">
-                  <LuMic className="w-5 h-5 text-rose-500" />
-                  <h3 className="text-xl font-bold text-white font-heading">
-                    Performances by Shuvam Raha
-                  </h3>
-                </div>
-                <div className="w-full rounded-2xl overflow-hidden shadow-2xl relative group">
-                  <SliderGallery itemWidth={220}>
-                    {[
-                      "F4SwCit-b20",
-                      "gnlzLjNdzPQ",
-                      "0DO8upx3NAw",
-                      "rHn8HmNSiPs",
-                      "Ul7A9VNI77o",
-                      "8kDGelnc6dQ",
-                    ].map((item) => (
-                      <div
-                        key={item}
-                        className="snap-center shrink-0 w-[220px]"
-                      >
-                        <VideoCard videoId={item} isShort />
-                      </div>
-                    ))}
-                  </SliderGallery>
-                </div>
-              </div>
+          <div className="w-full relative p-4 sm:p-6 rounded-3xl border border-white/5 bg-white/[0.02] overflow-hidden">
+            <div className="absolute right-0 top-0 w-[400px] h-full bg-blue-500/5 blur-[80px] pointer-events-none" />
+            <div className="flex items-center gap-3 mb-6 relative z-10">
+              <LuMic className="w-5 h-5 text-rose-500" />
+              <h3 className="text-xl font-bold text-white font-heading">
+                Performances by Shuvam Raha
+              </h3>
+            </div>
+            <div className="relative z-10 w-full">
+              <SliderGallery itemWidth={220}>
+                {[
+                  "F4SwCit-b20",
+                  "gnlzLjNdzPQ",
+                  "0DO8upx3NAw",
+                  "rHn8HmNSiPs",
+                  "Ul7A9VNI77o",
+                  "8kDGelnc6dQ",
+                ].map((item) => (
+                  <div key={item} className="snap-center shrink-0 w-[220px]">
+                    <VideoCard videoId={item} isShort />
+                  </div>
+                ))}
+              </SliderGallery>
             </div>
           </div>
         </div>
-
-
       </section>
 
       {/* =======================================================================
@@ -482,145 +476,282 @@ export default async function Page() {
         </div>
 
         <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
-          <div className="relative w-full rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-2xl overflow-hidden flex flex-col lg:flex-row z-10">
-            <div className="absolute top-0 left-0 w-full lg:w-1/2 h-full bg-gradient-to-br from-emerald-500/5 to-transparent pointer-events-none" />
-            <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full bg-gradient-to-bl from-rose-500/5 to-transparent pointer-events-none" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 relative z-10">
+            {/* Left Pod: PERFECT FOR YOU */}
+            <div className="group relative rounded-[2.5rem] border border-emerald-500/10 hover:border-emerald-500/30 bg-gradient-to-b from-white/[0.03] to-white/[0.01] backdrop-blur-3xl p-6 sm:p-10 transition-all duration-500 hover:shadow-[0_30px_80px_rgba(16,185,129,0.06)] flex flex-col justify-between overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 blur-[50px] rounded-full pointer-events-none transition-opacity duration-700 opacity-50 group-hover:opacity-100" />
 
-            {/* Left Column: PERFECT FOR YOU */}
-            <div className="flex-1 w-full p-6 sm:p-8 lg:p-10 relative z-10">
-              <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight mb-8 flex items-center gap-3 font-heading">
-                <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-                  <LuCircleCheck className="w-6 h-6" />
+              <div>
+                <div className="flex items-center justify-between mb-8">
+                  <h3 className="text-lg sm:text-xl font-extrabold text-white flex items-center gap-3 font-heading">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.2)] group-hover:scale-105 transition-transform">
+                      <LuCircleCheck className="w-5 h-5" />
+                    </div>
+                    Perfect For You If...
+                  </h3>
+                  <span className="text-[9px] font-black tracking-widest text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full uppercase border border-emerald-500/20">
+                    Recommended
+                  </span>
                 </div>
-                Perfect For You If...
-              </h3>
 
-              <ul className="flex flex-col gap-4">
-                {perfectFor.map((item, i) => (
-                  <li
-                    key={i}
-                    className="group flex items-start gap-3 transition-transform duration-300 hover:translate-x-1"
-                  >
-                    <LuCircleCheck className="w-5 h-5 text-emerald-500/50 shrink-0 mt-0.5 group-hover:text-emerald-400 transition-colors duration-300" />
-                    <span className="text-sm sm:text-base text-gray-300 group-hover:text-white transition-colors duration-300">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Center Divider */}
-            <div className="w-full h-px lg:w-px lg:h-auto bg-white/10 relative">
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-[#05050A] border border-white/10 flex items-center justify-center text-xs font-black text-gray-400 z-20 shadow-xl">
-                VS
+                <div className="flex flex-col gap-3">
+                  {perfectFor.map((item, i) => (
+                    <div
+                      key={i}
+                      className="group/item flex items-start gap-4 p-3.5 rounded-2xl border border-white/[0.04] bg-white/[0.01] hover:bg-emerald-500/[0.03] hover:border-emerald-500/20 transition-all duration-300 hover:translate-x-1"
+                    >
+                      <div className="flex items-center justify-center w-5 h-5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform">
+                        <LuCircleCheck className="w-3 h-3" />
+                      </div>
+                      <span className="text-xs sm:text-sm text-gray-300 group-hover/item:text-white transition-colors duration-300 leading-relaxed font-medium">
+                        {item}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* Right Column: NOT FOR YOU */}
-            <div className="flex-1 w-full p-6 sm:p-8 lg:p-10 relative z-10">
-              <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight mb-8 flex items-center gap-3 font-heading">
-                <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 shadow-[0_0_15px_rgba(244,63,94,0.2)]">
-                  <LuCircleCheck className="w-6 h-6" />
-                </div>
-                NOT For You If...
-              </h3>
+            {/* Right Pod: NOT FOR YOU */}
+            <div className="group relative rounded-[2.5rem] border border-rose-500/10 hover:border-rose-500/30 bg-gradient-to-b from-white/[0.03] to-white/[0.01] backdrop-blur-3xl p-6 sm:p-10 transition-all duration-500 hover:shadow-[0_30px_80px_rgba(244,63,94,0.06)] flex flex-col justify-between overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-rose-500/5 blur-[50px] rounded-full pointer-events-none transition-opacity duration-700 opacity-50 group-hover:opacity-100" />
 
-              <ul className="flex flex-col gap-4">
-                {notFor.map((item, i) => (
-                  <li
-                    key={i}
-                    className="group flex items-start gap-3 transition-transform duration-300 hover:translate-x-1"
-                  >
-                    <LuCircleCheck className="w-5 h-5 text-rose-500/50 shrink-0 mt-0.5 group-hover:text-rose-400 transition-colors duration-300" />
-                    <span className="text-sm sm:text-base text-gray-300 group-hover:text-white transition-colors duration-300">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              <div>
+                <div className="flex items-center justify-between mb-8">
+                  <h3 className="text-lg sm:text-xl font-extrabold text-white flex items-center gap-3 font-heading">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 shadow-[0_0_20px_rgba(244,63,94,0.2)] group-hover:scale-105 transition-transform">
+                      <LuCircleX className="w-5 h-5" />
+                    </div>
+                    NOT For You If...
+                  </h3>
+                  <span className="text-[9px] font-black tracking-widest text-rose-400 bg-rose-500/10 px-2.5 py-0.5 rounded-full uppercase border border-rose-500/20">
+                    Important
+                  </span>
+                </div>
+
+                <div className="flex flex-col gap-3">
+                  {notFor.map((item, i) => (
+                    <div
+                      key={i}
+                      className="group/item flex items-start gap-4 p-3.5 rounded-2xl border border-white/[0.04] bg-white/[0.01] hover:bg-rose-500/[0.03] hover:border-rose-500/20 transition-all duration-300 hover:translate-x-1"
+                    >
+                      <div className="flex items-center justify-center w-5 h-5 rounded bg-rose-500/10 border border-rose-500/20 text-rose-400 shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform">
+                        <LuCircleX className="w-3 h-3" />
+                      </div>
+                      <span className="text-xs sm:text-sm text-gray-300 group-hover/item:text-white transition-colors duration-300 leading-relaxed font-medium">
+                        {item}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Center Floating VS Badge (Overlap on Large Screens) */}
+            <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-[#05050A] border border-white/10 items-center justify-center text-xs font-black text-gray-400 z-20 shadow-2xl overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-tr from-rose-500/10 to-emerald-500/10 opacity-50 group-hover:scale-150 transition-transform duration-700" />
+              <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-rose-400 tracking-widest pl-0.5 font-heading">
+                VS
+              </span>
             </div>
           </div>
 
-          {/* Logistics Dashboard */}
-          <div className="relative mt-8 w-full rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-3xl overflow-hidden p-8 sm:p-12 z-10">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-50" />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
-              <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-3 mb-2">
-                  <LuClock className="w-6 h-6 text-cyan-400" />
-                  <h3 className="text-xl font-bold text-white font-heading">
-                    Class Schedule
-                  </h3>
+          {/* Logistics Dashboard Control Center */}
+          <div className="relative mt-12 w-full rounded-[2.5rem] border border-white/10 bg-[#07070F]/80 backdrop-blur-3xl overflow-hidden p-6 sm:p-10 md:p-12 z-10 shadow-[0_40px_100px_rgba(0,0,0,0.6)]">
+            {/* Glowing Accent Strip */}
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16">
+              {/* Column 1: Live Weekly Schedule Strip */}
+              <div className="flex flex-col gap-6">
+                <div>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+                      <LuClock className="w-4 h-4" />
+                    </div>
+                    <h3 className="text-base sm:text-lg font-extrabold text-white font-heading">
+                      Class Schedule
+                    </h3>
+                  </div>
+                  <p className="text-gray-500 text-[11px] sm:text-xs mt-0.5">
+                    Available Timings (Indian Standard Time)
+                  </p>
                 </div>
-                <p className="text-gray-400 text-sm mb-2">
-                  Available Timings (IST)
-                </p>
-                <ul className="flex flex-col gap-3">
-                  <li className="flex items-center gap-2 text-gray-200 bg-white/5 px-4 py-2 rounded-lg border border-white/5 text-sm sm:text-base">
-                    <strong className="w-20 shrink-0">Mon - Wed:</strong>{" "}
-                    <span>10:00 AM – 9:00 PM</span>
-                  </li>
-                  <li className="flex items-center gap-2 text-gray-200 bg-white/5 px-4 py-2 rounded-lg border border-white/5 text-sm sm:text-base">
-                    <strong className="w-20 shrink-0">Sat - Sun:</strong>{" "}
-                    <span>10:00 AM – 4:00 PM</span>
-                  </li>
-                </ul>
+
+                {/* Calendar Day Grid Strip */}
+                <div className="bg-white/[0.02] border border-white/[0.05] p-4 rounded-2xl">
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-gray-400 block mb-2">
+                    Weekly Schedule Overview
+                  </span>
+                  <div className="grid grid-cols-7 gap-1.5 text-center">
+                    {[
+                      { d: "M", label: "Mon", active: "weekday" },
+                      { d: "T", label: "Tue", active: "weekday" },
+                      { d: "W", label: "Wed", active: "weekday" },
+                      { d: "T", label: "Thu", active: "off" },
+                      { d: "F", label: "Fri", active: "off" },
+                      { d: "S", label: "Sat", active: "weekend" },
+                      { d: "S", label: "Sun", active: "weekend" },
+                    ].map((day, idx) => (
+                      <div
+                        key={idx}
+                        className="flex flex-col items-center gap-1.5"
+                      >
+                        <div
+                          className={`w-8 h-8 rounded-lg flex items-center justify-center text-[10px] font-black transition-all ${
+                            day.active === "weekday"
+                              ? "bg-cyan-500/20 border border-cyan-500/30 text-cyan-200 shadow-[0_0_10px_rgba(6,182,212,0.15)]"
+                              : day.active === "weekend"
+                                ? "bg-blue-500/20 border border-blue-500/30 text-blue-200 shadow-[0_0_10px_rgba(59,130,246,0.15)]"
+                                : "bg-white/[0.01] border border-white/[0.04] text-gray-600 line-through"
+                          }`}
+                          title={day.label}
+                        >
+                          {day.d}
+                        </div>
+                        <span className="text-[9px] font-bold text-gray-500">
+                          {day.label}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Timing Slot Cards */}
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-center justify-between p-3 rounded-xl bg-cyan-500/[0.03] border border-cyan-500/10 hover:border-cyan-500/20 transition-all duration-300">
+                    <div className="flex flex-col">
+                      <span className="text-[9px] font-black text-cyan-400 uppercase tracking-widest">
+                        Mon - Wed Sessions
+                      </span>
+                      <span className="text-white font-bold text-xs sm:text-sm mt-0.5">
+                        10:00 AM – 9:00 PM
+                      </span>
+                    </div>
+                    <span className="flex h-2 w-2 relative shrink-0">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between p-3 rounded-xl bg-blue-500/[0.03] border border-blue-500/10 hover:border-blue-500/20 transition-all duration-300">
+                    <div className="flex flex-col">
+                      <span className="text-[9px] font-black text-blue-400 uppercase tracking-widest">
+                        Weekend Sessions
+                      </span>
+                      <span className="text-white font-bold text-xs sm:text-sm mt-0.5">
+                        10:00 AM – 4:00 PM
+                      </span>
+                    </div>
+                    <span className="flex h-2 w-2 relative shrink-0">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                    </span>
+                  </div>
+                </div>
               </div>
 
-              <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-3 mb-2">
-                  <LuClock className="w-6 h-6 text-blue-400" />
-                  <h3 className="text-xl font-bold text-white font-heading">
-                    Booking System
-                  </h3>
+              {/* Column 2: Private Booking Panel */}
+              <div className="flex flex-col gap-6">
+                <div>
+                  <div className="flex items-center justify-between gap-3 mb-2">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center shadow-[0_0_15px_rgba(59,130,246,0.15)]">
+                        <LuCalendarDays className="w-4 h-4" />
+                      </div>
+                      <h3 className="text-base sm:text-lg font-extrabold text-white font-heading">
+                        Booking System
+                      </h3>
+                    </div>
+
+                    {/* Pulsing Live indicator */}
+                    <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-[9px] font-black text-emerald-400 uppercase tracking-wider shrink-0 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      Slots Active
+                    </div>
+                  </div>
+                  <p className="text-gray-500 text-[11px] sm:text-xs mt-0.5">
+                    appointment policies for private classes
+                  </p>
                 </div>
-                <ul className="flex flex-col gap-3">
-                  <li className="flex items-start gap-3">
-                    <LuCircleCheck className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
-                    <span className="text-gray-300 text-sm leading-relaxed">
-                      <strong>Fixed Day & Time:</strong> Dedicated slot
-                      required.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <LuCircleCheck className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
-                    <span className="text-gray-300 text-sm leading-relaxed">
-                      <strong>1-to-1 Attention:</strong> Entirely private focus.
-                    </span>
-                  </li>
-                </ul>
+
+                <div className="flex flex-col gap-3">
+                  <div className="group/booking p-3.5 rounded-2xl border border-white/[0.04] bg-white/[0.01] hover:bg-blue-500/[0.03] hover:border-blue-500/20 transition-all duration-300">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-6 h-6 rounded bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
+                        <LuCircleCheck className="w-3.5 h-3.5" />
+                      </div>
+                      <span className="text-white font-bold text-xs sm:text-sm font-heading">
+                        Fixed Day & Time
+                      </span>
+                    </div>
+                    <p className="text-gray-400 text-[11px] sm:text-xs pl-9 leading-relaxed font-medium">
+                      A dedicated recurring slot is locked in for your
+                      personalized coaching journey.
+                    </p>
+                  </div>
+
+                  <div className="group/booking p-3.5 rounded-2xl border border-white/[0.04] bg-white/[0.01] hover:bg-blue-500/[0.03] hover:border-blue-500/20 transition-all duration-300">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-6 h-6 rounded bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
+                        <LuCircleCheck className="w-3.5 h-3.5" />
+                      </div>
+                      <span className="text-white font-bold text-xs sm:text-sm font-heading">
+                        1-to-1 Focus
+                      </span>
+                    </div>
+                    <p className="text-gray-400 text-[11px] sm:text-xs pl-9 leading-relaxed font-medium">
+                      Classes are entirely private. Real-time feedback ensures
+                      direct correction.
+                    </p>
+                  </div>
+                </div>
               </div>
 
-              <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-3 mb-2">
-                  <LuClock className="w-6 h-6 text-indigo-400" />
-                  <h3 className="text-xl font-bold text-white font-heading">
-                    Important Notes
-                  </h3>
+              {/* Column 3: Policy Board Notes */}
+              <div className="flex flex-col gap-6">
+                <div>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center shadow-[0_0_15px_rgba(99,102,241,0.15)]">
+                      <LuCircleAlert className="w-4 h-4" />
+                    </div>
+                    <h3 className="text-base sm:text-lg font-extrabold text-white font-heading">
+                      Important Notes
+                    </h3>
+                  </div>
+                  <p className="text-gray-500 text-[11px] sm:text-xs mt-0.5">
+                    official policies & conditions
+                  </p>
                 </div>
-                <ul className="flex flex-col gap-3">
-                  <li className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0 mt-2.5" />
-                    <span className="text-gray-300 text-sm leading-relaxed">
-                      <strong>Month-End Break:</strong> No classes on the
-                      29th–31st.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0 mt-2.5" />
-                    <span className="text-gray-300 text-sm leading-relaxed">
-                      <strong>Fees Due:</strong> By the 5th of every month.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0 mt-2.5" />
-                    <span className="text-gray-300 text-sm leading-relaxed">
-                      <strong>Make-up Classes:</strong> Must be completed within
-                      the month.
-                    </span>
-                  </li>
-                </ul>
+
+                <div className="flex flex-col gap-3">
+                  {[
+                    {
+                      t: "Month-End Break",
+                      d: "No classes are conducted on the 29th, 30th, and 31st of any month.",
+                    },
+                    {
+                      t: "Fees Due",
+                      d: "Monthly tuition fees are due on or before the 5th of every single month.",
+                    },
+                    {
+                      t: "Make-up Classes",
+                      d: "Missed sessions must be completed within the boundaries of the same month.",
+                    },
+                  ].map((note, idx) => (
+                    <div
+                      key={idx}
+                      className="group/note p-3 rounded-xl border border-white/[0.04] bg-white/[0.01] border-l-4 border-l-indigo-500/50 hover:border-l-indigo-400 hover:bg-indigo-500/[0.03] hover:border-indigo-500/20 transition-all duration-300"
+                    >
+                      <span className="text-white font-bold text-xs sm:text-sm font-heading block group-hover/note:text-indigo-300 transition-colors">
+                        {note.t}
+                      </span>
+                      <p className="text-gray-400 text-[11px] sm:text-xs mt-1 leading-relaxed font-medium">
+                        {note.d}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -668,8 +799,6 @@ export default async function Page() {
         className="relative w-full py-16 md:py-24 overflow-hidden bg-[#05050A] border-t border-amber-500/10"
         id="reviews"
       >
-
-
         <div className="absolute inset-0 pointer-events-none z-0">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-amber-600/5 blur-[150px] mix-blend-screen" />
         </div>
