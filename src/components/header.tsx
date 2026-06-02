@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { LuMusic, LuArrowRight, LuChevronDown } from "react-icons/lu";
+import { LuMusic, LuArrowRight, LuChevronDown, LuPhone } from "react-icons/lu";
 
 type SubItem = { name: string; href: string };
 type NavLink = {
@@ -138,12 +138,12 @@ export default function Header() {
           {/* CTA & Mobile Toggle */}
           <div className="flex items-center gap-4 z-50 relative">
             <a
-              href="https://maps.app.goo.gl/sYFmaYbfmikB9MRb7"
-              target="_blank"
-              className="hidden sm:inline-flex items-center justify-center px-6 py-2 rounded-full bg-white text-[#05050A] font-black text-xs hover:bg-gray-200 transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_4px_15px_rgba(255,255,255,0.15)] hover:shadow-[0_4px_25px_rgba(255,255,255,0.3)]"
+              href="tel:+918961369468"
+              className="hidden sm:inline-flex items-center justify-center gap-1.5 px-6 py-2 rounded-full bg-white text-[#05050A] font-black text-xs hover:bg-gray-200 transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_4px_15px_rgba(255,255,255,0.15)] hover:shadow-[0_4px_25px_rgba(255,255,255,0.3)]"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Locate
+              <LuPhone className="w-3 h-3" />
+              <span>Call</span>
             </a>
 
             {/* Mobile Hamburger Button */}
@@ -215,12 +215,12 @@ export default function Header() {
 
             <div className="w-full mt-6 pb-8 shrink-0 mobile-menu-btn">
               <a
-                href="https://maps.app.goo.gl/sYFmaYbfmikB9MRb7"
-                target="_blank"
+                href="tel:+918961369468"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center justify-center w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-black text-base shadow-[0_0_20px_rgba(6,182,212,0.3)] active:scale-98 transition-all duration-300"
+                className="flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-black text-base shadow-[0_0_20px_rgba(6,182,212,0.3)] active:scale-98 transition-all duration-300"
               >
-                Locate
+                <LuPhone className="w-4 h-4" />
+                <span>Call</span>
               </a>
             </div>
 
