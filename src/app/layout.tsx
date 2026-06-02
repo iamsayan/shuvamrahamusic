@@ -3,6 +3,7 @@ import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import WhatsappButton from "@/components/whatsapp-button";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -35,6 +36,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <WhatsappButton />
       </body>
     </html>
   );

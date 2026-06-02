@@ -413,7 +413,7 @@ export default async function Page() {
             </div>
           </div>
 
-          <div className="w-full relative p-4 sm:p-6 rounded-3xl border border-white/5 bg-white/[0.02] overflow-hidden">
+          <div className="w-full relative p-4 sm:p-6 rounded-3xl border border-white/5 bg-white/[0.02] overflow-hidden mt-4">
             <div className="absolute right-0 top-0 w-[400px] h-full bg-blue-500/5 blur-[80px] pointer-events-none" />
             <div className="flex items-center gap-3 mb-6 relative z-10">
               <LuMic className="w-5 h-5 text-rose-500" />
@@ -449,7 +449,7 @@ export default async function Page() {
         id="overview"
       >
         <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
-          <div className="flex flex-col items-center text-center mb-12 sm:mb-16">
+          <div className="flex flex-col items-center text-center mt-12 sm:mt-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white mb-8 font-heading">
               The Complete{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">
