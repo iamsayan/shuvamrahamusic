@@ -223,86 +223,88 @@ export default async function Page() {
             </div>
 
             {/* Trust Metrics Bar */}
-            <div className="w-full max-w-7xl mx-auto mt-16 p-6 md:p-8 rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-2xl relative z-10">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-0 w-full">
+            <div className="w-full max-w-7xl mx-auto mt-16 py-5 px-4 md:px-6 lg:px-8 rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-2xl relative z-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-0 lg:divide-x lg:divide-white/10 w-full">
                 {/* 1. 5.0 Rating */}
-                <div className="flex items-start gap-3.5 w-full lg:pr-6">
-                  <div className="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center shrink-0">
-                    <Star className="w-5 h-5 fill-amber-500" />
+                <div className="flex items-center gap-4 w-full p-2 lg:pl-0 lg:pr-4 lg:py-1">
+                  <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(245,158,11,0.15)]">
+                    <Star className="w-5 h-5 fill-amber-400" />
                   </div>
-                  <div className="flex flex-col text-left">
-                    <span className="text-white font-bold text-sm sm:text-base leading-tight font-heading">
-                      5.0 Rating
-                    </span>
-                    <div className="flex gap-0.5 my-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className="w-3.5 h-3.5 text-amber-400 fill-amber-400"
-                        />
-                      ))}
+                  <div className="flex flex-col text-left justify-center min-h-[48px]">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-white font-extrabold text-sm sm:text-base leading-none font-heading">
+                        5.0 Rating
+                      </span>
+                      <div className="flex gap-0.5">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className="w-2.5 h-2.5 text-amber-400 fill-amber-400 drop-shadow-[0_0_4px_rgba(245,158,11,0.5)]"
+                          />
+                        ))}
+                      </div>
                     </div>
-                    <span className="text-xs text-gray-400 leading-normal">
+                    <span className="text-xs text-gray-400 leading-tight mt-1 max-w-[180px]">
                       Trusted by 150+ students worldwide
                     </span>
                   </div>
                 </div>
 
                 {/* 2. 11+ Years Experience */}
-                <div className="flex items-start gap-3.5 w-full lg:px-6 lg:border-l lg:border-white/10">
-                  <div className="w-12 h-12 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 flex items-center justify-center shrink-0">
+                <div className="flex items-center gap-4 w-full p-2 lg:px-4 lg:py-1">
+                  <div className="w-12 h-12 rounded-2xl bg-violet-500/10 border border-violet-500/20 text-violet-400 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(139,92,246,0.15)]">
                     <GraduationCap className="w-5 h-5" />
                   </div>
-                  <div className="flex flex-col text-left">
-                    <span className="text-white font-bold text-sm sm:text-base leading-tight font-heading">
+                  <div className="flex flex-col text-left justify-center min-h-[48px]">
+                    <span className="text-white font-extrabold text-sm sm:text-base leading-none font-heading">
                       11+ Years Experience
                     </span>
-                    <span className="text-xs text-gray-400 leading-normal mt-1">
+                    <span className="text-xs text-gray-400 leading-tight mt-1 max-w-[180px]">
                       LCM Certified Instructor
                     </span>
                   </div>
                 </div>
 
                 {/* 3. Global Reach */}
-                <div className="flex items-start gap-3.5 w-full lg:px-6 lg:border-l lg:border-white/10">
-                  <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                <div className="flex items-center gap-4 w-full p-2 lg:px-4 lg:py-1">
+                  <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
                     <Globe className="w-5 h-5" />
                   </div>
-                  <div className="flex flex-col text-left">
-                    <span className="text-white font-bold text-sm sm:text-base leading-tight font-heading">
+                  <div className="flex flex-col text-left justify-center min-h-[48px]">
+                    <span className="text-white font-extrabold text-sm sm:text-base leading-none font-heading">
                       Global Reach
                     </span>
-                    <span className="text-xs text-gray-400 leading-normal mt-1">
+                    <span className="text-xs text-gray-400 leading-tight mt-1 max-w-[180px]">
                       India, USA, UK, Canada
                     </span>
                   </div>
                 </div>
 
                 {/* 4. 1:1 Sessions */}
-                <div className="flex items-start gap-3.5 w-full lg:px-6 lg:border-l lg:border-white/10">
-                  <div className="w-12 h-12 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center shrink-0">
-                    <Star className="w-5 h-5 fill-rose-500" />
+                <div className="flex items-center gap-4 w-full p-2 lg:px-4 lg:py-1">
+                  <div className="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(244,63,94,0.15)]">
+                    <Award className="w-5 h-5" />
                   </div>
-                  <div className="flex flex-col text-left">
-                    <span className="text-white font-bold text-sm sm:text-base leading-tight font-heading">
+                  <div className="flex flex-col text-left justify-center min-h-[48px]">
+                    <span className="text-white font-extrabold text-sm sm:text-base leading-none font-heading">
                       1:1 Sessions
                     </span>
-                    <span className="text-xs text-gray-400 leading-normal mt-1">
+                    <span className="text-xs text-gray-400 leading-tight mt-1 max-w-[180px]">
                       Online & Offline (Personalized Learning)
                     </span>
                   </div>
                 </div>
 
                 {/* 5. Flexible Timings */}
-                <div className="flex items-start gap-3.5 w-full lg:pl-6 lg:border-l lg:border-white/10">
-                  <div className="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
+                <div className="flex items-center gap-4 w-full p-2 lg:pl-4 lg:pr-0 lg:py-1">
+                  <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
                     <Clock className="w-5 h-5" />
                   </div>
-                  <div className="flex flex-col text-left">
-                    <span className="text-white font-bold text-sm sm:text-base leading-tight font-heading">
+                  <div className="flex flex-col text-left justify-center min-h-[48px]">
+                    <span className="text-white font-extrabold text-sm sm:text-base leading-none font-heading">
                       Flexible Timings
                     </span>
-                    <span className="text-xs text-gray-400 leading-normal mt-1">
+                    <span className="text-xs text-gray-400 leading-tight mt-1 max-w-[180px]">
                       Learn at your convenience
                     </span>
                   </div>
