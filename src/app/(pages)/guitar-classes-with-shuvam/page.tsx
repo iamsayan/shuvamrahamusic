@@ -325,6 +325,7 @@ export default async function Page() {
                   alt="Shuvam Raha - Online Guitar Instructor"
                   fill
                   className="object-cover transition-transform duration-[2000ms] group-hover:scale-105 opacity-90"
+                  loading="eager"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#020205] via-transparent to-transparent opacity-80" />
 
@@ -425,6 +426,7 @@ export default async function Page() {
               <SliderGallery itemWidth={220} autoScroll={true}>
                 {[
                   "F4SwCit-b20",
+                  "azQquv9akto",
                   "gnlzLjNdzPQ",
                   "0DO8upx3NAw",
                   "rHn8HmNSiPs",
