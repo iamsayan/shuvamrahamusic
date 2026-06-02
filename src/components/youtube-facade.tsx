@@ -28,6 +28,7 @@ export default function YouTubeFacade({
       onClick={() => setIsPlaying(true)}
     >
       {/* Thumbnail Facade */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
         alt="Video Thumbnail Placeholder"

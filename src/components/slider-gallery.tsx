@@ -53,7 +53,11 @@ export default function SliderGallery({
 
   // Check initial state in case screen size prevents scrolling
   useEffect(() => {
-    handleScroll();
+    const timer = setTimeout(() => {
+      handleScroll();
+    }, 0);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

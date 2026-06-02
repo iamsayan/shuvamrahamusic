@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Music, Menu, X, ArrowRight, ChevronDown } from "lucide-react";
+import { Music, ArrowRight, ChevronDown } from "lucide-react";
 
 type SubItem = { name: string; href: string };
 type NavLink = {

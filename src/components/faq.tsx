@@ -195,7 +195,7 @@ export default function FAQ() {
                   Still have questions?
                 </h4>
                 <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                  Can't find the answer you're looking for? We're here to help.
+                  Can&apos;t find the answer you&apos;re looking for? We&apos;re here to help.
                 </p>
                 <a
                   href="mailto:contact@shuvamrahamusic.com"

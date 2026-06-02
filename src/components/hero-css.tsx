@@ -68,7 +68,7 @@ export default function HeroCSS() {
           </h1>
 
           <p className="max-w-2xl text-base sm:text-xl text-gray-400 mb-8 leading-relaxed font-medium">
-            Using my proven step-by-step method, you'll master the essential
+            Using my proven step-by-step method, you&apos;ll master the essential
             chords and techiniques to play your first few songs in just one
             month of guided practice.
           </p>
@@ -91,7 +91,7 @@ export default function HeroCSS() {
               <CheckCircle2 className="w-5 h-5 text-cyan-400 mr-2" />
               Learn English songs with simple{" "}
               <span className="text-cyan-400">Hindi/Bengali guidance</span>—
-              even if you're starting from zero.
+              even if you&apos;re starting from zero.
             </li>
           </ul>
 
