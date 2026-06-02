@@ -8,7 +8,7 @@ import {
   LuGlobe,
   LuMapPin,
 } from "react-icons/lu";
-import { Region, Plan, plans } from "@/lib/guitar-data";
+import { Region, type Plan, plans } from "@/lib/guitar-data";
 
 export default function PricingTable() {
   const [region, setRegion] = useState<Region>("GLOBAL");
@@ -196,11 +196,12 @@ export default function PricingTable() {
                     </span>
                   </div>
 
-                  <button
-                    className={`w-full py-3.5 rounded-xl font-bold text-sm sm:text-base tracking-wide transition-all duration-300 active:scale-[0.98] ${styles.button} font-heading`}
+                  <a
+                    href={plan.link || "#"}
+                    className={`w-full py-3.5 rounded-xl font-bold text-sm sm:text-base tracking-wide transition-all duration-300 active:scale-[0.98] ${styles.button} font-heading text-center`}
                   >
                     {plan.buttonText}
-                  </button>
+                  </a>
                 </div>
               </div>
             );
