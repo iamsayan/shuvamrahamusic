@@ -73,8 +73,7 @@ async function getReviews() {
   }
 
   try {
-    const dataId =
-      process.env.SERP_API_DATA_ID || "0x3a0275de6fa04eb5:0x50837292bf75df0f";
+    const dataId = process.env.SERP_API_DATA_ID;
     const url = `https://serpapi.com/search.json?engine=google_maps_reviews&data_id=${dataId}&api_key=${apiKey}`;
 
     // 1. Fetch First Page (returns first 8 reviews)
