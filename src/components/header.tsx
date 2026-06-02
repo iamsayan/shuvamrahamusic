@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { LuMusic, LuArrowRight, LuChevronDown } from "react-icons/lu";
 
 type SubItem = { name: string; href: string };
@@ -34,8 +35,14 @@ const navLinks: NavLink[] = [
 ];
 
 export default function Header() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Hide header on pay page
+  if (pathname === "/guitar-classes-with-shuvam/pay") {
+    return null;
+  }
 
   // Handle scroll effect for dynamic glassmorphism
   useEffect(() => {

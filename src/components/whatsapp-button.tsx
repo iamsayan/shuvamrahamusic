@@ -1,9 +1,17 @@
 "use client";
 
 import React from "react";
+import { usePathname } from "next/navigation";
 import { FaWhatsapp } from "react-icons/fa";
 
 export default function WhatsappButton() {
+  const pathname = usePathname();
+
+  // Hide floating WhatsApp button on pay page to prevent visual distraction
+  if (pathname === "/guitar-classes-with-shuvam/pay") {
+    return null;
+  }
+
   return (
     <a
       href="https://wa.me/918961369468"
