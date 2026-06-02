@@ -29,6 +29,7 @@ export interface Plan {
   buttonText: string;
   theme: string;
   popular?: boolean;
+  link?: string;
 }
 
 export const plans: Record<Region, Plan[]> = {
@@ -47,9 +48,10 @@ export const plans: Record<Region, Plan[]> = {
       ],
       warning: null,
       bestFor: "Students in India (school/college)",
-      buttonText: "Book Free Intro Call",
+      buttonText: "Enroll Now",
       theme: "emerald",
       popular: true,
+      link: "https://rzp.io/rzp/t9V3zhnz",
     },
     {
       name: "Offline Coaching (Studio)",
@@ -64,8 +66,9 @@ export const plans: Record<Region, Plan[]> = {
         "Personal attention",
       ],
       bestFor: "Serious learners / kids / parents",
-      buttonText: "Check Available Slots",
+      buttonText: "Enroll Now",
       theme: "amber",
+      link: "https://rzp.io/rzp/1tKvb4L",
     },
   ],
   GLOBAL: [
@@ -74,7 +77,8 @@ export const plans: Record<Region, Plan[]> = {
       price: "45",
       currency: "$",
       period: "/month",
-      description: "Song-based learning with flexible scheduling across time zones.",
+      description:
+        "Song-based learning with flexible scheduling across time zones.",
       includes: [
         "4 sessions/month (flexible across time zones)",
         "Learn English songs",
@@ -94,7 +98,8 @@ export const plans: Record<Region, Plan[]> = {
       price: "99",
       currency: "$",
       period: "/month",
-      description: "VIP fast-track progression with a fully customized learning path.",
+      description:
+        "VIP fast-track progression with a fully customized learning path.",
       includes: [
         "8 sessions/month",
         "Fast-track progress plan",
@@ -440,8 +445,6 @@ export const allFaqs = [
     a: "Offline classes are conducted at the studio in Kolkata. Exact directions are shared after booking your slot.",
   },
 ];
-
-
 
 export const perfectFor = [
   "You're a beginner, intermediate, or advanced learner",
