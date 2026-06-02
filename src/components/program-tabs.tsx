@@ -116,10 +116,10 @@ export default function ProgramTabs() {
                         <point.icon className="w-6 h-6" />
                       </div>
                       <div>
-                        <h4 className="text-white font-bold text-lg mb-1 font-heading">
+                        <h4 className="text-white font-bold text-lg sm:text-xl mb-1 font-heading">
                           {point.title}
                         </h4>
-                        <p className="text-gray-400 text-sm leading-relaxed">
+                        <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mt-1">
                           {point.desc}
                         </p>
                       </div>
@@ -151,11 +151,11 @@ export default function ProgramTabs() {
                         <item.icon className="w-7 h-7" />
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold text-white leading-tight font-heading">
+                        <h3 className="text-lg sm:text-xl font-bold text-white leading-tight font-heading">
                           {item.title}
                         </h3>
                         <p
-                          className={`text-sm font-medium ${item.styles.iconText} mt-0.5 opacity-80`}
+                          className={`text-xs sm:text-sm font-medium ${item.styles.iconText} mt-1 opacity-80`}
                         >
                           {item.subtitle}
                         </p>
@@ -200,23 +200,23 @@ export default function ProgramTabs() {
                       <feature.icon className="w-7 h-7" />
                     </div>
                     <div>
-                      <h3 className="text-base sm:text-xl font-bold text-white mb-1 font-heading">
+                      <h3 className="text-lg sm:text-xl font-bold text-white mb-1 font-heading">
                         {feature.title}
                       </h3>
-                      <p className="text-gray-400 text-sm font-medium">
+                      <p className="text-gray-400 text-xs sm:text-sm font-medium mt-1">
                         {feature.desc}
                       </p>
                     </div>
                   </div>
                   <ul className="flex flex-col gap-4 flex-1">
                     {feature.points.map((point, pIdx) => (
-                      <li key={pIdx} className="flex items-start gap-3">
+                      <li key={pIdx} className="flex items-start gap-3 text-xs sm:text-sm">
                         <CheckCircle2 className="w-5 h-5 text-cyan-500 shrink-0 mt-0.5" />
                         <div>
                           <strong className="text-gray-200 block sm:inline">
                             {point.t} —{" "}
                           </strong>
-                          <span className="text-gray-400 text-xs sm:text-sm">
+                          <span className="text-gray-400">
                             {point.d}
                           </span>
                         </div>
