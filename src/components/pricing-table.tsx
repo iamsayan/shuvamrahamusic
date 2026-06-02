@@ -70,7 +70,7 @@ export default function PricingTable() {
 
           <button
             onClick={() => setRegion("IN")}
-            className={`flex-1 relative z-10 flex items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 rounded-full text-sm font-bold transition-colors duration-300 ${
+            className={`cursor-pointer flex-1 relative z-10 flex items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 rounded-full text-sm font-bold transition-colors duration-300 ${
               region === "IN"
                 ? "text-white"
                 : "text-gray-400 hover:text-gray-200"
@@ -82,7 +82,7 @@ export default function PricingTable() {
 
           <button
             onClick={() => setRegion("GLOBAL")}
-            className={`flex-1 relative z-10 flex items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 rounded-full text-sm font-bold transition-colors duration-300 ${
+            className={`cursor-pointer flex-1 relative z-10 flex items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 rounded-full text-sm font-bold transition-colors duration-300 ${
               region === "GLOBAL"
                 ? "text-white"
                 : "text-gray-400 hover:text-gray-200"
@@ -113,7 +113,9 @@ export default function PricingTable() {
               <div
                 key={`${region}-${i}`}
                 className={`relative flex flex-col p-6 sm:p-8 lg:p-10 transition-all duration-500 hover:bg-white/[0.02] ${
-                  isFirst ? "border-b md:border-b-0 md:border-r border-white/5" : ""
+                  isFirst
+                    ? "border-b md:border-b-0 md:border-r border-white/5"
+                    : ""
                 }`}
               >
                 {/* Popular Badge */}
@@ -130,11 +132,15 @@ export default function PricingTable() {
 
                 {/* Plan Header */}
                 <div className="mb-6">
-                  <h3 className={`text-lg sm:text-xl font-bold mb-2 ${styles.text} font-heading`}>
+                  <h3
+                    className={`text-lg sm:text-xl font-bold mb-2 ${styles.text} font-heading`}
+                  >
                     {plan.name}
                   </h3>
                   <div className="flex items-baseline gap-2 mb-2">
-                    <span className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight ${styles.price} font-heading`}>
+                    <span
+                      className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight ${styles.price} font-heading`}
+                    >
                       {plan.currency}
                       {plan.price}
                     </span>
@@ -215,7 +221,8 @@ export default function PricingTable() {
               Residence Policy
             </span>
             <p className="text-gray-300 text-xs sm:text-sm font-medium leading-relaxed font-heading">
-              Pricing is structurally based on your country of residence (not payment method).
+              Pricing is structurally based on your country of residence (not
+              payment method).
             </p>
           </div>
         </div>
@@ -232,7 +239,9 @@ export default function PricingTable() {
             </span>
             <p className="text-gray-300 text-xs sm:text-sm font-medium leading-relaxed font-heading">
               Limited slots available—
-              <span className="block mt-0.5">priority for serious students.</span>
+              <span className="block mt-0.5">
+                priority for serious students.
+              </span>
             </p>
           </div>
         </div>
