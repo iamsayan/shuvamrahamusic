@@ -2,7 +2,14 @@
 
 import React from "react";
 import Link from "next/link";
-import { LuMail, LuMapPin, LuPhone, LuArrowUpRight, LuMusic, LuHeadphones } from "react-icons/lu";
+import {
+  LuMail,
+  LuMapPin,
+  LuPhone,
+  LuArrowUpRight,
+  LuMusic,
+  LuHeadphones,
+} from "react-icons/lu";
 
 // === LIGHTWEIGHT SOCIAL SVGS ===
 const InstagramIcon = ({ className }: { className?: string }) => (
@@ -109,8 +116,6 @@ export default function Footer() {
       {/* Glowing Top Border */}
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent blur-[2px]" />
-
-
 
       {/* Background Ambient Glows */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[300px] md:h-[400px] bg-gradient-to-b from-cyan-900/20 via-blue-900/5 to-transparent blur-[100px] md:blur-[120px] pointer-events-none" />
@@ -243,9 +248,9 @@ export default function Footer() {
                   </p>
                   <p className="text-sm sm:text-base text-gray-300 group-hover:text-white transition-colors font-medium">
                     Kolkata, India <br />
-                    <span className="text-xs text-gray-500 font-normal">
+                    {/* <span className="text-xs text-gray-500 font-normal">
                       (Online Classes Global)
-                    </span>
+                    </span> */}
                   </p>
                 </div>
               </a>

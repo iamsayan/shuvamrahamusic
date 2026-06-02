@@ -72,14 +72,14 @@ export default function ProgramTabs() {
           <div className="animate-in fade-in zoom-in-95 duration-500">
             <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center">
               <div className="w-full lg:w-5/12 flex justify-center">
-                <div className="relative w-full max-w-[400px] aspect-[4/5] rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl p-4 shadow-[0_20px_60px_rgba(0,0,0,0.5)] group">
+                <div className="relative w-full max-w-[480px] lg:max-w-full aspect-[4/5] rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl p-4 shadow-[0_20px_60px_rgba(0,0,0,0.5)] group">
                   <div className="relative w-full h-full rounded-2xl overflow-hidden bg-[#0a0a0f]">
                     <Image
                       src="/hero-guitarist.jpg"
                       alt="Shuvam Raha"
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-90"
-                      sizes="(max-width: 1024px) 380px, 400px"
+                      sizes="(max-width: 1024px) 480px, 600px"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#05050A] via-[#05050A]/20 to-transparent" />
                     <div className="absolute bottom-6 left-6 right-6">
