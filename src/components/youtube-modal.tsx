@@ -1,33 +1,33 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { LuPlay, LuX } from "react-icons/lu";
+import { useState } from 'react';
+import { LuPlay, LuX } from 'react-icons/lu';
 
 export default function YouTubeModal({
   videoId,
-  triggerType = "hero",
+  triggerType = 'hero',
 }: {
   videoId: string;
-  triggerType?: "hero" | "custom";
+  triggerType?: 'hero' | 'custom';
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
       {/* Trigger */}
-      {triggerType === "hero" ? (
+      {triggerType === 'hero' ? (
         <div
           onClick={() => setIsOpen(true)}
-          className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/10 border border-white/20 backdrop-blur-md flex items-center justify-center shadow-[0_0_40px_rgba(0,0,0,0.5)] cursor-pointer hover:bg-white/20 hover:border-white/40 transition-all hover:scale-110 group/btn"
+          className="group/btn flex h-20 w-20 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-white/10 shadow-[0_0_40px_rgba(0,0,0,0.5)] backdrop-blur-md transition-all hover:scale-110 hover:border-white/40 hover:bg-white/20 sm:h-24 sm:w-24"
         >
-          <LuPlay className="w-8 h-8 sm:w-10 sm:h-10 text-white fill-white ml-1.5 group-hover/btn:text-cyan-400 group-hover/btn:fill-cyan-400 transition-colors duration-300" />
+          <LuPlay className="ml-1.5 h-8 w-8 fill-white text-white transition-colors duration-300 group-hover/btn:fill-cyan-400 group-hover/btn:text-cyan-400 sm:h-10 sm:w-10" />
         </div>
       ) : (
         <button
           onClick={() => setIsOpen(true)}
-          className="flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-bold hover:bg-cyan-500/20 transition-all active:scale-95"
+          className="flex items-center justify-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-6 py-3 font-bold text-cyan-400 transition-all hover:bg-cyan-500/20 active:scale-95"
         >
-          <LuPlay className="w-4 h-4 fill-cyan-400" />
+          <LuPlay className="h-4 w-4 fill-cyan-400" />
           Watch Performance
         </button>
       )}
@@ -35,24 +35,24 @@ export default function YouTubeModal({
       {/* Modal Backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-[#020205]/95 backdrop-blur-lg animate-fade-in"
+          className="animate-fade-in fixed inset-0 z-[100] flex items-center justify-center bg-[#020205]/95 p-4 backdrop-blur-lg sm:p-6"
           onClick={() => setIsOpen(false)}
         >
           <div
-            className="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.8)] animate-zoom-in"
+            className="animate-zoom-in relative aspect-video w-full max-w-5xl overflow-hidden rounded-2xl border border-white/10 bg-black shadow-[0_0_50px_rgba(0,0,0,0.8)]"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 hover:bg-white/10 text-white transition-colors backdrop-blur-md border border-white/10"
+              className="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-black/50 text-white backdrop-blur-md transition-colors hover:bg-white/10"
               aria-label="Close video"
             >
-              <LuX className="w-5 h-5" />
+              <LuX className="h-5 w-5" />
             </button>
             <div className="absolute inset-0 bg-black">
               <iframe
-                className="w-full h-full"
+                className="h-full w-full"
                 src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
                 title="Shuvam Raha - Video Player"
                 frameBorder="0"

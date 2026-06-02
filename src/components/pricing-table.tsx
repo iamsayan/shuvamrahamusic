@@ -1,110 +1,136 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   LuCheck,
   LuTriangleAlert,
   LuSparkles,
   LuGlobe,
   LuMapPin,
-} from "react-icons/lu";
-import { Region, type Plan, plans } from "@/lib/guitar-data";
+} from 'react-icons/lu';
+import { Region, type Plan, plans } from '@/lib/guitar-data';
 
 export default function PricingTable() {
-  const [region, setRegion] = useState<Region>("GLOBAL");
+  const [region, setRegion] = useState<Region>('IN');
+
+  useEffect(() => {
+    async function getCountryCode() {
+      const cached = localStorage.getItem('region');
+
+      if (cached) {
+        setRegion(cached as Region);
+        return;
+      }
+
+      try {
+        const response = await fetch('https://ipinfo.io/json');
+        const data = await response.json();
+
+        const region = data.country === 'IN' ? 'IN' : 'GLOBAL';
+
+        localStorage.setItem('region', region);
+
+        setRegion(region);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    getCountryCode();
+  }, []);
 
   // Tailwind purge-safe theme mappings
   const themeMap: Record<string, Record<string, string>> = {
     emerald: {
-      card: "border-emerald-500/20 bg-emerald-950/10 hover:border-emerald-500/40 hover:bg-emerald-900/10 shadow-[0_0_30px_rgba(16,185,129,0.02)]",
-      glow: "bg-emerald-500/10",
+      card: 'border-emerald-500/20 bg-emerald-950/10 hover:border-emerald-500/40 hover:bg-emerald-900/10 shadow-[0_0_30px_rgba(16,185,129,0.02)]',
+      glow: 'bg-emerald-500/10',
       button:
-        "bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.3)]",
-      icon: "text-emerald-400 bg-emerald-500/20",
-      text: "text-emerald-400",
-      price: "text-white",
+        'bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.3)]',
+      icon: 'text-emerald-400 bg-emerald-500/20',
+      text: 'text-emerald-400',
+      price: 'text-white',
     },
     amber: {
-      card: "border-amber-500/20 bg-amber-950/10 hover:border-amber-500/40 hover:bg-amber-900/10 shadow-[0_0_30px_rgba(245,158,11,0.02)]",
-      glow: "bg-amber-500/10",
+      card: 'border-amber-500/20 bg-amber-950/10 hover:border-amber-500/40 hover:bg-amber-900/10 shadow-[0_0_30px_rgba(245,158,11,0.02)]',
+      glow: 'bg-amber-500/10',
       button:
-        "bg-amber-600 hover:bg-amber-500 text-white shadow-[0_0_20px_rgba(245,158,11,0.3)]",
-      icon: "text-amber-400 bg-amber-500/20",
-      text: "text-amber-400",
-      price: "text-white",
+        'bg-amber-600 hover:bg-amber-500 text-white shadow-[0_0_20px_rgba(245,158,11,0.3)]',
+      icon: 'text-amber-400 bg-amber-500/20',
+      text: 'text-amber-400',
+      price: 'text-white',
     },
     blue: {
-      card: "border-blue-500/40 bg-blue-900/20 hover:border-blue-400/60 hover:bg-blue-900/30 shadow-[0_0_50px_rgba(59,130,246,0.15)]",
-      glow: "bg-blue-500/20",
+      card: 'border-blue-500/40 bg-blue-900/20 hover:border-blue-400/60 hover:bg-blue-900/30 shadow-[0_0_50px_rgba(59,130,246,0.15)]',
+      glow: 'bg-blue-500/20',
       button:
-        "bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-[0_0_30px_rgba(59,130,246,0.5)]",
-      icon: "text-blue-400 bg-blue-500/20",
-      text: "text-blue-400",
+        'bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-[0_0_30px_rgba(59,130,246,0.5)]',
+      icon: 'text-blue-400 bg-blue-500/20',
+      text: 'text-blue-400',
       price:
-        "text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200",
+        'text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200',
     },
     violet: {
-      card: "border-violet-500/20 bg-violet-950/10 hover:border-violet-500/40 hover:bg-violet-900/10 shadow-[0_0_30px_rgba(139,92,246,0.02)]",
-      glow: "bg-violet-500/10",
+      card: 'border-violet-500/20 bg-violet-950/10 hover:border-violet-500/40 hover:bg-violet-900/10 shadow-[0_0_30px_rgba(139,92,246,0.02)]',
+      glow: 'bg-violet-500/10',
       button:
-        "bg-violet-600 hover:bg-violet-500 text-white shadow-[0_0_20px_rgba(139,92,246,0.3)]",
-      icon: "text-violet-400 bg-violet-500/20",
-      text: "text-violet-400",
-      price: "text-white",
+        'bg-violet-600 hover:bg-violet-500 text-white shadow-[0_0_20px_rgba(139,92,246,0.3)]',
+      icon: 'text-violet-400 bg-violet-500/20',
+      text: 'text-violet-400',
+      price: 'text-white',
     },
   };
 
   const currentPlans = plans[region];
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="flex w-full flex-col items-center">
       {/* Interactive Geo-Toggle Switch */}
-      <div className="w-full sm:w-auto mt-2 mb-12">
-        <div className="relative flex p-1.5 rounded-full bg-white/[0.03] border border-white/5 backdrop-blur-xl shadow-2xl w-full sm:w-[360px] mx-auto">
+      <div className="mt-2 mb-12 w-full sm:w-auto">
+        <div className="relative mx-auto flex w-full rounded-full border border-white/5 bg-white/[0.03] p-1.5 shadow-2xl backdrop-blur-xl sm:w-[360px]">
           {/* Sliding Active Background */}
           <div
-            className={`absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] bg-white/10 border border-white/10 rounded-full transition-transform duration-500 ease-out shadow-lg ${
-              region === "IN" ? "translate-x-0" : "translate-x-[100%]"
+            className={`absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] rounded-full border border-white/10 bg-white/10 shadow-lg transition-transform duration-500 ease-out ${
+              region === 'IN' ? 'translate-x-0' : 'translate-x-[100%]'
             }`}
           />
 
           <button
-            onClick={() => setRegion("IN")}
-            className={`cursor-pointer flex-1 relative z-10 flex items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 rounded-full text-sm font-bold transition-colors duration-300 ${
-              region === "IN"
-                ? "text-white"
-                : "text-gray-400 hover:text-gray-200"
+            onClick={() => setRegion('IN')}
+            className={`relative z-10 flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-full py-2.5 text-sm font-bold transition-colors duration-300 sm:gap-2 sm:py-3 ${
+              region === 'IN'
+                ? 'text-white'
+                : 'text-gray-400 hover:text-gray-200'
             }`}
           >
-            <LuMapPin className="w-4 h-4 sm:w-5 sm:h-5" />
+            <LuMapPin className="h-4 w-4 sm:h-5 sm:w-5" />
             India (INR)
           </button>
 
           <button
-            onClick={() => setRegion("GLOBAL")}
-            className={`cursor-pointer flex-1 relative z-10 flex items-center justify-center gap-1.5 sm:gap-2 py-2.5 sm:py-3 rounded-full text-sm font-bold transition-colors duration-300 ${
-              region === "GLOBAL"
-                ? "text-white"
-                : "text-gray-400 hover:text-gray-200"
+            onClick={() => setRegion('GLOBAL')}
+            className={`relative z-10 flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-full py-2.5 text-sm font-bold transition-colors duration-300 sm:gap-2 sm:py-3 ${
+              region === 'GLOBAL'
+                ? 'text-white'
+                : 'text-gray-400 hover:text-gray-200'
             }`}
           >
-            <LuGlobe className="w-4 h-4 sm:w-5 sm:h-5" />
+            <LuGlobe className="h-4 w-4 sm:h-5 sm:w-5" />
             Global (USD)
           </button>
         </div>
       </div>
 
       {/* Pricing Dashboard */}
-      <div className="w-full max-w-5xl mx-auto rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl overflow-hidden shadow-2xl relative group z-10">
+      <div className="group relative z-10 mx-auto w-full max-w-5xl overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/[0.02] shadow-2xl backdrop-blur-3xl">
         {/* Ambient Corner Glows (Dynamic based on selected plans) */}
         <div
-          className={`absolute top-0 left-0 w-64 h-64 blur-[100px] rounded-full opacity-30 pointer-events-none transition-colors duration-700 ${themeMap[currentPlans[0].theme].glow}`}
+          className={`pointer-events-none absolute top-0 left-0 h-64 w-64 rounded-full opacity-30 blur-[100px] transition-colors duration-700 ${themeMap[currentPlans[0].theme].glow}`}
         />
         <div
-          className={`absolute bottom-0 right-0 w-64 h-64 blur-[100px] rounded-full opacity-30 pointer-events-none transition-colors duration-700 ${themeMap[currentPlans[1].theme].glow}`}
+          className={`pointer-events-none absolute right-0 bottom-0 h-64 w-64 rounded-full opacity-30 blur-[100px] transition-colors duration-700 ${themeMap[currentPlans[1].theme].glow}`}
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 relative z-10">
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2">
           {currentPlans.map((plan: Plan, i: number) => {
             const styles = themeMap[plan.theme];
             const isFirst = i === 0;
@@ -112,18 +138,18 @@ export default function PricingTable() {
             return (
               <div
                 key={`${region}-${i}`}
-                className={`relative flex flex-col p-6 sm:p-8 lg:p-10 transition-all duration-500 hover:bg-white/[0.02] ${
+                className={`relative flex flex-col p-6 transition-all duration-500 hover:bg-white/[0.02] sm:p-8 lg:p-10 ${
                   isFirst
-                    ? "border-b md:border-b-0 md:border-r border-white/5"
-                    : ""
+                    ? 'border-b border-white/5 md:border-r md:border-b-0'
+                    : ''
                 }`}
               >
                 {/* Popular Badge */}
                 {plan.popular && (
-                  <div className="absolute top-5 right-6 sm:top-6 sm:right-10 z-20">
-                    <div className="flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-amber-500 to-orange-400 rounded-full shadow-[0_0_15px_rgba(245,158,11,0.4)]">
-                      <LuSparkles className="w-3 h-3 text-white" />
-                      <span className="text-[10px] sm:text-xs font-bold text-white uppercase tracking-widest whitespace-nowrap">
+                  <div className="absolute top-5 right-6 z-20 sm:top-6 sm:right-10">
+                    <div className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-400 px-3 py-1 shadow-[0_0_15px_rgba(245,158,11,0.4)]">
+                      <LuSparkles className="h-3 w-3 text-white" />
+                      <span className="text-[10px] font-bold tracking-widest whitespace-nowrap text-white uppercase sm:text-xs">
                         Most Popular
                       </span>
                     </div>
@@ -131,53 +157,53 @@ export default function PricingTable() {
                 )}
 
                 {/* Plan Header */}
-                <div className={`mb-6 ${plan.popular ? "pr-28 sm:pr-32" : ""}`}>
+                <div className={`mb-6 ${plan.popular ? 'pr-28 sm:pr-32' : ''}`}>
                   <h3
-                    className={`text-lg sm:text-xl font-bold mb-2 ${styles.text} font-heading`}
+                    className={`mb-2 text-lg font-bold sm:text-xl ${styles.text} font-heading`}
                   >
                     {plan.name}
                   </h3>
-                  <div className="flex items-baseline gap-2 mb-2">
+                  <div className="mb-2 flex items-baseline gap-2">
                     <span
-                      className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight ${styles.price} font-heading`}
+                      className={`text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl ${styles.price} font-heading`}
                     >
                       {plan.currency}
                       {plan.price}
                     </span>
-                    <span className="text-gray-400 font-medium text-sm sm:text-base">
+                    <span className="text-sm font-medium text-gray-400 sm:text-base">
                       {plan.period}
                     </span>
                   </div>
-                  <p className="text-gray-400 text-sm leading-relaxed">
+                  <p className="text-sm leading-relaxed text-gray-400">
                     {plan.description}
                   </p>
                 </div>
 
                 {/* Warning / Conditional Banner */}
                 {plan.warning && (
-                  <div className="flex items-start gap-2.5 p-3 mb-6 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-200/90">
-                    <LuTriangleAlert className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                    <p className="text-xs sm:text-sm font-medium leading-snug">
+                  <div className="mb-6 flex items-start gap-2.5 rounded-xl border border-amber-500/20 bg-amber-500/10 p-3 text-amber-200/90">
+                    <LuTriangleAlert className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
+                    <p className="text-xs leading-snug font-medium sm:text-sm">
                       {plan.warning}
                     </p>
                   </div>
                 )}
 
                 {/* Features List */}
-                <div className="flex-1 flex flex-col mb-8">
-                  <span className="text-white text-sm font-bold mb-4 tracking-wide font-heading">
+                <div className="mb-8 flex flex-1 flex-col">
+                  <span className="font-heading mb-4 text-sm font-bold tracking-wide text-white">
                     Includes:
                   </span>
                   <ul className="flex flex-col gap-3">
                     {plan.includes.map((feature: string, idx: number) => (
                       <li
                         key={idx}
-                        className="flex items-start gap-3 text-gray-300 group/li"
+                        className="group/li flex items-start gap-3 text-gray-300"
                       >
                         <div
-                          className={`flex items-center justify-center shrink-0 w-5 h-5 rounded-full ${styles.icon} transition-transform duration-300 group-hover/li:scale-110`}
+                          className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${styles.icon} transition-transform duration-300 group-hover/li:scale-110`}
                         >
-                          <LuCheck className="w-3 h-3 stroke-[3]" />
+                          <LuCheck className="h-3 w-3 stroke-[3]" />
                         </div>
                         <span className="text-sm">{feature}</span>
                       </li>
@@ -187,18 +213,18 @@ export default function PricingTable() {
 
                 {/* Footer Blocks (Best For & CTA) */}
                 <div className="mt-auto flex flex-col gap-4">
-                  <div className="bg-white/[0.03] border border-white/5 rounded-xl p-3 text-center">
-                    <span className="text-gray-500 text-[10px] uppercase tracking-widest block mb-0.5">
+                  <div className="rounded-xl border border-white/5 bg-white/[0.03] p-3 text-center">
+                    <span className="mb-0.5 block text-[10px] tracking-widest text-gray-500 uppercase">
                       Best for
                     </span>
-                    <span className="text-gray-300 font-medium text-xs sm:text-sm">
+                    <span className="text-xs font-medium text-gray-300 sm:text-sm">
                       {plan.bestFor}
                     </span>
                   </div>
 
                   <a
-                    href={plan.link || "#"}
-                    className={`w-full py-3.5 rounded-xl font-bold text-sm sm:text-base tracking-wide transition-all duration-300 active:scale-[0.98] ${styles.button} font-heading text-center`}
+                    href={plan.link || '#'}
+                    className={`w-full rounded-xl py-3.5 text-sm font-bold tracking-wide transition-all duration-300 active:scale-[0.98] sm:text-base ${styles.button} font-heading text-center`}
                   >
                     {plan.buttonText}
                   </a>
@@ -210,18 +236,18 @@ export default function PricingTable() {
       </div>
 
       {/* Global Geographic & Availability Notices Deck */}
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl w-full mx-auto px-4 z-10">
+      <div className="z-10 mx-auto mt-12 grid w-full max-w-4xl grid-cols-1 gap-4 px-4 md:grid-cols-2">
         {/* Card 1: Residence Policy */}
-        <div className="relative group/note flex gap-4 p-5 rounded-2xl border border-white/[0.04] bg-white/[0.01] backdrop-blur-xl hover:border-white/[0.08] hover:bg-white/[0.02] transition-all duration-300">
-          <div className="absolute inset-0 rounded-2xl bg-cyan-500/[0.01] group-hover/note:bg-cyan-500/[0.02] opacity-0 group-hover/note:opacity-100 blur-xl transition-all duration-500 pointer-events-none" />
-          <div className="flex items-center justify-center shrink-0 w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 group-hover/note:scale-105 transition-transform duration-300">
-            <LuGlobe className="w-5 h-5" />
+        <div className="group/note relative flex gap-4 rounded-2xl border border-white/[0.04] bg-white/[0.01] p-5 backdrop-blur-xl transition-all duration-300 hover:border-white/[0.08] hover:bg-white/[0.02]">
+          <div className="pointer-events-none absolute inset-0 rounded-2xl bg-cyan-500/[0.01] opacity-0 blur-xl transition-all duration-500 group-hover/note:bg-cyan-500/[0.02] group-hover/note:opacity-100" />
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400 transition-transform duration-300 group-hover/note:scale-105">
+            <LuGlobe className="h-5 w-5" />
           </div>
           <div className="flex flex-col justify-center">
-            <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-1 block font-heading">
+            <span className="font-heading mb-1 block text-[10px] font-black tracking-widest text-gray-500 uppercase">
               Residence Policy
             </span>
-            <p className="text-gray-300 text-xs sm:text-sm font-medium leading-relaxed font-heading">
+            <p className="font-heading text-xs leading-relaxed font-medium text-gray-300 sm:text-sm">
               Pricing is structurally based on your country of residence (not
               payment method).
             </p>
@@ -229,20 +255,18 @@ export default function PricingTable() {
         </div>
 
         {/* Card 2: Slots Notice */}
-        <div className="relative group/note flex gap-4 p-5 rounded-2xl border border-amber-500/10 bg-amber-500/[0.02] backdrop-blur-xl hover:border-amber-500/20 hover:bg-amber-500/[0.04] transition-all duration-300">
-          <div className="absolute inset-0 rounded-2xl bg-amber-500/[0.01] group-hover/note:bg-amber-500/[0.02] opacity-0 group-hover/note:opacity-100 blur-xl transition-all duration-500 pointer-events-none" />
-          <div className="flex items-center justify-center shrink-0 w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 group-hover/note:scale-105 transition-transform duration-300">
-            <LuTriangleAlert className="w-5 h-5" />
+        <div className="group/note relative flex gap-4 rounded-2xl border border-amber-500/10 bg-amber-500/[0.02] p-5 backdrop-blur-xl transition-all duration-300 hover:border-amber-500/20 hover:bg-amber-500/[0.04]">
+          <div className="pointer-events-none absolute inset-0 rounded-2xl bg-amber-500/[0.01] opacity-0 blur-xl transition-all duration-500 group-hover/note:bg-amber-500/[0.02] group-hover/note:opacity-100" />
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-amber-500/20 bg-amber-500/10 text-amber-400 transition-transform duration-300 group-hover/note:scale-105">
+            <LuTriangleAlert className="h-5 w-5" />
           </div>
           <div className="flex flex-col justify-center">
-            <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-1 block font-heading">
+            <span className="font-heading mb-1 block text-[10px] font-black tracking-widest text-gray-500 uppercase">
               Availability
             </span>
-            <p className="text-gray-300 text-xs sm:text-sm font-medium leading-relaxed font-heading">
-              Limited slots available—
-              <span className="block mt-0.5">
-                priority for serious students.
-              </span>
+            <p className="font-heading text-xs leading-relaxed font-medium text-gray-300 sm:text-sm">
+              Limited slots available — priority for serious offline India
+              students.
             </p>
           </div>
         </div>
