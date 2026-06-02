@@ -29,6 +29,24 @@ import FaqAccordion from "@/components/faq-accordion";
 
 // Static Data
 import { perfectFor, notFor } from "@/lib/guitar-data";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title:
+    "Learn Guitar Online & Offline with Shuvam Raha | Play Songs in 30 Days",
+  description:
+    "Join 100+ students globally to learn guitar with Shuvam Raha. Online & offline classes for beginners. Personalized roadmap, Hindi/Bengali support, and global scheduling.",
+  keywords: [
+    "Guitar classes Kolkata",
+    "online guitar coaching India",
+    "learn guitar in 30 days",
+    "Shuvam Raha guitar",
+    "beginner guitar lessons Bengali",
+  ],
+  alternates: {
+    canonical: "/guitar-classes-with-shuvam",
+  },
+};
 
 // Helper video card component for Student Results
 const VideoCard = ({
@@ -670,7 +688,7 @@ export default async function Page() {
                     </div>
                   </div>
                   <p className="text-gray-500 text-[11px] sm:text-xs mt-0.5">
-                    appointment policies for private classes
+                    Appointment policies for private classes
                   </p>
                 </div>
 
@@ -719,7 +737,7 @@ export default async function Page() {
                     </h3>
                   </div>
                   <p className="text-gray-500 text-[11px] sm:text-xs mt-0.5">
-                    official policies & conditions
+                    Official policies & conditions
                   </p>
                 </div>
 
