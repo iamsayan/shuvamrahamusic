@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import {
   LuMail,
   LuMapPin,
@@ -67,6 +68,13 @@ const quickLinks = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  // Hide footer on pay page
+  if (pathname === "/guitar-classes-with-shuvam/pay") {
+    return null;
+  }
+
   return (
     <footer className="relative w-full pt-8 md:pt-10 pb-4 overflow-hidden bg-[#020205]">
       {/* Glowing Top Border */}
