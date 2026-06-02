@@ -6,12 +6,15 @@ import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 export default function SliderGallery({
   children,
   itemWidth = 320,
+  autoScroll = false,
 }: {
   children: React.ReactNode;
   itemWidth?: number;
+  autoScroll?: boolean;
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
   const itemsCount = React.Children.count(children);
 
   const handleScroll = () => {
@@ -60,8 +63,37 @@ export default function SliderGallery({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Autoscroll timer effect (pauses on hover and handles multiple visible items correctly)
+  useEffect(() => {
+    if (!autoScroll || itemsCount <= 1 || isHovered) return;
+
+    const interval = setInterval(() => {
+      if (!scrollRef.current) return;
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      const maxScrollLeft = scrollWidth - clientWidth;
+
+      // If all items are visible on screen, do not scroll
+      if (maxScrollLeft <= 0) return;
+
+      // If we are at or near the end of the scrollable area, wrap back to the start
+      if (scrollLeft >= maxScrollLeft - 15) {
+        scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        // Scroll right by exactly one item width
+        scrollRef.current.scrollBy({ left: itemWidth, behavior: "smooth" });
+      }
+    }, 4000); // 4-second scroll interval
+
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoScroll, itemsCount, isHovered, itemWidth]);
+
   return (
-    <div className="relative w-full">
+    <div
+      className="relative w-full"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {/* Scrollable Container Wrapper for exact vertical centering */}
       <div className="relative">
         <div
