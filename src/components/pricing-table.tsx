@@ -146,10 +146,10 @@ export default function PricingTable() {
               >
                 {/* Popular Badge */}
                 {plan.popular && (
-                  <div className="absolute top-5 right-6 z-20 sm:top-6 sm:right-10">
+                  <div className="absolute top-3 right-3 z-20 sm:top-6 sm:right-10">
                     <div className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-400 px-3 py-1 shadow-[0_0_15px_rgba(245,158,11,0.4)]">
                       <LuSparkles className="h-3 w-3 text-white" />
-                      <span className="text-[10px] font-bold tracking-widest whitespace-nowrap text-white uppercase sm:text-xs">
+                      <span className="text-[9px] font-bold tracking-widest whitespace-nowrap text-white uppercase sm:text-xs">
                         Most Popular
                       </span>
                     </div>
@@ -157,7 +157,7 @@ export default function PricingTable() {
                 )}
 
                 {/* Plan Header */}
-                <div className={`mb-6 ${plan.popular ? 'pr-28 sm:pr-32' : ''}`}>
+                <div className="mb-6">
                   <h3
                     className={`mb-2 text-lg font-bold sm:text-xl ${styles.text} font-heading`}
                   >
@@ -223,7 +223,7 @@ export default function PricingTable() {
                   </div>
 
                   <a
-                    href={plan.link || '#'}
+                    href={plan.link}
                     className={`w-full rounded-xl py-3.5 text-sm font-bold tracking-wide transition-all duration-300 active:scale-[0.98] sm:text-base ${styles.button} font-heading text-center`}
                   >
                     {plan.buttonText}

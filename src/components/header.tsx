@@ -16,7 +16,7 @@ type NavLink = {
 const navLinks: NavLink[] = [
   { name: 'Home', href: '/' },
   { name: 'Biography', href: '/biography' },
-  { name: 'Classes', href: '/guitar-classes-with-shuvam', raw: true },
+  { name: 'Guiter Classes', href: '/guitar-classes-with-shuvam', raw: true },
   {
     name: 'Gallery',
     href: '/gallery',
@@ -26,10 +26,15 @@ const navLinks: NavLink[] = [
       { name: 'Videos', href: '/gallery/videos' },
     ],
   },
-  { name: 'Events', href: '/events' },
   { name: 'Gears', href: '/my-gears' },
-  { name: 'Tutorials', href: '/tutorials' },
-  { name: 'Blog', href: '/blog' },
+  {
+    name: 'More',
+    href: '/more',
+    subItems: [
+      { name: 'Tutorials', href: '/tutorials' },
+      { name: 'Blog', href: '/blog' },
+    ],
+  },
   { name: 'Contact', href: '/contact' },
 ];
 
@@ -98,7 +103,7 @@ export default function Header() {
                   href={`${link.raw ? link.href : `https://shuvamrahamusic.com${link.href}`}`}
                   className="relative flex items-center gap-1 overflow-hidden rounded-full px-3.5 py-1.5 transition-colors"
                 >
-                  <span className="relative z-10 text-xs font-bold whitespace-nowrap text-gray-300 transition-colors duration-300 group-hover:text-white">
+                  <span className="relative z-10 text-sm font-bold whitespace-nowrap text-gray-300 transition-colors duration-300 group-hover:text-white">
                     {link.name}
                   </span>
                   {link.subItems && (
@@ -116,7 +121,7 @@ export default function Header() {
                         <Link
                           key={sIdx}
                           href={`https://shuvamrahamusic.com${sub.href}`}
-                          className="rounded-xl px-3.5 py-2 text-xs font-bold text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
+                          className="rounded-xl px-3.5 py-2 text-sm font-bold text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
                         >
                           {sub.name}
                         </Link>
@@ -132,7 +137,7 @@ export default function Header() {
           <div className="relative z-50 flex items-center gap-4">
             <a
               href="tel:+918961369468"
-              className="inline-flex h-9 w-9 items-center justify-center gap-1.5 rounded-full bg-white text-xs text-[#05050A] shadow-[0_4px_15px_rgba(255,255,255,0.15)] transition-all duration-300 hover:scale-105 hover:bg-gray-200 hover:shadow-[0_4px_25px_rgba(255,255,255,0.3)] active:scale-95 sm:h-auto sm:w-auto sm:px-6 sm:py-2 sm:font-black"
+              className="inline-flex h-9 w-9 items-center justify-center gap-1.5 rounded-full bg-white text-sm text-[#05050A] shadow-[0_4px_15px_rgba(255,255,255,0.15)] transition-all duration-300 hover:scale-105 hover:bg-gray-200 hover:shadow-[0_4px_25px_rgba(255,255,255,0.3)] active:scale-95 sm:h-auto sm:w-auto sm:px-6 sm:py-2 sm:font-black"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               <LuPhone className="h-4 w-4 sm:h-3 sm:w-3" />

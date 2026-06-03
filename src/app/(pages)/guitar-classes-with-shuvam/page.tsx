@@ -518,7 +518,7 @@ export default async function Page() {
                       <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 transition-transform group-hover/item:scale-110">
                         <LuCircleCheck className="h-3 w-3" />
                       </div>
-                      <span className="text-xs leading-relaxed font-medium text-gray-300 transition-colors duration-300 group-hover/item:text-white sm:text-sm">
+                      <span className="text-xs leading-relaxed font-medium text-gray-300 transition-colors duration-300 group-hover/item:text-white sm:text-sm md:text-base">
                         {item}
                       </span>
                     </div>
@@ -553,7 +553,7 @@ export default async function Page() {
                       <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border border-rose-500/20 bg-rose-500/10 text-rose-400 transition-transform group-hover/item:scale-110">
                         <LuCircleX className="h-3 w-3" />
                       </div>
-                      <span className="text-xs leading-relaxed font-medium text-gray-300 transition-colors duration-300 group-hover/item:text-white sm:text-sm">
+                      <span className="text-xs leading-relaxed font-medium text-gray-300 transition-colors duration-300 group-hover/item:text-white sm:text-sm md:text-base">
                         {item}
                       </span>
                     </div>
