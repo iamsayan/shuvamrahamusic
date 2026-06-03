@@ -29,6 +29,10 @@ const navLinks: NavLink[] = [
     ],
   },
   {
+    name: 'Performance Highlights',
+    href: '/performance-highlights',
+  },
+  {
     name: 'Gallery',
     href: '/gallery',
     subItems: [
@@ -93,55 +97,91 @@ export default function Header() {
             className="group relative z-50 flex items-center gap-3"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <div className="relative flex h-8.5 w-8.5 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-[0_0_15px_rgba(255,255,255,0.02)] transition-all duration-300 group-hover:scale-105 group-hover:border-cyan-500/30 group-hover:shadow-[0_0_25px_rgba(6,182,212,0.2)] md:h-10 md:w-10">
-              <Image
-                src="/logo.png"
-                alt="Shuvam Raha Logo"
-                fill
-                className="object-contain p-1"
-              />
-            </div>
-            <span className="text-lg font-black tracking-tight text-white md:text-xl">
-              Shuvam Raha
-            </span>
+            <Image
+              src="/site-logo.png"
+              alt="Shuvam Raha Logo"
+              width={100}
+              height={50}
+              className="-mt-2"
+            />
           </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.02] px-2 py-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.2)] backdrop-blur-md xl:flex">
-            {navLinks.map((link, idx) => (
-              <div key={idx} className="group relative">
-                <Link
-                  href={`${link.raw ? link.href : `https://shuvamrahamusic.com${link.href}`}`}
-                  className="relative flex items-center gap-1 overflow-hidden rounded-full px-3.5 py-1.5 transition-colors"
-                >
-                  <span className="relative z-10 text-sm font-bold whitespace-nowrap text-gray-300 transition-colors duration-300 group-hover:text-white">
-                    {link.name}
-                  </span>
-                  {link.subItems && (
-                    <LuChevronDown className="relative z-10 h-3 w-3 text-gray-400 transition-transform duration-300 group-hover:rotate-180 group-hover:text-white" />
-                  )}
-                  {/* Pill Hover Effect */}
-                  <span className="pointer-events-none absolute inset-0 scale-75 rounded-full bg-white/10 opacity-0 transition-all duration-300 ease-out group-hover:scale-100 group-hover:opacity-100" />
-                </Link>
+            {navLinks.map((link, idx) => {
+              const isRealLink = link.href && link.href !== '#';
 
-                {/* Dropdown for Desktop */}
-                {link.subItems && (
-                  <div className="invisible absolute top-full left-1/2 z-50 -translate-x-1/2 translate-y-3 pt-3 opacity-0 transition-all duration-300 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                    <div className="flex min-w-[150px] flex-col rounded-2xl border border-white/10 bg-[#0a0a0f]/95 p-1.5 shadow-[0_20px_40px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
-                      {link.subItems.map((sub, sIdx) => (
-                        <Link
-                          key={sIdx}
-                          href={`${sub.raw ? sub.href : `https://shuvamrahamusic.com${sub.href}`}`}
-                          className="rounded-xl px-3.5 py-2 text-sm font-bold text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
-                        >
-                          {sub.name}
-                        </Link>
-                      ))}
+              if (link.subItems && isRealLink) {
+                return (
+                  <div
+                    key={idx}
+                    className="group/item relative flex items-center gap-1 rounded-full py-1.5 pr-2.5 pl-3.5 transition-colors"
+                  >
+                    <Link
+                      href={`${link.raw ? link.href : `https://shuvamrahamusic.com${link.href}`}`}
+                      className="relative z-10 text-sm font-bold whitespace-nowrap text-gray-300 transition-colors duration-300 group-hover/item:text-white hover:text-white"
+                    >
+                      {link.name}
+                    </Link>
+                    <div className="group/chevron relative flex cursor-pointer items-center justify-center p-1">
+                      <LuChevronDown className="relative z-10 h-3 w-3 text-gray-400 transition-transform duration-300 group-hover/chevron:rotate-180 group-hover/chevron:text-white" />
+
+                      {/* Dropdown triggered only by Chevron hover */}
+                      <div className="invisible absolute top-full left-1/2 z-50 -translate-x-1/2 translate-y-3 pt-3 opacity-0 transition-all duration-300 ease-out group-hover/chevron:visible group-hover/chevron:opacity-100">
+                        <div className="flex min-w-[150px] flex-col rounded-2xl border border-white/10 bg-[#0a0a0f]/95 p-1.5 shadow-[0_20px_40px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
+                          {link.subItems.map((sub, sIdx) => (
+                            <Link
+                              key={sIdx}
+                              href={`${sub.raw ? sub.href : `https://shuvamrahamusic.com${sub.href}`}`}
+                              className="rounded-xl px-3.5 py-2 text-sm font-bold text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
+                            >
+                              {sub.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
                     </div>
+                    {/* Unified Pill Hover Effect */}
+                    <span className="pointer-events-none absolute inset-0 scale-75 rounded-full bg-white/10 opacity-0 transition-all duration-300 ease-out group-hover/item:scale-100 group-hover/item:opacity-100" />
                   </div>
-                )}
-              </div>
-            ))}
+                );
+              }
+
+              return (
+                <div key={idx} className="group relative">
+                  <Link
+                    href={`${link.raw ? link.href : `https://shuvamrahamusic.com${link.href}`}`}
+                    className="relative flex items-center gap-1 overflow-hidden rounded-full px-3.5 py-1.5 transition-colors"
+                  >
+                    <span className="relative z-10 text-sm font-bold whitespace-nowrap text-gray-300 transition-colors duration-300 group-hover:text-white">
+                      {link.name}
+                    </span>
+                    {link.subItems && (
+                      <LuChevronDown className="relative z-10 h-3 w-3 text-gray-400 transition-transform duration-300 group-hover:rotate-180 group-hover:text-white" />
+                    )}
+                    {/* Pill Hover Effect */}
+                    <span className="pointer-events-none absolute inset-0 scale-75 rounded-full bg-white/10 opacity-0 transition-all duration-300 ease-out group-hover:scale-100 group-hover:opacity-100" />
+                  </Link>
+
+                  {/* Dropdown for Desktop */}
+                  {link.subItems && (
+                    <div className="invisible absolute top-full left-1/2 z-50 -translate-x-1/2 translate-y-3 pt-3 opacity-0 transition-all duration-300 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                      <div className="flex min-w-[150px] flex-col rounded-2xl border border-white/10 bg-[#0a0a0f]/95 p-1.5 shadow-[0_20px_40px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
+                        {link.subItems.map((sub, sIdx) => (
+                          <Link
+                            key={sIdx}
+                            href={`${sub.raw ? sub.href : `https://shuvamrahamusic.com${sub.href}`}`}
+                            className="rounded-xl px-3.5 py-2 text-sm font-bold text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
+                          >
+                            {sub.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </nav>
 
           {/* CTA & Mobile Toggle */}
@@ -186,40 +226,46 @@ export default function Header() {
         {isMobileMenuOpen && (
           <div className="relative z-10 mt-2 flex w-full flex-1 flex-col justify-between py-6 xl:hidden">
             <nav className="flex max-h-[calc(100vh-120px)] w-full flex-col gap-1 overflow-y-auto pr-1">
-              {navLinks.map((link, idx) => (
-                <div
-                  key={idx}
-                  className="mobile-menu-item flex flex-col border-b border-white/5"
-                  style={{ animationDelay: `${idx * 40}ms` }}
-                >
-                  <Link
-                    href={`${link.raw ? link.href : `https://shuvamrahamusic.com${link.href}`}`}
-                    className="group flex items-center justify-between py-3.5 text-lg font-bold text-gray-300 transition-all duration-300 hover:text-white"
-                    onClick={() => !link.subItems && setIsMobileMenuOpen(false)}
+              {navLinks.map((link, idx) => {
+                const isRealLink = link.href && link.href !== '#';
+                return (
+                  <div
+                    key={idx}
+                    className="mobile-menu-item flex flex-col border-b border-white/5"
+                    style={{ animationDelay: `${idx * 40}ms` }}
                   >
-                    {link.name}
-                    {!link.subItems && (
-                      <LuArrowRight className="h-4 w-4 -translate-x-3 text-cyan-400 opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100" />
-                    )}
-                  </Link>
+                    <Link
+                      href={`${link.raw ? link.href : `https://shuvamrahamusic.com${link.href}`}`}
+                      className="group flex items-center justify-between py-3.5 text-lg font-bold text-gray-300 transition-all duration-300 hover:text-white"
+                      onClick={() =>
+                        (!link.subItems || isRealLink) &&
+                        setIsMobileMenuOpen(false)
+                      }
+                    >
+                      {link.name}
+                      {(!link.subItems || isRealLink) && (
+                        <LuArrowRight className="h-4 w-4 -translate-x-3 text-cyan-400 opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100" />
+                      )}
+                    </Link>
 
-                  {/* Mobile Subitems */}
-                  {link.subItems && (
-                    <div className="mb-1 ml-2 flex flex-col gap-3 border-l-2 border-white/10 pb-3.5 pl-4">
-                      {link.subItems.map((sub, sIdx) => (
-                        <Link
-                          key={sIdx}
-                          href={`https://shuvamrahamusic.com${sub.href}`}
-                          className="text-sm font-semibold text-gray-400 transition-colors hover:text-cyan-400"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          {sub.name}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
+                    {/* Mobile Subitems */}
+                    {link.subItems && (
+                      <div className="mb-1 ml-2 flex flex-col gap-3 border-l-2 border-white/10 pb-3.5 pl-4">
+                        {link.subItems.map((sub, sIdx) => (
+                          <Link
+                            key={sIdx}
+                            href={`${sub.raw ? sub.href : `https://shuvamrahamusic.com${sub.href}`}`}
+                            className="text-sm font-semibold text-gray-400 transition-colors hover:text-cyan-400"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            {sub.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </nav>
 
             {/* Ambient Background glow in Mobile Menu */}
