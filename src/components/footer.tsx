@@ -189,7 +189,7 @@ export default function Footer() {
         {/* === BOTTOM COPYRIGHT & DISCLAIMER === */}
         <div className="relative z-10 mt-10 flex flex-col gap-4 border-t border-white/5 pt-6">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <div className="flex flex-col items-center gap-2 text-center sm:flex-row sm:gap-3 sm:text-left">
+            <div className="flex flex-col items-center gap-2 text-center sm:flex-row sm:text-left">
               <p className="text-xs font-semibold text-gray-500 sm:text-sm">
                 Copyright &copy; {new Date().getFullYear()} Shuvam Raha Music.
               </p>
@@ -207,7 +207,7 @@ export default function Footer() {
               </p>
             </div>
 
-            <div className="flex items-center gap-3 text-xs font-semibold sm:text-sm">
+            <div className="flex items-center gap-2 text-xs font-semibold sm:text-sm">
               <a
                 href="https://shuvamrahamusic.com/privacy-policy/"
                 target="_blank"

@@ -49,7 +49,7 @@ export default function FaqAccordion() {
                 setActiveCategory(cat);
                 setOpenIndex(0);
               }}
-              className={`group flex items-center justify-between rounded-2xl border px-5 py-3.5 text-left text-sm font-bold whitespace-nowrap transition-all duration-300 ${
+              className={`group flex items-center justify-between gap-3 rounded-2xl border px-5 py-3.5 text-left text-xs font-bold whitespace-nowrap transition-all duration-300 sm:text-sm md:text-base ${
                 activeCategory === cat
                   ? 'border-indigo-500/40 bg-indigo-500/20 text-indigo-300 shadow-[0_0_20px_rgba(99,102,241,0.15)]'
                   : 'border-white/5 bg-white/[0.02] text-gray-400 hover:border-white/10 hover:bg-white/[0.05] hover:text-gray-200'
@@ -102,10 +102,10 @@ export default function FaqAccordion() {
             >
               <button
                 onClick={() => toggleFaq(idx)}
-                className="group flex w-full items-center justify-between p-4 text-left focus:outline-none sm:p-5"
+                className="group flex w-full items-center justify-between p-3 text-left focus:outline-none sm:p-4"
               >
                 <span
-                  className={`pr-4 text-sm font-bold transition-colors duration-300 sm:text-base ${
+                  className={`pr-4 text-xs font-bold transition-colors duration-300 sm:text-base sm:text-sm md:text-base ${
                     isOpen
                       ? 'text-indigo-300'
                       : 'text-gray-200 group-hover:text-white'

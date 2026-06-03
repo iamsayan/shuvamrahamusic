@@ -28,8 +28,8 @@ export interface Plan {
   bestFor: string;
   buttonText: string;
   theme: string;
+  link: string;
   popular?: boolean;
-  link?: string;
 }
 
 export const plans: Record<Region, Plan[]> = {
@@ -92,6 +92,7 @@ export const plans: Record<Region, Plan[]> = {
       buttonText: 'Join Global Program',
       theme: 'blue',
       popular: true,
+      link: 'https://rzp.io/rzp/DFJDgAZ2',
     },
     {
       name: 'Pro Guitar Coaching',
@@ -112,6 +113,7 @@ export const plans: Record<Region, Plan[]> = {
       bestFor: 'Serious learners who want fast results',
       buttonText: 'Apply for Pro Coaching',
       theme: 'violet',
+      link: 'https://rzp.io/rzp/tuXk3CHg',
     },
   ],
 };
