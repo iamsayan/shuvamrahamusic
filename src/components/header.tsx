@@ -80,15 +80,15 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-out ${
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-out flex flex-col ${
         isMobileMenuOpen
-          ? 'mobile-menu-open h-screen overflow-y-auto bg-[#020205]/98 backdrop-blur-3xl'
+          ? 'mobile-menu-open h-screen bg-[#020205]/98 backdrop-blur-3xl py-2 md:py-3.5'
           : isScrolled
-            ? 'border-b border-white/10 bg-[#020205]/75 py-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl'
-            : 'border-b border-transparent bg-transparent py-3.5'
+            ? 'border-b border-white/10 bg-[#020205]/75 py-1 md:py-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl'
+            : 'border-b border-transparent bg-transparent py-2 md:py-3.5'
       }`}
     >
-      <div className="mx-auto flex h-full w-full max-w-[1400px] flex-col justify-start px-5 md:px-12 lg:px-20">
+      <div className="mx-auto flex w-full max-w-[1400px] flex-col justify-start px-5 md:px-12 lg:px-20 min-h-0 flex-1">
         {/* Top Header Bar */}
         <div className="flex h-[60px] w-full shrink-0 items-center justify-between md:h-[70px]">
           {/* Logo */}
@@ -224,8 +224,8 @@ export default function Header() {
 
         {/* Mobile Menu List */}
         {isMobileMenuOpen && (
-          <div className="relative z-10 mt-2 flex w-full flex-1 flex-col justify-between py-6 xl:hidden">
-            <nav className="flex max-h-[calc(100vh-120px)] w-full flex-col gap-1 overflow-y-auto pr-1">
+          <div className="relative z-10 mt-2 flex w-full flex-1 flex-col py-4 xl:hidden min-h-0">
+            <nav className="flex w-full flex-col gap-1 overflow-y-auto pr-1 flex-1">
               {navLinks.map((link, idx) => {
                 const isRealLink = link.href && link.href !== '#';
                 return (
@@ -236,7 +236,7 @@ export default function Header() {
                   >
                     <Link
                       href={`${link.raw ? link.href : `https://shuvamrahamusic.com${link.href}`}`}
-                      className="group flex items-center justify-between py-3.5 text-lg font-bold text-gray-300 transition-all duration-300 hover:text-white"
+                      className="group flex items-center justify-between py-2 text-base font-bold text-gray-300 transition-all duration-300 hover:text-white"
                       onClick={() =>
                         (!link.subItems || isRealLink) &&
                         setIsMobileMenuOpen(false)
@@ -250,12 +250,12 @@ export default function Header() {
 
                     {/* Mobile Subitems */}
                     {link.subItems && (
-                      <div className="mb-1 ml-2 flex flex-col gap-3 border-l-2 border-white/10 pb-3.5 pl-4">
+                      <div className="mb-1 ml-2 flex flex-col gap-2 border-l-2 border-white/10 pb-2 pl-4">
                         {link.subItems.map((sub, sIdx) => (
                           <Link
                             key={sIdx}
                             href={`${sub.raw ? sub.href : `https://shuvamrahamusic.com${sub.href}`}`}
-                            className="text-sm font-semibold text-gray-400 transition-colors hover:text-cyan-400"
+                            className="py-1 text-sm font-semibold text-gray-400 transition-colors hover:text-cyan-400"
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
                             {sub.name}
