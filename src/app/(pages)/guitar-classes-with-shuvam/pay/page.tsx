@@ -83,15 +83,15 @@ export default function SecurePayPage() {
         {/* Unified Card */}
         <div className="relative flex w-full flex-col items-center overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] p-6 text-center shadow-2xl backdrop-blur-2xl sm:p-8">
           {/* SSL Status */}
-          <div className="mb-6 inline-flex items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 text-[10px] sm:text-xs font-bold text-emerald-400">
+          <div className="mb-6 inline-flex items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-bold text-emerald-400 sm:text-xs">
             <LuShieldCheck className="h-3.5 w-3.5" />
             SECURE PORTAL
           </div>
 
-          <h1 className="font-heading mb-1 text-2xl sm:text-3xl font-black tracking-tight text-white">
+          <h1 className="font-heading mb-1 text-2xl font-black tracking-tight text-white sm:text-3xl">
             Choose & Pay
           </h1>
-          <p className="mb-6 max-w-[280px] text-xs sm:text-sm text-gray-400">
+          <p className="mb-6 max-w-[280px] text-xs text-gray-400 sm:text-sm">
             Select your region and preferred coaching program below.
           </p>
 
@@ -102,7 +102,7 @@ export default function SecurePayPage() {
                 setRegion('IN');
                 setSelectedPlanIdx(0);
               }}
-              className={`flex flex-1 items-center justify-center gap-1.5 rounded-full py-2 text-xs font-bold transition-all duration-300 ${
+              className={`flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-full py-2 text-xs font-bold transition-all duration-300 ${
                 region === 'IN'
                   ? 'bg-white/10 text-white shadow-md'
                   : 'text-gray-400 hover:text-white'
@@ -116,7 +116,7 @@ export default function SecurePayPage() {
                 setRegion('GLOBAL');
                 setSelectedPlanIdx(0);
               }}
-              className={`flex flex-1 items-center justify-center gap-1.5 rounded-full py-2 text-xs font-bold transition-all duration-300 ${
+              className={`flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-full py-2 text-xs font-bold transition-all duration-300 ${
                 region === 'GLOBAL'
                   ? 'bg-white/10 text-white shadow-md'
                   : 'text-gray-400 hover:text-white'
@@ -137,7 +137,7 @@ export default function SecurePayPage() {
                 <button
                   key={idx}
                   onClick={() => setSelectedPlanIdx(idx)}
-                  className={`flex w-full items-center justify-between rounded-xl border p-4 text-left transition-all duration-300 ${
+                  className={`flex w-full cursor-pointer items-center justify-between rounded-xl border p-4 text-left transition-all duration-300 ${
                     isActive
                       ? `border-white/20 bg-white/5`
                       : 'border-white/[0.04] bg-white/[0.005] hover:border-white/10 hover:bg-white/[0.01]'
@@ -153,13 +153,13 @@ export default function SecurePayPage() {
                         <div className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
                       )}
                     </div>
-                    <span className="font-heading text-xs sm:text-sm font-bold text-white">
+                    <span className="font-heading text-xs font-bold text-white sm:text-sm">
                       {plan.name}
                     </span>
                   </div>
 
                   <span
-                    className={`font-heading text-xs sm:text-sm font-black ${isActive ? theme.text : 'text-gray-400'}`}
+                    className={`font-heading text-xs font-black sm:text-sm ${isActive ? theme.text : 'text-gray-400'}`}
                   >
                     {plan.currency}
                     {plan.price}
@@ -171,17 +171,17 @@ export default function SecurePayPage() {
 
           {/* Pricing detail string */}
           <div className="mb-6 flex w-full flex-col items-center border-t border-white/5 pt-4">
-            <span className="font-heading mb-1 block text-[10px] sm:text-xs tracking-wider text-gray-500 uppercase">
+            <span className="font-heading mb-1 block text-[10px] tracking-wider text-gray-500 uppercase sm:text-xs">
               Total Fee
             </span>
             <div className="flex items-baseline gap-0.5">
               <span
-                className={`text-3xl sm:text-4xl font-black ${planTheme.text} font-heading`}
+                className={`text-3xl font-black sm:text-4xl ${planTheme.text} font-heading`}
               >
                 {activePlan.currency}
                 {activePlan.price}
               </span>
-              <span className="text-xs sm:text-sm font-semibold text-gray-400">
+              <span className="text-xs font-semibold text-gray-400 sm:text-sm">
                 {activePlan.period}
               </span>
             </div>
@@ -199,7 +199,7 @@ export default function SecurePayPage() {
           </a>
 
           {/* Direct WhatsApp Support Helper link */}
-          <span className="mt-4 text-[10px] sm:text-xs leading-relaxed text-gray-500">
+          <span className="mt-4 text-[10px] leading-relaxed text-gray-500 sm:text-xs">
             Need help?{' '}
             <a
               href={`https://wa.me/918961369468?text=${encodeURIComponent('Hi Shuvam, I need help with my classes payment.')}`}

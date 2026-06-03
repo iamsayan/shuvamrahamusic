@@ -177,10 +177,10 @@ export default async function Page() {
               <span className="font-heading mb-3 ml-1 block text-sm font-bold tracking-[0.2em] text-cyan-400 uppercase sm:text-base">
                 Guitar Classes with Shuvam Raha
               </span>
-              <span className="font-heading mb-2 block bg-gradient-to-r from-white via-white to-gray-400 bg-clip-text text-[3.2rem] leading-[1.05] text-transparent sm:text-[4.5rem] lg:text-[5.5rem]">
+              <span className="font-heading mb-2 block bg-gradient-to-r from-white via-white to-gray-400 bg-clip-text text-[2.4rem] leading-[1.05] text-transparent sm:text-[4rem] lg:text-[5.5rem]">
                 Learn Guitar & Play Your Favorite Songs
               </span>
-              <span className="font-heading block text-[3.2rem] leading-[1.05] sm:text-[4.5rem] lg:text-[5.5rem]">
+              <span className="font-heading block text-[2.4rem] leading-[1.05] sm:text-[4rem] lg:text-[5.5rem]">
                 {' '}
                 <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(6,182,212,0.4)]">
                   in 30 days
@@ -576,7 +576,7 @@ export default async function Page() {
             {/* Glowing Accent Strip */}
             <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />
 
-            <div className="grid grid-cols-1 gap-10 lg:grid-cols-3 lg:gap-16">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-16">
               {/* Column 1: Live Weekly Schedule Strip */}
               <div className="flex flex-col gap-6">
                 <div>
@@ -847,7 +847,7 @@ export default async function Page() {
                 {[...topRowReviews, ...topRowReviews].map((review, idx) => (
                   <div
                     key={`top-${idx}`}
-                    className="group relative flex w-[340px] shrink-0 flex-col justify-between overflow-hidden rounded-[2rem] border border-white/[0.06] bg-gradient-to-b from-white/[0.03] to-white/[0.01] p-6 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:scale-[1.01] hover:border-amber-500/30 hover:bg-white/[0.05] hover:shadow-[0_0_40px_rgba(245,158,11,0.06)] active:scale-[0.99] sm:w-[420px] sm:p-7"
+                    className="group relative flex w-[290px] shrink-0 flex-col justify-between overflow-hidden rounded-[2rem] border border-white/[0.06] bg-gradient-to-b from-white/[0.03] to-white/[0.01] p-6 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:scale-[1.01] hover:border-amber-500/30 hover:bg-white/[0.05] hover:shadow-[0_0_40px_rgba(245,158,11,0.06)] active:scale-[0.99] sm:w-[420px] sm:p-7"
                   >
                     {/* Ambient Background Accent Glow */}
                     <div className="pointer-events-none absolute top-0 right-0 h-24 w-24 rounded-full bg-amber-500/5 opacity-0 blur-[30px] transition-opacity duration-700 group-hover:opacity-100" />
@@ -910,12 +910,12 @@ export default async function Page() {
               </div>
 
               {/* Bottom Row (Scrolls Right) */}
-              <div className="animate-marquee-right flex w-max gap-6 px-4">
+              <div className="animate-marquee-right flex w-max gap-4 px-4 sm:gap-6">
                 {[...bottomRowReviews, ...bottomRowReviews].map(
                   (review, idx) => (
                     <div
                       key={`bottom-${idx}`}
-                      className="group relative flex w-[340px] shrink-0 flex-col justify-between overflow-hidden rounded-[2rem] border border-white/[0.06] bg-gradient-to-b from-white/[0.03] to-white/[0.01] p-6 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:scale-[1.01] hover:border-amber-500/30 hover:bg-white/[0.05] hover:shadow-[0_0_40px_rgba(245,158,11,0.06)] active:scale-[0.99] sm:w-[420px] sm:p-7"
+                      className="group relative flex w-[290px] shrink-0 flex-col justify-between overflow-hidden rounded-[2rem] border border-white/[0.06] bg-gradient-to-b from-white/[0.03] to-white/[0.01] p-6 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:scale-[1.01] hover:border-amber-500/30 hover:bg-white/[0.05] hover:shadow-[0_0_40px_rgba(245,158,11,0.06)] active:scale-[0.99] sm:w-[420px] sm:p-7"
                     >
                       {/* Ambient Background Accent Glow */}
                       <div className="pointer-events-none absolute top-0 right-0 h-24 w-24 rounded-full bg-amber-500/5 opacity-0 blur-[30px] transition-opacity duration-700 group-hover:opacity-100" />

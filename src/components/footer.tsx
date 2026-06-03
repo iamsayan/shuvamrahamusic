@@ -79,17 +79,13 @@ export default function Footer() {
           {/* Left Brand block */}
           <div className="flex w-full max-w-sm flex-col items-center gap-4 text-center lg:items-start lg:text-left">
             <div className="flex items-center gap-2.5">
-              <div className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-[0_0_15px_rgba(255,255,255,0.02)]">
-                <Image
-                  src="/logo.png"
-                  alt="Shuvam Raha Logo"
-                  fill
-                  className="object-contain p-0.5"
-                />
-              </div>
-              <span className="text-base font-black tracking-tight text-white">
-                Shuvam Raha
-              </span>
+              <Image
+                src="/site-logo.png"
+                alt="Shuvam Raha Logo"
+                width={100}
+                height={50}
+                className="-mt-2"
+              />
             </div>
 
             <p className="text-sm leading-relaxed text-gray-400 sm:text-[15px]">
@@ -191,7 +187,7 @@ export default function Footer() {
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div className="flex flex-col items-center gap-2 text-center sm:flex-row sm:text-left">
               <p className="text-xs font-semibold text-gray-500 sm:text-sm">
-                Copyright &copy; {new Date().getFullYear()} Shuvam Raha Music.
+                &copy; {new Date().getFullYear()} Shuvam Raha Music.
               </p>
               <span className="hidden text-gray-800 sm:inline">•</span>
               <p className="flex items-center gap-1 text-xs font-semibold text-gray-500 sm:text-sm">
