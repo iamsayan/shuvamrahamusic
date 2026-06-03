@@ -5,6 +5,7 @@ import Link from 'next/link';
 import FaqAccordion from '@/components/faq-accordion';
 import PricingTable from '@/components/pricing-table';
 import ProgramTabs from '@/components/program-tabs';
+import JsonLd from '@/components/json-ld';
 // Client Components
 import SliderGallery from '@/components/slider-gallery';
 import YouTubeFacade from '@/components/youtube-facade';
@@ -179,149 +180,146 @@ export default async function Page() {
   return (
     <>
       {/* JSON-LD Structured Data for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify([
-            {
-              '@context': 'https://schema.org',
-              '@type': 'Course',
-              name: '1-on-1 Personalized Guitar Coaching with Shuvam Raha',
-              description:
-                'Learn guitar online or offline in 30 days. Structured 1-on-1 classes covering chords, strumming, lead playing, and music theory, with support in English, Hindi, and Bengali.',
-              provider: {
+      <JsonLd
+        schema={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'Course',
+            name: '1-on-1 Personalized Guitar Coaching with Shuvam Raha',
+            description:
+              'Learn guitar online or offline in 30 days. Structured 1-on-1 classes covering chords, strumming, lead playing, and music theory, with support in English, Hindi, and Bengali.',
+            provider: {
+              '@type': 'Person',
+              name: 'Shuvam Raha',
+              sameAs: 'https://shuvamrahamusic.com',
+            },
+            courseCode: 'SR-GUITAR-30',
+            educationalLevel: 'Beginner to Advanced',
+            offers: [
+              {
+                '@type': 'Offer',
+                category: 'Subscription',
+                priceCurrency: 'INR',
+                price: '1500.00',
+                name: 'Offline Coaching (Studio)',
+                description:
+                  'Physical presence, real-time correction & faster progress at the studio in Kolkata.',
+                url: 'https://shuvamrahamusic.com/guitar-classes-with-shuvam',
+              },
+              {
+                '@type': 'Offer',
+                category: 'Subscription',
+                priceCurrency: 'INR',
+                price: '1800.00',
+                name: 'Starter Online Plan',
+                description:
+                  '4 sessions per month online with a fixed weekly schedule.',
+                url: 'https://shuvamrahamusic.com/guitar-classes-with-shuvam',
+              },
+              {
+                '@type': 'Offer',
+                category: 'Subscription',
+                priceCurrency: 'USD',
+                price: '45.00',
+                name: 'Global Guitar Program',
+                description:
+                  'Song-based learning with flexible scheduling across time zones.',
+                url: 'https://shuvamrahamusic.com/guitar-classes-with-shuvam',
+              },
+            ],
+            hasCourseInstance: {
+              '@type': 'CourseInstance',
+              courseMode: ['online', 'offline'],
+              courseWorkload: 'PT40M',
+              instructor: {
                 '@type': 'Person',
                 name: 'Shuvam Raha',
-                sameAs: 'https://shuvamrahamusic.com',
-              },
-              courseCode: 'SR-GUITAR-30',
-              educationalLevel: 'Beginner to Advanced',
-              offers: [
-                {
-                  '@type': 'Offer',
-                  category: 'Subscription',
-                  priceCurrency: 'INR',
-                  price: '1500.00',
-                  name: 'Offline Coaching (Studio)',
-                  description:
-                    'Physical presence, real-time correction & faster progress at the studio in Kolkata.',
-                  url: 'https://shuvamrahamusic.com/guitar-classes-with-shuvam',
-                },
-                {
-                  '@type': 'Offer',
-                  category: 'Subscription',
-                  priceCurrency: 'INR',
-                  price: '1800.00',
-                  name: 'Starter Online Plan',
-                  description:
-                    '4 sessions per month online with a fixed weekly schedule.',
-                  url: 'https://shuvamrahamusic.com/guitar-classes-with-shuvam',
-                },
-                {
-                  '@type': 'Offer',
-                  category: 'Subscription',
-                  priceCurrency: 'USD',
-                  price: '45.00',
-                  name: 'Global Guitar Program',
-                  description:
-                    'Song-based learning with flexible scheduling across time zones.',
-                  url: 'https://shuvamrahamusic.com/guitar-classes-with-shuvam',
-                },
-              ],
-              hasCourseInstance: {
-                '@type': 'CourseInstance',
-                courseMode: ['online', 'offline'],
-                courseWorkload: 'PT40M',
-                instructor: {
-                  '@type': 'Person',
-                  name: 'Shuvam Raha',
-                  jobTitle: 'LCM Certified Music Instructor',
-                },
+                jobTitle: 'LCM Certified Music Instructor',
               },
             },
-            {
-              '@context': 'https://schema.org',
-              '@type': 'MusicInstructionBusiness',
-              name: 'Shuvam Raha Music',
-              description:
-                'LCM certified professional guitar instruction, offering online classes globally and offline classes at the studio in Kolkata.',
-              url: 'https://shuvamrahamusic.com',
-              telephone: '+918961369468',
-              address: {
-                '@type': 'PostalAddress',
-                addressLocality: 'Kolkata',
-                addressRegion: 'West Bengal',
-                addressCountry: 'IN',
-              },
-              geo: {
-                '@type': 'GeoCoordinates',
-                latitude: '22.5726',
-                longitude: '88.3639',
-              },
-              priceRange: '$$ / ₹₹',
-              openingHoursSpecification: [
-                {
-                  '@type': 'OpeningHoursSpecification',
-                  dayOfWeek: ['Monday', 'Tuesday', 'Wednesday'],
-                  opens: '10:00',
-                  closes: '21:00',
-                },
-                {
-                  '@type': 'OpeningHoursSpecification',
-                  dayOfWeek: ['Saturday', 'Sunday'],
-                  opens: '10:00',
-                  closes: '16:00',
-                },
-              ],
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'MusicInstructionBusiness',
+            name: 'Shuvam Raha Music',
+            description:
+              'LCM certified professional guitar instruction, offering online classes globally and offline classes at the studio in Kolkata.',
+            url: 'https://shuvamrahamusic.com',
+            telephone: '+918961369468',
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: 'Kolkata',
+              addressRegion: 'West Bengal',
+              addressCountry: 'IN',
             },
-            {
-              '@context': 'https://schema.org',
-              '@type': 'FAQPage',
-              mainEntity: [
-                {
-                  '@type': 'Question',
-                  name: "Do I need any prior music experience to join Shuvam Raha's guitar classes?",
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'Not at all! The program is designed for complete beginners and starts from absolute zero with step-by-step guidance.',
-                  },
-                },
-                {
-                  '@type': 'Question',
-                  name: 'How long does it take to learn guitar and play favorite songs?',
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'Most students start playing basic songs within 30–60 days with regular practice, and build solid confidence within 3–6 months.',
-                  },
-                },
-                {
-                  '@type': 'Question',
-                  name: 'Are the guitar classes online or offline?',
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'Both options are available — online classes worldwide (with flexible scheduling across time zones) and offline sessions at the studio in Kolkata.',
-                  },
-                },
-                {
-                  '@type': 'Question',
-                  name: 'What happens if I miss a scheduled guitar class?',
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'Missed classes can be rescheduled based on availability within the same month.',
-                  },
-                },
-                {
-                  '@type': 'Question',
-                  name: 'How can I enroll in the guitar classes?',
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'Simply book a free introductory call to discuss your goals, choose a suitable plan, confirm your slot, and start learning.',
-                  },
-                },
-              ],
+            geo: {
+              '@type': 'GeoCoordinates',
+              latitude: '22.5726',
+              longitude: '88.3639',
             },
-          ]),
-        }}
+            priceRange: '$$ / ₹₹',
+            openingHoursSpecification: [
+              {
+                '@type': 'OpeningHoursSpecification',
+                dayOfWeek: ['Monday', 'Tuesday', 'Wednesday'],
+                opens: '10:00',
+                closes: '21:00',
+              },
+              {
+                '@type': 'OpeningHoursSpecification',
+                dayOfWeek: ['Saturday', 'Sunday'],
+                opens: '10:00',
+                closes: '16:00',
+              },
+            ],
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: "Do I need any prior music experience to join Shuvam Raha's guitar classes?",
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Not at all! The program is designed for complete beginners and starts from absolute zero with step-by-step guidance.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'How long does it take to learn guitar and play favorite songs?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Most students start playing basic songs within 30–60 days with regular practice, and build solid confidence within 3–6 months.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'Are the guitar classes online or offline?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Both options are available — online classes worldwide (with flexible scheduling across time zones) and offline sessions at the studio in Kolkata.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'What happens if I miss a scheduled guitar class?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Missed classes can be rescheduled based on availability within the same month.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'How can I enroll in the guitar classes?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Simply book a free introductory call to discuss your goals, choose a suitable plan, confirm your slot, and start learning.',
+                },
+              },
+            ],
+          },
+        ]}
       />
       <div className="bg-[#05050A] text-[#f0f0f5]">
         {/* =======================================================================

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import PageLayout from '@/components/page-layout';
+import JsonLd from '@/components/json-ld';
 
 export const metadata: Metadata = {
   title: 'Refund & Rescheduling Policy',
@@ -10,7 +11,18 @@ export const metadata: Metadata = {
 
 export default function RefundPolicyPage() {
   return (
-    <PageLayout title="Refund & Rescheduling Policy" subtitle="Effective Date: June 1, 2026">
+    <>
+      <JsonLd
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: 'Refund & Rescheduling Policy | Shuvam Raha Music',
+          description:
+            'Refund, return, cancellation, and class rescheduling policies for Shuvam Raha Music programs.',
+          url: 'https://shuvamrahamusic.com/refund-policy',
+        }}
+      />
+      <PageLayout title="Refund & Rescheduling Policy" subtitle="Effective Date: June 1, 2026">
       <div className="space-y-8 text-xs leading-relaxed sm:text-sm md:text-base">
         <p className="text-gray-300">
           This Refund & Rescheduling Policy applies to all guitar lessons and music education services offered by Shuvam Raha Music.
@@ -183,5 +195,6 @@ export default function RefundPolicyPage() {
         </section>
       </div>
     </PageLayout>
+    </>
   );
 }
