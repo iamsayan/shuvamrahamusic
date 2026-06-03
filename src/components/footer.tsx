@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { LuMail, LuMapPin, LuPhone } from 'react-icons/lu';
+import { LuChevronRight, LuMail, LuMapPin, LuPhone } from 'react-icons/lu';
 import {
   FaApple,
   FaFacebookF,
@@ -125,11 +125,9 @@ export default function Footer() {
                   <li key={idx}>
                     <Link
                       href={link.href}
-                      className="group flex items-center gap-2 text-xs font-bold text-gray-400 transition-colors duration-200 hover:text-white sm:text-sm"
+                      className="group flex items-center gap-1.5 text-xs font-bold text-gray-400 transition-colors duration-200 hover:text-white sm:text-sm"
                     >
-                      <span className="font-mono text-xs text-cyan-400/80 transition-colors group-hover:text-cyan-300">
-                        0{idx + 1}.
-                      </span>
+                      <LuChevronRight className="h-3.5 w-3.5 text-cyan-400/80 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-cyan-300" />
                       <span>{link.name}</span>
                     </Link>
                   </li>
@@ -204,32 +202,26 @@ export default function Footer() {
             </div>
 
             <div className="flex items-center gap-2 text-xs font-semibold sm:text-sm">
-              <a
-                href="https://shuvamrahamusic.com/privacy-policy/"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/privacy-policy"
                 className="text-gray-500 transition-colors duration-300 hover:text-white"
               >
                 Privacy
-              </a>
+              </Link>
               <span className="text-gray-800">•</span>
-              <a
-                href="https://shuvamrahamusic.com/terms-of-service/"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/terms-of-service"
                 className="text-gray-500 transition-colors duration-300 hover:text-white"
               >
                 Terms
-              </a>
+              </Link>
               <span className="text-gray-800">•</span>
-              <a
-                href="https://shuvamrahamusic.com/refund-policy/"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/refund-policy"
                 className="text-gray-500 transition-colors duration-300 hover:text-white"
               >
                 Refund Policy
-              </a>
+              </Link>
             </div>
           </div>
 

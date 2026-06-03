@@ -50,7 +50,7 @@ const navLinks: NavLink[] = [
       { name: 'Blog', href: '/blog' },
     ],
   },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Contact', href: '/contact', raw: true },
 ];
 
 export default function Header() {
