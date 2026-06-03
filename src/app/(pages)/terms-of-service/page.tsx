@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import PageLayout from '@/components/page-layout';
+import JsonLd from '@/components/json-ld';
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
@@ -10,7 +11,18 @@ export const metadata: Metadata = {
 
 export default function TermsOfServicePage() {
   return (
-    <PageLayout title="Terms of Service" subtitle="Effective Date: June 1, 2026">
+    <>
+      <JsonLd
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: 'Terms of Service | Shuvam Raha Music',
+          description:
+            'Terms of service and enrollment agreements for Shuvam Raha Music coaching programs.',
+          url: 'https://shuvamrahamusic.com/terms-of-service',
+        }}
+      />
+      <PageLayout title="Terms of Service" subtitle="Effective Date: June 1, 2026">
       <div className="space-y-8 text-xs leading-relaxed sm:text-sm md:text-base">
         <p className="text-gray-300">
           Welcome to Shuvam Raha Music. By accessing or using this website, you agree to these Terms of Service.
@@ -183,5 +195,6 @@ export default function TermsOfServicePage() {
         </section>
       </div>
     </PageLayout>
+    </>
   );
 }

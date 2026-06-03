@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   LuCheck,
   LuExternalLink,
@@ -9,36 +9,12 @@ import {
   LuShieldCheck,
   LuTriangleAlert,
 } from 'react-icons/lu';
-import { type Plan, type Region, plans } from '@/lib/guitar-data';
+import { type Plan, plans } from '@/lib/guitar-data';
+import { useRegion } from '@/hooks/use-region';
 
 export default function SecurePayPortal() {
-  const [region, setRegion] = useState<Region>('IN');
+  const [region, setRegion] = useRegion();
   const [selectedPlanIdx, setSelectedPlanIdx] = useState(0);
-
-  useEffect(() => {
-    async function getCountryCode() {
-      const cached = localStorage.getItem('region');
-
-      if (cached) {
-        setRegion(cached as Region);
-        return;
-      }
-
-      try {
-        const response = await fetch('https://ipinfo.io/json');
-        const data = await response.json();
-
-        const region = data.country === 'IN' ? 'IN' : 'GLOBAL';
-
-        localStorage.setItem('region', region);
-        setRegion(region);
-      } catch (error) {
-        console.error('Error fetching geolocation:', error);
-      }
-    }
-
-    getCountryCode();
-  }, []);
 
   const currentPlans = plans[region];
   const activePlan = currentPlans[selectedPlanIdx];

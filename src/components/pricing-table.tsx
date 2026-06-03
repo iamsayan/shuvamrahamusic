@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import {
   LuCheck,
   LuTriangleAlert,
@@ -8,36 +7,11 @@ import {
   LuGlobe,
   LuMapPin,
 } from 'react-icons/lu';
-import { Region, type Plan, plans } from '@/lib/guitar-data';
+import { type Plan, plans } from '@/lib/guitar-data';
+import { useRegion } from '@/hooks/use-region';
 
 export default function PricingTable() {
-  const [region, setRegion] = useState<Region>('IN');
-
-  useEffect(() => {
-    async function getCountryCode() {
-      const cached = localStorage.getItem('region');
-
-      if (cached) {
-        setRegion(cached as Region);
-        return;
-      }
-
-      try {
-        const response = await fetch('https://ipinfo.io/json');
-        const data = await response.json();
-
-        const region = data.country === 'IN' ? 'IN' : 'GLOBAL';
-
-        localStorage.setItem('region', region);
-
-        setRegion(region);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    getCountryCode();
-  }, []);
+  const [region, setRegion] = useRegion();
 
   // Tailwind purge-safe theme mappings
   const themeMap: Record<string, Record<string, string>> = {

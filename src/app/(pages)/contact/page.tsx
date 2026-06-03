@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import PageLayout from '@/components/page-layout';
+import JsonLd from '@/components/json-ld';
 
 import {
   LuClock,
@@ -18,10 +19,33 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <PageLayout
-      title="Contact Us"
-      subtitle="Have questions about guitar classes or payments? Get in touch with us."
-    >
+    <>
+      <JsonLd
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'ContactPage',
+          name: 'Contact Us | Shuvam Raha Music',
+          description:
+            'Get in touch with Shuvam Raha Music. Enroll in guitar coaching, ask questions, or request assistance.',
+          url: 'https://shuvamrahamusic.com/contact',
+          mainEntity: {
+            '@type': 'MusicInstructionBusiness',
+            name: 'Shuvam Raha Music',
+            telephone: '+918961369468',
+            email: 'contact@shuvamrahamusic.com',
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: 'Kolkata',
+              addressRegion: 'West Bengal',
+              addressCountry: 'IN',
+            },
+          },
+        }}
+      />
+      <PageLayout
+        title="Contact Us"
+        subtitle="Have questions about guitar classes or payments? Get in touch with us."
+      >
       <div className="mt-4 flex flex-col gap-6 text-left">
         {/* Contact Method Cards */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -122,5 +146,6 @@ export default function ContactPage() {
         </div>
       </div>
     </PageLayout>
+    </>
   );
 }

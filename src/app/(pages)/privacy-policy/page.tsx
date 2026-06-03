@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import PageLayout from '@/components/page-layout';
+import JsonLd from '@/components/json-ld';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -10,7 +11,18 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <PageLayout title="Privacy Policy" subtitle="Effective Date: June 1, 2026">
+    <>
+      <JsonLd
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: 'Privacy Policy | Shuvam Raha Music',
+          description:
+            'Privacy policy and data protection practices for Shuvam Raha Music classes and programs.',
+          url: 'https://shuvamrahamusic.com/privacy-policy',
+        }}
+      />
+      <PageLayout title="Privacy Policy" subtitle="Effective Date: June 1, 2026">
       <div className="space-y-8 text-xs leading-relaxed sm:text-sm md:text-base">
         <p className="text-gray-300">
           Welcome to Shuvam Raha Music (“we,” “our,” or “us”). This Privacy Policy explains how we collect, use, and protect your information when you visit Shuvam Raha Music.
@@ -179,5 +191,6 @@ export default function PrivacyPolicyPage() {
         </section>
       </div>
     </PageLayout>
+    </>
   );
 }
