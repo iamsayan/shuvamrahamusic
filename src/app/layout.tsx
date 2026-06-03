@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter, Outfit } from 'next/font/google';
-import Header from '@/components/header';
+
 import Footer from '@/components/footer';
+import Header from '@/components/header';
 import WhatsappButton from '@/components/whatsapp-button';
+
 import './globals.scss';
 
 const inter = Inter({
@@ -65,7 +67,7 @@ export default function RootLayout({
     >
       <body className="overflow-x-hidden bg-[#05050A] antialiased">
         <Header />
-        {children}
+        <main className="relative">{children}</main>
         <Footer />
         <WhatsappButton />
       </body>
