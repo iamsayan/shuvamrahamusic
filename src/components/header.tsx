@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { LuArrowRight, LuChevronDown, LuPhone } from 'react-icons/lu';
 
-type SubItem = { name: string; href: string };
+type SubItem = { name: string; href: string; raw?: boolean };
 type NavLink = {
   name: string;
   href: string;
@@ -16,7 +16,18 @@ type NavLink = {
 const navLinks: NavLink[] = [
   { name: 'Home', href: '/' },
   { name: 'Biography', href: '/biography' },
-  { name: 'Guiter Classes', href: '/guitar-classes-with-shuvam', raw: true },
+  {
+    name: 'Guiter Classes',
+    href: '/guitar-classes-with-shuvam',
+    raw: true,
+    subItems: [
+      {
+        name: 'Make Payment',
+        href: '/guitar-classes-with-shuvam/pay',
+        raw: true,
+      },
+    ],
+  },
   {
     name: 'Gallery',
     href: '/gallery',
@@ -29,7 +40,7 @@ const navLinks: NavLink[] = [
   { name: 'Gears', href: '/my-gears' },
   {
     name: 'More',
-    href: '/more',
+    href: '#',
     subItems: [
       { name: 'Tutorials', href: '/tutorials' },
       { name: 'Blog', href: '/blog' },
@@ -120,7 +131,7 @@ export default function Header() {
                       {link.subItems.map((sub, sIdx) => (
                         <Link
                           key={sIdx}
-                          href={`https://shuvamrahamusic.com${sub.href}`}
+                          href={`${sub.raw ? sub.href : `https://shuvamrahamusic.com${sub.href}`}`}
                           className="rounded-xl px-3.5 py-2 text-sm font-bold text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
                         >
                           {sub.name}

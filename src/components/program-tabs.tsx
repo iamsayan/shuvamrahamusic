@@ -85,14 +85,14 @@ export default function ProgramTabs() {
                     <div className="absolute right-6 bottom-6 left-6">
                       <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1.5 backdrop-blur-md">
                         <LuBadgeCheck className="h-4 w-4 text-blue-400" />
-                        <span className="text-xs font-bold tracking-wide text-white uppercase">
+                        <span className="text-xs sm:text-sm font-bold tracking-wide text-white uppercase">
                           Verified Instructor
                         </span>
                       </div>
-                      <h3 className="text-3xl font-black text-white">
+                      <h3 className="text-2xl sm:text-3xl font-black text-white">
                         Shuvam Raha
                       </h3>
-                      <p className="font-medium text-gray-300">
+                      <p className="text-sm sm:text-base font-medium text-gray-300">
                         Guitarist | Performer | Educator
                       </p>
                     </div>

@@ -196,14 +196,14 @@ export default async function Page() {
 
             {/* Key Benefits */}
             <ul className="mb-10 flex flex-col items-center gap-2 sm:gap-4">
-              <li className="flex items-center text-sm font-medium text-gray-300">
+              <li className="flex items-center text-sm sm:text-base font-medium text-gray-300">
                 <LuCircleCheck className="mr-2 h-5 w-5 shrink-0 text-cyan-400" />
                 <span>
                   Online & Offline Guitar Coaching for Students{' '}
                   <span className="text-cyan-400">Worldwide</span>.
                 </span>
               </li>
-              <li className="flex items-center text-sm font-medium text-gray-300">
+              <li className="flex items-center text-sm sm:text-base font-medium text-gray-300">
                 <LuCircleCheck className="mr-2 h-5 w-5 shrink-0 text-cyan-400" />
                 <span>
                   Perfect for{' '}
@@ -212,7 +212,7 @@ export default async function Page() {
                   </span>
                 </span>
               </li>
-              <li className="flex items-center text-sm font-medium text-gray-300">
+              <li className="flex items-center text-sm sm:text-base font-medium text-gray-300">
                 <LuCircleCheck className="mr-2 h-5 w-5 shrink-0 text-cyan-400" />
                 <span>
                   Learn English songs with simple{' '}
@@ -226,14 +226,14 @@ export default async function Page() {
             <div className="flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row">
               <Link
                 href="https://calendly.com/shuvamraha10/intro-call"
-                className="group font-heading relative flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 text-base font-bold text-white shadow-[0_0_30px_rgba(6,182,212,0.3)] transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(6,182,212,0.5)] active:scale-95 sm:w-auto"
+                className="group font-heading relative flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 text-sm sm:text-base font-bold text-white shadow-[0_0_30px_rgba(6,182,212,0.3)] transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(6,182,212,0.5)] active:scale-95 sm:w-auto"
               >
                 <LuPhone className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 Book Free Intro Call
               </Link>
               <Link
                 href="#pricing"
-                className="group font-heading flex w-full items-center justify-center gap-3 rounded-full border border-white/10 bg-white/[0.03] px-8 py-4 text-base font-semibold text-white backdrop-blur-xl transition-all hover:border-white/20 hover:bg-white/10 active:scale-95 sm:w-auto"
+                className="group font-heading flex w-full items-center justify-center gap-3 rounded-full border border-white/10 bg-white/[0.03] px-8 py-4 text-sm sm:text-base font-semibold text-white backdrop-blur-xl transition-all hover:border-white/20 hover:bg-white/10 active:scale-95 sm:w-auto"
               >
                 Explore Plans
                 <LuArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -395,7 +395,7 @@ export default async function Page() {
                 Student Results
               </span>
             </h2>
-            <p className="max-w-md text-sm text-gray-400 sm:text-base">
+            <p className="max-w-md text-sm sm:text-base lg:text-lg text-gray-400">
               Watch how students go from beginners → confident players.
             </p>
           </div>
@@ -405,7 +405,7 @@ export default async function Page() {
             <div className="pointer-events-none absolute top-0 right-0 h-full w-[400px] bg-blue-500/5 blur-[80px]" />
             <div className="relative z-10 mb-6 flex items-center gap-3">
               <LuMonitorSmartphone className="h-5 w-5 text-blue-400" />
-              <h3 className="font-heading text-xl font-bold text-white">
+              <h3 className="font-heading text-lg font-bold text-white sm:text-xl">
                 Student Performance Videos
               </h3>
             </div>
@@ -431,7 +431,7 @@ export default async function Page() {
             <div className="pointer-events-none absolute top-0 right-0 h-full w-[400px] bg-blue-500/5 blur-[80px]" />
             <div className="relative z-10 mb-6 flex items-center gap-3">
               <LuMic className="h-5 w-5 text-rose-500" />
-              <h3 className="font-heading text-xl font-bold text-white">
+              <h3 className="font-heading text-lg font-bold text-white sm:text-xl">
                 Performances by Shuvam Raha
               </h3>
             </div>
@@ -588,14 +588,14 @@ export default async function Page() {
                       Class Schedule
                     </h3>
                   </div>
-                  <p className="mt-0.5 text-[11px] text-gray-500 sm:text-xs">
+                  <p className="mt-0.5 text-xs sm:text-sm text-gray-500">
                     Available Timings (Indian Standard Time)
                   </p>
                 </div>
 
                 {/* Calendar Day Grid Strip */}
                 <div className="rounded-2xl border border-white/[0.05] bg-white/[0.02] p-4">
-                  <span className="mb-2 block text-[9px] font-bold tracking-wider text-gray-400 uppercase">
+                  <span className="mb-2 block text-[10px] sm:text-xs font-bold tracking-wider text-gray-400 uppercase">
                     Weekly Schedule Overview
                   </span>
                   <div className="grid grid-cols-7 gap-1.5 text-center">
@@ -613,7 +613,7 @@ export default async function Page() {
                         className="flex flex-col items-center gap-1.5"
                       >
                         <div
-                          className={`flex h-8 w-8 items-center justify-center rounded-lg text-[10px] font-black transition-all ${
+                          className={`flex h-8 w-8 items-center justify-center rounded-lg text-xs sm:text-sm font-black transition-all ${
                             day.active === 'weekday'
                               ? 'border border-cyan-500/30 bg-cyan-500/20 text-cyan-200 shadow-[0_0_10px_rgba(6,182,212,0.15)]'
                               : day.active === 'weekend'
@@ -624,7 +624,7 @@ export default async function Page() {
                         >
                           {day.d}
                         </div>
-                        <span className="text-[9px] font-bold text-gray-500">
+                        <span className="text-[10px] sm:text-xs font-bold text-gray-500">
                           {day.label}
                         </span>
                       </div>
@@ -636,10 +636,10 @@ export default async function Page() {
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center justify-between rounded-xl border border-cyan-500/10 bg-cyan-500/[0.03] p-3 transition-all duration-300 hover:border-cyan-500/20">
                     <div className="flex flex-col">
-                      <span className="text-[9px] font-black tracking-widest text-cyan-400 uppercase">
+                      <span className="text-[10px] sm:text-xs font-black tracking-widest text-cyan-400 uppercase">
                         Mon - Wed Sessions
                       </span>
-                      <span className="mt-0.5 text-xs font-bold text-white sm:text-sm">
+                      <span className="mt-0.5 text-sm sm:text-base font-bold text-white">
                         10:00 AM – 9:00 PM
                       </span>
                     </div>
@@ -651,10 +651,10 @@ export default async function Page() {
 
                   <div className="flex items-center justify-between rounded-xl border border-blue-500/10 bg-blue-500/[0.03] p-3 transition-all duration-300 hover:border-blue-500/20">
                     <div className="flex flex-col">
-                      <span className="text-[9px] font-black tracking-widest text-blue-400 uppercase">
+                      <span className="text-[10px] sm:text-xs font-black tracking-widest text-blue-400 uppercase">
                         Weekend Sessions
                       </span>
-                      <span className="mt-0.5 text-xs font-bold text-white sm:text-sm">
+                      <span className="mt-0.5 text-sm sm:text-base font-bold text-white">
                         10:00 AM – 4:00 PM
                       </span>
                     </div>
@@ -680,12 +680,12 @@ export default async function Page() {
                     </div>
 
                     {/* Pulsing Live indicator */}
-                    <div className="flex shrink-0 items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[9px] font-black tracking-wider text-emerald-400 uppercase shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+                    <div className="flex shrink-0 items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[10px] sm:text-xs font-black tracking-wider text-emerald-400 uppercase shadow-[0_0_15px_rgba(16,185,129,0.1)]">
                       <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
                       Slots Active
                     </div>
                   </div>
-                  <p className="mt-0.5 text-[11px] text-gray-500 sm:text-xs">
+                  <p className="mt-0.5 text-xs sm:text-sm text-gray-500">
                     Appointment policies for private classes
                   </p>
                 </div>
@@ -696,11 +696,11 @@ export default async function Page() {
                       <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded border border-blue-500/20 bg-blue-500/10 text-blue-400">
                         <LuCircleCheck className="h-3.5 w-3.5" />
                       </div>
-                      <span className="font-heading text-xs font-bold text-white sm:text-sm">
+                      <span className="font-heading text-sm sm:text-base font-bold text-white">
                         Fixed Day & Time
                       </span>
                     </div>
-                    <p className="pl-9 text-[11px] leading-relaxed font-medium text-gray-400 sm:text-xs">
+                    <p className="pl-9 text-xs sm:text-sm leading-relaxed font-medium text-gray-400">
                       A dedicated recurring slot is locked in for your
                       personalized coaching journey.
                     </p>
@@ -711,11 +711,11 @@ export default async function Page() {
                       <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded border border-blue-500/20 bg-blue-500/10 text-blue-400">
                         <LuCircleCheck className="h-3.5 w-3.5" />
                       </div>
-                      <span className="font-heading text-xs font-bold text-white sm:text-sm">
+                      <span className="font-heading text-sm sm:text-base font-bold text-white">
                         1-to-1 Focus
                       </span>
                     </div>
-                    <p className="pl-9 text-[11px] leading-relaxed font-medium text-gray-400 sm:text-xs">
+                    <p className="pl-9 text-xs sm:text-sm leading-relaxed font-medium text-gray-400">
                       Classes are entirely private. Real-time feedback ensures
                       direct correction.
                     </p>
@@ -734,7 +734,7 @@ export default async function Page() {
                       Important Notes
                     </h3>
                   </div>
-                  <p className="mt-0.5 text-[11px] text-gray-500 sm:text-xs">
+                  <p className="mt-0.5 text-xs sm:text-sm text-gray-500">
                     Official policies & conditions
                   </p>
                 </div>
@@ -758,10 +758,10 @@ export default async function Page() {
                       key={idx}
                       className="group/note rounded-xl border border-l-4 border-white/[0.04] border-l-indigo-500/50 bg-white/[0.01] p-3 transition-all duration-300 hover:border-indigo-500/20 hover:border-l-indigo-400 hover:bg-indigo-500/[0.03]"
                     >
-                      <span className="font-heading block text-xs font-bold text-white transition-colors group-hover/note:text-indigo-300 sm:text-sm">
+                      <span className="font-heading block text-sm sm:text-base font-bold text-white transition-colors group-hover/note:text-indigo-300">
                         {note.t}
                       </span>
-                      <p className="mt-1 text-[11px] leading-relaxed font-medium text-gray-400 sm:text-xs">
+                      <p className="mt-1 text-xs sm:text-sm leading-relaxed font-medium text-gray-400">
                         {note.d}
                       </p>
                     </div>
@@ -785,7 +785,7 @@ export default async function Page() {
             <div className="flex flex-col items-center">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-2 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
                 <LuAward className="h-4 w-4 text-emerald-400" />
-                <span className="text-xs font-bold tracking-widest text-emerald-400 uppercase">
+                <span className="text-xs sm:text-sm font-bold tracking-widest text-emerald-400 uppercase">
                   Simple Pricing
                 </span>
               </div>
@@ -822,7 +822,7 @@ export default async function Page() {
           <div className="flex flex-col items-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-500/10 px-4 py-2 shadow-[0_0_15px_rgba(245,158,11,0.15)]">
               <LuBadgeCheck className="h-4 w-4 text-amber-400" />
-              <span className="text-xs font-bold tracking-widest text-amber-400 uppercase">
+              <span className="text-xs sm:text-sm font-bold tracking-widest text-amber-400 uppercase">
                 Student Success Stories
               </span>
             </div>
@@ -883,7 +883,7 @@ export default async function Page() {
                     {/* Testimonial Footer: Student Profile */}
                     <div className="mt-6 flex items-center justify-between border-t border-white/[0.06] pt-4">
                       <div className="flex flex-col text-left">
-                        <h4 className="font-heading text-sm font-bold text-white transition-colors duration-300 group-hover:text-amber-400 sm:text-[15px]">
+                        <h4 className="font-heading text-sm font-bold text-white transition-colors duration-300 group-hover:text-amber-400 sm:text-base">
                           {review.author}
                         </h4>
                         <span className="mt-0.5 text-xs text-gray-500">
@@ -951,7 +951,7 @@ export default async function Page() {
                       {/* Testimonial Footer: Student Profile */}
                       <div className="mt-6 flex items-center justify-between border-t border-white/[0.06] pt-4">
                         <div className="flex flex-col text-left">
-                          <h4 className="font-heading text-sm font-bold text-white transition-colors duration-300 group-hover:text-amber-400 sm:text-[15px]">
+                          <h4 className="font-heading text-sm font-bold text-white transition-colors duration-300 group-hover:text-amber-400 sm:text-base">
                             {review.author}
                           </h4>
                           <span className="mt-0.5 text-xs text-gray-500">
@@ -1013,7 +1013,7 @@ export default async function Page() {
                   <h3 className="font-heading text-xl font-extrabold text-white sm:text-2xl">
                     Google Reviews Synced Live
                   </h3>
-                  <p className="mx-auto max-w-md text-sm leading-relaxed text-gray-400">
+                  <p className="mx-auto max-w-md text-sm sm:text-base leading-relaxed text-gray-400">
                     We sync our student success stories directly from Google
                     Maps in real-time. Feel free to browse all verified 5.0 star
                     student reviews on our official profile.

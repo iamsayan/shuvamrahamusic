@@ -28,13 +28,13 @@ export default function FaqAccordion() {
               FAQ
             </span>
           </div>
-          <h2 className="font-heading mb-4 text-4xl leading-tight font-black tracking-tight text-white sm:text-5xl">
+          <h2 className="font-heading mb-4 text-3xl leading-tight font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
             Got{' '}
             <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
               Questions?
             </span>
           </h2>
-          <p className="text-base text-gray-400 sm:text-lg">
+          <p className="text-sm leading-relaxed text-gray-400 sm:text-base lg:text-lg">
             Everything you need to know about the guitar classes, curriculum,
             and how to get started.
           </p>
@@ -105,7 +105,7 @@ export default function FaqAccordion() {
                 className="group flex w-full items-center justify-between p-3 text-left focus:outline-none sm:p-4"
               >
                 <span
-                  className={`pr-4 text-xs font-bold transition-colors duration-300 sm:text-base sm:text-sm md:text-base ${
+                  className={`pr-4 text-xs font-bold transition-colors duration-300 sm:text-sm md:text-base ${
                     isOpen
                       ? 'text-indigo-300'
                       : 'text-gray-200 group-hover:text-white'
