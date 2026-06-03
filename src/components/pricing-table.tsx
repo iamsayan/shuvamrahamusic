@@ -174,7 +174,7 @@ export default function PricingTable() {
                       {plan.period}
                     </span>
                   </div>
-                  <p className="text-sm leading-relaxed text-gray-400">
+                  <p className="text-sm sm:text-base leading-relaxed text-gray-400">
                     {plan.description}
                   </p>
                 </div>
@@ -191,7 +191,7 @@ export default function PricingTable() {
 
                 {/* Features List */}
                 <div className="mb-8 flex flex-1 flex-col">
-                  <span className="font-heading mb-4 text-sm font-bold tracking-wide text-white">
+                  <span className="font-heading mb-4 text-sm sm:text-base font-bold tracking-wide text-white">
                     Includes:
                   </span>
                   <ul className="flex flex-col gap-3">
@@ -205,7 +205,7 @@ export default function PricingTable() {
                         >
                           <LuCheck className="h-3 w-3 stroke-[3]" />
                         </div>
-                        <span className="text-sm">{feature}</span>
+                        <span className="text-sm sm:text-base">{feature}</span>
                       </li>
                     ))}
                   </ul>
