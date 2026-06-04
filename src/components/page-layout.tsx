@@ -98,7 +98,7 @@ export default function PageLayout({
         >
           {/* Breadcrumbs trail */}
           <nav
-            className={`font-heading animate-in-1 mb-6 flex flex-wrap items-center gap-1.5 text-[11px] font-bold text-gray-500 uppercase sm:text-xs ${textAlign === 'center' ? 'justify-center' : 'justify-start'}`}
+            className={`font-heading mb-6 flex flex-wrap items-center gap-1.5 text-[11px] font-bold text-gray-500 uppercase sm:text-xs ${textAlign === 'center' ? 'justify-center' : 'justify-start'}`}
           >
             {breadcrumbs.map((crumb, idx) => {
               const isLast = idx === breadcrumbs.length - 1;
@@ -126,12 +126,12 @@ export default function PageLayout({
             })}
           </nav>
 
-          <h1 className="font-heading animate-in-2 mb-4 bg-gradient-to-r from-white via-white to-gray-400 bg-clip-text text-3xl font-black tracking-tight text-transparent sm:text-4xl lg:text-5xl">
+          <h1 className="font-heading mb-4 bg-gradient-to-r from-white via-white to-gray-400 bg-clip-text text-3xl font-black tracking-tight text-transparent sm:text-4xl lg:text-5xl">
             {title}
           </h1>
 
           {subtitle && (
-            <p className="animate-in-3 max-w-2xl text-xs leading-relaxed text-gray-400 sm:text-sm md:text-base">
+            <p className="max-w-2xl text-xs leading-relaxed text-gray-400 sm:text-sm md:text-base">
               {subtitle}
             </p>
           )}
@@ -139,7 +139,7 @@ export default function PageLayout({
 
         {/* Main Content Card (Matching the Logistics Dashboard Card) */}
         <div
-          className={`group/card relative flex w-full flex-col ${textAlignmentClass} animate-in-4 overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#07070F]/85 p-6 shadow-[0_40px_100px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-500 hover:border-cyan-500/20 sm:p-10 md:p-12`}
+          className={`group/card relative flex w-full flex-col ${textAlignmentClass} overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#07070F]/85 p-6 shadow-[0_40px_100px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-500 hover:border-cyan-500/20 sm:p-10 md:p-12`}
         >
           {/* Glowing Top Accent Strip */}
           <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />
