@@ -84,23 +84,19 @@ interface InboxSubmitOptions {
 type ResponseType = 'json' | 'text' | 'blob';
 
 class CockpitAPI {
-  private readonly baseURL: string;
-  private readonly apiKey: string;
+  private readonly baseURL: string = '';
+  private readonly apiKey: string = '';
+  public readonly isConfigured: boolean = false;
 
   constructor() {
     const baseURL = process.env.API_URL;
     const apiKey = process.env.API_KEY;
 
-    if (!baseURL) {
-      throw new Error('API_URL is missing');
+    if (baseURL && apiKey) {
+      this.baseURL = baseURL.replace(/\/$/, '');
+      this.apiKey = apiKey;
+      this.isConfigured = true;
     }
-
-    if (!apiKey) {
-      throw new Error('API_KEY is missing');
-    }
-
-    this.baseURL = baseURL.replace(/\/$/, '');
-    this.apiKey = apiKey;
   }
 
   private buildQuery<T extends object>(params: T): string {
@@ -127,6 +123,10 @@ class CockpitAPI {
     options: RequestOptions = {},
     responseType: ResponseType = 'json'
   ): Promise<T> {
+    if (!this.isConfigured) {
+      throw new Error('Cockpit API is not configured. API_URL or API_KEY is missing.');
+    }
+
     const { revalidate = 604800, ...fetchOptions } = options;
 
     const response = await fetch(`${this.baseURL}${endpoint}`, {
