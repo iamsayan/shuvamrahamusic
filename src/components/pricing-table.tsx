@@ -95,7 +95,7 @@ export default function PricingTable() {
       </div>
 
       {/* Pricing Dashboard */}
-      <div className="group relative z-10 mx-auto w-full max-w-5xl overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/[0.02] shadow-2xl backdrop-blur-3xl">
+      <div className="group relative z-10 mx-auto w-full max-w-5xl overflow-hidden rounded-3xl sm:rounded-[2.5rem] border border-white/10 bg-white/[0.02] shadow-2xl backdrop-blur-3xl">
         {/* Ambient Corner Glows (Dynamic based on selected plans) */}
         <div
           className={`pointer-events-none absolute top-0 left-0 h-64 w-64 rounded-full opacity-30 blur-[100px] transition-colors duration-700 ${themeMap[currentPlans[0].theme].glow}`}

@@ -80,10 +80,6 @@ export default function PageLayout({
 
   return (
     <main className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
-      {/* Background Ambient Glows */}
-      <div className="pointer-events-none absolute top-10 left-1/4 h-[500px] w-[500px] rounded-full bg-violet-600/5 mix-blend-screen blur-[120px]" />
-      <div className="pointer-events-none absolute right-1/4 bottom-10 h-[500px] w-[500px] rounded-full bg-cyan-600/5 mix-blend-screen blur-[120px]" />
-
       {/* Floating Instrument Accents */}
       <div className="animate-float-1 pointer-events-none absolute top-1/3 left-8 hidden opacity-20 xl:block">
         <LuMusic className="h-8 w-8 text-cyan-400" />
@@ -97,9 +93,11 @@ export default function PageLayout({
         className={`relative z-10 mx-auto flex w-full ${maxWidthClass} flex-col px-5 md:px-12 lg:px-20`}
       >
         {/* Top Page Header (Matching Landing Hero) */}
-        <div className={`w-full pt-8 pb-6 flex flex-col ${textAlign === 'center' ? 'items-center text-center' : 'items-start text-left'}`}>
+        <div className={`w-full pt-8 pb-6 flex flex-col ${textAlign === 'center' ? 'items-center text-center' : 'items-start text-left'} px-5 sm:px-10 md:px-12`}>
           {/* Breadcrumbs trail */}
-          <nav className={`font-heading animate-in-1 mb-6 flex flex-wrap items-center gap-1.5 text-[11px] font-bold text-gray-500 uppercase sm:text-xs ${textAlign === 'center' ? 'justify-center' : 'justify-start'}`}>
+          <nav
+            className={`font-heading animate-in-1 mb-6 flex flex-wrap items-center gap-1.5 text-[11px] font-bold text-gray-500 uppercase sm:text-xs ${textAlign === 'center' ? 'justify-center' : 'justify-start'}`}
+          >
             {breadcrumbs.map((crumb, idx) => {
               const isLast = idx === breadcrumbs.length - 1;
               return (
@@ -139,7 +137,7 @@ export default function PageLayout({
 
         {/* Main Content Card (Matching the Logistics Dashboard Card) */}
         <div
-          className={`group/card relative flex w-full flex-col ${textAlignmentClass} animate-in-4 overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#07070F]/85 p-6 shadow-[0_40px_100px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-500 hover:border-cyan-500/20 sm:p-10 md:p-12`}
+          className={`group/card relative flex w-full flex-col ${textAlignmentClass} animate-in-4 overflow-hidden rounded-3xl sm:rounded-[2.5rem] border border-white/10 bg-[#07070F]/85 px-5 py-6 sm:p-10 md:p-12 shadow-[0_40px_100px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-500 hover:border-cyan-500/20`}
         >
           {/* Glowing Top Accent Strip */}
           <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />
