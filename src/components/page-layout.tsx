@@ -22,6 +22,7 @@ const segmentNames: Record<string, string> = {
   'terms-of-service': 'Terms of Service',
   'refund-policy': 'Refund Policy',
   contact: 'Contact Us',
+  'my-gears': 'My Gears',
 };
 
 export default function PageLayout({
