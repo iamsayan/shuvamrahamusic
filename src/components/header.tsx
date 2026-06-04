@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
+
 import Image from 'next/image';
+import Link from 'next/link';
+
 import { LuArrowRight, LuChevronDown, LuPhone } from 'react-icons/lu';
 
 type SubItem = { name: string; href: string; raw?: boolean };
@@ -41,13 +43,13 @@ const navLinks: NavLink[] = [
       { name: 'Videos', href: '/gallery/videos' },
     ],
   },
-  { name: 'Gears', href: '/my-gears' },
+  { name: 'Gears', href: '/my-gears', raw: true },
   {
     name: 'Links',
     href: '#',
     subItems: [
       { name: 'Tutorials', href: '/tutorials' },
-      { name: 'Blog', href: '/blog' },
+      { name: 'Blog', href: '/blog', raw: true },
     ],
   },
   { name: 'Contact', href: '/contact', raw: true },
