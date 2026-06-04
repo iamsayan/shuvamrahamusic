@@ -1,0 +1,7 @@
+/* TEAM */
+Developer: Sayan Datta
+Site: https://sayandatta.co.in
+
+/* TECHNOLOGY */
+Next.js 15
+Tailwind CSS

@@ -47,6 +47,9 @@ export const metadata: Metadata = {
     site: '@shuvamrahamusic',
     creator: '@shuvamrahamusic',
   },
+  other: {
+    developer: 'Sayan Datta',
+  },
 };
 
 export default function RootLayout({
