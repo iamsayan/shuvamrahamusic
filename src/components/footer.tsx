@@ -84,7 +84,7 @@ export default function Footer() {
                 alt="Shuvam Raha Logo"
                 width={100}
                 height={50}
-                className="-mt-2"
+                className="h-auto"
               />
             </div>
 
@@ -189,7 +189,7 @@ export default function Footer() {
               </p>
               <span className="hidden text-gray-800 sm:inline">•</span>
               <p className="flex items-center gap-1 text-xs font-semibold text-gray-500 sm:text-sm">
-                <span>Developed By</span>
+                <span>Developed by</span>
                 <a
                   href="https://github.com/iamsayan"
                   target="_blank"

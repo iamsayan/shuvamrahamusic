@@ -81,19 +81,21 @@ export default function PageLayout({
   return (
     <main className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
       {/* Floating Instrument Accents */}
-      <div className="animate-float-1 pointer-events-none absolute top-1/3 left-8 hidden opacity-20 xl:block">
+      {/* <div className="animate-float-1 pointer-events-none absolute top-1/3 left-8 hidden opacity-20 xl:block">
         <LuMusic className="h-8 w-8 text-cyan-400" />
       </div>
       <div className="animate-float-2 pointer-events-none absolute top-1/2 right-12 hidden opacity-15 xl:block">
         <LuMusic className="h-6 w-6 text-violet-400" />
-      </div>
+      </div> */}
 
       {/* Unified Width Container - keeps Header and Card perfectly aligned */}
       <div
         className={`relative z-10 mx-auto flex w-full ${maxWidthClass} flex-col px-5 md:px-12 lg:px-20`}
       >
         {/* Top Page Header (Matching Landing Hero) */}
-        <div className={`w-full pt-8 pb-6 flex flex-col ${textAlign === 'center' ? 'items-center text-center' : 'items-start text-left'} px-5 sm:px-10 md:px-12`}>
+        <div
+          className={`flex w-full flex-col pt-8 pb-6 ${textAlign === 'center' ? 'items-center text-center' : 'items-start text-left'}`}
+        >
           {/* Breadcrumbs trail */}
           <nav
             className={`font-heading animate-in-1 mb-6 flex flex-wrap items-center gap-1.5 text-[11px] font-bold text-gray-500 uppercase sm:text-xs ${textAlign === 'center' ? 'justify-center' : 'justify-start'}`}
@@ -137,7 +139,7 @@ export default function PageLayout({
 
         {/* Main Content Card (Matching the Logistics Dashboard Card) */}
         <div
-          className={`group/card relative flex w-full flex-col ${textAlignmentClass} animate-in-4 overflow-hidden rounded-3xl sm:rounded-[2.5rem] border border-white/10 bg-[#07070F]/85 px-5 py-6 sm:p-10 md:p-12 shadow-[0_40px_100px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-500 hover:border-cyan-500/20`}
+          className={`group/card relative flex w-full flex-col ${textAlignmentClass} animate-in-4 overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#07070F]/85 p-6 shadow-[0_40px_100px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-500 hover:border-cyan-500/20 sm:p-10 md:p-12`}
         >
           {/* Glowing Top Accent Strip */}
           <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />

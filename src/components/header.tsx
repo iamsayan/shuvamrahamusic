@@ -43,7 +43,7 @@ const navLinks: NavLink[] = [
   },
   { name: 'Gears', href: '/my-gears' },
   {
-    name: 'More',
+    name: 'Links',
     href: '#',
     subItems: [
       { name: 'Tutorials', href: '/tutorials' },
@@ -80,15 +80,15 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-out flex flex-col ${
+      className={`fixed inset-x-0 top-0 z-50 flex flex-col transition-all duration-300 ease-out ${
         isMobileMenuOpen
-          ? 'mobile-menu-open h-screen bg-[#020205]/98 backdrop-blur-3xl py-2 md:py-3.5'
+          ? 'mobile-menu-open h-screen bg-[#020205]/98 py-2 backdrop-blur-3xl md:py-3.5'
           : isScrolled
-            ? 'border-b border-white/10 bg-[#020205]/75 py-1 md:py-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl'
+            ? 'border-b border-white/10 bg-[#020205]/75 py-1 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl md:py-1.5'
             : 'border-b border-transparent bg-transparent py-2 md:py-3.5'
       }`}
     >
-      <div className="mx-auto flex w-full max-w-[1400px] flex-col justify-start px-5 md:px-12 lg:px-20 min-h-0 flex-1">
+      <div className="mx-auto flex min-h-0 w-full max-w-[1400px] flex-1 flex-col justify-start px-5 md:px-12 lg:px-20">
         {/* Top Header Bar */}
         <div className="flex h-[60px] w-full shrink-0 items-center justify-between md:h-[70px]">
           {/* Logo */}
@@ -102,7 +102,7 @@ export default function Header() {
               alt="Shuvam Raha Logo"
               width={100}
               height={50}
-              className="-mt-2"
+              className="-mt-2 h-auto"
             />
           </Link>
 
@@ -224,8 +224,8 @@ export default function Header() {
 
         {/* Mobile Menu List */}
         {isMobileMenuOpen && (
-          <div className="relative z-10 mt-2 flex w-full flex-1 flex-col py-4 xl:hidden min-h-0">
-            <nav className="flex w-full flex-col gap-1 overflow-y-auto pr-1 flex-1">
+          <div className="relative z-10 mt-2 flex min-h-0 w-full flex-1 flex-col py-4 xl:hidden">
+            <nav className="flex w-full flex-1 flex-col gap-1 overflow-y-auto pr-1">
               {navLinks.map((link, idx) => {
                 const isRealLink = link.href && link.href !== '#';
                 return (
