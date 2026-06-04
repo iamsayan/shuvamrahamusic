@@ -508,7 +508,7 @@ export default async function Page() {
             {/* ── Right Column: Hero Visuals (Hidden in initial responsive layout) ── */}
             <div className="relative mt-16 hidden w-full flex-1 lg:mt-0">
               <div className="relative mx-auto aspect-[4/5] w-full max-w-[450px] sm:aspect-square lg:ml-auto lg:max-w-none">
-                <div className="group absolute inset-0 overflow-hidden rounded-3xl sm:rounded-[2.5rem] border border-white/10 bg-white/[0.02] shadow-[0_30px_100px_rgba(0,0,0,0.8)] backdrop-blur-3xl">
+                <div className="group absolute inset-0 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] shadow-[0_30px_100px_rgba(0,0,0,0.8)] backdrop-blur-3xl sm:rounded-[2.5rem]">
                   <Image
                     src="/hero-guitarist.jpg"
                     alt="Shuvam Raha - Online Guitar Instructor"
@@ -667,7 +667,7 @@ export default async function Page() {
           <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
             <div className="relative z-10 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
               {/* Left Pod: PERFECT FOR YOU */}
-              <div className="group relative flex flex-col justify-between overflow-hidden rounded-3xl sm:rounded-[2.5rem] border border-emerald-500/10 bg-gradient-to-b from-white/[0.03] to-white/[0.01] px-5 py-6 backdrop-blur-3xl transition-all duration-500 hover:border-emerald-500/30 hover:shadow-[0_30px_80px_rgba(16,185,129,0.06)] sm:p-10">
+              <div className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-emerald-500/10 bg-gradient-to-b from-white/[0.03] to-white/[0.01] px-5 py-6 backdrop-blur-3xl transition-all duration-500 hover:border-emerald-500/30 hover:shadow-[0_30px_80px_rgba(16,185,129,0.06)] sm:rounded-[2.5rem] sm:p-10">
                 <div className="pointer-events-none absolute top-0 right-0 h-32 w-32 rounded-full bg-emerald-500/5 opacity-50 blur-[50px] transition-opacity duration-700 group-hover:opacity-100" />
 
                 <div>
@@ -702,7 +702,7 @@ export default async function Page() {
               </div>
 
               {/* Right Pod: NOT FOR YOU */}
-              <div className="group relative flex flex-col justify-between overflow-hidden rounded-3xl sm:rounded-[2.5rem] border border-rose-500/10 bg-gradient-to-b from-white/[0.03] to-white/[0.01] px-5 py-6 backdrop-blur-3xl transition-all duration-500 hover:border-rose-500/30 hover:shadow-[0_30px_80px_rgba(244,63,94,0.06)] sm:p-10">
+              <div className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-rose-500/10 bg-gradient-to-b from-white/[0.03] to-white/[0.01] px-5 py-6 backdrop-blur-3xl transition-all duration-500 hover:border-rose-500/30 hover:shadow-[0_30px_80px_rgba(244,63,94,0.06)] sm:rounded-[2.5rem] sm:p-10">
                 <div className="pointer-events-none absolute top-0 right-0 h-32 w-32 rounded-full bg-rose-500/5 opacity-50 blur-[50px] transition-opacity duration-700 group-hover:opacity-100" />
 
                 <div>
@@ -746,7 +746,7 @@ export default async function Page() {
             </div>
 
             {/* Logistics Dashboard Control Center */}
-            <div className="relative z-10 mt-12 w-full overflow-hidden rounded-3xl sm:rounded-[2.5rem] border border-white/10 bg-[#07070F]/80 px-5 py-6 shadow-[0_40px_100px_rgba(0,0,0,0.6)] backdrop-blur-3xl sm:p-10 md:p-12">
+            <div className="relative z-10 mt-12 w-full overflow-hidden rounded-3xl border border-white/10 bg-[#07070F]/80 px-5 py-6 shadow-[0_40px_100px_rgba(0,0,0,0.6)] backdrop-blur-3xl sm:rounded-[2.5rem] sm:p-10 md:p-12">
               {/* Glowing Accent Strip */}
               <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />
 
@@ -1172,7 +1172,7 @@ export default async function Page() {
             </>
           ) : (
             <div className="relative z-10 mx-auto mt-8 flex w-full max-w-[1400px] justify-center px-5 md:px-12 lg:px-20">
-              <div className="relative w-full max-w-xl overflow-hidden rounded-3xl sm:rounded-[2.5rem] border border-white/[0.08] bg-gradient-to-b from-white/[0.03] to-transparent p-6 sm:p-10 text-center shadow-2xl backdrop-blur-xl">
+              <div className="relative w-full max-w-xl overflow-hidden rounded-3xl border border-white/[0.08] bg-gradient-to-b from-white/[0.03] to-transparent p-6 text-center shadow-2xl backdrop-blur-xl sm:rounded-[2.5rem] sm:p-10">
                 {/* Glowing Ambient light */}
                 <div className="pointer-events-none absolute top-0 right-0 h-32 w-32 rounded-full bg-amber-500/5 blur-[40px]" />
 

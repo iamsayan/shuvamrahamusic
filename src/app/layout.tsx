@@ -1,16 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter, Outfit } from 'next/font/google';
+import { Outfit } from 'next/font/google';
 
 import Footer from '@/components/footer';
 import Header from '@/components/header';
 import WhatsappButton from '@/components/whatsapp-button';
 
 import './globals.scss';
-
-const inter = Inter({
-  variable: '--font-inter',
-  subsets: ['latin'],
-});
 
 const outfit = Outfit({
   variable: '--font-outfit',
@@ -62,7 +57,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${outfit.variable}`}
+      className={`${outfit.variable} scroll-smooth`}
       suppressHydrationWarning={process.env.NODE_ENV === 'production'}
     >
       <body className="overflow-x-hidden bg-[#05050A] antialiased">
