@@ -100,9 +100,9 @@ export default function Header() {
             <Image
               src="/site-logo.png"
               alt="Shuvam Raha Logo"
-              width={100}
+              width={80}
               height={50}
-              className="-mt-2 h-auto"
+              className="-mt-2 h-auto w-auto"
             />
           </Link>
 
