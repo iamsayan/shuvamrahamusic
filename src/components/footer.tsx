@@ -82,9 +82,9 @@ export default function Footer() {
               <Image
                 src="/site-logo.png"
                 alt="Shuvam Raha Logo"
-                width={100}
+                width={80}
                 height={50}
-                className="h-auto"
+                className="h-auto w-auto"
               />
             </div>
 

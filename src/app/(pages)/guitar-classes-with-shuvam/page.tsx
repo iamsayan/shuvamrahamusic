@@ -515,6 +515,7 @@ export default async function Page() {
                     fill
                     className="object-cover opacity-90 transition-transform duration-[2000ms] group-hover:scale-105"
                     loading="eager"
+                    sizes="(max-width: 1024px) 480px, 600px"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#020205] via-transparent to-transparent opacity-80" />
 

@@ -57,8 +57,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} scroll-smooth`}
+      className={`${outfit.variable}`}
       suppressHydrationWarning={process.env.NODE_ENV === 'production'}
+      data-scroll-behavior="smooth"
     >
       <body className="overflow-x-hidden bg-[#05050A] antialiased">
         <Header />
