@@ -23,21 +23,21 @@ export interface CockpitOptions {
   fields?: string[];
 }
 
-export interface AssetImageOptions {
-  w: number;
-  h: number;
-  m?: 'thumbnail' | 'bestFit' | 'resize' | 'fitToWidth' | 'fitToHeight';
-  q?: number;
-  mime?: 'auto' | 'gif' | 'jpeg' | 'png' | 'webp' | 'bmp';
-  re?: 0 | 1;
-  t?: string;
-  o?: 0 | 1;
-}
+// export interface AssetImageOptions {
+//   w: number;
+//   h: number;
+//   m?: 'thumbnail' | 'bestFit' | 'resize' | 'fitToWidth' | 'fitToHeight';
+//   q?: number;
+//   mime?: 'auto' | 'gif' | 'jpeg' | 'png' | 'webp' | 'bmp';
+//   re?: 0 | 1;
+//   t?: string;
+//   o?: 0 | 1;
+// }
 
-export interface AssetPresetOptions {
-  re?: 0 | 1;
-  o?: 0 | 1;
-}
+// export interface AssetPresetOptions {
+//   re?: 0 | 1;
+//   o?: 0 | 1;
+// }
 
 export interface CockpitAsset extends CockpitEntity {
   path: string;
@@ -124,7 +124,9 @@ class CockpitAPI {
     responseType: ResponseType = 'json'
   ): Promise<T> {
     if (!this.isConfigured) {
-      throw new Error('Cockpit API is not configured. API_URL or API_KEY is missing.');
+      throw new Error(
+        'Cockpit API is not configured. API_URL or API_KEY is missing.'
+      );
     }
 
     const { revalidate = 604800, ...fetchOptions } = options;
@@ -265,70 +267,6 @@ class CockpitAPI {
 
   getAsset(assetId: string, revalidate = 3600) {
     return this.request<CockpitAsset>(`/assets/${assetId}`, { revalidate });
-  }
-
-  getAssetPresets<T = unknown>(revalidate = 3600) {
-    return this.request<T>('/assets/presets', { revalidate });
-  }
-
-  getAssetImage(
-    assetId: string,
-    options: AssetImageOptions,
-    revalidate = 3600
-  ) {
-    return this.request<string>(
-      `/assets/image/${assetId}${this.buildQuery(options)}`,
-      { revalidate },
-      'text'
-    );
-  }
-
-  getAssetImageBlob(
-    assetId: string,
-    options: Omit<AssetImageOptions, 'o'>,
-    revalidate = 3600
-  ) {
-    return this.request<Blob>(
-      `/assets/image/${assetId}${this.buildQuery({
-        ...options,
-        o: 1,
-      })}`,
-      { revalidate },
-      'blob'
-    );
-  }
-
-  getAssetImagePreset(
-    assetId: string,
-    preset: string,
-    options: AssetPresetOptions = {},
-    revalidate = 3600
-  ) {
-    return this.request<string>(
-      `/assets/image/${assetId}/${preset}${this.buildQuery(options)}`,
-      { revalidate },
-      'text'
-    );
-  }
-
-  getAssetImagePresetBlob(
-    assetId: string,
-    preset: string,
-    options: Omit<AssetPresetOptions, 'o'> = {},
-    revalidate = 3600
-  ) {
-    return this.request<Blob>(
-      `/assets/image/${assetId}/${preset}${this.buildQuery({
-        ...options,
-        o: 1,
-      })}`,
-      { revalidate },
-      'blob'
-    );
-  }
-
-  getAssetLink(assetId: string) {
-    return `${this.baseURL.replace('/api', '')}/assets/link/${assetId}`;
   }
 
   /*
