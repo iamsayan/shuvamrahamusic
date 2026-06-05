@@ -3,7 +3,11 @@ export interface GearItem {
   title: string;
   subtitle: string;
   description: string;
-  category: 'Strings & Cables' | 'Pickups & Hardware' | 'Studio & Recording' | 'Cases & Stands';
+  category:
+    | 'Strings & Cables'
+    | 'Pickups & Hardware'
+    | 'Studio & Recording'
+    | 'Cases & Stands';
   badge: string;
   studentBadge?: string | null;
   bestFor: string[];
@@ -59,11 +63,11 @@ export const GLOW_COLORS = {
   'Pickups & Hardware': 'bg-violet-500/20',
   'Studio & Recording': 'bg-emerald-500/20',
   'Cases & Stands': 'bg-amber-500/20',
-  'Default': 'bg-cyan-500/15',
+  Default: 'bg-cyan-500/15',
 };
 
 export const AMBIENT_GLOWS = {
-  'All': {
+  All: {
     top: 'from-cyan-500/10 to-transparent',
     bottom: 'from-violet-500/10 to-transparent',
   },
@@ -90,7 +94,8 @@ export const GEAR_ITEMS: GearItem[] = [
     id: 'elixir-electric',
     category: 'Strings & Cables',
     title: 'Elixir Electric Guitar Strings Nanoweb 10–46 Light',
-    subtitle: 'My go-to strings for professional tone, durability & live performance',
+    subtitle:
+      'My go-to strings for professional tone, durability & live performance',
     description:
       'For over 5 years, I’ve been consistently using and trusting Elixir Electric Guitar Strings Nanoweb 10–46 Light. These NANOWEB Coating strings have continuously delivered exceptional tone, durability, and playability—qualities that perfectly align with my performance needs and musical expression.',
     badge: 'Personally used & recommended for over 5 years',
@@ -109,8 +114,10 @@ export const GEAR_ITEMS: GearItem[] = [
   {
     id: 'elixir-acoustic',
     category: 'Strings & Cables',
-    title: 'Elixir Acoustic Guitar Strings 80/20 Bronze with Nanoweb Coating (11–52 Custom Light)',
-    subtitle: 'My go-to strings for rich tone, clarity & long-lasting performance',
+    title:
+      'Elixir Acoustic Guitar Strings 80/20 Bronze with Nanoweb Coating (11–52 Custom Light)',
+    subtitle:
+      'My go-to strings for rich tone, clarity & long-lasting performance',
     description:
       'For over 5 years, I’ve been consistently using and trusting Elixir Acoustic Guitar Strings 80/20 Bronze Nanoweb 11–52 Custom Light. These NANOWEB Coating strings have continuously delivered exceptional tone, durability, and playability—qualities that perfectly align with my performance needs and musical expression.',
     badge: 'Personally used & recommended for over 5 years',
@@ -136,10 +143,15 @@ export const GEAR_ITEMS: GearItem[] = [
       'I’ve tried many pickups from well-known brands, but once I switched to Suhr, I never looked back. Since 2019, I’ve been using Suhr pickups exclusively in my electric guitars. On my custom Warmoth guitar, I use an SSV (Neck) for warm, clear vintage tone and an SSH+ (Bridge) for power, punch, and rich harmonics — a perfect balance for clean to rock. I’ve been playing this setup for over 7 years and still love it every time I plug in.',
     badge: 'Personally used & trusted since 2019',
     studentBadge: null,
-    bestFor: ['Warm Vintage Neck Tone (SSV)', 'High-Output Modern Bridge Tone (SSH+)', 'Studio & Stage Versatility'],
+    bestFor: [
+      'Warm Vintage Neck Tone (SSV)',
+      'High-Output Modern Bridge Tone (SSH+)',
+      'Studio & Stage Versatility',
+    ],
     links: {
       official: 'https://www.suhr.com/pickups/',
-      distributor: 'https://thestockist.in/product-category/accessories/pickups/?filter_brand=suhr',
+      distributor:
+        'https://thestockist.in/product-category/accessories/pickups/?filter_brand=suhr',
     },
     images: [
       'https://shuvamrahamusic.com/wp-content/uploads/2025/11/Shuvam-Raha-Suhr-SSV-Neck-and-SSH-Bridge-Pickups-1-50-819x1024.jpg',
@@ -155,10 +167,15 @@ export const GEAR_ITEMS: GearItem[] = [
       'I’ve played pickups from many respected brands, but once I tried Suhr, I was hooked. Since 2019, all my electric guitars have been loaded exclusively with Suhr pickups. On this Fender custom Strat build, I use V60 (Neck & Middle) for classic 60s-style clarity, warmth, and balance, paired with a Thornbucker+ (Bridge) for added punch, output, and rich harmonics. This setup gives me the perfect mix of vintage tone, clarity, and modern power — ideal for everything from clean to driven sounds. After years of playing them, they still inspire me every time I plug in.',
     badge: 'Personally used & trusted since 2019',
     studentBadge: null,
-    bestFor: ['Vintage 60s Neck & Middle Tone', 'Smooth Thornbucker+ Humbucker Bridge', 'Driven Strat Tones'],
+    bestFor: [
+      'Vintage 60s Neck & Middle Tone',
+      'Smooth Thornbucker+ Humbucker Bridge',
+      'Driven Strat Tones',
+    ],
     links: {
       official: 'https://www.suhr.com/pickups/',
-      distributor: 'https://thestockist.in/product-category/accessories/pickups/?filter_brand=suhr',
+      distributor:
+        'https://thestockist.in/product-category/accessories/pickups/?filter_brand=suhr',
     },
     images: [
       'https://shuvamrahamusic.com/wp-content/uploads/2026/02/Shuvam-Raha-Suhr-pickups-60neck-v60middle-thronbucker-bridge-1-819x1024.jpg',
@@ -174,10 +191,15 @@ export const GEAR_ITEMS: GearItem[] = [
       'I’ve been using DiMarzio guitar cables for the past year for both live and studio work. I use the EP1718SSMG (18ft) for stage performances and the EP1710SSVT (10ft) for studio recordings. They deliver low noise, clear tone, and excellent durability, with a braided design that prevents tangling — reliable for daily use.',
     badge: 'Personally used & trusted',
     studentBadge: null,
-    bestFor: ['Live stage performances (18ft)', 'Studio recordings (10ft)', 'Noiseless braided signal path'],
+    bestFor: [
+      'Live stage performances (18ft)',
+      'Studio recordings (10ft)',
+      'Noiseless braided signal path',
+    ],
     links: {
       amazon: 'https://amzn.to/4vGdnIT',
-      distributor: 'https://thestockist.in/product-category/accessories/guitar-cables/?filter_brand=dimarzio',
+      distributor:
+        'https://thestockist.in/product-category/accessories/guitar-cables/?filter_brand=dimarzio',
       official: 'https://www.dimarzio.com/cables/cables/guitar',
     },
     images: [
@@ -196,10 +218,16 @@ export const GEAR_ITEMS: GearItem[] = [
       'My guitars now have maximum protection and comfort wherever I go. The Gruv Gear Kapsule Electric Guitar Case is rugged, travel-ready, and extremely well-designed — something I genuinely trust for both flights and local gigs. It combines the protection of a hard case with the convenience of a gig bag, making travel stress-free.',
     badge: 'Personally used & trusted',
     studentBadge: null,
-    bestFor: ['Air travel & touring', 'Premium guitar protection', 'Comfortable wheel-transport'],
+    bestFor: [
+      'Air travel & touring',
+      'Premium guitar protection',
+      'Comfortable wheel-transport',
+    ],
     links: {
       amazon: 'https://amzn.to/4cuXagG',
       official: 'https://gruvgear.com/collections/guitar-bags/products/kapsule',
+      distributor:
+        'https://www.promusicals.com/index.php?route=product/manufacturer/info&manufacturer_id=74',
     },
     images: [
       'https://shuvamrahamusic.com/wp-content/uploads/2026/02/Gruv-gear-kapsule-2-Shuvam-Raha-768x1024.jpg',
@@ -215,10 +243,15 @@ export const GEAR_ITEMS: GearItem[] = [
       'Using Universal Audio interfaces for 5+ years, I’ve upgraded from Apollo Solo & Duo USB to the Apollo x4 Gen 2. The improvement in audio quality, ultra-low latency, and enhanced Unison preamps is clearly noticeable. With powerful DSP for smooth plugin workflow, it feels like a complete professional studio solution — proud to be a UAD user.',
     badge: 'Personally used & trusted',
     studentBadge: null,
-    bestFor: ['Professional recording & mixing', 'Real-time DSP plugins', 'Ultra-low latency tracking'],
+    bestFor: [
+      'Professional recording & mixing',
+      'Real-time DSP plugins',
+      'Ultra-low latency tracking',
+    ],
     links: {
       official: 'https://www.uaudio.com/pages/apollo',
-      distributor: 'https://www.promusicals.com/index.php?route=product/manufacturer/info&manufacturer_id=74',
+      distributor:
+        'https://www.promusicals.com/index.php?route=product/manufacturer/info&manufacturer_id=58',
     },
     images: [
       'https://shuvamrahamusic.com/wp-content/uploads/2026/02/UAD-Apollo-X4-Gen-2-Shuvam-Raha-1-768x1024.jpeg',
@@ -234,7 +267,11 @@ export const GEAR_ITEMS: GearItem[] = [
       'After a long wait, the OLLO Audio X1 Mixing Headphones are finally here. Big thanks to Fidelika, the official distributor in India, for making this possible. These open-back headphones deliver an incredibly transparent and detailed sound, which is essential for accurate mixing and mastering decisions.',
     badge: 'Personally used & trusted',
     studentBadge: null,
-    bestFor: ['Mixing & Mastering', 'Transparent sound reference', 'Hours of fatiguing-free studio work'],
+    bestFor: [
+      'Mixing & Mastering',
+      'Transparent sound reference',
+      'Hours of fatiguing-free studio work',
+    ],
     links: {
       distributor: 'https://fidelika.in/ollo-audio-x1/',
       official: 'https://olloaudio.com/products/x1',

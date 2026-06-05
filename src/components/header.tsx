@@ -49,7 +49,7 @@ const navLinks: NavLink[] = [
     href: '#',
     subItems: [
       { name: 'Tutorials', href: '/tutorials' },
-      { name: 'Blog', href: '/blog', raw: true },
+      { name: 'Blog', href: '/blog' },
     ],
   },
   { name: 'Contact', href: '/contact', raw: true },
