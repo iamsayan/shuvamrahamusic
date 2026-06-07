@@ -4,13 +4,7 @@ import React, { useMemo, useState } from 'react';
 
 import Link from 'next/link';
 
-import {
-  AMBIENT_GLOWS,
-  CATEGORY_THEMES,
-  GEAR_CATEGORIES,
-  GEAR_ITEMS,
-  GLOW_COLORS,
-} from '@/lib/gears-data';
+import { GEAR_CATEGORIES, GEAR_ITEMS } from '@/lib/gears-data';
 
 import {
   LuCheck,
@@ -98,25 +92,29 @@ export default function GearsListingClient() {
     });
   }, [searchQuery, selectedCategory]);
 
-  // Determine current active glow theme based on active category
-  const activeGlow = useMemo(() => {
-    const defaultGlow = AMBIENT_GLOWS['All'];
-    if (selectedCategory === 'All') return defaultGlow;
-    return (
-      AMBIENT_GLOWS[selectedCategory as keyof typeof AMBIENT_GLOWS] ||
-      defaultGlow
+  // Dynamically compute categories that have items present
+  const activeCategories = useMemo(() => {
+    const presentCategories = new Set(GEAR_ITEMS.map((item) => item.category));
+    return GEAR_CATEGORIES.filter(
+      (cat) => cat === 'All' || presentCategories.has(cat as any)
     );
-  }, [selectedCategory]);
+  }, []);
+
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = { All: GEAR_ITEMS.length };
+    GEAR_ITEMS.forEach((item) => {
+      counts[item.category] = (counts[item.category] || 0) + 1;
+    });
+    return counts;
+  }, []);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
-      {/* Background ambient glows */}
-      <div
-        className={`pointer-events-none absolute top-0 left-1/4 h-[600px] w-[600px] rounded-full bg-gradient-to-br ${activeGlow.top} opacity-40 blur-[130px] transition-all duration-1000`}
-      />
-      <div
-        className={`pointer-events-none absolute right-0 bottom-0 h-[600px] w-[600px] rounded-full bg-gradient-to-tl ${activeGlow.bottom} opacity-40 blur-[130px] transition-all duration-1000`}
-      />
+    <div className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
+      {/* Background ambient glows wrapper (prevents horizontal scroll without breaking sticky positioning) */}
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        <div className="absolute top-0 left-1/4 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-cyan-500/10 to-transparent opacity-40 blur-[130px]" />
+        <div className="absolute right-0 bottom-0 h-[600px] w-[600px] rounded-full bg-gradient-to-tl from-violet-500/10 to-transparent opacity-40 blur-[130px]" />
+      </div>
 
       <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
         <div className="flex w-full flex-col pt-8 pb-6">
@@ -148,7 +146,7 @@ export default function GearsListingClient() {
 
           {/* Page Title & Tagline */}
           <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-2xl">
+            <div className="relative">
               <h1 className="font-heading mb-4 bg-gradient-to-r from-white via-white to-gray-400 bg-clip-text text-4xl leading-[1.1] font-black tracking-tight text-transparent sm:text-5xl lg:text-6xl">
                 My{' '}
                 <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
@@ -162,250 +160,329 @@ export default function GearsListingClient() {
             </div>
           </div>
 
-          {/* Filters Bar: Search & Category Pills */}
-          <div className="mb-12 flex flex-col gap-6 rounded-[2rem] border border-white/5 bg-[#080812]/50 p-4 shadow-[0_30px_60px_rgba(0,0,0,0.4)] backdrop-blur-3xl sm:p-5 lg:flex-row lg:items-center lg:justify-between">
-            {/* Search input capsule */}
-            <div className="relative max-w-lg flex-1">
-              <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-gray-500">
-                <LuSearch className="h-5 w-5 transition-colors duration-300" />
+          {/* Main Layout Grid */}
+          <div className="mt-6 flex w-full flex-col items-start gap-8 md:flex-row lg:gap-12">
+            {/* Desktop Sticky Sidebar (Visible only on md+) */}
+            <aside className="sticky top-28 hidden shrink-0 flex-col gap-6 rounded-3xl border border-white/5 bg-[#080812]/50 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.3)] backdrop-blur-3xl md:flex md:w-[280px] lg:w-[320px]">
+              <div>
+                <h3 className="mb-3 text-xs font-black tracking-widest text-cyan-400 uppercase">
+                  Search
+                </h3>
+                <div className="relative">
+                  <div className="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-gray-500">
+                    <LuSearch className="h-4.5 w-4.5" />
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Search gear..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full rounded-xl border border-white/10 bg-[#0c0c16]/80 py-3 pr-4 pl-10 text-xs text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/40 focus:ring-2 focus:ring-cyan-500/10"
+                  />
+                </div>
               </div>
-              <input
-                type="text"
-                placeholder="Search gear by name, details, use-case..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-2xl border border-white/10 bg-[#0c0c16]/80 py-3.5 pr-4 pl-12 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/40 focus:shadow-[0_0_15px_rgba(6,182,212,0.05)] focus:ring-2 focus:ring-cyan-500/10"
-              />
+
+              <div className="h-[1px] w-full bg-white/5" />
+
+              <div>
+                <h3 className="mb-3 text-xs font-black tracking-widest text-cyan-400 uppercase">
+                  Categories
+                </h3>
+                <div className="flex flex-col gap-1.5">
+                  {activeCategories.map((cat) => {
+                    const isActive = selectedCategory === cat;
+                    return (
+                      <button
+                        key={cat}
+                        onClick={() => setSelectedCategory(cat)}
+                        className={`group/btn flex cursor-pointer items-center justify-between rounded-xl border-l-2 px-3 py-2.5 text-left text-xs font-bold transition-all duration-300 ${
+                          isActive
+                            ? 'border-cyan-500 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 text-cyan-400 shadow-sm'
+                            : 'border-transparent text-gray-400 hover:bg-white/[0.02] hover:text-white'
+                        }`}
+                      >
+                        <span className="mr-2 truncate">{cat}</span>
+                        <span
+                          className={`rounded-md px-2 py-0.5 text-[10px] font-bold transition-colors ${
+                            isActive
+                              ? 'bg-cyan-500/20 text-cyan-300'
+                              : 'bg-white/5 text-gray-500 group-hover/btn:bg-white/10 group-hover/btn:text-gray-300'
+                          }`}
+                        >
+                          {categoryCounts[cat]}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </aside>
+
+            {/* Mobile Search & Categories (Visible only below md) */}
+            <div className="mb-6 flex w-full flex-col gap-4 md:hidden">
+              {/* Mobile Search */}
+              <div className="relative w-full">
+                <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-gray-500">
+                  <LuSearch className="h-5 w-5" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search gear..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full rounded-2xl border border-white/10 bg-[#0c0c16]/80 py-3.5 pr-4 pl-12 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/40 focus:ring-2 focus:ring-cyan-500/10"
+                />
+              </div>
+
+              {/* Mobile Categories Scrollbar */}
+              <div className="relative w-full overflow-hidden rounded-2xl border border-white/[0.03] bg-white/[0.02] p-1.5">
+                <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-8 bg-gradient-to-r from-[#05050A] to-transparent" />
+                <div className="pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-8 bg-gradient-to-l from-[#05050A] to-transparent" />
+
+                <div className="flex items-center gap-2 overflow-x-auto px-4 py-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                  {activeCategories.map((cat) => {
+                    const isActive = selectedCategory === cat;
+                    return (
+                      <button
+                        key={cat}
+                        onClick={() => setSelectedCategory(cat)}
+                        className={`cursor-pointer rounded-xl px-4 py-2.5 text-xs font-bold tracking-wide whitespace-nowrap transition-all duration-300 ${
+                          isActive
+                            ? 'scale-[1.02] bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 text-white shadow-lg shadow-cyan-500/20'
+                            : 'border border-white/[0.03] bg-white/[0.01] text-gray-400 hover:bg-white/[0.05] hover:text-white'
+                        }`}
+                      >
+                        {cat}{' '}
+                        <span className="ml-1 text-[10px] opacity-65">
+                          ({categoryCounts[cat]})
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
 
-            {/* Category selection */}
-            <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-white/[0.03] bg-white/[0.01] p-1.5">
-              {GEAR_CATEGORIES.map((cat) => {
-                const isActive = selectedCategory === cat;
-                return (
-                  <button
-                    key={cat}
-                    onClick={() => setSelectedCategory(cat)}
-                    className={`cursor-pointer rounded-xl px-4 py-2.5 text-xs font-bold tracking-wide transition-all duration-300 ${
-                      isActive
-                        ? 'scale-[1.02] bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 text-white shadow-lg shadow-cyan-500/20'
-                        : 'text-gray-400 hover:bg-white/[0.03] hover:text-white'
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                );
-              })}
+            {/* Right Column: Gear Inventory Cards */}
+            <div className="flex w-full flex-1 flex-col gap-8 lg:gap-12">
+              {filteredGears.length === 0 ? (
+                <div className="flex w-full flex-col items-center justify-center rounded-3xl border border-white/5 bg-[#080812]/30 py-24 text-center backdrop-blur-xl">
+                  <LuSearch className="mb-4 h-10 w-10 animate-bounce text-gray-600" />
+                  <p className="max-w-md text-base text-gray-500 sm:text-lg">
+                    No gear matches "{searchQuery}". Try exploring other
+                    categories or type a different search term.
+                  </p>
+                </div>
+              ) : (
+                filteredGears.map((item, idx) => {
+                  const activeImgIdx = carouselIndices[item.id] || 0;
+                  const hasMultipleImages = item.images.length > 1;
+                  const hoverGlowClass = 'bg-cyan-500/10';
+                  const isEven = idx % 2 === 0;
+
+                  return (
+                    <article
+                      key={item.id}
+                      className={`group relative flex flex-col lg:flex-row ${
+                        isEven ? '' : 'lg:flex-row-reverse'
+                      } overflow-hidden rounded-[2.5rem] border border-white/[0.04] bg-[#0c0c16]/30 backdrop-blur-md transition-all duration-500 hover:border-white/10 hover:bg-[#121226]/40 hover:shadow-[0_30px_70px_rgba(0,0,0,0.6)]`}
+                    >
+                      {/* Glowing Top Accent Strip (lights up on hover) */}
+                      <div className="absolute top-0 left-0 z-20 h-[3px] w-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-20 transition-opacity duration-500 group-hover:opacity-90" />
+
+                      {/* Inner Corner Accent Glow (fades in on hover) */}
+                      <div
+                        className={`pointer-events-none absolute ${
+                          isEven ? '-right-24' : '-left-24'
+                        } -bottom-24 h-60 w-60 rounded-full ${hoverGlowClass} z-0 opacity-0 blur-[70px] transition-opacity duration-700 group-hover:opacity-100`}
+                      />
+
+                      {/* Image Slider Wrapper */}
+                      <div className="relative h-64 shrink-0 overflow-hidden bg-black/50 sm:h-72 lg:h-auto lg:w-[300px] lg:shrink-0 xl:w-[400px]">
+                        {item.images.length > 0 ? (
+                          <img
+                            src={item.images[activeImgIdx]}
+                            alt={item.title}
+                            className="h-full w-full object-cover object-top transition-transform duration-[1500ms] group-hover:scale-[1.03]"
+                          />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center bg-gray-900 text-gray-700">
+                            No Photo Available
+                          </div>
+                        )}
+
+                        {/* Image dark gradient overlay */}
+                        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/20 to-black/30 transition-opacity duration-500 group-hover:opacity-40" />
+
+                        {/* Carousel Overlaid Controls */}
+                        {hasMultipleImages && (
+                          <>
+                            <button
+                              onClick={(e) =>
+                                handlePrevImage(item.id, item.images.length, e)
+                              }
+                              className="absolute top-1/2 left-4 z-20 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-[#0c0c16]/60 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:border-cyan-500/30 hover:bg-cyan-950/40 hover:text-cyan-400 active:scale-90"
+                            >
+                              <LuChevronLeft className="h-6 w-6" />
+                            </button>
+                            <button
+                              onClick={(e) =>
+                                handleNextImage(item.id, item.images.length, e)
+                              }
+                              className="absolute top-1/2 right-4 z-20 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-[#0c0c16]/60 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:border-cyan-500/30 hover:bg-cyan-950/40 hover:text-cyan-400 active:scale-90"
+                            >
+                              <LuChevronRight className="h-6 w-6" />
+                            </button>
+
+                            {/* Dots Position Indicator Bar */}
+                            <div className="absolute bottom-5 left-1/2 z-20 flex -translate-x-1/2 gap-1.5 rounded-full border border-white/10 bg-black/50 px-3 py-1.5 backdrop-blur-md">
+                              {item.images.map((_, idx) => (
+                                <button
+                                  key={idx}
+                                  onClick={(e) =>
+                                    handleDotClick(item.id, idx, e)
+                                  }
+                                  className={`h-1.5 cursor-pointer rounded-full transition-all duration-300 ${
+                                    idx === activeImgIdx
+                                      ? 'w-5 bg-gradient-to-r from-cyan-400 to-blue-400'
+                                      : 'w-1.5 bg-white/30 hover:bg-white/50'
+                                  }`}
+                                />
+                              ))}
+                            </div>
+                          </>
+                        )}
+                      </div>
+
+                      {/* Card Content details */}
+                      <div className="relative z-10 flex flex-1 flex-col justify-between p-6 sm:p-8 md:p-10">
+                        <div>
+                          {/* Category badge & subtitle */}
+                          <div className="mb-4 flex flex-wrap items-center gap-3">
+                            <span className="inline-flex items-center rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3.5 py-1 text-[10px] font-black tracking-widest text-cyan-400 uppercase">
+                              <span className="mr-1.5 h-1.5 w-1.5 rounded-full bg-current" />
+                              {item.category}
+                            </span>
+                            <span className="text-[10px] font-bold tracking-wider text-gray-500 uppercase">
+                              Gear Spotlight
+                            </span>
+                          </div>
+
+                          {/* Title & recommended Tagline */}
+                          <h2 className="mb-2 text-xl leading-snug font-black tracking-tight text-white transition-colors duration-300 group-hover:text-cyan-400 sm:text-2xl md:text-3xl">
+                            {item.title}
+                          </h2>
+                          <p className="mb-4 text-xs font-semibold tracking-wide text-gray-400/95 sm:text-sm">
+                            {item.subtitle}
+                          </p>
+
+                          <div className="mb-5 h-[1px] w-full bg-gradient-to-r from-white/10 via-white/5 to-transparent" />
+
+                          {/* Main Description */}
+                          <p className="mb-6 text-sm leading-relaxed font-normal text-gray-300/90">
+                            {item.description}
+                          </p>
+
+                          {/* Ideal For list */}
+                          <div className="mb-6">
+                            <h4 className="mb-3 flex items-center gap-1.5 text-[10px] font-black tracking-widest text-cyan-400 uppercase">
+                              <LuTarget className="h-3.5 w-3.5" /> Ideal For:
+                            </h4>
+                            <div className="flex flex-wrap gap-2.5">
+                              {item.bestFor.map((feature, idx) => (
+                                <span
+                                  key={idx}
+                                  className="inline-flex items-center rounded-xl border border-white/5 bg-white/[0.03] px-3.5 py-1.5 text-xs font-semibold text-gray-300 backdrop-blur-sm transition-all duration-300 hover:border-white/10 hover:bg-white/[0.05]"
+                                >
+                                  <LuCheck className="mr-2 h-4 w-4 shrink-0 text-emerald-400" />
+                                  {feature}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Trust & Verification Badges (moved from top of image) */}
+                          <div className="mb-6 flex flex-col gap-2.5 border-t border-white/5 pt-5">
+                            <div className="flex items-center gap-3 rounded-2xl border border-amber-500/10 bg-amber-500/[0.02] p-3 text-xs font-medium text-amber-200/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.02)] backdrop-blur-sm">
+                              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-400">
+                                <LuStar className="h-4 w-4" />
+                              </div>
+                              <span>{item.badge}</span>
+                            </div>
+                            {item.studentBadge && (
+                              <div className="flex items-center gap-3 rounded-2xl border border-cyan-500/10 bg-cyan-500/[0.02] p-3 text-xs font-medium text-cyan-200/90 shadow-[inset_0_1px_1px_rgba(255,255,255,0.02)] backdrop-blur-sm">
+                                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400">
+                                  <LuTarget className="h-4 w-4 animate-pulse" />
+                                </div>
+                                <span>{item.studentBadge}</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+                        <div>
+                          {/* Button Actions */}
+                          <div className="mt-auto flex flex-col gap-3.5 sm:flex-row sm:items-center">
+                            {item.links.amazon && (
+                              <a
+                                href={item.links.amazon}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex flex-1 cursor-pointer items-center justify-center rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 py-3.5 text-xs font-black tracking-wider text-black shadow-lg shadow-amber-500/10 transition-all duration-300 hover:brightness-110 active:scale-95"
+                              >
+                                <AmazonIcon />
+                                Check Price on Amazon
+                              </a>
+                            )}
+                            {item.links.distributor && (
+                              <a
+                                href={item.links.distributor}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex flex-1 cursor-pointer items-center justify-center rounded-xl border border-cyan-500/30 bg-cyan-950/30 py-3.5 text-xs font-black tracking-wider text-cyan-400 transition-all duration-300 hover:border-cyan-500/50 hover:bg-cyan-900/40 hover:text-cyan-300 active:scale-95"
+                              >
+                                <LuShoppingBag className="mr-2 h-4 w-4" />
+                                Get from Distributor
+                              </a>
+                            )}
+                            {!item.links.amazon &&
+                              !item.links.distributor &&
+                              item.links.official && (
+                                <a
+                                  href={item.links.official}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="flex flex-1 cursor-pointer items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] py-3.5 text-xs font-black tracking-wider text-white transition-all duration-300 hover:border-white/20 hover:bg-white/[0.08] active:scale-95"
+                                >
+                                  <LuExternalLink className="mr-2 h-4 w-4" />
+                                  Explore Website
+                                </a>
+                              )}
+                          </div>
+
+                          {/* Visit Official Brand Website row */}
+                          {(item.links.amazon || item.links.distributor) &&
+                            item.links.official && (
+                              <div className="mt-4 text-center">
+                                <a
+                                  href={item.links.official}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center text-[10px] font-bold tracking-widest text-gray-500 uppercase transition-colors duration-200 hover:text-white"
+                                >
+                                  Visit Official Brand Site
+                                  <LuExternalLink className="ml-1.5 h-3 w-3" />
+                                </a>
+                              </div>
+                            )}
+                        </div>
+                      </div>
+                    </article>
+                  );
+                })
+              )}
             </div>
           </div>
-
-          {/* Gears Inventory Listing Grid */}
-          {filteredGears.length === 0 ? (
-            <div className="flex flex-col items-center justify-center rounded-3xl border border-white/5 bg-[#080812]/30 py-24 text-center backdrop-blur-xl">
-              <LuSearch className="mb-4 h-10 w-10 animate-bounce text-gray-600" />
-              <p className="max-w-md text-base text-gray-500 sm:text-lg">
-                No gear matches "{searchQuery}". Try exploring other categories
-                or type a different search term.
-              </p>
-            </div>
-          ) : (
-            <div className="flex flex-col gap-8 lg:gap-12">
-              {filteredGears.map((item, idx) => {
-                const themeKey = item.category as keyof typeof CATEGORY_THEMES;
-                const theme =
-                  CATEGORY_THEMES[themeKey] ||
-                  CATEGORY_THEMES['Strings & Cables'];
-                const activeImgIdx = carouselIndices[item.id] || 0;
-                const hasMultipleImages = item.images.length > 1;
-                const hoverGlowClass =
-                  GLOW_COLORS[item.category] || GLOW_COLORS['Default'];
-                const isEven = idx % 2 === 0;
-
-                return (
-                  <article
-                    key={item.id}
-                    className={`group relative flex flex-col md:flex-row ${isEven ? '' : 'md:flex-row-reverse'} overflow-hidden rounded-[2.5rem] border border-white/[0.04] bg-white/[0.01] transition-all duration-500 hover:border-white/10 hover:bg-white/[0.02] hover:shadow-[0_30px_70px_rgba(0,0,0,0.6)]`}
-                  >
-                    {/* Glowing Top Accent Strip (lights up on hover) */}
-                    <div
-                      className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${theme.gradient} z-20 opacity-20 transition-opacity duration-500 group-hover:opacity-90`}
-                    />
-
-                    {/* Inner Corner Accent Glow (fades in on hover) */}
-                    <div
-                      className={`pointer-events-none absolute ${isEven ? '-right-24' : '-left-24'} -bottom-24 h-60 w-60 rounded-full ${hoverGlowClass} z-0 opacity-0 blur-[70px] transition-opacity duration-700 group-hover:opacity-100`}
-                    />
-
-                    {/* Image Slider Wrapper */}
-                    <div className="relative h-52 shrink-0 overflow-hidden bg-black/50 sm:h-60 md:h-auto md:w-[35%] lg:w-[40%] min-h-[200px] md:min-h-0">
-                      {item.images.length > 0 ? (
-                        <img
-                          src={item.images[activeImgIdx]}
-                          alt={item.title}
-                          className="h-full w-full object-cover object-top transition-transform duration-[1500ms] group-hover:scale-[1.03]"
-                        />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-gray-900 text-gray-700">
-                          No Photo Available
-                        </div>
-                      )}
-
-                      {/* Top Overlaid Badges */}
-                      <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
-                        <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-black/70 px-3 py-1.5 text-[10px] font-black tracking-widest text-white uppercase backdrop-blur-md">
-                          <LuStar className="h-3.5 w-3.5 shrink-0 text-amber-400" />
-                          {item.badge}
-                        </span>
-                        {item.studentBadge && (
-                          <span className="inline-flex items-center gap-1.5 rounded-lg border border-cyan-500/20 bg-cyan-950/80 px-3 py-1.5 text-[10px] font-black tracking-widest text-cyan-300 uppercase backdrop-blur-md">
-                            <LuTarget className="h-3.5 w-3.5 shrink-0 animate-pulse text-cyan-400" />
-                            {item.studentBadge}
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Carousel Overlaid Controls */}
-                      {hasMultipleImages && (
-                        <>
-                          <button
-                            onClick={(e) =>
-                              handlePrevImage(item.id, item.images.length, e)
-                            }
-                            className="absolute top-1/2 left-3 z-10 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-black/40 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:bg-black/70 active:scale-90"
-                          >
-                            <LuChevronLeft className="h-5 w-5" />
-                          </button>
-                          <button
-                            onClick={(e) =>
-                              handleNextImage(item.id, item.images.length, e)
-                            }
-                            className="absolute top-1/2 right-3 z-10 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-black/40 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:bg-black/70 active:scale-90"
-                          >
-                            <LuChevronRight className="h-5 w-5" />
-                          </button>
-
-                          {/* Dots Position Indicator Bar */}
-                          <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 rounded-full border border-white/5 bg-black/30 px-2.5 py-1 backdrop-blur-md">
-                            {item.images.map((_, idx) => (
-                              <button
-                                key={idx}
-                                onClick={(e) => handleDotClick(item.id, idx, e)}
-                                className={`h-1.5 cursor-pointer rounded-full transition-all duration-300 ${
-                                  idx === activeImgIdx
-                                    ? 'w-4 bg-cyan-400'
-                                    : 'w-1.5 bg-white/40'
-                                }`}
-                              />
-                            ))}
-                          </div>
-                        </>
-                      )}
-                    </div>
-
-                    {/* Card Content details */}
-                    <div className="relative z-10 flex flex-1 flex-col justify-between p-5 sm:p-6 md:p-8">
-                      {/* Category badge */}
-                      <div className="mb-2 flex">
-                        <span
-                          className={`rounded-full ${theme.bg} ${theme.text} border border-white/5 px-3 py-1 text-[10px] font-black tracking-widest uppercase`}
-                        >
-                          {item.category}
-                        </span>
-                      </div>
-
-                      {/* Title & recommended Tagline */}
-                      <h2 className="mb-1 text-lg leading-snug font-black tracking-tight text-white transition-colors duration-300 group-hover:text-cyan-400 sm:text-xl md:text-2xl">
-                        {item.title}
-                      </h2>
-                      <p className="mb-2 text-xs font-semibold tracking-wide text-gray-400">
-                        {item.subtitle}
-                      </p>
-
-                      <div className="my-2.5 border-t border-white/5" />
-
-                      {/* Main Description */}
-                      <p className="mb-4 text-xs leading-relaxed font-normal text-gray-300 sm:text-sm">
-                        {item.description}
-                      </p>
-
-                      {/* Ideal For list */}
-                      <div className="mb-4">
-                        <h4 className="mb-2 text-[10px] font-black tracking-widest text-cyan-400 uppercase">
-                          Ideal For:
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {item.bestFor.map((feature, idx) => (
-                            <span
-                              key={idx}
-                              className="inline-flex items-center rounded-lg border border-white/5 bg-white/[0.02] px-2.5 py-1 text-[11px] font-bold text-gray-300 backdrop-blur-sm"
-                            >
-                              <LuCheck className="mr-1.5 h-3.5 w-3.5 shrink-0 text-emerald-400" />
-                              {feature}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Button Actions */}
-                      <div className="mt-auto flex flex-col gap-3 sm:flex-row sm:items-center">
-                        {item.links.amazon && (
-                          <a
-                            href={item.links.amazon}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex flex-1 cursor-pointer items-center justify-center rounded-xl bg-amber-500 py-3 text-xs font-black tracking-wider text-black shadow-md shadow-amber-500/10 transition-all duration-300 hover:bg-amber-400 active:scale-95"
-                          >
-                            <AmazonIcon />
-                            Check Price on Amazon
-                          </a>
-                        )}
-                        {item.links.distributor && (
-                          <a
-                            href={item.links.distributor}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex flex-1 cursor-pointer items-center justify-center rounded-xl border border-cyan-500/20 bg-cyan-950/20 py-3 text-xs font-black tracking-wider text-cyan-400 transition-all duration-300 hover:border-cyan-500/40 hover:bg-cyan-900/30 active:scale-95"
-                          >
-                            <LuShoppingBag className="mr-2 h-4 w-4" />
-                            Get from Distributor
-                          </a>
-                        )}
-                        {!item.links.amazon &&
-                          !item.links.distributor &&
-                          item.links.official && (
-                            <a
-                              href={item.links.official}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex flex-1 cursor-pointer items-center justify-center rounded-xl border border-white/10 bg-white/[0.02] py-3 text-xs font-black tracking-wider text-white transition-all duration-300 hover:border-white/20 hover:bg-white/[0.05] active:scale-95"
-                            >
-                              <LuExternalLink className="mr-2 h-4 w-4" />
-                              Explore Website
-                            </a>
-                          )}
-                      </div>
-
-                      {/* Visit Official Brand Website row */}
-                      {(item.links.amazon || item.links.distributor) &&
-                        item.links.official && (
-                          <div className="mt-4 text-center">
-                            <a
-                              href={item.links.official}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center text-[10px] font-bold tracking-widest text-gray-500 uppercase transition-colors duration-200 hover:text-white"
-                            >
-                              Visit Official Brand Site
-                              <LuExternalLink className="ml-1.5 h-3 w-3" />
-                            </a>
-                          </div>
-                        )}
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          )}
 
           {/* Affiliate support and support text footer section */}
           <div className="mt-20 rounded-3xl border border-white/5 bg-[#080812]/40 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-3xl sm:p-8 md:p-10">

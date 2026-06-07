@@ -4,10 +4,22 @@ export interface GearItem {
   subtitle: string;
   description: string;
   category:
-    | 'Strings & Cables'
-    | 'Pickups & Hardware'
+    | 'Guitars'
+    | 'Guitar Pickups & Hardware'
+    | 'Guitar Strings'
+    | 'Guitar Cables'
+    | 'Guitar Amps'
+    | 'Wireless Guitar Systems'
+    | 'Multi-FX Processors & Effects'
     | 'Studio & Recording'
-    | 'Cases & Stands';
+    | 'Headphones & Monitoring'
+    | 'DAW & Plugins'
+    | 'Microphones'
+    | 'Guitar Bags & Cases'
+    | 'Guitar Stands'
+    | 'Fret Wraps & String Muters'
+    | 'Essential Guitar Maintenance Tools'
+    | 'Other Guitar Accessories';
   badge: string;
   studentBadge?: string | null;
   bestFor: string[];
@@ -21,78 +33,28 @@ export interface GearItem {
 
 export const GEAR_CATEGORIES = [
   'All',
-  'Strings & Cables',
-  'Pickups & Hardware',
+  'Guitars',
+  'Guitar Pickups & Hardware',
+  'Guitar Strings',
+  'Guitar Cables',
+  'Guitar Amps',
+  'Wireless Guitar Systems',
+  'Multi-FX Processors & Effects',
   'Studio & Recording',
-  'Cases & Stands',
+  'Headphones & Monitoring',
+  'DAW & Plugins',
+  'Microphones',
+  'Guitar Bags & Cases',
+  'Guitar Stands',
+  'Fret Wraps & String Muters',
+  'Essential Guitar Maintenance Tools',
+  'Other Guitar Accessories',
 ] as const;
-
-export const CATEGORY_THEMES = {
-  'Strings & Cables': {
-    text: 'text-cyan-400',
-    bg: 'bg-cyan-500/10',
-    border: 'border-cyan-500/20 border-cyan-500/30',
-    glow: 'shadow-[0_0_20px_rgba(34,211,238,0.2)]',
-    gradient: 'from-cyan-500 to-blue-500',
-  },
-  'Pickups & Hardware': {
-    text: 'text-violet-400',
-    bg: 'bg-violet-500/10',
-    border: 'border-violet-500/20 border-violet-500/30',
-    glow: 'shadow-[0_0_20px_rgba(139,92,246,0.2)]',
-    gradient: 'from-violet-500 to-fuchsia-500',
-  },
-  'Studio & Recording': {
-    text: 'text-emerald-400',
-    bg: 'bg-emerald-500/10',
-    border: 'border-emerald-500/20 border-emerald-500/30',
-    glow: 'shadow-[0_0_20px_rgba(16,185,129,0.2)]',
-    gradient: 'from-emerald-500 to-teal-500',
-  },
-  'Cases & Stands': {
-    text: 'text-amber-400',
-    bg: 'bg-amber-500/10',
-    border: 'border-amber-500/20 border-amber-500/30',
-    glow: 'shadow-[0_0_20px_rgba(245,158,11,0.2)]',
-    gradient: 'from-amber-500 to-orange-500',
-  },
-};
-
-export const GLOW_COLORS = {
-  'Strings & Cables': 'bg-cyan-500/20',
-  'Pickups & Hardware': 'bg-violet-500/20',
-  'Studio & Recording': 'bg-emerald-500/20',
-  'Cases & Stands': 'bg-amber-500/20',
-  Default: 'bg-cyan-500/15',
-};
-
-export const AMBIENT_GLOWS = {
-  All: {
-    top: 'from-cyan-500/10 to-transparent',
-    bottom: 'from-violet-500/10 to-transparent',
-  },
-  'Strings & Cables': {
-    top: 'from-cyan-500/15 to-transparent',
-    bottom: 'from-blue-500/10 to-transparent',
-  },
-  'Pickups & Hardware': {
-    top: 'from-violet-500/15 to-transparent',
-    bottom: 'from-fuchsia-500/10 to-transparent',
-  },
-  'Studio & Recording': {
-    top: 'from-emerald-500/15 to-transparent',
-    bottom: 'from-teal-500/10 to-transparent',
-  },
-  'Cases & Stands': {
-    top: 'from-amber-500/15 to-transparent',
-    bottom: 'from-orange-500/10 to-transparent',
-  },
-};
 
 export const GEAR_ITEMS: GearItem[] = [
   {
     id: 'elixir-electric',
-    category: 'Strings & Cables',
+    category: 'Guitar Strings',
     title: 'Elixir Electric Guitar Strings Nanoweb 10–46 Light',
     subtitle:
       'My go-to strings for professional tone, durability & live performance',
@@ -113,7 +75,7 @@ export const GEAR_ITEMS: GearItem[] = [
   },
   {
     id: 'elixir-acoustic',
-    category: 'Strings & Cables',
+    category: 'Guitar Strings',
     title:
       'Elixir Acoustic Guitar Strings 80/20 Bronze with Nanoweb Coating (11–52 Custom Light)',
     subtitle:
@@ -136,7 +98,7 @@ export const GEAR_ITEMS: GearItem[] = [
   },
   {
     id: 'suhr-ssv-ssh',
-    category: 'Pickups & Hardware',
+    category: 'Guitar Pickups & Hardware',
     title: 'Suhr SSV Neck & Suhr SSH+ Bridge',
     subtitle: 'My main pickup setup for studio + live performance',
     description:
@@ -160,7 +122,7 @@ export const GEAR_ITEMS: GearItem[] = [
   },
   {
     id: 'suhr-v60-thornbucker',
-    category: 'Pickups & Hardware',
+    category: 'Guitar Pickups & Hardware',
     title: 'Suhr V60 Neck & Middle, and Suhr Thornbucker+ Bridge',
     subtitle: 'My go-to pickup setup for vintage clarity + modern power',
     description:
@@ -184,7 +146,7 @@ export const GEAR_ITEMS: GearItem[] = [
   },
   {
     id: 'dimarzio-cables',
-    category: 'Strings & Cables',
+    category: 'Guitar Cables',
     title: 'DiMarzio Guitar Cables',
     subtitle: 'My go-to cables for live + studio performance',
     description:
@@ -211,7 +173,7 @@ export const GEAR_ITEMS: GearItem[] = [
   },
   {
     id: 'gruvgear-kapsule',
-    category: 'Cases & Stands',
+    category: 'Guitar Bags & Cases',
     title: 'Gruv Gear Kapsule Electric Guitar Case',
     subtitle: 'My go-to case for maximum protection, travel & gigs',
     description:
@@ -260,7 +222,7 @@ export const GEAR_ITEMS: GearItem[] = [
   },
   {
     id: 'ollo-x1',
-    category: 'Studio & Recording',
+    category: 'Headphones & Monitoring',
     title: 'OLLO Audio X1 Mixing Headphone',
     subtitle: 'My main headphone for mixing & mastering',
     description:
