@@ -17,7 +17,7 @@ type NavLink = {
 
 const navLinks: NavLink[] = [
   { name: 'Home', href: '/' },
-  { name: 'Biography', href: '/biography' },
+  { name: 'Biography', href: '/biography', raw: true },
   {
     name: 'Guiter Classes',
     href: '/guitar-classes-with-shuvam',

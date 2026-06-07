@@ -381,13 +381,19 @@ export const BLOG_POSTS: BlogPost[] = [
 // Helper to resolve cover image path (handles Cockpit assets or string links)
 function resolveImagePath(img?: { path?: string } | string): string {
   if (!img) return '/blog/acoustic-guitar-chords.png';
+
+  const apiURL = process.env.API_URL || '';
+  const apiRoot = apiURL.replace(/\/api\/?$/, '');
+
   if (typeof img === 'string') {
     if (img.startsWith('http') || img.startsWith('/')) return img;
-    return cockpit.getAssetLink(img);
+    const cleanPath = img.replace(/^\//, '');
+    return `${apiRoot}/${cleanPath}`;
   }
   if (img.path) {
     if (img.path.startsWith('http') || img.path.startsWith('/')) return img.path;
-    return cockpit.getAssetLink(img.path);
+    const cleanPath = img.path.replace(/^\//, '');
+    return `${apiRoot}/${cleanPath}`;
   }
   return '/blog/acoustic-guitar-chords.png';
 }
