@@ -3,9 +3,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import FaqAccordion from '@/components/faq-accordion';
+import JsonLd from '@/components/json-ld';
 import PricingTable from '@/components/pricing-table';
 import ProgramTabs from '@/components/program-tabs';
-import JsonLd from '@/components/json-ld';
 // Client Components
 import SliderGallery from '@/components/slider-gallery';
 import YouTubeFacade from '@/components/youtube-facade';
@@ -449,7 +449,7 @@ export default async function Page() {
                     </div>
                     <div className="flex min-h-[48px] flex-col justify-center text-left">
                       <span className="font-heading text-sm leading-none font-extrabold text-white sm:text-base">
-                        11+ Years Experience
+                        {new Date().getFullYear() - 2015}+ Years Experience
                       </span>
                       <span className="mt-1 max-w-[180px] text-xs leading-tight text-gray-400">
                         LCM Certified Instructor

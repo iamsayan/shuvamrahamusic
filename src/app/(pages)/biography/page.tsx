@@ -1,33 +1,33 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import PageLayout from '@/components/page-layout';
-import JsonLd from '@/components/json-ld';
-import YouTubeFacade from '@/components/youtube-facade';
+
 import BiographyAudioPlayer from '@/components/biography-audio-player';
+import JsonLd from '@/components/json-ld';
+import PageLayout from '@/components/page-layout';
+import YouTubeFacade from '@/components/youtube-facade';
 
 import {
-  LuAward,
-  LuGraduationCap,
-  LuGuitar,
-  LuMusic,
-  LuMic,
-  LuHeadphones,
-  LuSettings,
-  LuUsers,
-  LuFlame,
-  LuTv,
-  LuVolume2,
-} from 'react-icons/lu';
-
-import {
+  FaAmazon,
   FaApple,
   FaFacebookF,
   FaInstagram,
   FaLinkedin,
   FaSpotify,
   FaYoutube,
-  FaAmazon,
 } from 'react-icons/fa6';
+import {
+  LuAward,
+  LuFlame,
+  LuGraduationCap,
+  LuGuitar,
+  LuHeadphones,
+  LuMic,
+  LuMusic,
+  LuSettings,
+  LuTv,
+  LuUsers,
+  LuVolume2,
+} from 'react-icons/lu';
 
 export const metadata: Metadata = {
   title: 'Biography | Shuvam Raha Music',
@@ -69,49 +69,57 @@ const competencies = [
   },
   {
     title: 'Composer & Songwriter',
-    description: 'Creating memorable melodies and storytelling through songwriting.',
+    description:
+      'Creating memorable melodies and storytelling through songwriting.',
     icon: LuMusic,
     color: 'text-violet-400 border-violet-500/20 bg-violet-500/5',
   },
   {
     title: 'Vocalist',
-    description: 'Bringing music to life with emotional and expressive vocal performance.',
+    description:
+      'Bringing music to life with emotional and expressive vocal performance.',
     icon: LuMic,
     color: 'text-rose-400 border-rose-500/20 bg-rose-500/5',
   },
   {
     title: 'Guitar Instructor',
-    description: 'Sharing comprehensive knowledge and guiding aspiring musicians since 2014.',
+    description:
+      'Sharing comprehensive knowledge and guiding aspiring musicians since 2014.',
     icon: LuGraduationCap,
     color: 'text-emerald-400 border-emerald-500/20 bg-emerald-500/5',
   },
   {
     title: 'Certified Musician',
-    description: 'Distinction in Electric Guitar under the London College of Music (LCM).',
+    description:
+      'Distinction in Electric Guitar under the London College of Music (LCM).',
     icon: LuAward,
     color: 'text-amber-400 border-amber-500/20 bg-amber-500/5',
   },
   {
     title: 'Live Performer',
-    description: 'Bringing high-energy performance and stage presence to live shows.',
+    description:
+      'Bringing high-energy performance and stage presence to live shows.',
     icon: LuFlame,
     color: 'text-orange-400 border-orange-500/20 bg-orange-500/5',
   },
   {
     title: 'Session Guitarist',
-    description: 'Collaborating in-studio with diverse artists, bands, and productions.',
+    description:
+      'Collaborating in-studio with diverse artists, bands, and productions.',
     icon: LuUsers,
     color: 'text-blue-400 border-blue-500/20 bg-blue-500/5',
   },
   {
     title: 'Music Producer & Arranger',
-    description: 'Shaping soundscapes, arrangements, and modern studio productions.',
+    description:
+      'Shaping soundscapes, arrangements, and modern studio productions.',
     icon: LuSettings,
     color: 'text-fuchsia-400 border-fuchsia-500/20 bg-fuchsia-500/5',
   },
   {
     title: 'Sound Engineer',
-    description: 'Proficient in multitrack recording, session acoustics, and sound design.',
+    description:
+      'Proficient in multitrack recording, session acoustics, and sound design.',
     icon: LuHeadphones,
     color: 'text-teal-400 border-teal-500/20 bg-teal-500/5',
   },
@@ -234,11 +242,17 @@ export default function BiographyPage() {
                   .
                 </p>
                 <p>
-                  With over <strong className="text-white">11 years of experience</strong>
+                  With over{' '}
+                  <strong className="text-white">
+                    {new Date().getFullYear() - 2015} years of experience
+                  </strong>
                   , Shuvam possesses a strong foundation in{' '}
-                  <span className="text-cyan-400 font-medium">Western Music Theory</span> and
-                  has honed his skills as a proficient guitarist. He achieved a
-                  Distinction in Electric Guitar in the Grade exams of the{' '}
+                  <span className="font-medium text-cyan-400">
+                    Western Music Theory
+                  </span>{' '}
+                  and has honed his skills as a proficient guitarist. He
+                  achieved a Distinction in Electric Guitar in the Grade exams
+                  of the{' '}
                   <strong className="text-white">
                     London College of Music (LCM)
                   </strong>
@@ -247,29 +261,30 @@ export default function BiographyPage() {
                     href="https://www.ekanntsingh.com/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-cyan-400 underline decoration-cyan-400/30 hover:text-cyan-300 hover:decoration-cyan-300 transition-colors"
+                    className="text-cyan-400 underline decoration-cyan-400/30 transition-colors hover:text-cyan-300 hover:decoration-cyan-300"
                   >
                     Mr. Ekannt Singh
                   </a>
                   .
                 </p>
                 <p>
-                  As a seasoned music educator, Shuvam has been conducting guitar
-                  classes since 2014. He has performed at various events,
-                  collaborating with artists and showcasing high-energy musicality.
-                  His debut original composition,{' '}
-                  <span className="text-cyan-400 italic font-semibold">
+                  As a seasoned music educator, Shuvam has been conducting
+                  guitar classes since 2014. He has performed at various events,
+                  collaborating with artists and showcasing high-energy
+                  musicality. His debut original composition,{' '}
+                  <span className="font-semibold text-cyan-400 italic">
                     &quot;Ki jani keno&quot;
                   </span>
-                  , was featured in <strong className="text-white">E-Times</strong> and
-                  streams widely on prominent audio platforms.
+                  , was featured in{' '}
+                  <strong className="text-white">E-Times</strong> and streams
+                  widely on prominent audio platforms.
                 </p>
-                <div className="pt-3 flex justify-start">
+                <div className="flex justify-start pt-3">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="https://shuvamrahamusic.com/wp-content/uploads/2025/04/Shuvam-Raha-Signature-Logo-Png-png.avif"
                     alt="Shuvam Raha Signature Logo"
-                    className="h-14 w-auto object-contain brightness-0 invert opacity-75 hover:opacity-95 transition-opacity duration-300"
+                    className="h-14 w-auto object-contain opacity-75 brightness-0 invert transition-opacity duration-300 hover:opacity-95"
                   />
                 </div>
               </div>
@@ -330,11 +345,15 @@ export default function BiographyPage() {
                 <h4 className="font-heading text-base font-extrabold text-white sm:text-lg">
                   Bachelor&apos;s Degree in Computer Application (BCA)
                 </h4>
-                <p className="mt-1 text-xs font-semibold text-cyan-400 uppercase tracking-wider">
+                <p className="mt-1 text-xs font-semibold tracking-wider text-cyan-400 uppercase">
                   JIS College of Engineering, Kalyani
                 </p>
                 <p className="mt-3 text-xs leading-relaxed text-gray-400 sm:text-sm">
-                  Leveraging a logical, structured technical background to streamline complex digital audio workstation (DAW) workflows, signal path management, and software production tools. Key skills include: structured problem solving, technical agility, adaptability, and collaborative teamwork.
+                  Leveraging a logical, structured technical background to
+                  streamline complex digital audio workstation (DAW) workflows,
+                  signal path management, and software production tools. Key
+                  skills include: structured problem solving, technical agility,
+                  adaptability, and collaborative teamwork.
                 </p>
               </div>
 
@@ -346,16 +365,23 @@ export default function BiographyPage() {
                 <h4 className="font-heading text-base font-extrabold text-white sm:text-lg">
                   Certified Musician - London College of Music (LCM)
                 </h4>
-                <p className="mt-1 text-xs font-semibold text-cyan-400 uppercase tracking-wider">
+                <p className="mt-1 text-xs font-semibold tracking-wider text-cyan-400 uppercase">
                   University of West London
                 </p>
                 <p className="mt-3 text-xs leading-relaxed text-gray-400 sm:text-sm">
-                  Achieved high-level Distinction in Electric Guitar grade certifications. Formal study of Western Music Theory, acoustic/electric performance techniques, and classic and modern guitar styles, mentored by Classical Guitarist Mr. Ekannt Singh.
+                  Achieved high-level Distinction in Electric Guitar grade
+                  certifications. Formal study of Western Music Theory,
+                  acoustic/electric performance techniques, and classic and
+                  modern guitar styles, mentored by Classical Guitarist Mr.
+                  Ekannt Singh.
                 </p>
               </div>
             </div>
-            <p className="text-center text-xs font-medium italic text-cyan-400/80 pt-2">
-              &ldquo;With a unique blend of musical talent, technical expertise, and esteemed educational credentials, Shuvam Raha has successfully merged his passion for music into a fulfilling full-time profession.&rdquo;
+            <p className="pt-2 text-center text-xs font-medium text-cyan-400/80 italic">
+              &ldquo;With a unique blend of musical talent, technical expertise,
+              and esteemed educational credentials, Shuvam Raha has successfully
+              merged his passion for music into a fulfilling full-time
+              profession.&rdquo;
             </p>
           </div>
 
@@ -377,18 +403,27 @@ export default function BiographyPage() {
                 <p className="text-xs font-bold tracking-widest text-cyan-400 uppercase">
                   A Heartfelt Ode to Lost Love (2023)
                 </p>
-                <div className="text-xs leading-relaxed text-gray-400 sm:text-sm space-y-3">
+                <div className="space-y-3 text-xs leading-relaxed text-gray-400 sm:text-sm">
                   <p>
-                    Composed and sung by <strong className="text-white">Shuvam Raha</strong>, with lyrics by Niladri Banerjee and Subho Chakroborty, this song resonates with those who have loved, lost, and still find a way to smile.
+                    Composed and sung by{' '}
+                    <strong className="text-white">Shuvam Raha</strong>, with
+                    lyrics by Niladri Banerjee and Subho Chakroborty, this song
+                    resonates with those who have loved, lost, and still find a
+                    way to smile.
                   </p>
                   <p>
-                    The theme revolves around the bittersweet memories of a past relationship, bidding a final farewell to the comfort and companionship that once was. With its melancholic melody and evocative lyrics, &ldquo;Phirti Pothe&rdquo; is a soulful ballad that explores the complexities of love, loss, and longing.
+                    The theme revolves around the bittersweet memories of a past
+                    relationship, bidding a final farewell to the comfort and
+                    companionship that once was. With its melancholic melody and
+                    evocative lyrics, &ldquo;Phirti Pothe&rdquo; is a soulful
+                    ballad that explores the complexities of love, loss, and
+                    longing.
                   </p>
                 </div>
 
                 {/* Streaming Links */}
                 <div className="space-y-2 pt-2">
-                  <span className="block text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+                  <span className="block text-[10px] font-bold tracking-wider text-gray-500 uppercase">
                     Listen on Streaming Services
                   </span>
                   <div className="flex flex-wrap gap-2.5">
@@ -446,7 +481,8 @@ export default function BiographyPage() {
                 Featured Performances &amp; Videos
               </h3>
               <p className="text-xs text-gray-400 sm:text-sm">
-                Watch original tracks, unplugged renditions, and guitar instrumentals.
+                Watch original tracks, unplugged renditions, and guitar
+                instrumentals.
               </p>
             </div>
 
@@ -462,10 +498,10 @@ export default function BiographyPage() {
                   </div>
                   <div className="p-4">
                     <div className="flex items-center justify-between gap-2">
-                      <h4 className="font-heading text-sm font-bold text-white line-clamp-1">
+                      <h4 className="font-heading line-clamp-1 text-sm font-bold text-white">
                         {vid.title}
                       </h4>
-                      <span className="text-[10px] font-black text-gray-500 bg-white/5 px-2 py-0.5 rounded-md">
+                      <span className="rounded-md bg-white/5 px-2 py-0.5 text-[10px] font-black text-gray-500">
                         {vid.year}
                       </span>
                     </div>
@@ -496,7 +532,7 @@ export default function BiographyPage() {
               </div>
 
               {/* Text info */}
-              <div className="space-y-3 flex-1">
+              <div className="flex-1 space-y-3">
                 <span className="inline-flex rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-[10px] font-black tracking-widest text-cyan-400 uppercase">
                   Artist Relations
                 </span>
@@ -507,9 +543,10 @@ export default function BiographyPage() {
                   Shuvam Raha is featured as a stockist and artist representing{' '}
                   <strong className="text-white">DiMarzio Cables</strong>. This
                   partnership represents his dedication to using premium,
-                  tour-grade guitar hardware and high-fidelity signal path chains
-                  to achieve clean dynamics, noise rejection, and pristine
-                  frequency responses in his live sets and studio recordings alike.
+                  tour-grade guitar hardware and high-fidelity signal path
+                  chains to achieve clean dynamics, noise rejection, and
+                  pristine frequency responses in his live sets and studio
+                  recordings alike.
                 </p>
               </div>
             </div>
@@ -518,14 +555,18 @@ export default function BiographyPage() {
           {/* ==========================================
               QUOTE & CALL TO ACTION
              ========================================== */}
-          <div className="flex flex-col items-center justify-center text-center py-6 px-4 rounded-3xl border border-white/5 bg-white/[0.005]">
-            <span className="text-gray-500 text-3xl font-serif leading-none select-none">&ldquo;</span>
-            <p className="font-heading text-base sm:text-xl font-bold tracking-tight text-white max-w-xl -mt-2">
+          <div className="flex flex-col items-center justify-center rounded-3xl border border-white/5 bg-white/[0.005] px-4 py-6 text-center">
+            <span className="font-serif text-3xl leading-none text-gray-500 select-none">
+              &ldquo;
+            </span>
+            <p className="font-heading -mt-2 max-w-xl text-base font-bold tracking-tight text-white sm:text-xl">
               From passion to profession, every chord tells a story.
             </p>
-            <span className="text-gray-500 text-3xl font-serif leading-none select-none mt-1">&rdquo;</span>
+            <span className="mt-1 font-serif text-3xl leading-none text-gray-500 select-none">
+              &rdquo;
+            </span>
 
-            <div className="mt-6 flex flex-col sm:flex-row gap-3">
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/guitar-classes-with-shuvam"
                 className="group font-heading relative flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-3 text-xs font-bold text-white shadow-md transition-all hover:scale-105 active:scale-95 sm:text-sm"
@@ -544,18 +585,54 @@ export default function BiographyPage() {
           {/* ==========================================
               SOCIAL FOOTPRINT
              ========================================== */}
-          <div className="flex flex-col items-center gap-3 pt-4 border-t border-white/5">
-            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">
+          <div className="flex flex-col items-center gap-3 border-t border-white/5 pt-4">
+            <span className="text-[10px] font-bold tracking-wider text-gray-500 uppercase">
               Connect &amp; Follow Shuvam Raha
             </span>
             <div className="flex flex-wrap items-center justify-center gap-2">
               {[
-                { name: 'Spotify', icon: FaSpotify, url: 'https://open.spotify.com/artist/4AmYXw6BaXjFN4urc6SyrG', color: 'hover:text-green-500 hover:border-green-500/30 hover:bg-green-500/5' },
-                { name: 'Apple Music', icon: FaApple, url: 'https://music.apple.com/us/artist/shuvam-raha/1541472783', color: 'hover:text-pink-500 hover:border-pink-500/30 hover:bg-pink-500/5' },
-                { name: 'YouTube', icon: FaYoutube, url: 'https://www.youtube.com/@shuvamrahamusic', color: 'hover:text-red-500 hover:border-red-500/30 hover:bg-red-500/5' },
-                { name: 'Instagram', icon: FaInstagram, url: 'https://www.instagram.com/shuvamrahamusic', color: 'hover:text-pink-400 hover:border-pink-400/30 hover:bg-pink-400/5' },
-                { name: 'Facebook', icon: FaFacebookF, url: 'https://www.facebook.com/shuvamrahamusic', color: 'hover:text-blue-500 hover:border-blue-500/30 hover:bg-blue-500/5' },
-                { name: 'LinkedIn', icon: FaLinkedin, url: 'http://www.linkedin.com/in/shuvam-raha-150b869b', color: 'hover:text-blue-400 hover:border-blue-400/30 hover:bg-blue-400/5' },
+                {
+                  name: 'Spotify',
+                  icon: FaSpotify,
+                  url: 'https://open.spotify.com/artist/4AmYXw6BaXjFN4urc6SyrG',
+                  color:
+                    'hover:text-green-500 hover:border-green-500/30 hover:bg-green-500/5',
+                },
+                {
+                  name: 'Apple Music',
+                  icon: FaApple,
+                  url: 'https://music.apple.com/us/artist/shuvam-raha/1541472783',
+                  color:
+                    'hover:text-pink-500 hover:border-pink-500/30 hover:bg-pink-500/5',
+                },
+                {
+                  name: 'YouTube',
+                  icon: FaYoutube,
+                  url: 'https://www.youtube.com/@shuvamrahamusic',
+                  color:
+                    'hover:text-red-500 hover:border-red-500/30 hover:bg-red-500/5',
+                },
+                {
+                  name: 'Instagram',
+                  icon: FaInstagram,
+                  url: 'https://www.instagram.com/shuvamrahamusic',
+                  color:
+                    'hover:text-pink-400 hover:border-pink-400/30 hover:bg-pink-400/5',
+                },
+                {
+                  name: 'Facebook',
+                  icon: FaFacebookF,
+                  url: 'https://www.facebook.com/shuvamrahamusic',
+                  color:
+                    'hover:text-blue-500 hover:border-blue-500/30 hover:bg-blue-500/5',
+                },
+                {
+                  name: 'LinkedIn',
+                  icon: FaLinkedin,
+                  url: 'http://www.linkedin.com/in/shuvam-raha-150b869b',
+                  color:
+                    'hover:text-blue-400 hover:border-blue-400/30 hover:bg-blue-400/5',
+                },
               ].map((social, sIdx) => {
                 const SocialIcon = social.icon;
                 return (
