@@ -4,10 +4,22 @@ export interface GearItem {
   subtitle: string;
   description: string;
   category:
-    | 'Strings & Cables'
-    | 'Pickups & Hardware'
+    | 'Guitars'
+    | 'Guitar Pickups & Hardware'
+    | 'Guitar Strings'
+    | 'Guitar Cables'
+    | 'Guitar Amps'
+    | 'Wireless Guitar Systems'
+    | 'Multi-FX Processors & Effects'
     | 'Studio & Recording'
-    | 'Cases & Stands';
+    | 'Headphones & Monitoring'
+    | 'DAW & Plugins'
+    | 'Microphones'
+    | 'Guitar Bags & Cases'
+    | 'Guitar Stands'
+    | 'Fret Wraps & String Muters'
+    | 'Essential Guitar Maintenance Tools'
+    | 'Other Guitar Accessories';
   badge: string;
   studentBadge?: string | null;
   bestFor: string[];
@@ -21,78 +33,153 @@ export interface GearItem {
 
 export const GEAR_CATEGORIES = [
   'All',
-  'Strings & Cables',
-  'Pickups & Hardware',
+  'Guitars',
+  'Guitar Pickups & Hardware',
+  'Guitar Strings',
+  'Guitar Cables',
+  'Guitar Amps',
+  'Wireless Guitar Systems',
+  'Multi-FX Processors & Effects',
   'Studio & Recording',
-  'Cases & Stands',
+  'Headphones & Monitoring',
+  'DAW & Plugins',
+  'Microphones',
+  'Guitar Bags & Cases',
+  'Guitar Stands',
+  'Fret Wraps & String Muters',
+  'Essential Guitar Maintenance Tools',
+  'Other Guitar Accessories',
 ] as const;
 
-export const CATEGORY_THEMES = {
-  'Strings & Cables': {
+export interface Theme {
+  text: string;
+  bg: string;
+  border: string;
+  glow: string;
+  gradient: string;
+  glowColor: string;
+  ambient: {
+    top: string;
+    bottom: string;
+  };
+}
+
+export const THEME_PALETTE: Theme[] = [
+  {
     text: 'text-cyan-400',
     bg: 'bg-cyan-500/10',
     border: 'border-cyan-500/20 border-cyan-500/30',
     glow: 'shadow-[0_0_20px_rgba(34,211,238,0.2)]',
     gradient: 'from-cyan-500 to-blue-500',
+    glowColor: 'bg-cyan-500/20',
+    ambient: {
+      top: 'from-cyan-500/15 to-transparent',
+      bottom: 'from-blue-500/10 to-transparent',
+    },
   },
-  'Pickups & Hardware': {
+  {
     text: 'text-violet-400',
     bg: 'bg-violet-500/10',
     border: 'border-violet-500/20 border-violet-500/30',
     glow: 'shadow-[0_0_20px_rgba(139,92,246,0.2)]',
     gradient: 'from-violet-500 to-fuchsia-500',
+    glowColor: 'bg-violet-500/20',
+    ambient: {
+      top: 'from-violet-500/15 to-transparent',
+      bottom: 'from-fuchsia-500/10 to-transparent',
+    },
   },
-  'Studio & Recording': {
+  {
     text: 'text-emerald-400',
     bg: 'bg-emerald-500/10',
     border: 'border-emerald-500/20 border-emerald-500/30',
     glow: 'shadow-[0_0_20px_rgba(16,185,129,0.2)]',
     gradient: 'from-emerald-500 to-teal-500',
+    glowColor: 'bg-emerald-500/20',
+    ambient: {
+      top: 'from-emerald-500/15 to-transparent',
+      bottom: 'from-teal-500/10 to-transparent',
+    },
   },
-  'Cases & Stands': {
+  {
     text: 'text-amber-400',
     bg: 'bg-amber-500/10',
     border: 'border-amber-500/20 border-amber-500/30',
     glow: 'shadow-[0_0_20px_rgba(245,158,11,0.2)]',
     gradient: 'from-amber-500 to-orange-500',
+    glowColor: 'bg-amber-500/20',
+    ambient: {
+      top: 'from-amber-500/15 to-transparent',
+      bottom: 'from-orange-500/10 to-transparent',
+    },
   },
-};
+  {
+    text: 'text-rose-400',
+    bg: 'bg-rose-500/10',
+    border: 'border-rose-500/20 border-rose-500/30',
+    glow: 'shadow-[0_0_20px_rgba(244,63,94,0.2)]',
+    gradient: 'from-rose-500 to-pink-500',
+    glowColor: 'bg-rose-500/20',
+    ambient: {
+      top: 'from-rose-500/15 to-transparent',
+      bottom: 'from-pink-500/10 to-transparent',
+    },
+  },
+  {
+    text: 'text-blue-400',
+    bg: 'bg-blue-500/10',
+    border: 'border-blue-500/20 border-blue-500/30',
+    glow: 'shadow-[0_0_20px_rgba(59,130,246,0.2)]',
+    gradient: 'from-blue-500 to-indigo-500',
+    glowColor: 'bg-blue-500/20',
+    ambient: {
+      top: 'from-blue-500/15 to-transparent',
+      bottom: 'from-indigo-500/10 to-transparent',
+    },
+  },
+  {
+    text: 'text-fuchsia-400',
+    bg: 'bg-fuchsia-500/10',
+    border: 'border-fuchsia-500/20 border-fuchsia-500/30',
+    glow: 'shadow-[0_0_20px_rgba(217,70,239,0.2)]',
+    gradient: 'from-fuchsia-500 to-pink-500',
+    glowColor: 'bg-fuchsia-500/20',
+    ambient: {
+      top: 'from-fuchsia-500/15 to-transparent',
+      bottom: 'from-pink-500/10 to-transparent',
+    },
+  },
+  {
+    text: 'text-teal-400',
+    bg: 'bg-teal-500/10',
+    border: 'border-teal-500/20 border-teal-500/30',
+    glow: 'shadow-[0_0_20px_rgba(20,184,166,0.2)]',
+    gradient: 'from-teal-500 to-cyan-500',
+    glowColor: 'bg-teal-500/20',
+    ambient: {
+      top: 'from-teal-500/15 to-transparent',
+      bottom: 'from-cyan-500/10 to-transparent',
+    },
+  },
+];
 
-export const GLOW_COLORS = {
-  'Strings & Cables': 'bg-cyan-500/20',
-  'Pickups & Hardware': 'bg-violet-500/20',
-  'Studio & Recording': 'bg-emerald-500/20',
-  'Cases & Stands': 'bg-amber-500/20',
-  Default: 'bg-cyan-500/15',
-};
-
-export const AMBIENT_GLOWS = {
-  All: {
+export const DEFAULT_THEME: Theme = {
+  text: 'text-cyan-400',
+  bg: 'bg-cyan-500/10',
+  border: 'border-cyan-500/20 border-cyan-500/30',
+  glow: 'shadow-[0_0_20px_rgba(34,211,238,0.2)]',
+  gradient: 'from-cyan-500 to-blue-500',
+  glowColor: 'bg-cyan-500/15',
+  ambient: {
     top: 'from-cyan-500/10 to-transparent',
     bottom: 'from-violet-500/10 to-transparent',
-  },
-  'Strings & Cables': {
-    top: 'from-cyan-500/15 to-transparent',
-    bottom: 'from-blue-500/10 to-transparent',
-  },
-  'Pickups & Hardware': {
-    top: 'from-violet-500/15 to-transparent',
-    bottom: 'from-fuchsia-500/10 to-transparent',
-  },
-  'Studio & Recording': {
-    top: 'from-emerald-500/15 to-transparent',
-    bottom: 'from-teal-500/10 to-transparent',
-  },
-  'Cases & Stands': {
-    top: 'from-amber-500/15 to-transparent',
-    bottom: 'from-orange-500/10 to-transparent',
   },
 };
 
 export const GEAR_ITEMS: GearItem[] = [
   {
     id: 'elixir-electric',
-    category: 'Strings & Cables',
+    category: 'Guitar Strings',
     title: 'Elixir Electric Guitar Strings Nanoweb 10–46 Light',
     subtitle:
       'My go-to strings for professional tone, durability & live performance',
@@ -113,7 +200,7 @@ export const GEAR_ITEMS: GearItem[] = [
   },
   {
     id: 'elixir-acoustic',
-    category: 'Strings & Cables',
+    category: 'Guitar Strings',
     title:
       'Elixir Acoustic Guitar Strings 80/20 Bronze with Nanoweb Coating (11–52 Custom Light)',
     subtitle:
@@ -136,7 +223,7 @@ export const GEAR_ITEMS: GearItem[] = [
   },
   {
     id: 'suhr-ssv-ssh',
-    category: 'Pickups & Hardware',
+    category: 'Guitar Pickups & Hardware',
     title: 'Suhr SSV Neck & Suhr SSH+ Bridge',
     subtitle: 'My main pickup setup for studio + live performance',
     description:
@@ -160,7 +247,7 @@ export const GEAR_ITEMS: GearItem[] = [
   },
   {
     id: 'suhr-v60-thornbucker',
-    category: 'Pickups & Hardware',
+    category: 'Guitar Pickups & Hardware',
     title: 'Suhr V60 Neck & Middle, and Suhr Thornbucker+ Bridge',
     subtitle: 'My go-to pickup setup for vintage clarity + modern power',
     description:
@@ -184,7 +271,7 @@ export const GEAR_ITEMS: GearItem[] = [
   },
   {
     id: 'dimarzio-cables',
-    category: 'Strings & Cables',
+    category: 'Guitar Cables',
     title: 'DiMarzio Guitar Cables',
     subtitle: 'My go-to cables for live + studio performance',
     description:
@@ -211,7 +298,7 @@ export const GEAR_ITEMS: GearItem[] = [
   },
   {
     id: 'gruvgear-kapsule',
-    category: 'Cases & Stands',
+    category: 'Guitar Bags & Cases',
     title: 'Gruv Gear Kapsule Electric Guitar Case',
     subtitle: 'My go-to case for maximum protection, travel & gigs',
     description:
@@ -260,7 +347,7 @@ export const GEAR_ITEMS: GearItem[] = [
   },
   {
     id: 'ollo-x1',
-    category: 'Studio & Recording',
+    category: 'Headphones & Monitoring',
     title: 'OLLO Audio X1 Mixing Headphone',
     subtitle: 'My main headphone for mixing & mastering',
     description:
@@ -282,4 +369,5 @@ export const GEAR_ITEMS: GearItem[] = [
     ],
   },
 ];
+
 export type { GearItem as GearItemType };
