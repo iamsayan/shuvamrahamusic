@@ -5,11 +5,10 @@ import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
 
 import {
-  AMBIENT_GLOWS,
-  CATEGORY_THEMES,
+  DEFAULT_THEME,
   GEAR_CATEGORIES,
   GEAR_ITEMS,
-  GLOW_COLORS,
+  THEME_PALETTE,
 } from '@/lib/gears-data';
 
 import {
@@ -45,6 +44,29 @@ export default function GearsListingClient() {
   const [carouselIndices, setCarouselIndices] = useState<
     Record<string, number>
   >({});
+
+  // Filter categories to only those containing gear items (plus 'All')
+  const activeCategories = useMemo(() => {
+    const categoriesWithItems = new Set<string>();
+    GEAR_ITEMS.forEach((item) => {
+      categoriesWithItems.add(item.category);
+    });
+    return GEAR_CATEGORIES.filter(
+      (cat) => cat === 'All' || categoriesWithItems.has(cat)
+    );
+  }, []);
+
+  // Dynamically assign a color theme to each category based on its sorted index
+  const categoryThemes = useMemo(() => {
+    const themes: Record<string, typeof DEFAULT_THEME> = {
+      All: DEFAULT_THEME,
+    };
+    const dynamicCats = activeCategories.filter((cat) => cat !== 'All');
+    dynamicCats.forEach((cat, idx) => {
+      themes[cat] = THEME_PALETTE[idx % THEME_PALETTE.length];
+    });
+    return themes;
+  }, [activeCategories]);
 
   const handlePrevImage = (
     id: string,
@@ -100,13 +122,9 @@ export default function GearsListingClient() {
 
   // Determine current active glow theme based on active category
   const activeGlow = useMemo(() => {
-    const defaultGlow = AMBIENT_GLOWS['All'];
-    if (selectedCategory === 'All') return defaultGlow;
-    return (
-      AMBIENT_GLOWS[selectedCategory as keyof typeof AMBIENT_GLOWS] ||
-      defaultGlow
-    );
-  }, [selectedCategory]);
+    const theme = categoryThemes[selectedCategory] || DEFAULT_THEME;
+    return theme.ambient;
+  }, [selectedCategory, categoryThemes]);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
@@ -137,14 +155,14 @@ export default function GearsListingClient() {
           </nav>
 
           {/* Micro accent stats */}
-          <div className="mb-4 flex flex-wrap items-center gap-4">
+          {/* <div className="mb-4 flex flex-wrap items-center gap-4">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/20 px-3 py-1 text-[10px] font-black tracking-wider text-cyan-400 uppercase backdrop-blur-md">
               <LuSparkles className="h-3 w-3 animate-pulse" /> 8 Pro Gear Items
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/30 bg-violet-950/20 px-3 py-1 text-[10px] font-black tracking-wider text-violet-400 uppercase backdrop-blur-md">
               <LuMusic className="h-3 w-3" /> Live & Session Verified
             </span>
-          </div>
+          </div> */}
 
           {/* Page Title & Tagline */}
           <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
@@ -163,9 +181,9 @@ export default function GearsListingClient() {
           </div>
 
           {/* Filters Bar: Search & Category Pills */}
-          <div className="mb-12 flex flex-col gap-6 rounded-[2rem] border border-white/5 bg-[#080812]/50 p-4 shadow-[0_30px_60px_rgba(0,0,0,0.4)] backdrop-blur-3xl sm:p-5 lg:flex-row lg:items-center lg:justify-between">
+          <div className="mb-12 flex flex-col gap-6 rounded-[2.5rem] border border-white/5 bg-[#080812]/50 p-5 shadow-[0_30px_60px_rgba(0,0,0,0.4)] backdrop-blur-3xl md:p-6">
             {/* Search input capsule */}
-            <div className="relative max-w-lg flex-1">
+            <div className="relative mx-auto w-full max-w-xl">
               <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-gray-500">
                 <LuSearch className="h-5 w-5 transition-colors duration-300" />
               </div>
@@ -178,24 +196,35 @@ export default function GearsListingClient() {
               />
             </div>
 
+            {/* Divider line for clean visual separation */}
+            <div className="h-px w-full bg-white/[0.04]" />
+
             {/* Category selection */}
-            <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-white/[0.03] bg-white/[0.01] p-1.5">
-              {GEAR_CATEGORIES.map((cat) => {
-                const isActive = selectedCategory === cat;
-                return (
-                  <button
-                    key={cat}
-                    onClick={() => setSelectedCategory(cat)}
-                    className={`cursor-pointer rounded-xl px-4 py-2.5 text-xs font-bold tracking-wide transition-all duration-300 ${
-                      isActive
-                        ? 'scale-[1.02] bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 text-white shadow-lg shadow-cyan-500/20'
-                        : 'text-gray-400 hover:bg-white/[0.03] hover:text-white'
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                );
-              })}
+            <div className="relative w-full overflow-hidden">
+              {/* Left Gradient Fade */}
+              <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-8 bg-gradient-to-r from-[#080812] to-transparent" />
+              {/* Right Gradient Fade */}
+              <div className="pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-8 bg-gradient-to-l from-[#080812] to-transparent" />
+
+              <div className="scrollbar-hide flex flex-nowrap gap-2 overflow-x-auto px-6 py-1.5">
+                {activeCategories.map((cat) => {
+                  const isActive = selectedCategory === cat;
+                  const theme = categoryThemes[cat] || DEFAULT_THEME;
+                  return (
+                    <button
+                      key={cat}
+                      onClick={() => setSelectedCategory(cat)}
+                      className={`shrink-0 cursor-pointer rounded-xl px-4 py-2.5 text-xs font-bold tracking-wide transition-all duration-300 outline-none focus:ring-0 focus:outline-none focus-visible:ring-0 ${
+                        isActive
+                          ? `scale-[1.02] bg-gradient-to-r ${theme.gradient} border border-transparent text-white shadow-lg ${theme.glow}`
+                          : 'border border-white/[0.03] bg-white/[0.01] text-gray-400 hover:bg-white/[0.03] hover:text-white'
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
@@ -211,14 +240,10 @@ export default function GearsListingClient() {
           ) : (
             <div className="flex flex-col gap-8 lg:gap-12">
               {filteredGears.map((item, idx) => {
-                const themeKey = item.category as keyof typeof CATEGORY_THEMES;
-                const theme =
-                  CATEGORY_THEMES[themeKey] ||
-                  CATEGORY_THEMES['Strings & Cables'];
+                const theme = categoryThemes[item.category] || DEFAULT_THEME;
                 const activeImgIdx = carouselIndices[item.id] || 0;
                 const hasMultipleImages = item.images.length > 1;
-                const hoverGlowClass =
-                  GLOW_COLORS[item.category] || GLOW_COLORS['Default'];
+                const hoverGlowClass = theme.glowColor;
                 const isEven = idx % 2 === 0;
 
                 return (
@@ -237,7 +262,7 @@ export default function GearsListingClient() {
                     />
 
                     {/* Image Slider Wrapper */}
-                    <div className="relative h-52 shrink-0 overflow-hidden bg-black/50 sm:h-60 md:h-auto md:w-[35%] lg:w-[40%] min-h-[200px] md:min-h-0">
+                    <div className="relative h-52 min-h-[200px] shrink-0 overflow-hidden bg-black/50 sm:h-60 md:h-auto md:min-h-0 md:w-[35%] lg:w-[40%]">
                       {item.images.length > 0 ? (
                         <img
                           src={item.images[activeImgIdx]}
@@ -249,20 +274,6 @@ export default function GearsListingClient() {
                           No Photo Available
                         </div>
                       )}
-
-                      {/* Top Overlaid Badges */}
-                      <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
-                        <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-black/70 px-3 py-1.5 text-[10px] font-black tracking-widest text-white uppercase backdrop-blur-md">
-                          <LuStar className="h-3.5 w-3.5 shrink-0 text-amber-400" />
-                          {item.badge}
-                        </span>
-                        {item.studentBadge && (
-                          <span className="inline-flex items-center gap-1.5 rounded-lg border border-cyan-500/20 bg-cyan-950/80 px-3 py-1.5 text-[10px] font-black tracking-widest text-cyan-300 uppercase backdrop-blur-md">
-                            <LuTarget className="h-3.5 w-3.5 shrink-0 animate-pulse text-cyan-400" />
-                            {item.studentBadge}
-                          </span>
-                        )}
-                      </div>
 
                       {/* Carousel Overlaid Controls */}
                       {hasMultipleImages && (
@@ -343,6 +354,42 @@ export default function GearsListingClient() {
                               {feature}
                             </span>
                           ))}
+                        </div>
+                      </div>
+
+                      {/* Redesigned Trust & Verification Card */}
+                      <div className="group/trust relative mt-4 mb-6 overflow-hidden rounded-2xl border border-white/[0.04] bg-white/[0.01] p-4">
+                        {/* Interactive hover glow gradient */}
+                        <div className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-r from-amber-500/10 via-transparent to-cyan-500/10 opacity-0 transition-opacity duration-700 group-hover/trust:opacity-100" />
+
+                        <div className="relative z-10 flex flex-col gap-3">
+                          {/* Subtitle / Header */}
+                          <div className="flex items-center gap-1.5 text-[10px] font-black tracking-widest text-gray-500 uppercase">
+                            <LuSparkles className="h-3.5 w-3.5 animate-pulse text-amber-400" />
+                            <span>Instructor Recommendation</span>
+                          </div>
+
+                          {/* Badges list */}
+                          <div className="flex flex-col gap-2.5">
+                            <div className="flex items-start gap-2.5">
+                              <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-500/10 text-amber-400">
+                                <LuStar className="h-3 w-3 fill-amber-400/20" />
+                              </div>
+                              <p className="text-xs leading-relaxed font-bold text-amber-200/90">
+                                {item.badge}
+                              </p>
+                            </div>
+                            {item.studentBadge && (
+                              <div className="flex items-start gap-2.5">
+                                <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-400">
+                                  <LuTarget className="h-3 w-3 animate-pulse" />
+                                </div>
+                                <p className="text-xs leading-relaxed font-semibold text-cyan-200/90">
+                                  {item.studentBadge}
+                                </p>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
 
