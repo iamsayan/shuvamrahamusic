@@ -275,20 +275,26 @@ export default async function Home() {
          ========================================================== */}
       <section className="relative z-10 border-t border-white/5 bg-[#07070F]/30 py-20 md:py-28">
         <div className="mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
-          <div className="mx-auto mb-16 max-w-2xl space-y-4 text-center">
-            <span className="font-heading text-sm font-bold tracking-[0.15em] text-cyan-400 uppercase">
-              Guitar Learning Program
-            </span>
+          {/* Section Header */}
+          <div className="mx-auto mb-16 max-w-3xl space-y-4 text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3.5 py-1.5 shadow-[0_0_15px_rgba(6,182,212,0.15)] backdrop-blur-md">
+              <LuMusic className="h-4 w-4 text-cyan-400" />
+              <span className="text-[10px] font-black tracking-widest text-cyan-200 uppercase">
+                Guitar Learning Program
+              </span>
+            </div>
             <h2 className="font-heading text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl">
-              What You Will Learn
+              What You Will{' '}
+              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(6,182,212,0.25)]">
+                Learn
+              </span>
             </h2>
-            <p className="text-sm text-gray-400 sm:text-base">
-              Learn acoustic or electric guitar from absolute zero. Professional
-              coaching tailored for busy office professionals and beginners
-              alike.
+            <p className="max-w-xl mx-auto text-sm text-gray-400 sm:text-base leading-relaxed">
+              Master the acoustic or electric guitar from absolute zero. A comprehensive, step-by-step roadmap structured for beginners and busy working professionals.
             </p>
           </div>
 
+          {/* Interactive Grid */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-6">
             {curriculum.map((item, idx) => {
               const Icon = item.icon;
@@ -296,31 +302,38 @@ export default async function Home() {
               return (
                 <div
                   key={idx}
-                  className={`group relative flex flex-col justify-between rounded-2xl border border-white/[0.04] bg-[#0c0c16]/30 p-6 transition-all duration-300 ${item.styles.hoverBorder} hover:bg-white/[0.02] ${colSpanClass}`}
+                  className={`group relative flex flex-col justify-between rounded-2xl border border-white/[0.05] bg-[#0c0c16]/50 p-6 md:p-7 shadow-lg backdrop-blur-md transition-all duration-500 ${item.styles.hoverBorder} hover:bg-white/[0.02] hover:-translate-y-1 hover:shadow-2xl overflow-hidden ${colSpanClass}`}
                 >
-                  <div className="space-y-4">
+                  {/* Ambient hover glow inside card */}
+                  <div className={`absolute -right-12 -bottom-12 h-32 w-32 rounded-full ${item.styles.ambientGlow || 'bg-cyan-500/10'} opacity-0 blur-3xl transition-all duration-700 group-hover:opacity-100 group-hover:scale-150 pointer-events-none -z-10`} />
+
+                  {/* Giant floating step numbers */}
+                  <div className="absolute right-4 bottom-1 select-none text-[6.5rem] font-black leading-none text-white/[0.015] transition-all duration-700 group-hover:text-white/[0.04] group-hover:translate-y-1 font-heading pointer-events-none">
+                    0{idx + 1}
+                  </div>
+
+                  <div className="space-y-5 relative z-10">
                     <div
-                      className={`flex h-12 w-12 items-center justify-center rounded-xl border ${item.styles.iconBorder} ${item.styles.iconBg} ${item.styles.iconText} ${item.styles.iconShadow} transition-transform duration-300 group-hover:scale-105`}
+                      className={`flex h-12 w-12 items-center justify-center rounded-xl border ${item.styles.iconBorder} ${item.styles.iconBg} ${item.styles.iconText} ${item.styles.iconShadow} transition-transform duration-500 group-hover:scale-110`}
                     >
                       <Icon className="h-5 w-5" />
                     </div>
                     <div>
-                      <h3 className="font-heading text-base font-extrabold text-white sm:text-lg">
+                      <h3 className="font-heading text-base font-black text-white sm:text-lg">
                         {item.title}
                       </h3>
-                      <span className="text-[10px] font-bold tracking-wide text-gray-500 uppercase">
+                      <span className="text-[10px] font-bold tracking-wider text-gray-500 uppercase">
                         {item.subtitle}
                       </span>
                     </div>
-                    <ul className="space-y-2 border-t border-white/5 pt-2">
+                    
+                    <ul className="space-y-3.5 border-t border-white/5 pt-4">
                       {item.points.map((pt, pIdx) => (
                         <li
                           key={pIdx}
-                          className="flex items-start gap-2 text-xs text-gray-400"
+                          className="flex items-start gap-2 text-xs leading-relaxed text-gray-400 transition-colors duration-300 group-hover:text-gray-300 sm:text-sm"
                         >
-                          <span className={`${item.styles.iconText} mt-0.5`}>
-                            •
-                          </span>
+                          <span className={`h-1.5 w-1.5 rounded-full ${item.styles.iconBg} ${item.styles.iconText} mt-1.5 shrink-0 opacity-80`} />
                           <span>{pt}</span>
                         </li>
                       ))}
@@ -334,7 +347,7 @@ export default async function Home() {
           <div className="mt-12 text-center">
             <Link
               href="/guitar-classes-with-shuvam"
-              className="group font-heading inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-3.5 text-xs font-bold text-white shadow-lg transition-all hover:scale-105 active:scale-95 sm:text-sm"
+              className="group font-heading inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 text-xs font-bold text-white shadow-lg shadow-cyan-500/10 transition-all hover:scale-105 hover:shadow-cyan-500/20 active:scale-95 sm:text-sm"
             >
               Explore Course Packages &amp; Pricing
               <LuArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
