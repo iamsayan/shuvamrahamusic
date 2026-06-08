@@ -150,7 +150,7 @@ const AUTHOR_SHUVAM: Author = {
   name: 'Shuvam Raha',
   avatar: '/blog/shuvam-avatar.png',
   role: 'LCM Certified Music Instructor',
-  bio: 'Professional guitarist, music producer, and educator with over 11 years of coaching experience, helping 150+ students globally master the guitar.',
+  bio: `Professional guitarist, music producer, and educator with over ${new Date().getFullYear() - 2015} years of coaching experience, helping 150+ students globally master the guitar.`,
 };
 
 export const BLOG_POSTS: BlogPost[] = [
