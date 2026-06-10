@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
         amount: amount,
         currency: payment.currency,
         method: payment.method,
-        student_name: notes.name,
+        name: notes.name,
         email: notes.email || payment.email || '',
         phone: notes.phone || payment.contact || '',
         city: notes.city,
