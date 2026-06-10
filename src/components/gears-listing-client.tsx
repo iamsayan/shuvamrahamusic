@@ -7,6 +7,7 @@ import Link from 'next/link';
 import CockpitImage from '@/components/cockpit-image';
 import { GearItem } from '@/types';
 
+import { FaAmazon } from 'react-icons/fa6';
 import {
   LuCheck,
   LuChevronLeft,
@@ -19,7 +20,6 @@ import {
   LuStar,
   LuTarget,
 } from 'react-icons/lu';
-import { FaAmazon } from 'react-icons/fa6';
 
 export interface Theme {
   text: string;
@@ -145,8 +145,6 @@ export const DEFAULT_THEME: Theme = {
     bottom: 'from-violet-500/10 to-transparent',
   },
 };
-
-
 
 export default function GearsListingClient({
   initialItems,
@@ -290,13 +288,13 @@ export default function GearsListingClient({
           {/* Page Title & Tagline */}
           <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div className="relative">
-              <h1 className="font-heading mb-4 bg-gradient-to-r from-white via-white to-gray-400 bg-clip-text text-4xl leading-[1.1] font-black tracking-tight text-transparent sm:text-5xl lg:text-6xl">
+              <h1 className="font-heading mb-4 bg-gradient-to-r from-white via-white to-gray-400 bg-clip-text text-3xl leading-[1.15] font-black tracking-tight text-transparent sm:text-4xl lg:text-5xl">
                 My{' '}
                 <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
                   Gears
                 </span>
               </h1>
-              <p className="text-sm leading-relaxed text-gray-400 sm:text-base md:text-lg">
+              <p className="text-xs leading-relaxed text-gray-400 sm:text-sm md:text-base">
                 I’ve listed all the gear I personally use for my video reels,
                 live performances, studio recordings, and teaching.
               </p>
