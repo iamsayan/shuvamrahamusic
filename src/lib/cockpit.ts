@@ -251,12 +251,44 @@ export class CockpitClient {
       ...(extraFetchOptions?.headers as Record<string, string>),
     };
 
+    // Automatically determine default Next.js cache revalidation tags from Cockpit model paths
+    let tags: string[] | undefined = extraFetchOptions?.next?.tags;
+
+    if (!tags && method === 'GET' && path.startsWith('/content/')) {
+      const cleanPath = path.split('?')[0];
+      const parts = cleanPath.split('/');
+
+      if (parts[2] === 'items' && parts.length === 3) {
+        // Batch query: /content/items?models=...
+        try {
+          const urlParams = new URL(url).searchParams;
+          const modelsParam = urlParams.get('models');
+          if (modelsParam) {
+            const modelsObj = JSON.parse(modelsParam);
+            tags = Object.keys(modelsObj);
+          }
+        } catch {
+          // Ignore URL parsing or JSON parsing errors
+        }
+      } else if (parts[3]) {
+        // Single model paths (e.g. /content/items/modelName, /content/item/modelName, /content/tree/modelName)
+        tags = [parts[3]];
+      }
+    }
+
     const options: NextRequestInit = {
       ...this.fetchOptions,
       ...extraFetchOptions,
       method,
       headers,
     };
+
+    if (tags && tags.length > 0) {
+      options.next = {
+        ...options.next,
+        tags,
+      };
+    }
 
     if (body) {
       if (body instanceof FormData) {
