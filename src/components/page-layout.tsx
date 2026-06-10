@@ -5,8 +5,6 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { LuMusic } from 'react-icons/lu';
-
 interface PageLayoutProps {
   title: string;
   subtitle?: string;
@@ -23,6 +21,7 @@ const segmentNames: Record<string, string> = {
   'refund-policy': 'Refund Policy',
   contact: 'Contact Us',
   'my-gears': 'My Gears',
+  'performance-highlights': 'Performance Highlights',
 };
 
 export default function PageLayout({
