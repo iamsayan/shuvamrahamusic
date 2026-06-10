@@ -1,11 +1,33 @@
-export interface CollectionGeneric {
-  [key: string]: unknown;
+/**
+ * Cockpit API Client in TypeScript
+ * Features complete support for Assets and Content API.
+ * Optimized with native Next.js fetch cache/revalidation support.
+ */
+
+/**
+ * Next.js specific extensions to the standard RequestInit
+ */
+export interface NextRequestInit extends RequestInit {
+  next?: {
+    revalidate?: number | false;
+    tags?: string[];
+  };
 }
 
-export type CollectionItem<T extends object = Record<string, unknown>> =
-  CockpitEntity & T;
+export interface CockpitConfig {
+  /** The host url of your Cockpit installation (e.g. 'https://cockpit.example.com') */
+  host: string;
+  /** The Cockpit API token or Master API key */
+  apiKey: string;
+  /** Custom options for fetch requests (e.g. headers, Next.js cache configurations) */
+  fetchOptions?: NextRequestInit;
+}
 
-export interface CockpitEntity {
+// ==========================================
+// COMMON INTERFACES & TYPES
+// ==========================================
+
+export interface Entity {
   _id: string;
   _created: number;
   _modified: number;
@@ -14,32 +36,25 @@ export interface CockpitEntity {
   _state?: number;
 }
 
-export interface CockpitOptions {
-  filter?: Record<string, unknown>;
-  sort?: Record<string, 0 | 1 | -1>;
-  limit?: number;
-  skip?: number;
-  populate?: number;
-  fields?: string[];
+export type CollectionItem<T extends object = Record<string, unknown>> =
+  Entity & T;
+
+export interface CollectionGeneric {
+  [key: string]: unknown;
 }
 
-// export interface AssetImageOptions {
-//   w: number;
-//   h: number;
-//   m?: 'thumbnail' | 'bestFit' | 'resize' | 'fitToWidth' | 'fitToHeight';
-//   q?: number;
-//   mime?: 'auto' | 'gif' | 'jpeg' | 'png' | 'webp' | 'bmp';
-//   re?: 0 | 1;
-//   t?: string;
-//   o?: 0 | 1;
-// }
+export interface PaginatedList<T = CollectionItem> {
+  data: T[];
+  meta: {
+    total: number;
+  };
+}
 
-// export interface AssetPresetOptions {
-//   re?: 0 | 1;
-//   o?: 0 | 1;
-// }
+// ==========================================
+// ASSETS INTERFACES
+// ==========================================
 
-export interface CockpitAsset extends CockpitEntity {
+export interface Asset extends Entity {
   path: string;
   title: string;
   mime: string;
@@ -54,7 +69,126 @@ export interface CockpitAsset extends CockpitEntity {
   thumbhash?: string;
   folder?: string;
   _hash?: string;
+  [key: string]: unknown;
 }
+
+export interface ListAssetsOptions {
+  filter?: Record<string, unknown> | string;
+  sort?: Record<string, unknown> | string;
+  limit?: number;
+  skip?: number;
+  fields?: Record<string, unknown> | string;
+  folder?: string;
+}
+
+export interface ImageOptions {
+  /** Resize mode: 'thumbnail' | 'bestFit' | 'resize' | 'fitToWidth' | 'fitToHeight' */
+  m?: 'thumbnail' | 'bestFit' | 'resize' | 'fitToWidth' | 'fitToHeight';
+  /** Width: number or 'original' */
+  w?: number | 'original';
+  /** Height: number or 'original' */
+  h?: number | 'original';
+  /** Quality: 1-100 (default: 80) */
+  q?: number;
+  /** Output format: 'auto' | 'gif' | 'jpeg' | 'png' | 'webp' | 'bmp' */
+  mime?: 'auto' | 'gif' | 'jpeg' | 'png' | 'webp' | 'bmp';
+  /** Auto redirect to generated thumbnail URL (0 or 1) */
+  re?: 0 | 1;
+  /** Output binary instead of URL (0 or 1) */
+  o?: 0 | 1;
+  /** Cache invalidation time/timestamp */
+  t?: string | number;
+  /** Smartcrop mode: 'attention' | 'entropy' | 'centre' | 'center' | 'low' | 'high' */
+  smartcrop?: 'attention' | 'entropy' | 'centre' | 'center' | 'low' | 'high';
+  /** Additional filters */
+  f?: string[] | Record<string, unknown>;
+  /** Focal point coordinates (e.g., '0.5,0.5') */
+  fp?: string;
+  /** Rebuild flag (0 or 1) */
+  r?: 0 | 1;
+  /** Base64 encoding flag (0 or 1) */
+  b64?: 0 | 1;
+}
+
+export interface ImagePresetOptions {
+  /** Auto redirect to generated thumbnail URL (0 or 1) */
+  re?: 0 | 1;
+  /** Output binary instead of URL (0 or 1) */
+  o?: 0 | 1;
+}
+
+export interface Preset {
+  width?: number | string;
+  height?: number | string;
+  mode?: string;
+  quality?: number;
+  mime?: string;
+  smartcrop?: string;
+  filters?: unknown;
+  [key: string]: unknown;
+}
+
+export interface UploadAssetsResult {
+  uploaded: string[];
+  failed: string[];
+  assets: Asset[];
+}
+
+// ==========================================
+// CONTENT INTERFACES
+// ==========================================
+
+export type ContentItem = CollectionItem;
+
+export interface ContentItemGetOptions {
+  locale?: string;
+  fields?: Record<string, unknown> | string;
+  populate?: number;
+}
+
+export interface ContentItemGetByFilterOptions extends ContentItemGetOptions {
+  filter?: Record<string, unknown> | string;
+}
+
+export interface ContentItemsListOptions extends ContentItemGetByFilterOptions {
+  sort?: Record<string, unknown> | string;
+  limit?: number;
+  skip?: number;
+}
+
+export interface ContentItemsBatchQueryOptions {
+  locale?: string;
+  populate?: number;
+}
+
+export interface ContentItemsBatchModels {
+  [modelName: string]: {
+    model?: string;
+    locale?: string;
+    filter?: Record<string, unknown>;
+    sort?: Record<string, unknown>;
+    fields?: Record<string, unknown>;
+    limit?: number;
+    skip?: number;
+    populate?: number;
+  };
+}
+
+export interface ContentTreeOptions {
+  parent?: string;
+  populate?: number;
+  fields?: Record<string, unknown> | string;
+  locale?: string;
+}
+
+export interface ContentAggregateOptions {
+  locale?: string;
+  populate?: number;
+}
+
+// ==========================================
+// INBOX & OTHER INTERFACES
+// ==========================================
 
 export interface InboxRecord<T = Record<string, unknown>> {
   data: T;
@@ -69,243 +203,393 @@ export interface InboxSubmitResponse<T = Record<string, unknown>> {
   record: InboxRecord<T>;
 }
 
-interface CockpitErrorResponse {
-  error: string;
-}
+export class CockpitClient {
+  private host: string;
+  private apiKey: string;
+  private fetchOptions: NextRequestInit;
 
-interface RequestOptions extends RequestInit {
-  revalidate?: number;
-}
-
-interface InboxSubmitOptions {
-  success?: string;
-}
-
-type ResponseType = 'json' | 'text' | 'blob';
-
-class CockpitAPI {
-  private readonly baseURL: string = '';
-  private readonly apiKey: string = '';
-  public readonly isConfigured: boolean = false;
-
-  constructor() {
-    const baseURL = process.env.API_URL;
-    const apiKey = process.env.API_KEY;
-
-    if (baseURL && apiKey) {
-      this.baseURL = baseURL.replace(/\/$/, '');
-      this.apiKey = apiKey;
-      this.isConfigured = true;
-    }
+  constructor(config: CockpitConfig) {
+    this.host = config.host.replace(/\/+$/, '');
+    this.apiKey = config.apiKey;
+    this.fetchOptions = config.fetchOptions || {};
   }
 
+  /**
+   * Helper method to build query parameters
+   */
   private buildQuery<T extends object>(params: T): string {
-    const searchParams = new URLSearchParams();
-
-    Object.entries(params).forEach(([key, value]) => {
-      if (value === undefined || value === null) {
-        return;
+    const queryParams = new URLSearchParams();
+    Object.entries(params).forEach(([key, val]) => {
+      if (val !== undefined && val !== null) {
+        if (typeof val === 'object') {
+          queryParams.set(key, JSON.stringify(val));
+        } else {
+          queryParams.set(key, String(val));
+        }
       }
-
-      searchParams.append(
-        key,
-        typeof value === 'object' ? JSON.stringify(value) : String(value)
-      );
     });
-
-    const query = searchParams.toString();
-
-    return query ? `?${query}` : '';
+    const str = queryParams.toString();
+    return str ? `?${str}` : '';
   }
 
-  async request<T = unknown>(
-    endpoint: string,
-    options: RequestOptions = {},
-    responseType: ResponseType = 'json'
+  /**
+   * Helper method to perform requests to Cockpit API
+   */
+  private async request<T = unknown>(
+    path: string,
+    method: 'GET' | 'POST' | 'DELETE' = 'GET',
+    body?: unknown,
+    customHeaders?: Record<string, string>,
+    extraFetchOptions?: NextRequestInit
   ): Promise<T> {
-    if (!this.isConfigured) {
-      throw new Error(
-        'Cockpit API is not configured. API_URL or API_KEY is missing.'
-      );
+    const url = `${this.host}/api${path}`;
+
+    const headers: Record<string, string> = {
+      'api-key': this.apiKey,
+      ...customHeaders,
+      ...(this.fetchOptions.headers as Record<string, string>),
+      ...(extraFetchOptions?.headers as Record<string, string>),
+    };
+
+    const options: NextRequestInit = {
+      ...this.fetchOptions,
+      ...extraFetchOptions,
+      method,
+      headers,
+    };
+
+    if (body) {
+      if (body instanceof FormData) {
+        options.body = body;
+        // Fetch will automatically set content-type with boundary when using FormData
+      } else {
+        options.body = JSON.stringify(body);
+        options.headers = {
+          ...options.headers,
+          'Content-Type': 'application/json',
+        };
+      }
     }
 
-    const { revalidate = 604800, ...fetchOptions } = options;
-
-    const response = await fetch(`${this.baseURL}${endpoint}`, {
-      ...fetchOptions,
-      headers: {
-        'api-key': this.apiKey,
-        ...fetchOptions.headers,
-      },
-      next: {
-        revalidate,
-      },
-    });
+    const response = await fetch(url, options);
 
     if (!response.ok) {
+      const errorText = await response.text();
       throw new Error(
-        `Cockpit API Error (${response.status} ${response.statusText})`
+        `Cockpit request failed with status ${response.status}: ${errorText}`
       );
     }
 
-    switch (responseType) {
-      case 'blob':
-        return (await response.blob()) as T;
-
-      case 'text':
-        return (await response.text()) as T;
-
-      case 'json':
-      default: {
-        const contentType = response.headers.get('content-type') ?? '';
-
-        if (!contentType.includes('application/json')) {
-          return undefined as T;
-        }
-
-        const data = await response.json();
-
-        if (data && typeof data === 'object' && 'error' in data) {
-          throw new Error((data as CockpitErrorResponse).error);
-        }
-
-        return data as T;
-      }
+    if (response.status === 204 || response.status === 205) {
+      return {} as T;
     }
+
+    const contentType = response.headers.get('content-type') || '';
+
+    if (contentType.includes('application/json')) {
+      const text = await response.text();
+      return text ? JSON.parse(text) : ({} as T);
+    }
+
+    if (
+      contentType.startsWith('image/') ||
+      contentType.startsWith('video/') ||
+      contentType.startsWith('audio/') ||
+      contentType.includes('application/octet-stream')
+    ) {
+      return response.blob() as unknown as T;
+    }
+
+    const text = await response.text();
+    return text as unknown as T;
   }
 
-  /*
-   |--------------------------------------------------------------------------
-   | Content
-   |--------------------------------------------------------------------------
-   */
+  // ==========================================
+  // ASSETS MODULE API
+  // ==========================================
 
-  getItems<T = unknown>(
-    model: string,
-    options: CockpitOptions = {},
-    revalidate = 604800
-  ) {
-    return this.request<T>(
-      `/content/items/${model}${this.buildQuery({ skip: 0, limit: 1000, ...options })}`,
-      { revalidate }
+  /**
+   * Get all assets with optional filtering, sorting and pagination
+   */
+  async listAssets(
+    options: ListAssetsOptions = {},
+    fetchOptions?: NextRequestInit
+  ): Promise<Asset[]> {
+    return this.request<Asset[]>(
+      `/assets${this.buildQuery(options)}`,
+      'GET',
+      undefined,
+      undefined,
+      fetchOptions
     );
   }
 
-  getSingleton<T = unknown>(model: string, revalidate = 604800) {
-    return this.request<T>(`/content/item/${model}`, { revalidate });
+  /**
+   * Get asset metadata by ID
+   */
+  async getAsset(id: string, fetchOptions?: NextRequestInit): Promise<Asset> {
+    return this.request<Asset>(
+      `/assets/${id}`,
+      'GET',
+      undefined,
+      undefined,
+      fetchOptions
+    );
   }
 
-  getItem<T = unknown>(model: string, id: string, revalidate = 604800) {
-    return this.request<T>(`/content/item/${model}/${id}`, { revalidate });
-  }
+  /**
+   * Upload single or multiple files with metadata
+   * Supports standard HTML File object list, FileList, or Blob inputs
+   */
+  async uploadAssets(
+    files: Array<File | Blob> | FileList,
+    meta?: {
+      title?: string;
+      description?: string;
+      tags?: string[];
+      folder?: string;
+      [key: string]: unknown;
+    }
+  ): Promise<UploadAssetsResult> {
+    const formData = new FormData();
 
-  createItem<T = unknown>(model: string, payload: Record<string, unknown>) {
-    return this.request<T>(`/content/item/${model}`, {
-      method: 'POST',
-      body: JSON.stringify(payload),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      revalidate: 0,
+    const fileList = files instanceof FileList ? Array.from(files) : files;
+    fileList.forEach((file) => {
+      formData.append('files[]', file);
     });
+
+    if (meta) {
+      Object.entries(meta).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          if (Array.isArray(value)) {
+            value.forEach((val) => {
+              if (val !== undefined && val !== null) {
+                formData.append(
+                  `meta[${key}][]`,
+                  typeof val === 'object' ? JSON.stringify(val) : String(val)
+                );
+              }
+            });
+          } else if (typeof value === 'object') {
+            formData.append(`meta[${key}]`, JSON.stringify(value));
+          } else {
+            formData.append(`meta[${key}]`, String(value));
+          }
+        }
+      });
+    }
+
+    return this.request<UploadAssetsResult>('/assets/upload', 'POST', formData);
   }
 
-  updateItem<T = unknown>(
+  /**
+   * Update asset metadata
+   */
+  async updateAsset(asset: {
+    _id: string;
+    [key: string]: unknown;
+  }): Promise<Asset> {
+    return this.request<Asset>('/assets/update', 'POST', { asset });
+  }
+
+  /**
+   * Delete an asset by ID
+   */
+  async deleteAsset(id: string): Promise<{ success: boolean; id: string }> {
+    await this.request(`/assets/${id}`, 'DELETE');
+    return { success: true, id };
+  }
+
+  /**
+   * Get image thumbnail/optimization URL or binary
+   */
+  getImageUrl(id: string, options: ImageOptions = {}): string {
+    return `${this.host}/api/assets/image/${id}${this.buildQuery(options)}`;
+  }
+
+  /**
+   * Get image URL styled with a defined preset
+   */
+  getImagePresetUrl(
+    id: string,
+    preset: string,
+    options: ImagePresetOptions = {}
+  ): string {
+    return `${this.host}/api/assets/image/${id}/${preset}${this.buildQuery(options)}`;
+  }
+
+  /**
+   * List available image presets
+   */
+  async listPresets(
+    fetchOptions?: NextRequestInit
+  ): Promise<Record<string, Preset>> {
+    return this.request<Record<string, Preset>>(
+      '/assets/presets',
+      'GET',
+      undefined,
+      undefined,
+      fetchOptions
+    );
+  }
+
+  // ==========================================
+  // CONTENT MODULE API
+  // ==========================================
+
+  /**
+   * Get a single content item from a model based on query filters
+   */
+  async getContentItemByFilter<T = CollectionItem>(
+    model: string,
+    options: ContentItemGetByFilterOptions = {},
+    fetchOptions?: NextRequestInit
+  ): Promise<T> {
+    return this.request<T>(
+      `/content/item/${model}${this.buildQuery(options)}`,
+      'GET',
+      undefined,
+      undefined,
+      fetchOptions
+    );
+  }
+
+  /**
+   * Get a single content item from a collection/tree model by its ID
+   */
+  async getContentItem<T = CollectionItem>(
     model: string,
     id: string,
-    payload: Record<string, unknown>
-  ) {
-    return this.request<T>(`/content/item/${model}/${id}`, {
-      method: 'POST',
-      body: JSON.stringify(payload),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      revalidate: 0,
-    });
-  }
-
-  deleteItem<T = unknown>(model: string, id: string) {
-    return this.request<T>(`/content/item/${model}/${id}`, {
-      method: 'DELETE',
-      revalidate: 0,
-    });
-  }
-
-  /*
-   |--------------------------------------------------------------------------
-   | Tree
-   |--------------------------------------------------------------------------
-   */
-
-  getTree<T = unknown>(model: string, revalidate = 604800) {
-    return this.request<T>(`/content/tree/${model}`, { revalidate });
-  }
-
-  /*
-   |--------------------------------------------------------------------------
-   | Aggregate
-   |--------------------------------------------------------------------------
-   */
-
-  aggregate<T = unknown>(model: string, payload: unknown) {
-    return this.request<T>(`/content/aggregate/${model}`, {
-      method: 'POST',
-      body: JSON.stringify(payload),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      revalidate: 0,
-    });
-  }
-
-  /*
-   |--------------------------------------------------------------------------
-   | Assets
-   |--------------------------------------------------------------------------
-   */
-
-  getAsset(assetId: string, revalidate = 3600) {
-    return this.request<CockpitAsset>(`/assets/${assetId}`, { revalidate });
-  }
-
-  /*
-   |--------------------------------------------------------------------------
-   | Inbox
-   |--------------------------------------------------------------------------
-   */
-
-  submitInbox<T extends object>(
-    token: string,
-    data: T,
-    options: InboxSubmitOptions = {}
-  ) {
-    return this.request<InboxSubmitResponse<T>>(
-      `/inbox/submit/${token}${this.buildQuery(options)}`,
-      {
-        method: 'POST',
-        body: JSON.stringify({ data }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        revalidate: 0,
-      }
+    options: ContentItemGetOptions = {},
+    fetchOptions?: NextRequestInit
+  ): Promise<T> {
+    return this.request<T>(
+      `/content/item/${model}/${id}${this.buildQuery(options)}`,
+      'GET',
+      undefined,
+      undefined,
+      fetchOptions
     );
   }
 
-  /*
-   |--------------------------------------------------------------------------
-   | System
-   |--------------------------------------------------------------------------
+  /**
+   * Save (create or update) a content item in a collection model
    */
+  async saveContentItem<T = CollectionItem>(
+    model: string,
+    data: Partial<T> & { _id?: string }
+  ): Promise<T> {
+    return this.request<T>(`/content/item/${model}`, 'POST', { data });
+  }
 
-  healthcheck<T = unknown>() {
-    return this.request<T>('/system/healthcheck', {
-      revalidate: 0,
-    });
+  /**
+   * Delete a content item from a collection model by its ID
+   */
+  async deleteContentItem<T = { success: boolean }>(
+    model: string,
+    id: string
+  ): Promise<T> {
+    return this.request<T>(`/content/item/${model}/${id}`, 'DELETE');
+  }
+
+  /**
+   * Get multiple content items from a collection/tree model
+   */
+  async listContentItems<T = CollectionItem[]>(
+    model: string,
+    options: ContentItemsListOptions = {},
+    fetchOptions?: NextRequestInit
+  ): Promise<T> {
+    return this.request<T>(
+      `/content/items/${model}${this.buildQuery(options)}`,
+      'GET',
+      undefined,
+      undefined,
+      fetchOptions
+    );
+  }
+
+  /**
+   * Batch query list of content items across multiple models in a single request
+   */
+  async batchListContentItems<
+    T = Record<string, { entries: CollectionItem[] }>,
+  >(
+    models: ContentItemsBatchModels,
+    options: ContentItemsBatchQueryOptions = {},
+    fetchOptions?: NextRequestInit
+  ): Promise<T> {
+    const params = { models, ...options };
+    return this.request<T>(
+      `/content/items${this.buildQuery(params)}`,
+      'GET',
+      undefined,
+      undefined,
+      fetchOptions
+    );
+  }
+
+  /**
+   * Perform database aggregation pipeline on a model
+   */
+  async aggregateContentItems<T = unknown>(
+    model: string,
+    pipeline: unknown[],
+    options: ContentAggregateOptions = {},
+    fetchOptions?: NextRequestInit
+  ): Promise<T> {
+    const params = { pipeline, ...options };
+    return this.request<T>(
+      `/content/aggregate/${model}${this.buildQuery(params)}`,
+      'GET',
+      undefined,
+      undefined,
+      fetchOptions
+    );
+  }
+
+  /**
+   * Get hierarchical tree structure of content items for a tree model
+   */
+  async getContentTree<T = CollectionItem[]>(
+    model: string,
+    options: ContentTreeOptions = {},
+    fetchOptions?: NextRequestInit
+  ): Promise<T> {
+    return this.request<T>(
+      `/content/tree/${model}${this.buildQuery(options)}`,
+      'GET',
+      undefined,
+      undefined,
+      fetchOptions
+    );
+  }
+
+  /**
+   * Submit data to an Inbox form
+   */
+  async submitInbox<T = InboxSubmitResponse>(
+    token: string,
+    data: unknown,
+    options: Record<string, unknown> = {}
+  ): Promise<T> {
+    return this.request<T>(
+      `/inbox/submit/${token}${this.buildQuery(options)}`,
+      'POST',
+      { data }
+    );
+  }
+
+  /**
+   * Check system health
+   */
+  async healthcheck<T = unknown>(fetchOptions?: NextRequestInit): Promise<T> {
+    return this.request<T>(
+      '/system/healthcheck',
+      'GET',
+      undefined,
+      undefined,
+      fetchOptions
+    );
   }
 }
-
-const cockpit = new CockpitAPI();
-
-export default cockpit;

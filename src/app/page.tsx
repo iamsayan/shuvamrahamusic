@@ -10,7 +10,7 @@ import {
   GLOW_COLORS,
   getBlogPosts,
 } from '@/lib/blog-data';
-import { GEAR_ITEMS } from '@/lib/gears-data';
+import cockpit from '@/lib/client';
 import { authorityPoints, curriculum } from '@/lib/guitar-data';
 
 import {
@@ -84,8 +84,19 @@ export default async function Home() {
   const allPosts = await getBlogPosts();
   const latestPosts = allPosts.slice(0, 3);
 
-  // Take first 4 gear items dynamically from gears-data
-  const featuredGears = GEAR_ITEMS.slice(0, 4);
+  // Take first 4 gear items dynamically from Cockpit CMS
+  let featuredGears: any[] = [];
+  try {
+    const response = await cockpit.listContentItems<any[]>('gears', { limit: 4 });
+    featuredGears = response.map((item) => ({
+      id: item._id,
+      category: item.categories?.[0] || 'Other Guitar Accessories',
+      title: item.title,
+      description: item.description || '',
+    }));
+  } catch (error) {
+    console.error('Error fetching featured gears:', error);
+  }
 
   return (
     <main className="relative min-h-screen overflow-x-hidden bg-[#05050A] text-[#f0f0f5]">

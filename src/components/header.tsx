@@ -16,8 +16,12 @@ type NavLink = {
 };
 
 const navLinks: NavLink[] = [
-  { name: 'Home', href: '/', raw: true },
-  { name: 'Biography', href: '/biography', raw: true },
+  { name: 'Home', href: '/', raw: process.env.NODE_ENV !== 'production' },
+  {
+    name: 'Biography',
+    href: '/biography',
+    raw: process.env.NODE_ENV !== 'production',
+  },
   {
     name: 'Guiter Classes',
     href: '/guitar-classes-with-shuvam',
@@ -33,6 +37,7 @@ const navLinks: NavLink[] = [
   {
     name: 'Performance Highlights',
     href: '/performance-highlights',
+    raw: process.env.NODE_ENV !== 'production',
   },
   {
     name: 'Gallery',

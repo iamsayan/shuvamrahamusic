@@ -1,4 +1,4 @@
-import cockpit from '@/lib/cockpit';
+import cockpit from '@/lib/client';
 
 export interface Author {
   name: string;
@@ -394,25 +394,24 @@ function resolveImagePath(img?: { path?: string } | string): string {
 
 // Plug-and-play fetcher: Queries Cockpit CMS when configured, otherwise falls back to static content
 export async function getBlogPosts(): Promise<BlogPost[]> {
-  if (!cockpit.isConfigured) {
-    return BLOG_POSTS;
-  }
+  //if (!cockpit.isConfigured) {
+  return BLOG_POSTS;
+  //}
 
   try {
     // Queries the Cockpit collection named 'posts'
-    const cockpitPosts = await cockpit.getItems<{ entries: CockpitPost[] }>(
+    const cockpitPosts = await cockpit.listContentItems<CockpitPost[]>(
       'posts'
     );
 
     if (
       !cockpitPosts ||
-      !cockpitPosts.entries ||
-      !Array.isArray(cockpitPosts.entries)
+      !Array.isArray(cockpitPosts)
     ) {
       return BLOG_POSTS;
     }
 
-    return cockpitPosts.entries.map((entry) => ({
+    return cockpitPosts.map((entry: CockpitPost) => ({
       id: entry._id,
       slug: entry.slug,
       title: entry.title,
@@ -451,13 +450,13 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 export async function getBlogPostBySlug(
   slug: string
 ): Promise<BlogPost | undefined> {
-  if (!cockpit.isConfigured) {
-    return BLOG_POSTS.find((p) => p.slug === slug);
-  }
+  //if (!cockpit.isConfigured) {
+  return BLOG_POSTS.find((p) => p.slug === slug);
+  //}
 
   try {
     // Queries the Cockpit collection named 'posts' filtered by slug
-    const response = await cockpit.getItems<{ entries: CockpitPost[] }>(
+    const response = await cockpit.listContentItems<CockpitPost[]>(
       'posts',
       {
         filter: { slug },
@@ -465,8 +464,8 @@ export async function getBlogPostBySlug(
       }
     );
 
-    if (response && response.entries && response.entries.length > 0) {
-      const entry = response.entries[0];
+    if (response && response.length > 0) {
+      const entry = response[0];
       return {
         id: entry._id,
         slug: entry.slug,
@@ -474,8 +473,8 @@ export async function getBlogPostBySlug(
         excerpt: entry.excerpt,
         content: entry.content,
         coverImage: resolveImagePath(entry.coverImage),
-        categories: Array.isArray(entry.categories) ? entry.categories : [],
-        tags: Array.isArray(entry.tags) ? entry.tags : [],
+        categories: entry.categories || [],
+        tags: entry.tags || [],
         date:
           entry.date ||
           new Date().toLocaleDateString('en-US', {
