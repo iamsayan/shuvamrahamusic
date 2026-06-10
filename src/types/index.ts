@@ -70,3 +70,17 @@ export type ImagePreset =
   | 'high_contrast'
   | 'blueprint'
   | 'embossed_art';
+
+export interface RazorpayFormData {
+  amount: number;
+  email: string;
+  name: string;
+  phone: string;
+  currency: 'INR' | 'USD';
+}
+
+declare global {
+  interface Window {
+    Razorpay: new (options: unknown) => { open(): void };
+  }
+}
