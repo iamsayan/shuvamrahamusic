@@ -41,12 +41,7 @@ export const metadata: Metadata = {
 export default async function MyGearsPage() {
   let gears: GearItem[] = [];
   try {
-    gears = await cockpit.listContentItems<GearItem[]>('gears', {
-      sort: {
-        title: 1,
-        _created: -1,
-      },
-    });
+    gears = await cockpit.getContentTree<GearItem[]>('gears');
   } catch (error) {
     console.error('Error fetching gears from Cockpit CMS:', error);
   }
