@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
-import TutorialsListingClient from '@/components/tutorials-listing-client';
 import JsonLd from '@/components/json-ld';
+import TutorialsListingClient from '@/components/tutorials-listing-client';
 import cockpit from '@/lib/client';
 import { TutorialItem } from '@/types';
 
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 export default async function TutorialsPage() {
   let tutorials: TutorialItem[] = [];
   try {
-    tutorials = await cockpit.listContentItems<TutorialItem[]>('tutorials');
+    tutorials = await cockpit.getContentTree<TutorialItem[]>('tutorials');
   } catch (error) {
     console.error('Error fetching tutorials from Cockpit CMS:', error);
   }
