@@ -141,13 +141,13 @@ export default function TutorialsListingClient({
           {/* Page Title & Tagline */}
           <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div className="relative">
-              <h1 className="font-heading mb-4 bg-gradient-to-r from-white via-white to-gray-400 bg-clip-text text-4xl leading-[1.1] font-black tracking-tight text-transparent sm:text-5xl lg:text-6xl">
+              <h1 className="font-heading mb-4 bg-gradient-to-r from-white via-white to-gray-400 bg-clip-text text-3xl leading-[1.15] font-black tracking-tight text-transparent sm:text-4xl lg:text-5xl">
                 Learning{' '}
                 <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
                   Materials
                 </span>
               </h1>
-              <p className="text-sm leading-relaxed text-gray-400 sm:text-base md:text-lg">
+              <p className="text-xs leading-relaxed text-gray-400 sm:text-sm md:text-base">
                 Download high-quality practice sheets, finger exercises, chord
                 charts, and manuscript layouts to support your guitar lessons.
               </p>

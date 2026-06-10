@@ -370,7 +370,7 @@ export default function BiographyPage() {
                   The Journey
                 </h3>
               </div>
-              <div className="space-y-4 text-xs leading-relaxed text-gray-400 sm:text-sm">
+              <div className="space-y-4 text-sm leading-relaxed text-gray-400 sm:text-base">
                 <p>
                   Shuvam’s musical journey began during his undergraduate years
                   at{' '}
@@ -422,7 +422,7 @@ export default function BiographyPage() {
                       <h4 className="font-heading text-sm font-bold text-white sm:text-base">
                         {item.role}
                       </h4>
-                      <p className="text-xs leading-relaxed text-gray-400">
+                      <p className="text-xs leading-relaxed text-gray-400 sm:text-sm">
                         {item.detail}
                       </p>
                     </div>
