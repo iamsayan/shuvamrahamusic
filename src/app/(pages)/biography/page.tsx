@@ -16,7 +16,11 @@ import {
   FaYoutube,
 } from 'react-icons/fa6';
 import {
+  LuActivity,
   LuAward,
+  LuCheck,
+  LuChevronRight,
+  LuCompass,
   LuFlame,
   LuGraduationCap,
   LuGuitar,
@@ -24,9 +28,9 @@ import {
   LuMic,
   LuMusic,
   LuSettings,
-  LuTv,
+  LuSparkles,
+  LuTarget,
   LuUsers,
-  LuVolume2,
 } from 'react-icons/lu';
 
 export const metadata: Metadata = {
@@ -60,77 +64,96 @@ export const metadata: Metadata = {
   },
 };
 
-const competencies = [
+const highlights = [
   {
-    title: 'Guitarist',
-    description: 'Acoustic & Electric Guitar performance and technique.',
+    title: '11+ Years of Guitar Playing & Teaching Experience',
     icon: LuGuitar,
     color: 'text-cyan-400 border-cyan-500/20 bg-cyan-500/5',
   },
   {
-    title: 'Composer & Songwriter',
-    description:
-      'Creating memorable melodies and storytelling through songwriting.',
-    icon: LuMusic,
-    color: 'text-violet-400 border-violet-500/20 bg-violet-500/5',
-  },
-  {
-    title: 'Vocalist',
-    description:
-      'Bringing music to life with emotional and expressive vocal performance.',
-    icon: LuMic,
-    color: 'text-rose-400 border-rose-500/20 bg-rose-500/5',
-  },
-  {
-    title: 'Guitar Instructor',
-    description:
-      'Sharing comprehensive knowledge and guiding aspiring musicians since 2014.',
-    icon: LuGraduationCap,
-    color: 'text-emerald-400 border-emerald-500/20 bg-emerald-500/5',
-  },
-  {
-    title: 'Certified Musician',
-    description:
-      'Distinction in Electric Guitar under the London College of Music (LCM).',
+    title: 'Distinction in Electric Guitar – London College of Music',
     icon: LuAward,
     color: 'text-amber-400 border-amber-500/20 bg-amber-500/5',
   },
   {
-    title: 'Live Performer',
-    description:
-      'Bringing high-energy performance and stage presence to live shows.',
-    icon: LuFlame,
-    color: 'text-orange-400 border-orange-500/20 bg-orange-500/5',
+    title: 'Students Across India & Internationally',
+    icon: LuUsers,
+    color: 'text-emerald-400 border-emerald-500/20 bg-emerald-500/5',
   },
   {
-    title: 'Session Guitarist',
-    description:
-      'Collaborating in-studio with diverse artists, bands, and productions.',
-    icon: LuUsers,
+    title: 'Feature Artist – Tone Connoisseur',
+    icon: LuSparkles,
+    color: 'text-violet-400 border-violet-500/20 bg-violet-500/5',
+  },
+  {
+    title: 'Laney Amplification India Endorsed Artist',
+    icon: LuFlame,
+    color: 'text-rose-400 border-rose-500/20 bg-rose-500/5',
+  },
+  {
+    title: 'Composer, Producer, Session Guitarist & Live Performer',
+    icon: LuMusic,
     color: 'text-blue-400 border-blue-500/20 bg-blue-500/5',
   },
+];
+
+const expertise = [
   {
-    title: 'Music Producer & Arranger',
-    description:
-      'Shaping soundscapes, arrangements, and modern studio productions.',
-    icon: LuSettings,
-    color: 'text-fuchsia-400 border-fuchsia-500/20 bg-fuchsia-500/5',
+    role: 'Guitarist (Acoustic & Electric)',
+    detail:
+      'Performing diverse genres with signature tone clarity, technical precision, and expressiveness.',
+    icon: LuGuitar,
+    color:
+      'text-cyan-400 border-cyan-500/20 bg-cyan-500/5 hover:bg-cyan-500/10 hover:border-cyan-500/30',
   },
   {
-    title: 'Sound Engineer',
-    description:
-      'Proficient in multitrack recording, session acoustics, and sound design.',
+    role: 'Music Educator & Instructor',
+    detail:
+      'Providing structured, analytical, and goal-oriented lessons to students of all skill levels since 2014.',
+    icon: LuGraduationCap,
+    color:
+      'text-emerald-400 border-emerald-500/20 bg-emerald-500/5 hover:bg-emerald-500/10 hover:border-emerald-500/30',
+  },
+  {
+    role: 'Live Performer & Session Guitarist',
+    detail:
+      'Collaborating in-studio and live on stage with bands and independent artists across major projects.',
+    icon: LuFlame,
+    color:
+      'text-orange-400 border-orange-500/20 bg-orange-500/5 hover:bg-orange-500/10 hover:border-orange-500/30',
+  },
+  {
+    role: 'Composer & Songwriter',
+    detail:
+      'Writing memorable guitar melodies, original hooks, and evocative structures for personal and client releases.',
+    icon: LuMusic,
+    color:
+      'text-violet-400 border-violet-500/20 bg-violet-500/5 hover:bg-violet-500/10 hover:border-violet-500/30',
+  },
+  {
+    role: 'Music Producer & Arranger',
+    detail:
+      'Shaping unique sonic textures, backing tracks, arrangements, and modern studio mixes from scratch.',
+    icon: LuSettings,
+    color:
+      'text-fuchsia-400 border-fuchsia-500/20 bg-fuchsia-500/5 hover:bg-fuchsia-500/10 hover:border-fuchsia-500/30',
+  },
+  {
+    role: 'Recording & Sound Specialist',
+    detail:
+      'Expertise in signal chain configuration, sound design, DAW acoustics, and multitrack tracking.',
     icon: LuHeadphones,
-    color: 'text-teal-400 border-teal-500/20 bg-teal-500/5',
+    color:
+      'text-teal-400 border-teal-500/20 bg-teal-500/5 hover:bg-teal-500/10 hover:border-teal-500/30',
   },
 ];
 
 const videos = [
-  { title: 'Ei Mon', year: '2023', id: 'RGfHMP9_O2M' },
+  { title: 'Purano Sei Diner Kotha', year: '2024', id: 'Mldyf1c3uxc' },
   { title: 'Phirti Pothe', year: '2023', id: '_xOSImNUfQ8' },
+  { title: 'Ei Mon', year: '2023', id: 'RGfHMP9_O2M' },
   { title: 'Ki Jani Keno (Unplugged)', year: '2023', id: 'fg-Ohl7seGQ' },
   { title: 'Bhalobasha (Reprise)', year: '2023', id: 'b6KCbNlsf8U' },
-  { title: 'Purano Sei Diner Kotha', year: '2024', id: 'Mldyf1c3uxc' },
   { title: 'Tor Jonno', year: '2022', id: '1Ad4idf0tAs' },
 ];
 
@@ -198,86 +221,71 @@ export default function BiographyPage() {
       />
       <PageLayout
         title="Biography"
-        subtitle="Guitarist | Composer | Instructor | Performer | Music Producer | Singer-Songwriter"
+        subtitle="Professional Guitarist • Guitar Coach / Instructor • Live Performer • Music Producer"
       >
-        <div className="flex flex-col gap-12 text-left">
+        <div className="flex flex-col gap-16 text-left">
           {/* ==========================================
               SECTION 1: HERO & MAIN BIO
              ========================================== */}
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-center">
+          <div className="flex flex-col gap-10 lg:flex-row lg:items-center">
             {/* Desktop Side Profile Frame */}
             <div className="relative mx-auto w-full max-w-[340px] shrink-0 lg:mx-0">
-              <div className="group relative aspect-[3/4] overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.02] shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-md">
+              <div className="group relative aspect-[3/4] overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/[0.02] shadow-[0_30px_70px_rgba(0,0,0,0.6)] backdrop-blur-md">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/hero-guitarist.jpg"
                   alt="Shuvam Raha"
-                  className="h-full w-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105"
+                  className="h-full w-full object-cover opacity-90 transition-transform duration-[1500ms] group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#020205]/80 via-transparent to-transparent opacity-60" />
               </div>
             </div>
 
             {/* Biography Copy */}
-            <div className="flex-1 space-y-4">
-              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3 py-1.5 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
-                <LuAward className="h-4 w-4 text-cyan-400" />
-                <span className="text-[10px] font-black tracking-widest text-cyan-200 uppercase">
-                  LCM Certified Music Instructor
-                </span>
-              </div>
-              <h2 className="font-heading text-2xl font-black text-white sm:text-3xl">
-                Shuvam Raha: Musician, Composer, and Educator
-              </h2>
-              <div className="space-y-4 text-sm leading-relaxed text-gray-400 sm:text-base">
-                <p>
-                  A multifaceted musician from Kolkata, India,{' '}
-                  <strong className="text-white">Shuvam Raha</strong> has
-                  established himself as a skilled guitarist, instructor, and
-                  composer. His musical journey began during his undergraduate
-                  studies in Computer Application (BCA) at{' '}
-                  <em className="text-gray-300">
-                    JIS College of Engineering Kalyani
-                  </em>
-                  .
-                </p>
-                <p>
-                  With over{' '}
-                  <strong className="text-white">
-                    {new Date().getFullYear() - 2015} years of experience
-                  </strong>
-                  , Shuvam possesses a strong foundation in{' '}
-                  <span className="font-medium text-cyan-400">
-                    Western Music Theory
-                  </span>{' '}
-                  and has honed his skills as a proficient guitarist. He
-                  achieved a Distinction in Electric Guitar in the Grade exams
-                  of the{' '}
-                  <strong className="text-white">
-                    London College of Music (LCM)
-                  </strong>
-                  , under the guidance of renowned Classical Guitarist{' '}
-                  <a
-                    href="https://www.ekanntsingh.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-cyan-400 underline decoration-cyan-400/30 transition-colors hover:text-cyan-300 hover:decoration-cyan-300"
-                  >
-                    Mr. Ekannt Singh
-                  </a>
-                  .
-                </p>
-                <p>
-                  As a seasoned music educator, Shuvam has been conducting
-                  guitar classes since 2014. He has performed at various events,
-                  collaborating with artists and showcasing high-energy
-                  musicality. His debut original composition,{' '}
-                  <span className="font-semibold text-cyan-400 italic">
-                    &quot;Ki jani keno&quot;
+            <div className="flex-1 space-y-6">
+              <div className="flex flex-col gap-3">
+                <div className="inline-flex items-center gap-2 self-start rounded-full border border-cyan-500/20 bg-cyan-500/10 px-4 py-1.5 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+                  <LuAward className="h-4.5 w-4.5 text-cyan-400" />
+                  <span className="text-[10px] font-black tracking-widest text-cyan-200 uppercase">
+                    LCM Certified Music Instructor
                   </span>
-                  , was featured in{' '}
-                  <strong className="text-white">E-Times</strong> and streams
-                  widely on prominent audio platforms.
+                </div>
+                <h2 className="font-heading text-3xl font-black text-white sm:text-4xl">
+                  Shuvam Raha
+                </h2>
+                <div className="flex flex-wrap gap-2 text-xs font-semibold text-gray-500">
+                  <span className="inline-flex items-center gap-1 rounded-md border border-white/5 bg-white/[0.02] px-2.5 py-1">
+                    📍 Based in Kolkata
+                  </span>
+                  <span className="inline-flex items-center gap-1 rounded-md border border-white/5 bg-white/[0.02] px-2.5 py-1">
+                    🎸 11+ Years of Experience
+                  </span>
+                  <span className="inline-flex items-center gap-1 rounded-md border border-white/5 bg-white/[0.02] px-2.5 py-1">
+                    🌍 Online & International Classes
+                  </span>
+                </div>
+              </div>
+
+              <div className="space-y-4 text-sm leading-relaxed text-gray-400 sm:text-base">
+                <p className="font-medium text-gray-300">
+                  Helping students build strong musical foundations, develop
+                  real-world playing skills, and become confident musicians
+                  through structured and personalized guitar training.
+                </p>
+                <p>
+                  Shuvam Raha is a professional guitarist, music educator,
+                  performer, and producer with over a decade of experience in
+                  music performance, teaching, recording, and production. Known
+                  for his structured teaching methodology and practical approach
+                  to learning, he helps students move beyond memorization and
+                  develop a deeper understanding of music, technique, rhythm,
+                  and sound.
+                </p>
+                <p>
+                  His academic background in Computer Applications contributes
+                  to a clear, analytical, and well-organized learning framework
+                  that simplifies complex musical concepts for students of all
+                  levels.
                 </p>
                 <div className="flex justify-start pt-3">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -294,31 +302,168 @@ export default function BiographyPage() {
           <hr className="border-white/5" />
 
           {/* ==========================================
-              SECTION 2: CORE COMPETENCIES
+              SECTION 2: HIGHLIGHTS
              ========================================== */}
-          <div className="space-y-6">
-            <h3 className="font-heading text-xl font-extrabold text-white sm:text-2xl">
-              Core Competencies
-            </h3>
+          <div className="space-y-8">
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
+                Highlights
+              </span>
+              <h3 className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
+                Credentials & Milestones
+              </h3>
+            </div>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {competencies.map((comp, idx) => {
-                const Icon = comp.icon;
+              {highlights.map((item, idx) => {
+                const Icon = item.icon;
                 return (
                   <div
                     key={idx}
-                    className="group relative flex gap-4 rounded-2xl border border-white/[0.04] bg-white/[0.01] p-5 transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/[0.02]"
+                    className="group relative flex items-center gap-4 rounded-2xl border border-white/[0.04] bg-[#0A0A15]/60 p-5 transition-all duration-300 hover:border-cyan-500/20 hover:bg-[#0E0E22]/80 hover:shadow-[0_15px_30px_rgba(8,145,178,0.08)]"
                   >
                     <div
-                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border ${comp.color} shadow-sm transition-transform duration-300 group-hover:scale-105`}
+                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border ${item.color} shadow-sm transition-transform duration-300 group-hover:scale-105`}
                     >
                       <Icon className="h-5 w-5" />
                     </div>
                     <div className="space-y-1">
-                      <h4 className="font-heading text-sm font-bold text-white sm:text-base">
-                        {comp.title}
+                      <h4 className="font-heading text-xs leading-normal font-bold text-white sm:text-sm">
+                        {item.title}
                       </h4>
-                      <p className="text-xs leading-relaxed text-gray-400 sm:text-sm">
-                        {comp.description}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <hr className="border-white/5" />
+
+          {/* ==========================================
+              SECTION 3: THE JOURNEY & ACADEMICS
+             ========================================== */}
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            {/* The Journey */}
+            <div className="space-y-6">
+              <div className="flex flex-col gap-2">
+                <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
+                  The Background
+                </span>
+                <h3 className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
+                  The Journey
+                </h3>
+              </div>
+              <div className="space-y-4 text-xs leading-relaxed text-gray-400 sm:text-sm">
+                <p>
+                  Shuvam’s musical journey began during his undergraduate years
+                  at{' '}
+                  <em className="text-gray-300">JIS College of Engineering</em>.
+                  While pursuing his degree, he found himself increasingly drawn
+                  to music and eventually decided to pursue it as a career.
+                  Since then, he has remained a dedicated learner, believing
+                  that in music—as in any art form—the learning never truly
+                  ends.
+                </p>
+                <p>
+                  Having experienced the challenges of unstructured learning and
+                  scattered resources in his own journey, Shuvam gradually
+                  developed a clear and organized approach to learning music.
+                  Today, he brings that experience into his teaching, helping
+                  students learn in a more structured, supportive, and effective
+                  way.
+                </p>
+              </div>
+            </div>
+
+            {/* Academic Credentials */}
+            <div className="space-y-6">
+              <div className="flex flex-col gap-2">
+                <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
+                  Academic Credentials
+                </span>
+                <h3 className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
+                  Education & Qualifications
+                </h3>
+              </div>
+              <div className="space-y-4">
+                {/* BCA */}
+                <div className="group relative rounded-2xl border border-white/[0.04] bg-[#0A0A15]/60 p-5 transition-all duration-300 hover:border-cyan-500/20 hover:bg-[#0E0E22]/80">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/5 text-blue-400">
+                      <LuGraduationCap className="h-5.5 w-5.5" />
+                    </div>
+                    <div>
+                      <h4 className="font-heading text-sm font-extrabold text-white sm:text-base">
+                        Computer Application Background (BCA)
+                      </h4>
+                      <p className="mt-0.5 text-[10px] font-bold text-gray-500 uppercase">
+                        JIS College of Engineering
+                      </p>
+                      <p className="mt-2 text-xs leading-relaxed text-gray-400">
+                        His background in computer studies contributes to a
+                        logical, clear, and well-organized framework that helps
+                        simplify music theory and recording processes.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* LCM Grade */}
+                <div className="group relative rounded-2xl border border-white/[0.04] bg-[#0A0A15]/60 p-5 transition-all duration-300 hover:border-cyan-500/20 hover:bg-[#0E0E22]/80">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-amber-500/20 bg-amber-500/5 text-amber-400">
+                      <LuAward className="h-5.5 w-5.5" />
+                    </div>
+                    <div>
+                      <h4 className="font-heading text-sm font-extrabold text-white sm:text-base">
+                        Grade Distinction in Electric Guitar
+                      </h4>
+                      <p className="mt-0.5 text-[10px] font-bold text-gray-500 uppercase">
+                        London College of Music (LCM)
+                      </p>
+                      <p className="mt-2 text-xs leading-relaxed text-gray-400">
+                        Achieved Grade Distinction certified by the University
+                        of West London, studying electric guitar technique and
+                        music theory under Classical Guitarist Ekannt Singh.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr className="border-white/5" />
+
+          {/* ==========================================
+              SECTION 4: PROFESSIONAL EXPERIENCE
+             ========================================== */}
+          <div className="space-y-8">
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
+                Professional Roles
+              </span>
+              <h3 className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
+                Music Industry Expertise
+              </h3>
+            </div>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {expertise.map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={idx}
+                    className={`group relative flex gap-4 rounded-2xl border p-5 transition-all duration-300 ${item.color} hover:shadow-[0_15px_30px_rgba(0,0,0,0.4)]`}
+                  >
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/5 bg-white/[0.02] shadow-sm">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <div className="space-y-1">
+                      <h4 className="font-heading text-sm font-bold text-white sm:text-base">
+                        {item.role}
+                      </h4>
+                      <p className="text-xs leading-relaxed text-gray-400">
+                        {item.detail}
                       </p>
                     </div>
                   </div>
@@ -330,94 +475,37 @@ export default function BiographyPage() {
           <hr className="border-white/5" />
 
           {/* ==========================================
-              SECTION 3: ACADEMIC BACKGROUND
+              SECTION 5: MUSIC & CREATIVE WORK
              ========================================== */}
-          <div className="space-y-6">
-            <h3 className="font-heading text-xl font-extrabold text-white sm:text-2xl">
-              Academic Background &amp; Credentials
-            </h3>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              {/* BCA Card */}
-              <div className="group relative rounded-2xl border border-white/[0.04] bg-white/[0.01] p-6 shadow-sm transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/[0.02]">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/5 text-blue-400">
-                  <LuGraduationCap className="h-6 w-6" />
-                </div>
-                <h4 className="font-heading text-base font-extrabold text-white sm:text-lg">
-                  Bachelor&apos;s Degree in Computer Application (BCA)
-                </h4>
-                <p className="mt-1 text-xs font-semibold tracking-wider text-cyan-400 uppercase">
-                  JIS College of Engineering, Kalyani
-                </p>
-                <p className="mt-3 text-xs leading-relaxed text-gray-400 sm:text-sm">
-                  Leveraging a logical, structured technical background to
-                  streamline complex digital audio workstation (DAW) workflows,
-                  signal path management, and software production tools. Key
-                  skills include: structured problem solving, technical agility,
-                  adaptability, and collaborative teamwork.
-                </p>
-              </div>
-
-              {/* LCM Card */}
-              <div className="group relative rounded-2xl border border-white/[0.04] bg-white/[0.01] p-6 shadow-sm transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/[0.02]">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-amber-500/20 bg-amber-500/5 text-amber-400">
-                  <LuAward className="h-6 w-6" />
-                </div>
-                <h4 className="font-heading text-base font-extrabold text-white sm:text-lg">
-                  Certified Musician - London College of Music (LCM)
-                </h4>
-                <p className="mt-1 text-xs font-semibold tracking-wider text-cyan-400 uppercase">
-                  University of West London
-                </p>
-                <p className="mt-3 text-xs leading-relaxed text-gray-400 sm:text-sm">
-                  Achieved high-level Distinction in Electric Guitar grade
-                  certifications. Formal study of Western Music Theory,
-                  acoustic/electric performance techniques, and classic and
-                  modern guitar styles, mentored by Classical Guitarist Mr.
-                  Ekannt Singh.
-                </p>
-              </div>
+          <div className="space-y-8">
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
+                Featured Releases
+              </span>
+              <h3 className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
+                Music &amp; Creative Work
+              </h3>
             </div>
-            <p className="pt-2 text-center text-xs font-medium text-cyan-400/80 italic">
-              &ldquo;With a unique blend of musical talent, technical expertise,
-              and esteemed educational credentials, Shuvam Raha has successfully
-              merged his passion for music into a fulfilling full-time
-              profession.&rdquo;
-            </p>
-          </div>
 
-          <hr className="border-white/5" />
-
-          {/* ==========================================
-              SECTION 4: FEATURED SONG - PHIRTI POTHE
-             ========================================== */}
-          <div className="space-y-6">
-            <h3 className="font-heading text-xl font-extrabold text-white sm:text-2xl">
-              Featured Composition
-            </h3>
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-center">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-center">
               {/* Info column */}
               <div className="space-y-4">
                 <h4 className="font-heading text-2xl font-black text-white">
                   &ldquo;Phirti Pothe&rdquo;
                 </h4>
                 <p className="text-xs font-bold tracking-widest text-cyan-400 uppercase">
-                  A Heartfelt Ode to Lost Love (2023)
+                  A Heartfelt Ode to Lost Love
                 </p>
                 <div className="space-y-3 text-xs leading-relaxed text-gray-400 sm:text-sm">
                   <p>
-                    Composed and sung by{' '}
-                    <strong className="text-white">Shuvam Raha</strong>, with
-                    lyrics by Niladri Banerjee and Subho Chakroborty, this song
-                    resonates with those who have loved, lost, and still find a
-                    way to smile.
+                    As a composer and performer, Shuvam’s work blends melody,
+                    emotion, and modern production techniques.
                   </p>
                   <p>
-                    The theme revolves around the bittersweet memories of a past
-                    relationship, bidding a final farewell to the comfort and
-                    companionship that once was. With its melancholic melody and
-                    evocative lyrics, &ldquo;Phirti Pothe&rdquo; is a soulful
-                    ballad that explores the complexities of love, loss, and
-                    longing.
+                    The theme of &ldquo;Phirti Pothe&rdquo; revolves around the
+                    bittersweet memories of a past relationship. Bid farewell to
+                    the comfort that once was, this ballad explores the
+                    complexities of love, loss, and longing.
                   </p>
                 </div>
 
@@ -473,17 +561,16 @@ export default function BiographyPage() {
           <hr className="border-white/5" />
 
           {/* ==========================================
-              SECTION 5: VIDEO SHOWCASE GRID
+              SECTION 6: VIDEO SHOWCASE GRID
              ========================================== */}
           <div className="space-y-6">
             <div className="flex flex-col gap-2">
-              <h3 className="font-heading text-xl font-extrabold text-white sm:text-2xl">
-                Featured Performances &amp; Videos
+              <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
+                Video Releases
+              </span>
+              <h3 className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
+                Featured Performances &amp; Releases
               </h3>
-              <p className="text-xs text-gray-400 sm:text-sm">
-                Watch original tracks, unplugged renditions, and guitar
-                instrumentals.
-              </p>
             </div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -492,7 +579,6 @@ export default function BiographyPage() {
                   key={vid.id}
                   className="group overflow-hidden rounded-2xl border border-white/10 bg-[#0f0f1b]/70 shadow-lg backdrop-blur-sm transition-all duration-300 hover:border-cyan-500/20"
                 >
-                  {/* Aspect ratio frame for YouTube Facade */}
                   <div className="relative aspect-video w-full overflow-hidden bg-black/40">
                     <YouTubeFacade videoId={vid.id} />
                   </div>
@@ -514,140 +600,263 @@ export default function BiographyPage() {
           <hr className="border-white/5" />
 
           {/* ==========================================
-              SECTION 6: FEATURED ARTIST PROGRAM
+              SECTION 7: ENDORSEMENTS & PARTNERSHIPS
              ========================================== */}
-          <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#0f0f1b]/80 p-6 shadow-xl backdrop-blur-md transition-all duration-500 hover:border-cyan-500/20 sm:p-8">
-            <div className="pointer-events-none absolute -top-10 -left-10 h-32 w-32 rounded-full bg-cyan-500/5 blur-2xl" />
-            <div className="pointer-events-none absolute -right-10 -bottom-10 h-32 w-32 rounded-full bg-violet-500/5 blur-2xl" />
+          <div className="space-y-6">
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
+                Brand Relations
+              </span>
+              <h3 className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
+                Endorsements &amp; Partnerships
+              </h3>
+            </div>
 
-            <div className="flex flex-col gap-6 md:flex-row md:items-center">
-              {/* Poster frame */}
-              <div className="relative mx-auto w-full max-w-[200px] shrink-0 overflow-hidden rounded-2xl border border-white/5 md:mx-0">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://shuvamrahamusic.com/wp-content/uploads/2025/09/Dimarzio-Cables-The-Stockist-Shuvam-Raha-poster-819x1024-jpg.avif"
-                  alt="Dimarzio Cables The Stockist Shuvam Raha poster"
-                  className="h-auto w-full object-cover transition-transform duration-700 group-hover:scale-102"
-                />
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#0A0A15]/60 p-6 shadow-xl backdrop-blur-md transition-all duration-500 hover:border-cyan-500/20 sm:p-8">
+              <div className="pointer-events-none absolute -top-10 -left-10 h-32 w-32 rounded-full bg-cyan-500/5 blur-2xl" />
+              <div className="pointer-events-none absolute -right-10 -bottom-10 h-32 w-32 rounded-full bg-violet-500/5 blur-2xl" />
+
+              <div className="flex flex-col gap-8 md:flex-row md:items-center">
+                {/* Poster frame */}
+                <div className="relative mx-auto w-full max-w-[220px] shrink-0 overflow-hidden rounded-2xl border border-white/5 md:mx-0">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://shuvamrahamusic.com/wp-content/uploads/2025/09/Dimarzio-Cables-The-Stockist-Shuvam-Raha-poster-819x1024-jpg.avif"
+                    alt="Dimarzio Cables Endorsement"
+                    className="h-auto w-full object-cover transition-transform duration-700 group-hover:scale-102"
+                  />
+                </div>
+
+                {/* Text info */}
+                <div className="flex-1 space-y-4">
+                  <p className="text-xs leading-relaxed text-gray-400 sm:text-sm">
+                    Shuvam is associated with leading music brands through
+                    artist collaborations and endorsement programs, reflecting
+                    his commitment to professional sound quality, performance
+                    excellence, and music education.
+                  </p>
+
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <div className="flex items-center gap-2 rounded-xl border border-white/5 bg-white/[0.01] p-3 text-xs text-gray-300">
+                      <LuFlame className="h-4.5 w-4.5 text-rose-400" />
+                      Laney Amplification India Endorsed Artist
+                    </div>
+                    <div className="flex items-center gap-2 rounded-xl border border-white/5 bg-white/[0.01] p-3 text-xs text-gray-300">
+                      <LuGuitar className="h-4.5 w-4.5 text-cyan-400" />
+                      Collaborating Artist with Furtados
+                    </div>
+                    <div className="flex items-center gap-2 rounded-xl border border-white/5 bg-white/[0.01] p-3 text-xs text-gray-300">
+                      <LuSparkles className="h-4.5 w-4.5 text-amber-400" />
+                      Feature Artist – Tone Connoisseur (The Stockist)
+                    </div>
+                    <div className="flex items-center gap-2 rounded-xl border border-white/5 bg-white/[0.01] p-3 text-xs text-gray-300">
+                      <LuHeadphones className="h-4.5 w-4.5 text-violet-400" />
+                      Representing DiMarzio Guitar Cables
+                    </div>
+                  </div>
+                </div>
               </div>
+            </div>
+          </div>
 
-              {/* Text info */}
-              <div className="flex-1 space-y-3">
-                <span className="inline-flex rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-[10px] font-black tracking-widest text-cyan-400 uppercase">
-                  Artist Relations
+          <hr className="border-white/5" />
+
+          {/* ==========================================
+              SECTION 8: TEACHING PHILOSOPHY
+             ========================================== */}
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            {/* Teaching Philosophy */}
+            <div className="space-y-6">
+              <div className="flex flex-col gap-2">
+                <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
+                  The Methodology
                 </span>
-                <h3 className="font-heading text-lg font-extrabold text-white sm:text-xl md:text-2xl">
-                  Featured Artist Program
+                <h3 className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
+                  Teaching Philosophy
                 </h3>
-                <p className="text-xs leading-relaxed text-gray-400 sm:text-sm">
-                  Shuvam Raha is featured as a stockist and artist representing{' '}
-                  <strong className="text-white">DiMarzio Cables</strong>. This
-                  partnership represents his dedication to using premium,
-                  tour-grade guitar hardware and high-fidelity signal path
-                  chains to achieve clean dynamics, noise rejection, and
-                  pristine frequency responses in his live sets and studio
-                  recordings alike.
-                </p>
+              </div>
+              <p className="text-xs leading-relaxed text-gray-400 sm:text-sm">
+                Shuvam believes that learning guitar should be clear,
+                structured, and meaningful. Every student follows a personalized
+                learning path designed according to their goals, learning style,
+                and pace.
+              </p>
+              <div className="space-y-3">
+                {[
+                  'Building strong fundamentals and technique',
+                  'Understanding rhythm, timing, and musical feel',
+                  'Developing tone and sound quality awareness',
+                  'Creating a clear roadmap from beginner to advanced levels',
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center gap-2 text-xs text-gray-300 sm:text-sm"
+                  >
+                    <LuCheck className="h-4 w-4 shrink-0 text-emerald-400" />
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* What Makes His Approach Different */}
+            <div className="space-y-6">
+              <div className="flex flex-col gap-2">
+                <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
+                  Coaching Advantage
+                </span>
+                <h3 className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
+                  What Makes His Approach Different
+                </h3>
+              </div>
+              <div className="space-y-3">
+                {[
+                  'Personalized training structure based on students goals',
+                  'Focus on musicality rather than passive rote memorization',
+                  'Step-by-step clarity and transparent progression roadmap',
+                  'Integration of tone, equipment, & sound signal awareness',
+                  'Suitable for both recreational hobbyists and serious musicians',
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-start gap-2.5 text-xs text-gray-300 sm:text-sm"
+                  >
+                    <LuTarget className="mt-0.5 h-4 w-4 shrink-0 text-cyan-400" />
+                    <span>{item}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* ==========================================
-              QUOTE & CALL TO ACTION
-             ========================================== */}
-          <div className="flex flex-col items-center justify-center rounded-3xl border border-white/5 bg-white/[0.005] px-4 py-6 text-center">
-            <span className="font-serif text-3xl leading-none text-gray-500 select-none">
-              &ldquo;
-            </span>
-            <p className="font-heading -mt-2 max-w-xl text-base font-bold tracking-tight text-white sm:text-xl">
-              From passion to profession, every chord tells a story.
-            </p>
-            <span className="mt-1 font-serif text-3xl leading-none text-gray-500 select-none">
-              &rdquo;
-            </span>
+          <hr className="border-white/5" />
 
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/guitar-classes-with-shuvam"
-                className="group font-heading relative flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-3 text-xs font-bold text-white shadow-md transition-all hover:scale-105 active:scale-95 sm:text-sm"
-              >
-                Join Guitar Classes
-              </Link>
-              <Link
-                href="/contact"
-                className="group font-heading flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 text-xs font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95 sm:text-sm"
-              >
-                Get In Touch
-              </Link>
+          {/* ==========================================
+              SECTION 9: STUDENTS & IMPACT
+             ========================================== */}
+          <div className="space-y-6 text-center">
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
+                Impact
+              </span>
+              <h3 className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
+                Students &amp; Impact
+              </h3>
             </div>
+            <p className="mx-auto max-w-2xl text-sm leading-relaxed text-gray-400 sm:text-base">
+              Over the years, Shuvam has guided students of different ages and
+              backgrounds, helping each one progress toward their own musical
+              goals—whether learning for passion, performance, or personal
+              growth.
+            </p>
           </div>
 
           {/* ==========================================
-              SOCIAL FOOTPRINT
+              SECTION 10: CTA & FOOTPRINT
              ========================================== */}
-          <div className="flex flex-col items-center gap-3 border-t border-white/5 pt-4">
-            <span className="text-[10px] font-bold tracking-wider text-gray-500 uppercase">
-              Connect &amp; Follow Shuvam Raha
-            </span>
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              {[
-                {
-                  name: 'Spotify',
-                  icon: FaSpotify,
-                  url: 'https://open.spotify.com/artist/4AmYXw6BaXjFN4urc6SyrG',
-                  color:
-                    'hover:text-green-500 hover:border-green-500/30 hover:bg-green-500/5',
-                },
-                {
-                  name: 'Apple Music',
-                  icon: FaApple,
-                  url: 'https://music.apple.com/us/artist/shuvam-raha/1541472783',
-                  color:
-                    'hover:text-pink-500 hover:border-pink-500/30 hover:bg-pink-500/5',
-                },
-                {
-                  name: 'YouTube',
-                  icon: FaYoutube,
-                  url: 'https://www.youtube.com/@shuvamrahamusic',
-                  color:
-                    'hover:text-red-500 hover:border-red-500/30 hover:bg-red-500/5',
-                },
-                {
-                  name: 'Instagram',
-                  icon: FaInstagram,
-                  url: 'https://www.instagram.com/shuvamrahamusic',
-                  color:
-                    'hover:text-pink-400 hover:border-pink-400/30 hover:bg-pink-400/5',
-                },
-                {
-                  name: 'Facebook',
-                  icon: FaFacebookF,
-                  url: 'https://www.facebook.com/shuvamrahamusic',
-                  color:
-                    'hover:text-blue-500 hover:border-blue-500/30 hover:bg-blue-500/5',
-                },
-                {
-                  name: 'LinkedIn',
-                  icon: FaLinkedin,
-                  url: 'http://www.linkedin.com/in/shuvam-raha-150b869b',
-                  color:
-                    'hover:text-blue-400 hover:border-blue-400/30 hover:bg-blue-400/5',
-                },
-              ].map((social, sIdx) => {
-                const SocialIcon = social.icon;
-                return (
-                  <a
-                    key={sIdx}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-400 transition-all duration-300 ${social.color}`}
-                    title={social.name}
-                  >
-                    <SocialIcon className="h-4 w-4" />
-                  </a>
-                );
-              })}
+          <div className="group relative overflow-hidden rounded-[2.5rem] border border-white/[0.04] bg-[#0A0A15]/60 p-8 text-center shadow-2xl backdrop-blur-2xl transition-all duration-500 hover:border-cyan-500/20 sm:p-10">
+            <div className="pointer-events-none absolute -top-20 -left-20 h-48 w-48 rounded-full bg-cyan-500/10 blur-[80px]" />
+            <div className="pointer-events-none absolute -right-20 -bottom-20 h-48 w-48 rounded-full bg-violet-500/10 blur-[80px]" />
+
+            <div className="relative z-10 flex flex-col items-center gap-6">
+              <h4 className="font-heading text-2xl leading-tight font-black text-white sm:text-3xl">
+                Ready to Take Your Guitar Playing to the Next Level?
+              </h4>
+              <p className="max-w-xl text-xs leading-relaxed text-gray-400 sm:text-sm">
+                Start your Guitar Journey with the right guidance. Whether
+                you're starting from scratch or looking to refine your
+                technique, you can learn through a structured learning path
+                tailored to your goals.
+              </p>
+
+              <div className="mt-4 flex flex-col flex-wrap justify-center gap-3 sm:flex-row">
+                <a
+                  href="https://wa.me/918961369468?text=Hi%20Shuvam,%20I%27m%20interested%20in%20your%20guitar%20classes!"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group font-heading flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-3 text-xs font-bold text-white shadow-md transition-all hover:scale-105 active:scale-95 sm:text-sm"
+                >
+                  Book a Consultation Call
+                </a>
+                <Link
+                  href="/guitar-classes-with-shuvam"
+                  className="group font-heading flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 text-xs font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95 sm:text-sm"
+                >
+                  Explore the Plans
+                </Link>
+                <Link
+                  href="/contact"
+                  className="group font-heading flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 text-xs font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95 sm:text-sm"
+                >
+                  Get In Touch
+                </Link>
+              </div>
+
+              <div className="mt-8 flex w-full flex-col items-center gap-3 border-t border-white/5 pt-6">
+                <span className="text-[10px] font-bold tracking-wider text-gray-500 uppercase">
+                  Connect &amp; Follow Shuvam Raha
+                </span>
+                <div className="flex flex-wrap items-center justify-center gap-2.5">
+                  {[
+                    {
+                      name: 'Spotify',
+                      icon: FaSpotify,
+                      url: 'https://open.spotify.com/artist/4AmYXw6BaXjFN4urc6SyrG',
+                      color:
+                        'hover:text-green-500 hover:border-green-500/30 hover:bg-green-500/5',
+                    },
+                    {
+                      name: 'Apple Music',
+                      icon: FaApple,
+                      url: 'https://music.apple.com/us/artist/shuvam-raha/1541472783',
+                      color:
+                        'hover:text-pink-500 hover:border-pink-500/30 hover:bg-pink-500/5',
+                    },
+                    {
+                      name: 'YouTube',
+                      icon: FaYoutube,
+                      url: 'https://www.youtube.com/@shuvamrahamusic',
+                      color:
+                        'hover:text-red-500 hover:border-red-500/30 hover:bg-red-500/5',
+                    },
+                    {
+                      name: 'Instagram',
+                      icon: FaInstagram,
+                      url: 'https://www.instagram.com/shuvamrahamusic',
+                      color:
+                        'hover:text-pink-400 hover:border-pink-400/30 hover:bg-pink-400/5',
+                    },
+                    {
+                      name: 'Facebook',
+                      icon: FaFacebookF,
+                      url: 'https://www.facebook.com/shuvamrahamusic',
+                      color:
+                        'hover:text-blue-500 hover:border-blue-500/30 hover:bg-blue-500/5',
+                    },
+                    {
+                      name: 'LinkedIn',
+                      icon: FaLinkedin,
+                      url: 'http://www.linkedin.com/in/shuvam-raha-150b869b',
+                      color:
+                        'hover:text-blue-400 hover:border-blue-400/30 hover:bg-blue-400/5',
+                    },
+                  ].map((social, sIdx) => {
+                    const SocialIcon = social.icon;
+                    return (
+                      <a
+                        key={sIdx}
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-[#070710] text-gray-400 transition-all duration-300 ${social.color}`}
+                        title={social.name}
+                      >
+                        <SocialIcon className="h-4 w-4" />
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
         </div>
