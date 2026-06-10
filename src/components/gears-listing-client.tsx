@@ -1,15 +1,11 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import Link from 'next/link';
 
-import {
-  DEFAULT_THEME,
-  GEAR_CATEGORIES,
-  GEAR_ITEMS,
-  THEME_PALETTE,
-} from '@/lib/gears-data';
+import CockpitImage from '@/components/cockpit-image';
+import { GearItem } from '@/types';
 
 import {
   LuCheck,
@@ -17,44 +13,173 @@ import {
   LuChevronRight,
   LuExternalLink,
   LuInfo,
-  LuMusic,
   LuSearch,
   LuShoppingBag,
   LuSparkles,
   LuStar,
   LuTarget,
 } from 'react-icons/lu';
+import { FaAmazon } from 'react-icons/fa6';
 
-// Amazon SVG Icon matching WordPress FontAwesome path
-const AmazonIcon = () => (
-  <svg
-    className="mr-2 h-4 w-4 fill-current"
-    viewBox="0 0 448 512"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M257.2 162.7c-48.7 1.8-169.5 15.5-169.5 117.5 0 109.5 138.3 114 183.5 43.2 6.5 10.2 35.4 37.5 45.3 46.8l56.8-56S341 288.9 341 261.4V114.3C341 89 316.5 32 228.7 32 140.7 32 94 87 94 136.3l73.5 6.8c16.3-49.5 54.2-49.5 54.2-49.5 40.7-.1 35.5 29.8 35.5 69.1zm0 86.8c0 80-84.2 68-84.2 17.2 0-47.2 50.5-56.7 84.2-57.8v40.6zm136 163.5c-7.7 10-70 67-174.5 67S34.2 408.5 9.7 379c-6.8-7.7 1-11.3 5.5-8.3C88.5 415.2 203 488.5 387.7 401c7.5-3.7 13.3 2 5.5 12zm39.8 2.2c-6.5 15.8-16 26.8-21.2 31-5.5 4.5-9.5 2.7-6.5-3.8s19.3-46.5 12.7-55c-6.5-8.3-37-4.3-48-3.2-10.8 1-13 2-14-.3-2.3-5.7 21.7-15.5 37.5-17.5 15.7-1.8 41-.8 46 5.7 3.7 5.1 0 27.1-6.5 43.1z" />
-  </svg>
-);
+export interface Theme {
+  text: string;
+  bg: string;
+  border: string;
+  glow: string;
+  gradient: string;
+  glowColor: string;
+  ambient: {
+    top: string;
+    bottom: string;
+  };
+}
 
-export default function GearsListingClient() {
+export const THEME_PALETTE: Theme[] = [
+  {
+    text: 'text-cyan-400',
+    bg: 'bg-cyan-500/10',
+    border: 'border-cyan-500/20 border-cyan-500/30',
+    glow: 'shadow-[0_0_20px_rgba(34,211,238,0.2)]',
+    gradient: 'from-cyan-500 to-blue-500',
+    glowColor: 'bg-cyan-500/20',
+    ambient: {
+      top: 'from-cyan-500/15 to-transparent',
+      bottom: 'from-blue-500/10 to-transparent',
+    },
+  },
+  {
+    text: 'text-violet-400',
+    bg: 'bg-violet-500/10',
+    border: 'border-violet-500/20 border-violet-500/30',
+    glow: 'shadow-[0_0_20px_rgba(139,92,246,0.2)]',
+    gradient: 'from-violet-500 to-fuchsia-500',
+    glowColor: 'bg-violet-500/20',
+    ambient: {
+      top: 'from-violet-500/15 to-transparent',
+      bottom: 'from-fuchsia-500/10 to-transparent',
+    },
+  },
+  {
+    text: 'text-emerald-400',
+    bg: 'bg-emerald-500/10',
+    border: 'border-emerald-500/20 border-emerald-500/30',
+    glow: 'shadow-[0_0_20px_rgba(16,185,129,0.2)]',
+    gradient: 'from-emerald-500 to-teal-500',
+    glowColor: 'bg-emerald-500/20',
+    ambient: {
+      top: 'from-emerald-500/15 to-transparent',
+      bottom: 'from-teal-500/10 to-transparent',
+    },
+  },
+  {
+    text: 'text-amber-400',
+    bg: 'bg-amber-500/10',
+    border: 'border-amber-500/20 border-amber-500/30',
+    glow: 'shadow-[0_0_20px_rgba(245,158,11,0.2)]',
+    gradient: 'from-amber-500 to-orange-500',
+    glowColor: 'bg-amber-500/20',
+    ambient: {
+      top: 'from-amber-500/15 to-transparent',
+      bottom: 'from-orange-500/10 to-transparent',
+    },
+  },
+  {
+    text: 'text-rose-400',
+    bg: 'bg-rose-500/10',
+    border: 'border-rose-500/20 border-rose-500/30',
+    glow: 'shadow-[0_0_20px_rgba(244,63,94,0.2)]',
+    gradient: 'from-rose-500 to-pink-500',
+    glowColor: 'bg-rose-500/20',
+    ambient: {
+      top: 'from-rose-500/15 to-transparent',
+      bottom: 'from-pink-500/10 to-transparent',
+    },
+  },
+  {
+    text: 'text-blue-400',
+    bg: 'bg-blue-500/10',
+    border: 'border-blue-500/20 border-blue-500/30',
+    glow: 'shadow-[0_0_20px_rgba(59,130,246,0.2)]',
+    gradient: 'from-blue-500 to-indigo-500',
+    glowColor: 'bg-blue-500/20',
+    ambient: {
+      top: 'from-blue-500/15 to-transparent',
+      bottom: 'from-indigo-500/10 to-transparent',
+    },
+  },
+  {
+    text: 'text-fuchsia-400',
+    bg: 'bg-fuchsia-500/10',
+    border: 'border-fuchsia-500/20 border-fuchsia-500/30',
+    glow: 'shadow-[0_0_20px_rgba(217,70,239,0.2)]',
+    gradient: 'from-fuchsia-500 to-pink-500',
+    glowColor: 'bg-fuchsia-500/20',
+    ambient: {
+      top: 'from-fuchsia-500/15 to-transparent',
+      bottom: 'from-pink-500/10 to-transparent',
+    },
+  },
+  {
+    text: 'text-teal-400',
+    bg: 'bg-teal-500/10',
+    border: 'border-teal-500/20 border-teal-500/30',
+    glow: 'shadow-[0_0_20px_rgba(20,184,166,0.2)]',
+    gradient: 'from-teal-500 to-cyan-500',
+    glowColor: 'bg-teal-500/20',
+    ambient: {
+      top: 'from-teal-500/15 to-transparent',
+      bottom: 'from-cyan-500/10 to-transparent',
+    },
+  },
+];
+
+export const DEFAULT_THEME: Theme = {
+  text: 'text-cyan-400',
+  bg: 'bg-cyan-500/10',
+  border: 'border-cyan-500/20 border-cyan-500/30',
+  glow: 'shadow-[0_0_20px_rgba(34,211,238,0.2)]',
+  gradient: 'from-cyan-500 to-blue-500',
+  glowColor: 'bg-cyan-500/15',
+  ambient: {
+    top: 'from-cyan-500/10 to-transparent',
+    bottom: 'from-violet-500/10 to-transparent',
+  },
+};
+
+
+
+export default function GearsListingClient({
+  initialItems,
+}: {
+  initialItems?: GearItem[];
+}) {
   const [searchQuery, setSearchQuery] = useState('');
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
   // Track image carousel active index for each product
   const [carouselIndices, setCarouselIndices] = useState<
     Record<string, number>
   >({});
 
-  // Filter categories to only those containing gear items (plus 'All')
+  // Dynamically collect active categories from data
   const activeCategories = useMemo(() => {
     const categoriesWithItems = new Set<string>();
-    GEAR_ITEMS.forEach((item) => {
-      categoriesWithItems.add(item.category);
+    initialItems?.forEach((item) => {
+      item.categories?.forEach((cat: string) => {
+        categoriesWithItems.add(cat);
+      });
     });
-    return GEAR_CATEGORIES.filter(
-      (cat) => cat === 'All' || categoriesWithItems.has(cat)
-    );
-  }, []);
+    return ['All', ...Array.from(categoriesWithItems).sort()];
+  }, [initialItems]);
 
   // Dynamically assign a color theme to each category based on its sorted index
   const categoryThemes = useMemo(() => {
@@ -104,27 +229,27 @@ export default function GearsListingClient() {
 
   // Filter products based on search and category tab
   const filteredGears = useMemo(() => {
-    return GEAR_ITEMS.filter((item) => {
+    const items = initialItems || [];
+    return items.filter((item) => {
       const matchesSearch =
-        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.subtitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.bestFor.some((bf) =>
-          bf.toLowerCase().includes(searchQuery.toLowerCase())
+        item.title.toLowerCase().includes(debouncedSearchQuery.toLowerCase()) ||
+        (item.subtitle || '')
+          .toLowerCase()
+          .includes(debouncedSearchQuery.toLowerCase()) ||
+        (item.description || '')
+          .toLowerCase()
+          .includes(debouncedSearchQuery.toLowerCase()) ||
+        (item.ideal_for || []).some((bf) =>
+          bf.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
         );
 
       const matchesCategory =
-        selectedCategory === 'All' || item.category === selectedCategory;
+        selectedCategory === 'All' ||
+        item.categories?.includes(selectedCategory);
 
       return matchesSearch && matchesCategory;
     });
-  }, [searchQuery, selectedCategory]);
-
-  // Determine current active glow theme based on active category
-  const activeGlow = useMemo(() => {
-    const theme = categoryThemes[selectedCategory] || DEFAULT_THEME;
-    return theme.ambient;
-  }, [selectedCategory, categoryThemes]);
+  }, [initialItems, debouncedSearchQuery, selectedCategory]);
 
   return (
     <div className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
@@ -185,6 +310,13 @@ export default function GearsListingClient() {
               <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-gray-500">
                 <LuSearch className="h-5 w-5 transition-colors duration-300" />
               </div>
+              <input
+                type="text"
+                placeholder="Search gears, brands, or features..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full rounded-2xl border border-white/10 bg-white/[0.02] py-3.5 pr-4 pl-12 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04] focus:ring-1 focus:ring-cyan-500/30"
+              />
             </div>
 
             {/* Divider line for clean visual separation */}
@@ -224,22 +356,24 @@ export default function GearsListingClient() {
             <div className="flex flex-col items-center justify-center rounded-3xl border border-white/5 bg-[#080812]/30 py-24 text-center backdrop-blur-xl">
               <LuSearch className="mb-4 h-10 w-10 animate-bounce text-gray-600" />
               <p className="max-w-md text-base text-gray-500 sm:text-lg">
-                No gear matches "{searchQuery}". Try exploring other categories
-                or type a different search term.
+                No gear matches &quot;{searchQuery}&quot;. Try exploring other
+                categories or type a different search term.
               </p>
             </div>
           ) : (
             <div className="flex flex-col gap-8 lg:gap-12">
               {filteredGears.map((item, idx) => {
-                const theme = categoryThemes[item.category] || DEFAULT_THEME;
-                const activeImgIdx = carouselIndices[item.id] || 0;
-                const hasMultipleImages = item.images.length > 1;
+                const itemCat = item.categories?.[0];
+                const theme =
+                  (itemCat && categoryThemes[itemCat]) || DEFAULT_THEME;
+                const activeImgIdx = carouselIndices[item._id] || 0;
+                const hasMultipleImages = (item.images?.length || 0) > 1;
                 const hoverGlowClass = theme.glowColor;
                 const isEven = idx % 2 === 0;
 
                 return (
                   <article
-                    key={item.id}
+                    key={item._id}
                     className={`group relative flex flex-col md:flex-row ${isEven ? '' : 'md:flex-row-reverse'} overflow-hidden rounded-[2.5rem] border border-white/[0.04] bg-white/[0.01] transition-all duration-500 hover:border-white/10 hover:bg-white/[0.02] hover:shadow-[0_30px_70px_rgba(0,0,0,0.6)]`}
                   >
                     {/* Glowing Top Accent Strip (lights up on hover) */}
@@ -254,11 +388,13 @@ export default function GearsListingClient() {
 
                     {/* Image Slider Wrapper */}
                     <div className="relative h-52 min-h-[200px] shrink-0 overflow-hidden bg-black/50 sm:h-60 md:h-auto md:min-h-0 md:w-[35%] lg:w-[40%]">
-                      {item.images.length > 0 ? (
-                        <img
-                          src={item.images[activeImgIdx]}
-                          alt={item.title}
+                      {item.images && item.images.length > 0 ? (
+                        <CockpitImage
+                          asset={item.images[activeImgIdx]}
                           className="h-full w-full object-cover object-top transition-transform duration-[1500ms] group-hover:scale-[1.03]"
+                          fill
+                          mode="resize"
+                          quality={50}
                         />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center bg-gray-900 text-gray-700">
@@ -267,21 +403,21 @@ export default function GearsListingClient() {
                       )}
 
                       {/* Carousel Overlaid Controls */}
-                      {hasMultipleImages && (
+                      {hasMultipleImages && item.images && (
                         <>
                           <button
                             onClick={(e) =>
-                              handlePrevImage(item.id, item.images.length, e)
+                              handlePrevImage(item._id, item.images!.length, e)
                             }
-                            className="absolute top-1/2 left-3 z-10 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-black/40 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:bg-black/70 active:scale-90"
+                            className="absolute top-1/2 left-3 z-10 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-black/40 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:bg-black/70 active:scale-95"
                           >
                             <LuChevronLeft className="h-5 w-5" />
                           </button>
                           <button
                             onClick={(e) =>
-                              handleNextImage(item.id, item.images.length, e)
+                              handleNextImage(item._id, item.images!.length, e)
                             }
-                            className="absolute top-1/2 right-3 z-10 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-black/40 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:bg-black/70 active:scale-90"
+                            className="absolute top-1/2 right-3 z-10 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-black/40 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:bg-black/70 active:scale-95"
                           >
                             <LuChevronRight className="h-5 w-5" />
                           </button>
@@ -291,7 +427,9 @@ export default function GearsListingClient() {
                             {item.images.map((_, idx) => (
                               <button
                                 key={idx}
-                                onClick={(e) => handleDotClick(item.id, idx, e)}
+                                onClick={(e) =>
+                                  handleDotClick(item._id, idx, e)
+                                }
                                 className={`h-1.5 cursor-pointer rounded-full transition-all duration-300 ${
                                   idx === activeImgIdx
                                     ? 'w-4 bg-cyan-400'
@@ -306,13 +444,19 @@ export default function GearsListingClient() {
 
                     {/* Card Content details */}
                     <div className="relative z-10 flex flex-1 flex-col justify-between p-5 sm:p-6 md:p-8">
-                      {/* Category badge */}
-                      <div className="mb-2 flex">
-                        <span
-                          className={`rounded-full ${theme.bg} ${theme.text} border border-white/5 px-3 py-1 text-[10px] font-black tracking-widest uppercase`}
-                        >
-                          {item.category}
-                        </span>
+                      {/* Category badges */}
+                      <div className="mb-2 flex flex-wrap gap-1.5">
+                        {item.categories?.map((cat: string, catIdx: number) => {
+                          const catTheme = categoryThemes[cat] || DEFAULT_THEME;
+                          return (
+                            <span
+                              key={catIdx}
+                              className={`rounded-full ${catTheme.bg} ${catTheme.text} border border-white/5 px-3 py-1 text-[10px] font-black tracking-widest uppercase`}
+                            >
+                              {cat}
+                            </span>
+                          );
+                        })}
                       </div>
 
                       {/* Title & recommended Tagline */}
@@ -336,15 +480,17 @@ export default function GearsListingClient() {
                           Ideal For:
                         </h4>
                         <div className="flex flex-wrap gap-2">
-                          {item.bestFor.map((feature, idx) => (
-                            <span
-                              key={idx}
-                              className="inline-flex items-center rounded-lg border border-white/5 bg-white/[0.02] px-2.5 py-1 text-[11px] font-bold text-gray-300 backdrop-blur-sm"
-                            >
-                              <LuCheck className="mr-1.5 h-3.5 w-3.5 shrink-0 text-emerald-400" />
-                              {feature}
-                            </span>
-                          ))}
+                          {item.ideal_for?.map(
+                            (feature: string, idx: number) => (
+                              <span
+                                key={idx}
+                                className="inline-flex items-center rounded-lg border border-white/5 bg-white/[0.02] px-2.5 py-1 text-[11px] font-bold text-gray-300 backdrop-blur-sm"
+                              >
+                                <LuCheck className="mr-1.5 h-3.5 w-3.5 shrink-0 text-emerald-400" />
+                                {feature}
+                              </span>
+                            )
+                          )}
                         </div>
                       </div>
 
@@ -362,23 +508,28 @@ export default function GearsListingClient() {
 
                           {/* Badges list */}
                           <div className="flex flex-col gap-2.5">
-                            <div className="flex items-start gap-2.5">
-                              <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-500/10 text-amber-400">
-                                <LuStar className="h-3 w-3 fill-amber-400/20" />
-                              </div>
-                              <p className="text-xs leading-relaxed font-bold text-amber-200/90">
-                                {item.badge}
-                              </p>
-                            </div>
-                            {item.studentBadge && (
-                              <div className="flex items-start gap-2.5">
-                                <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-400">
-                                  <LuTarget className="h-3 w-3 animate-pulse" />
+                            {item.highlights?.map(
+                              (highlight: string, hIdx: number) => (
+                                <div
+                                  key={hIdx}
+                                  className="flex items-start gap-2.5"
+                                >
+                                  <div
+                                    className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${hIdx === 0 ? 'bg-amber-500/10 text-amber-400' : 'bg-cyan-500/10 text-cyan-400'}`}
+                                  >
+                                    {hIdx === 0 ? (
+                                      <LuStar className="h-3 w-3 fill-amber-400/20" />
+                                    ) : (
+                                      <LuTarget className="h-3 w-3 animate-pulse" />
+                                    )}
+                                  </div>
+                                  <p
+                                    className={`text-xs leading-relaxed ${hIdx === 0 ? 'font-bold text-amber-200/90' : 'font-semibold text-cyan-200/90'}`}
+                                  >
+                                    {highlight}
+                                  </p>
                                 </div>
-                                <p className="text-xs leading-relaxed font-semibold text-cyan-200/90">
-                                  {item.studentBadge}
-                                </p>
-                              </div>
+                              )
                             )}
                           </div>
                         </div>
@@ -386,20 +537,20 @@ export default function GearsListingClient() {
 
                       {/* Button Actions */}
                       <div className="mt-auto flex flex-col gap-3 sm:flex-row sm:items-center">
-                        {item.links.amazon && (
+                        {item.amazon_link && (
                           <a
-                            href={item.links.amazon}
+                            href={item.amazon_link}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex flex-1 cursor-pointer items-center justify-center rounded-xl bg-amber-500 py-3 text-xs font-black tracking-wider text-black shadow-md shadow-amber-500/10 transition-all duration-300 hover:bg-amber-400 active:scale-95"
                           >
-                            <AmazonIcon />
+                            <FaAmazon className="mr-2 h-4 w-4" />
                             Check Price on Amazon
                           </a>
                         )}
-                        {item.links.distributor && (
+                        {item.distributor_link && (
                           <a
-                            href={item.links.distributor}
+                            href={item.distributor_link}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex flex-1 cursor-pointer items-center justify-center rounded-xl border border-cyan-500/20 bg-cyan-950/20 py-3 text-xs font-black tracking-wider text-cyan-400 transition-all duration-300 hover:border-cyan-500/40 hover:bg-cyan-900/30 active:scale-95"
@@ -408,11 +559,11 @@ export default function GearsListingClient() {
                             Get from Distributor
                           </a>
                         )}
-                        {!item.links.amazon &&
-                          !item.links.distributor &&
-                          item.links.official && (
+                        {!item.amazon_link &&
+                          !item.distributor_link &&
+                          item.brand_link && (
                             <a
-                              href={item.links.official}
+                              href={item.brand_link}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="flex flex-1 cursor-pointer items-center justify-center rounded-xl border border-white/10 bg-white/[0.02] py-3 text-xs font-black tracking-wider text-white transition-all duration-300 hover:border-white/20 hover:bg-white/[0.05] active:scale-95"
@@ -424,11 +575,11 @@ export default function GearsListingClient() {
                       </div>
 
                       {/* Visit Official Brand Website row */}
-                      {(item.links.amazon || item.links.distributor) &&
-                        item.links.official && (
+                      {(item.amazon_link || item.distributor_link) &&
+                        item.brand_link && (
                           <div className="mt-4 text-center">
                             <a
-                              href={item.links.official}
+                              href={item.brand_link}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="inline-flex items-center text-[10px] font-bold tracking-widest text-gray-500 uppercase transition-colors duration-200 hover:text-white"

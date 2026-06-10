@@ -1,6 +1,10 @@
 import type { Metadata } from 'next';
+
 import GearsListingClient from '@/components/gears-listing-client';
 import JsonLd from '@/components/json-ld';
+import cockpit from '@/lib/client';
+
+import { GearItem } from '@/types';
 
 export const metadata: Metadata = {
   title: 'My Gears | Shuvam Raha Music',
@@ -35,7 +39,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function MyGearsPage() {
+export default async function MyGearsPage() {
+  let gears: GearItem[] = [];
+  try {
+    gears = await cockpit.listContentItems<GearItem[]>('gears');
+  } catch (error) {
+    console.error('Error fetching gears from Cockpit CMS:', error);
+  }
+
   return (
     <>
       <JsonLd
@@ -97,7 +108,7 @@ export default function MyGearsPage() {
           ],
         }}
       />
-      <GearsListingClient />
+      <GearsListingClient initialItems={gears} />
     </>
   );
 }
