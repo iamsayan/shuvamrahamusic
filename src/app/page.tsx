@@ -87,7 +87,9 @@ export default async function Home() {
   // Take first 4 gear items dynamically from Cockpit CMS
   let featuredGears: any[] = [];
   try {
-    const response = await cockpit.listContentItems<any[]>('gears', { limit: 4 });
+    const response = await cockpit.listContentItems<any[]>('gears', {
+      limit: 4,
+    });
     featuredGears = response.map((item) => ({
       id: item._id,
       category: item.categories?.[0] || 'Other Guitar Accessories',
@@ -300,8 +302,10 @@ export default async function Home() {
                 Learn
               </span>
             </h2>
-            <p className="max-w-xl mx-auto text-sm text-gray-400 sm:text-base leading-relaxed">
-              Master the acoustic or electric guitar from absolute zero. A comprehensive, step-by-step roadmap structured for beginners and busy working professionals.
+            <p className="mx-auto max-w-xl text-sm leading-relaxed text-gray-400 sm:text-base">
+              Master the acoustic or electric guitar from absolute zero. A
+              comprehensive, step-by-step roadmap structured for beginners and
+              busy working professionals.
             </p>
           </div>
 
@@ -313,17 +317,19 @@ export default async function Home() {
               return (
                 <div
                   key={idx}
-                  className={`group relative flex flex-col justify-between rounded-2xl border border-white/[0.05] bg-[#0c0c16]/50 p-6 md:p-7 shadow-lg backdrop-blur-md transition-all duration-500 ${item.styles.hoverBorder} hover:bg-white/[0.02] hover:-translate-y-1 hover:shadow-2xl overflow-hidden ${colSpanClass}`}
+                  className={`group relative flex flex-col justify-between rounded-2xl border border-white/[0.05] bg-[#0c0c16]/50 p-6 shadow-lg backdrop-blur-md transition-all duration-500 md:p-7 ${item.styles.hoverBorder} overflow-hidden hover:-translate-y-1 hover:bg-white/[0.02] hover:shadow-2xl ${colSpanClass}`}
                 >
                   {/* Ambient hover glow inside card */}
-                  <div className={`absolute -right-12 -bottom-12 h-32 w-32 rounded-full ${item.styles.ambientGlow || 'bg-cyan-500/10'} opacity-0 blur-3xl transition-all duration-700 group-hover:opacity-100 group-hover:scale-150 pointer-events-none -z-10`} />
+                  <div
+                    className={`absolute -right-12 -bottom-12 h-32 w-32 rounded-full ${item.styles.ambientGlow || 'bg-cyan-500/10'} pointer-events-none -z-10 opacity-0 blur-3xl transition-all duration-700 group-hover:scale-150 group-hover:opacity-100`}
+                  />
 
                   {/* Giant floating step numbers */}
-                  <div className="absolute right-4 bottom-1 select-none text-[6.5rem] font-black leading-none text-white/[0.015] transition-all duration-700 group-hover:text-white/[0.04] group-hover:translate-y-1 font-heading pointer-events-none">
+                  <div className="font-heading pointer-events-none absolute right-4 bottom-1 text-[6.5rem] leading-none font-black text-white/[0.015] transition-all duration-700 select-none group-hover:translate-y-1 group-hover:text-white/[0.04]">
                     0{idx + 1}
                   </div>
 
-                  <div className="space-y-5 relative z-10">
+                  <div className="relative z-10 space-y-5">
                     <div
                       className={`flex h-12 w-12 items-center justify-center rounded-xl border ${item.styles.iconBorder} ${item.styles.iconBg} ${item.styles.iconText} ${item.styles.iconShadow} transition-transform duration-500 group-hover:scale-110`}
                     >
@@ -337,14 +343,16 @@ export default async function Home() {
                         {item.subtitle}
                       </span>
                     </div>
-                    
+
                     <ul className="space-y-3.5 border-t border-white/5 pt-4">
                       {item.points.map((pt, pIdx) => (
                         <li
                           key={pIdx}
                           className="flex items-start gap-2 text-xs leading-relaxed text-gray-400 transition-colors duration-300 group-hover:text-gray-300 sm:text-sm"
                         >
-                          <span className={`h-1.5 w-1.5 rounded-full ${item.styles.iconBg} ${item.styles.iconText} mt-1.5 shrink-0 opacity-80`} />
+                          <span
+                            className={`h-1.5 w-1.5 rounded-full ${item.styles.iconBg} ${item.styles.iconText} mt-1.5 shrink-0 opacity-80`}
+                          />
                           <span>{pt}</span>
                         </li>
                       ))}

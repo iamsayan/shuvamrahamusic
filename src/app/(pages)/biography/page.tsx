@@ -14,18 +14,14 @@ import {
   FaYoutube,
 } from 'react-icons/fa6';
 import {
-  LuActivity,
   LuAward,
   LuCheck,
-  LuChevronRight,
-  LuCompass,
   LuFlame,
   LuGlobe,
   LuGraduationCap,
   LuGuitar,
   LuHeadphones,
   LuMapPin,
-  LuMic,
   LuMusic,
   LuSettings,
   LuSparkles,
@@ -640,14 +636,14 @@ export default function BiographyPage() {
               </h4>
               <p className="max-w-xl text-xs leading-relaxed text-gray-400 sm:text-sm">
                 Start your Guitar Journey with the right guidance. Whether
-                you're starting from scratch or looking to refine your
+                you&apos;re starting from scratch or looking to refine your
                 technique, you can learn through a structured learning path
                 tailored to your goals.
               </p>
 
               <div className="mt-4 flex flex-col flex-wrap justify-center gap-3 sm:flex-row">
                 <a
-                  href="https://wa.me/918961369468?text=Hi%20Shuvam,%20I%27m%20interested%20in%20your%20guitar%20classes!"
+                  href="https://calendly.com/shuvamraha10/intro-call"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group font-heading flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-3 text-xs font-bold text-white shadow-md transition-all hover:scale-105 active:scale-95 sm:text-sm"
