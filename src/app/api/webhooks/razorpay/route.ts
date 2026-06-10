@@ -57,21 +57,21 @@ export async function POST(req: NextRequest) {
       const amount = payment.amount ? payment.amount / 100 : 0;
 
       const enrollmentData = {
-        paymentId: payment.id,
-        orderId: payment.order_id || '',
+        payment_id: payment.id,
+        order_id: payment.order_id,
         amount: amount,
-        currency: payment.currency || 'INR',
-        method: payment.method || '',
+        currency: payment.currency,
+        method: payment.method,
         name: notes.name || payment.prefill?.name || '',
         email: notes.email || payment.email || '',
         phone: notes.phone || payment.contact || '',
-        city: notes.city || '',
-        address: notes.address || '',
+        city: notes.city,
+        address: notes.address,
         plan: {
           _id: notes.plan_id,
           model: 'pricingplans',
         },
-        region: notes.region || '',
+        region: notes.region,
       };
 
       await cockpit.saveContentItem('enrollments', enrollmentData);
