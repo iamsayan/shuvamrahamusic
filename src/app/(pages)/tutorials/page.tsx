@@ -30,7 +30,12 @@ export const metadata: Metadata = {
 export default async function TutorialsPage() {
   let tutorials: TutorialItem[] = [];
   try {
-    tutorials = await cockpit.getContentTree<TutorialItem[]>('tutorials');
+    tutorials = await cockpit.listContentItems<TutorialItem[]>('tutorials', {
+      sort: {
+        title: 1,
+        _created: -1,
+      },
+    });
   } catch (error) {
     console.error('Error fetching tutorials from Cockpit CMS:', error);
   }
