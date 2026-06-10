@@ -10,8 +10,10 @@ import ProgramTabs from '@/components/program-tabs';
 import SliderGallery from '@/components/slider-gallery';
 import YouTubeFacade from '@/components/youtube-facade';
 import YouTubeModal from '@/components/youtube-modal';
+import cockpit from '@/lib/client';
 // Static Data
 import { notFor, perfectFor } from '@/lib/guitar-data';
+import { PricingPlan } from '@/types';
 
 import {
   LuArrowRight,
@@ -170,8 +172,22 @@ async function getReviews() {
   }
 }
 
+async function getPricingPlans(): Promise<PricingPlan[]> {
+  try {
+    const cockpitPlans =
+      await cockpit.listContentItems<PricingPlan[]>('pricingplans');
+    if (cockpitPlans && cockpitPlans.length > 0) {
+      return cockpitPlans;
+    }
+  } catch (error) {
+    console.error('Error fetching pricing plans from Cockpit:', error);
+  }
+  return [];
+}
+
 export default async function Page() {
   const reviews = await getReviews();
+  const pricingPlans = await getPricingPlans();
   const hasReviews = reviews && reviews.length > 0;
 
   const half = Math.ceil(reviews.length / 2);
@@ -978,7 +994,7 @@ export default async function Page() {
             </div>
 
             {/* Interactive PricingTable Client Component */}
-            <PricingTable />
+            <PricingTable plans={pricingPlans} />
           </div>
         </section>
 

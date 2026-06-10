@@ -1,16 +1,34 @@
 'use client';
 
+import Link from 'next/link';
+
+import { useRegion } from '@/hooks/use-region';
+import { PricingPlan } from '@/types';
+
 import {
   LuCheck,
-  LuTriangleAlert,
-  LuSparkles,
   LuGlobe,
   LuMapPin,
+  LuSparkles,
+  LuTriangleAlert,
 } from 'react-icons/lu';
-import { type Plan, plans } from '@/lib/guitar-data';
-import { useRegion } from '@/hooks/use-region';
 
-export default function PricingTable() {
+interface PricingTableProps {
+  plans: PricingPlan[];
+}
+
+const getPlanTheme = (planRegion: string, idx: number) => {
+  const isIndia = planRegion === 'India';
+  return isIndia
+    ? idx === 0
+      ? 'emerald'
+      : 'amber'
+    : idx === 0
+      ? 'blue'
+      : 'violet';
+};
+
+export default function PricingTable({ plans }: PricingTableProps) {
   const [region, setRegion] = useRegion();
 
   // Tailwind purge-safe theme mappings
@@ -54,7 +72,9 @@ export default function PricingTable() {
     },
   };
 
-  const currentPlans = plans[region];
+  const currentPlans = plans.filter((p) =>
+    region === 'IN' ? p.region === 'India' : p.region === 'Outside India'
+  );
 
   return (
     <div className="flex w-full flex-col items-center">
@@ -95,19 +115,26 @@ export default function PricingTable() {
       </div>
 
       {/* Pricing Dashboard */}
-      <div className="group relative z-10 mx-auto w-full max-w-5xl overflow-hidden rounded-3xl sm:rounded-[2.5rem] border border-white/10 bg-white/[0.02] shadow-2xl backdrop-blur-3xl">
+      <div className="group relative z-10 mx-auto w-full max-w-5xl overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] shadow-2xl backdrop-blur-3xl sm:rounded-[2.5rem]">
         {/* Ambient Corner Glows (Dynamic based on selected plans) */}
-        <div
-          className={`pointer-events-none absolute top-0 left-0 h-64 w-64 rounded-full opacity-30 blur-[100px] transition-colors duration-700 ${themeMap[currentPlans[0].theme].glow}`}
-        />
-        <div
-          className={`pointer-events-none absolute right-0 bottom-0 h-64 w-64 rounded-full opacity-30 blur-[100px] transition-colors duration-700 ${themeMap[currentPlans[1].theme].glow}`}
-        />
+        {currentPlans[0] && (
+          <div
+            className={`pointer-events-none absolute top-0 left-0 h-64 w-64 rounded-full opacity-30 blur-[100px] transition-colors duration-700 ${themeMap[getPlanTheme(currentPlans[0].region, 0)].glow}`}
+          />
+        )}
+        {currentPlans[1] && (
+          <div
+            className={`pointer-events-none absolute right-0 bottom-0 h-64 w-64 rounded-full opacity-30 blur-[100px] transition-colors duration-700 ${themeMap[getPlanTheme(currentPlans[1].region, 1)].glow}`}
+          />
+        )}
 
         <div className="relative z-10 grid grid-cols-1 md:grid-cols-2">
-          {currentPlans.map((plan: Plan, i: number) => {
-            const styles = themeMap[plan.theme];
+          {currentPlans.map((plan: PricingPlan, i: number) => {
+            const themeName = getPlanTheme(plan.region, i);
+            const styles = themeMap[themeName];
             const isFirst = i === 0;
+            const popular = plan.is_popular === true;
+            const currency = plan.region === 'India' ? '₹' : '$';
 
             return (
               <div
@@ -119,7 +146,7 @@ export default function PricingTable() {
                 }`}
               >
                 {/* Popular Badge */}
-                {plan.popular && (
+                {popular && (
                   <div className="absolute top-3 right-3 z-20 sm:top-6 sm:right-10">
                     <div className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-400 px-3 py-1 shadow-[0_0_15px_rgba(245,158,11,0.4)]">
                       <LuSparkles className="h-3 w-3 text-white" />
@@ -141,47 +168,41 @@ export default function PricingTable() {
                     <span
                       className={`text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl ${styles.price} font-heading`}
                     >
-                      {plan.currency}
-                      {plan.price}
+                      {currency}
+                      {plan.amount}
                     </span>
                     <span className="text-sm font-medium text-gray-400 sm:text-base">
-                      {plan.period}
+                      /{plan.duration || 'month'}
                     </span>
                   </div>
-                  <p className="text-sm sm:text-base leading-relaxed text-gray-400">
+                  <p className="text-sm leading-relaxed text-gray-400 sm:text-base">
                     {plan.description}
                   </p>
                 </div>
 
-                {/* Warning / Conditional Banner */}
-                {plan.warning && (
-                  <div className="mb-6 flex items-start gap-2.5 rounded-xl border border-amber-500/20 bg-amber-500/10 p-3 text-amber-200/90">
-                    <LuTriangleAlert className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
-                    <p className="text-xs leading-snug font-medium sm:text-sm">
-                      {plan.warning}
-                    </p>
-                  </div>
-                )}
-
                 {/* Features List */}
                 <div className="mb-8 flex flex-1 flex-col">
-                  <span className="font-heading mb-4 text-sm sm:text-base font-bold tracking-wide text-white">
+                  <span className="font-heading mb-4 text-sm font-bold tracking-wide text-white sm:text-base">
                     Includes:
                   </span>
                   <ul className="flex flex-col gap-3">
-                    {plan.includes.map((feature: string, idx: number) => (
-                      <li
-                        key={idx}
-                        className="group/li flex items-start gap-3 text-gray-300"
-                      >
-                        <div
-                          className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${styles.icon} transition-transform duration-300 group-hover/li:scale-110`}
+                    {(plan.features || []).map(
+                      (feature: string, idx: number) => (
+                        <li
+                          key={idx}
+                          className="group/li flex items-start gap-3 text-gray-300"
                         >
-                          <LuCheck className="h-3 w-3 stroke-[3]" />
-                        </div>
-                        <span className="text-sm sm:text-base">{feature}</span>
-                      </li>
-                    ))}
+                          <div
+                            className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${styles.icon} transition-transform duration-300 group-hover/li:scale-110`}
+                          >
+                            <LuCheck className="h-3 w-3 stroke-[3]" />
+                          </div>
+                          <span className="text-sm sm:text-base">
+                            {feature}
+                          </span>
+                        </li>
+                      )
+                    )}
                   </ul>
                 </div>
 
@@ -192,16 +213,16 @@ export default function PricingTable() {
                       Best for
                     </span>
                     <span className="text-xs font-medium text-gray-300 sm:text-sm">
-                      {plan.bestFor}
+                      {plan.best_for}
                     </span>
                   </div>
 
-                  <a
-                    href={plan.link}
+                  <Link
+                    href={`/guitar-classes-with-shuvam/pay?plan=${plan._id}&region=${region}`}
                     className={`w-full rounded-xl py-3.5 text-sm font-bold tracking-wide transition-all duration-300 active:scale-[0.98] sm:text-base ${styles.button} font-heading text-center`}
                   >
-                    {plan.buttonText}
-                  </a>
+                    {plan.button_text}
+                  </Link>
                 </div>
               </div>
             );
