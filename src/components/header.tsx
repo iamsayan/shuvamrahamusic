@@ -37,7 +37,7 @@ const navLinks: NavLink[] = [
   {
     name: 'Performance Highlights',
     href: '/performance-highlights',
-    raw: true,
+    raw: process.env.NODE_ENV !== 'production',
   },
   {
     name: 'Gallery',
@@ -53,8 +53,16 @@ const navLinks: NavLink[] = [
     name: 'Links',
     href: '#',
     subItems: [
-      { name: 'Tutorials', href: '/tutorials', raw: true },
-      { name: 'Blog', href: '/blog', raw: true },
+      {
+        name: 'Tutorials',
+        href: '/tutorials',
+        raw: process.env.NODE_ENV !== 'production',
+      },
+      {
+        name: 'Blog',
+        href: '/blog',
+        raw: process.env.NODE_ENV !== 'production',
+      },
     ],
   },
   { name: 'Contact', href: '/contact', raw: true },
