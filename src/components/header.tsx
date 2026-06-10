@@ -53,8 +53,8 @@ const navLinks: NavLink[] = [
     name: 'Links',
     href: '#',
     subItems: [
-      { name: 'Tutorials', href: '/tutorials' },
-      { name: 'Blog', href: '/blog' },
+      { name: 'Tutorials', href: '/tutorials', raw: true },
+      { name: 'Blog', href: '/blog', raw: true },
     ],
   },
   { name: 'Contact', href: '/contact', raw: true },
@@ -111,6 +111,7 @@ export default function Header() {
               width={80}
               height={50}
               className="-mt-2 h-auto w-auto"
+              loading="eager"
             />
           </Link>
 

@@ -19,6 +19,18 @@ export interface GearItem extends Entity {
   images: Asset[];
 }
 
+export interface TutorialLink {
+  title: string;
+  asset: Asset;
+}
+
+export interface TutorialItem extends Entity {
+  title: string;
+  youtube_video_id?: string;
+  description?: string;
+  links: TutorialLink[];
+}
+
 export type ImagePreset =
   | 'thumbnail'
   | 'small'
