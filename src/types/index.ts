@@ -77,6 +77,22 @@ export interface RazorpayFormData {
   name: string;
   phone: string;
   currency: 'INR' | 'USD';
+  city: string;
+  address: string;
+}
+
+export interface PricingPlan {
+  _id: string;
+  name: string;
+  region: 'India' | 'Outside India';
+  amount: number;
+  duration: string;
+  description: string;
+  is_popular: boolean | null;
+  features: string[];
+  button_text: string;
+  best_for: string;
+  _o?: number;
 }
 
 declare global {

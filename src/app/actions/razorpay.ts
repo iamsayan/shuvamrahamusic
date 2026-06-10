@@ -16,8 +16,10 @@ export async function createRazorpayOrder(formData: RazorpayFormData) {
     const name = formData.name;
     const phone = formData.phone;
     const currency = formData.currency;
+    const city = formData.city;
+    const address = formData.address;
 
-    if (!amount || !email || !name || !phone || !currency) {
+    if (!amount || !email || !name || !phone || !currency || !city || !address) {
       return {
         success: false,
         error: 'Missing required fields',
@@ -32,6 +34,8 @@ export async function createRazorpayOrder(formData: RazorpayFormData) {
         email,
         name,
         phone,
+        city,
+        address,
       },
     });
 
