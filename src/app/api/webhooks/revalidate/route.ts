@@ -25,11 +25,26 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const body = await req.json().catch(() => ({}));
+    const body = await req.json().catch(() => null);
 
-    // Cockpit webhooks usually send model name under "model" or inside the event name (e.g., "content.saved.pricingplans")
-    const model =
-      body.model || body.event?.split('.')?.[2] || body.event?.split('.')?.[1];
+    if (!body) {
+      return NextResponse.json(
+        { success: false, error: 'Empty or invalid JSON payload' },
+        { status: 400 }
+      );
+    }
+
+    // Cockpit webhooks can send an array payload (e.g. ["gears", {...}, true, "content/collections/gears"])
+    // or an object payload (e.g. { model: "gears", event: "content.save.after" })
+    let model = '';
+    if (Array.isArray(body)) {
+      model = body[0];
+    } else if (typeof body === 'object') {
+      model =
+        body.model ||
+        body.event?.split('.')?.[2] ||
+        body.event?.split('.')?.[1];
+    }
 
     if (!model) {
       return NextResponse.json(
