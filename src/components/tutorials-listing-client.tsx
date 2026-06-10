@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import Link from 'next/link';
 
 import YouTubeFacade from '@/components/youtube-facade';
 import { TutorialItem } from '@/types';
 
-import { LuFileText, LuInfo, LuSearch, LuSparkles } from 'react-icons/lu';
+import { LuFileText, LuSearch, LuSparkles } from 'react-icons/lu';
 
 export interface Theme {
   text: string;
