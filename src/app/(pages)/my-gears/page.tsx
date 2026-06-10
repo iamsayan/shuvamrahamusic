@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import GearsListingClient from '@/components/gears-listing-client';
 import JsonLd from '@/components/json-ld';
 import cockpit from '@/lib/client';
-
 import { GearItem } from '@/types';
 
 export const metadata: Metadata = {
@@ -42,7 +41,7 @@ export const metadata: Metadata = {
 export default async function MyGearsPage() {
   let gears: GearItem[] = [];
   try {
-    gears = await cockpit.listContentItems<GearItem[]>('gears');
+    gears = await cockpit.getContentTree<GearItem[]>('gears');
   } catch (error) {
     console.error('Error fetching gears from Cockpit CMS:', error);
   }
