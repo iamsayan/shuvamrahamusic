@@ -37,63 +37,63 @@ export const CATEGORY_THEMES: Record<string, CategoryTheme> = {
     glow: 'shadow-[0_0_15px_rgba(16,185,129,0.15)]',
     gradient: 'from-emerald-500/20 to-teal-500/20',
   },
-  'Technique': {
+  Technique: {
     text: 'text-violet-400',
     bg: 'bg-violet-500/10',
     border: 'border-violet-500/20',
     glow: 'shadow-[0_0_15px_rgba(139,92,246,0.15)]',
     gradient: 'from-violet-500/20 to-fuchsia-500/20',
   },
-  'Roadmap': {
+  Roadmap: {
     text: 'text-amber-400',
     bg: 'bg-amber-500/10',
     border: 'border-amber-500/20',
     glow: 'shadow-[0_0_15px_rgba(245,158,11,0.15)]',
     gradient: 'from-amber-500/20 to-orange-500/20',
   },
-  'Gears': {
+  Gears: {
     text: 'text-rose-400',
     bg: 'bg-rose-500/10',
     border: 'border-rose-500/20',
     glow: 'shadow-[0_0_15px_rgba(244,63,94,0.15)]',
     gradient: 'from-rose-500/20 to-pink-500/20',
   },
-  'Rhythm': {
+  Rhythm: {
     text: 'text-cyan-400',
     bg: 'bg-cyan-500/10',
     border: 'border-cyan-500/20',
     glow: 'shadow-[0_0_15px_rgba(6,182,212,0.15)]',
     gradient: 'from-cyan-500/20 to-blue-500/20',
   },
-  'Default': {
+  Default: {
     text: 'text-cyan-400',
     bg: 'bg-cyan-500/10',
     border: 'border-cyan-500/20',
     glow: 'shadow-[0_0_15px_rgba(6,182,212,0.15)]',
     gradient: 'from-cyan-500/20 to-blue-500/20',
-  }
+  },
 };
 
 export const BRIGHT_GRADIENTS: Record<string, string> = {
   'Getting Started': 'from-emerald-500 to-teal-500',
-  'Technique': 'from-violet-500 to-fuchsia-500',
-  'Roadmap': 'from-amber-500 to-orange-500',
-  'Gears': 'from-rose-500 to-pink-500',
-  'Rhythm': 'from-cyan-500 to-blue-500',
-  'Default': 'from-cyan-500 to-blue-500',
+  Technique: 'from-violet-500 to-fuchsia-500',
+  Roadmap: 'from-amber-500 to-orange-500',
+  Gears: 'from-rose-500 to-pink-500',
+  Rhythm: 'from-cyan-500 to-blue-500',
+  Default: 'from-cyan-500 to-blue-500',
 };
 
 export const GLOW_COLORS: Record<string, string> = {
   'Getting Started': 'bg-emerald-500/10',
-  'Technique': 'bg-violet-500/10',
-  'Roadmap': 'bg-amber-500/10',
-  'Gears': 'bg-rose-500/10',
-  'Rhythm': 'bg-cyan-500/10',
-  'Default': 'bg-cyan-500/10',
+  Technique: 'bg-violet-500/10',
+  Roadmap: 'bg-amber-500/10',
+  Gears: 'bg-rose-500/10',
+  Rhythm: 'bg-cyan-500/10',
+  Default: 'bg-cyan-500/10',
 };
 
 export const AMBIENT_GLOWS: Record<string, { top: string; bottom: string }> = {
-  'All': {
+  All: {
     top: 'bg-cyan-600/10',
     bottom: 'bg-violet-600/10',
   },
@@ -101,28 +101,27 @@ export const AMBIENT_GLOWS: Record<string, { top: string; bottom: string }> = {
     top: 'bg-emerald-600/10',
     bottom: 'bg-teal-600/10',
   },
-  'Technique': {
+  Technique: {
     top: 'bg-violet-600/10',
     bottom: 'bg-fuchsia-600/10',
   },
-  'Roadmap': {
+  Roadmap: {
     top: 'bg-amber-600/10',
     bottom: 'bg-orange-600/10',
   },
-  'Gears': {
+  Gears: {
     top: 'bg-rose-600/10',
     bottom: 'bg-pink-600/10',
   },
-  'Rhythm': {
+  Rhythm: {
     top: 'bg-cyan-600/10',
     bottom: 'bg-blue-600/10',
   },
-  'Default': {
+  Default: {
     top: 'bg-cyan-600/10',
     bottom: 'bg-violet-600/10',
-  }
+  },
 };
-
 
 // Cockpit CMS collection item structure
 interface CockpitPost {
@@ -131,17 +130,21 @@ interface CockpitPost {
   slug: string;
   excerpt: string;
   content: string;
-  coverImage?: {
-    path?: string;
-  } | string;
+  coverImage?:
+    | {
+        path?: string;
+      }
+    | string;
   categories?: string[];
   tags?: string[];
   date?: string;
   readTime?: string;
   authorName?: string;
-  authorAvatar?: {
-    path?: string;
-  } | string;
+  authorAvatar?:
+    | {
+        path?: string;
+      }
+    | string;
   authorRole?: string;
   authorBio?: string;
 }
@@ -158,7 +161,8 @@ export const BLOG_POSTS: BlogPost[] = [
     id: 'post-1',
     slug: 'play-first-guitar-chord-beginners-guide',
     title: 'How to Play Your First Guitar Chord: A Beginner’s Guide',
-    excerpt: 'Starting guitar from scratch? Learn the exact finger placement and techniques to get a clean, buzzing-free sound on your first chord in minutes.',
+    excerpt:
+      'Starting guitar from scratch? Learn the exact finger placement and techniques to get a clean, buzzing-free sound on your first chord in minutes.',
     categories: ['Getting Started', 'Technique'],
     tags: ['Chords', 'Acoustic', 'Beginners'],
     date: 'June 4, 2026',
@@ -202,7 +206,8 @@ export const BLOG_POSTS: BlogPost[] = [
     id: 'post-2',
     slug: '5-exercises-for-faster-finger-dexterity',
     title: '5 Daily Exercises for Faster Finger Dexterity & Strength',
-    excerpt: 'Struggling with slow chord changes or finger stiffness? Incorporate these 5 essential finger exercises into your daily routine to build speed.',
+    excerpt:
+      'Struggling with slow chord changes or finger stiffness? Incorporate these 5 essential finger exercises into your daily routine to build speed.',
     categories: ['Technique'],
     tags: ['Exercises', 'Speed', 'Electric', 'Warm-ups'],
     date: 'May 28, 2026',
@@ -240,7 +245,8 @@ export const BLOG_POSTS: BlogPost[] = [
     id: 'post-3',
     slug: '30-day-guitar-roadmap-learn-fast',
     title: 'The 30-Day Guitar Roadmap: Can You Really Learn That Fast?',
-    excerpt: 'Is it truly possible to play your favorite songs in 30 days? Read about the structured learning path designed for busy professionals.',
+    excerpt:
+      'Is it truly possible to play your favorite songs in 30 days? Read about the structured learning path designed for busy professionals.',
     categories: ['Getting Started', 'Roadmap'],
     tags: ['Roadmap', 'Coaching', 'Beginners'],
     date: 'May 15, 2026',
@@ -281,7 +287,8 @@ export const BLOG_POSTS: BlogPost[] = [
     id: 'post-4',
     slug: 'acoustic-vs-electric-guitar-which-first',
     title: 'Acoustic vs. Electric: Which Guitar Should You Buy First?',
-    excerpt: 'Deciding on your first guitar? We compare acoustic and electric guitars across cost, playability, sound volume, and learning ease.',
+    excerpt:
+      'Deciding on your first guitar? We compare acoustic and electric guitars across cost, playability, sound volume, and learning ease.',
     categories: ['Gears'],
     tags: ['Buying Guide', 'Acoustic', 'Electric', 'Budget'],
     date: 'April 30, 2026',
@@ -329,7 +336,8 @@ export const BLOG_POSTS: BlogPost[] = [
     title: 'Understanding Basic Rhythm & Common Strumming Patterns',
     categories: ['Technique', 'Rhythm'],
     tags: ['Rhythm', 'Strumming', 'Metronome', 'Timing'],
-    excerpt: 'Master the engine of guitar playing. Learn the universal strumming pattern and how to keep perfect time in any song.',
+    excerpt:
+      'Master the engine of guitar playing. Learn the universal strumming pattern and how to keep perfect time in any song.',
     date: 'April 12, 2026',
     readTime: '5 min read',
     coverImage: '/blog/strumming-patterns.png',
@@ -381,20 +389,6 @@ export const BLOG_POSTS: BlogPost[] = [
 // Helper to resolve cover image path (handles Cockpit assets or string links)
 function resolveImagePath(img?: { path?: string } | string): string {
   if (!img) return '/blog/acoustic-guitar-chords.png';
-
-  const apiURL = process.env.API_URL || '';
-  const apiRoot = apiURL.replace(/\/api\/?$/, '');
-
-  if (typeof img === 'string') {
-    if (img.startsWith('http') || img.startsWith('/')) return img;
-    const cleanPath = img.replace(/^\//, '');
-    return `${apiRoot}/${cleanPath}`;
-  }
-  if (img.path) {
-    if (img.path.startsWith('http') || img.path.startsWith('/')) return img.path;
-    const cleanPath = img.path.replace(/^\//, '');
-    return `${apiRoot}/${cleanPath}`;
-  }
   return '/blog/acoustic-guitar-chords.png';
 }
 
@@ -406,9 +400,15 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 
   try {
     // Queries the Cockpit collection named 'posts'
-    const cockpitPosts = await cockpit.getItems<{ entries: CockpitPost[] }>('posts');
+    const cockpitPosts = await cockpit.getItems<{ entries: CockpitPost[] }>(
+      'posts'
+    );
 
-    if (!cockpitPosts || !cockpitPosts.entries || !Array.isArray(cockpitPosts.entries)) {
+    if (
+      !cockpitPosts ||
+      !cockpitPosts.entries ||
+      !Array.isArray(cockpitPosts.entries)
+    ) {
       return BLOG_POSTS;
     }
 
@@ -421,33 +421,49 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       coverImage: resolveImagePath(entry.coverImage),
       categories: Array.isArray(entry.categories) ? entry.categories : [],
       tags: Array.isArray(entry.tags) ? entry.tags : [],
-      date: entry.date || new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+      date:
+        entry.date ||
+        new Date().toLocaleDateString('en-US', {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric',
+        }),
       readTime: entry.readTime || '5 min read',
       author: {
         name: entry.authorName || 'Shuvam Raha',
         avatar: resolveImagePath(entry.authorAvatar),
         role: entry.authorRole || 'LCM Certified Music Instructor',
-        bio: entry.authorBio || 'Professional guitarist, music producer, and educator.',
+        bio:
+          entry.authorBio ||
+          'Professional guitarist, music producer, and educator.',
       },
     }));
   } catch (error) {
-    console.error('Error fetching posts from Cockpit CMS, falling back to static data:', error);
+    console.error(
+      'Error fetching posts from Cockpit CMS, falling back to static data:',
+      error
+    );
     return BLOG_POSTS;
   }
 }
 
 // Plug-and-play item fetcher by slug: Queries Cockpit CMS when configured, otherwise falls back to static content
-export async function getBlogPostBySlug(slug: string): Promise<BlogPost | undefined> {
+export async function getBlogPostBySlug(
+  slug: string
+): Promise<BlogPost | undefined> {
   if (!cockpit.isConfigured) {
     return BLOG_POSTS.find((p) => p.slug === slug);
   }
 
   try {
     // Queries the Cockpit collection named 'posts' filtered by slug
-    const response = await cockpit.getItems<{ entries: CockpitPost[] }>('posts', {
-      filter: { slug },
-      limit: 1,
-    });
+    const response = await cockpit.getItems<{ entries: CockpitPost[] }>(
+      'posts',
+      {
+        filter: { slug },
+        limit: 1,
+      }
+    );
 
     if (response && response.entries && response.entries.length > 0) {
       const entry = response.entries[0];
@@ -460,13 +476,21 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | undefi
         coverImage: resolveImagePath(entry.coverImage),
         categories: Array.isArray(entry.categories) ? entry.categories : [],
         tags: Array.isArray(entry.tags) ? entry.tags : [],
-        date: entry.date || new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+        date:
+          entry.date ||
+          new Date().toLocaleDateString('en-US', {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric',
+          }),
         readTime: entry.readTime || '5 min read',
         author: {
           name: entry.authorName || 'Shuvam Raha',
           avatar: resolveImagePath(entry.authorAvatar),
           role: entry.authorRole || 'LCM Certified Music Instructor',
-          bio: entry.authorBio || 'Professional guitarist, music producer, and educator.',
+          bio:
+            entry.authorBio ||
+            'Professional guitarist, music producer, and educator.',
         },
       };
     }
@@ -474,7 +498,10 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | undefi
     // Fallback to static lists
     return BLOG_POSTS.find((p) => p.slug === slug);
   } catch (error) {
-    console.error(`Error fetching post by slug "${slug}" from Cockpit CMS, falling back to static data:`, error);
+    console.error(
+      `Error fetching post by slug "${slug}" from Cockpit CMS, falling back to static data:`,
+      error
+    );
     return BLOG_POSTS.find((p) => p.slug === slug);
   }
 }

@@ -51,6 +51,131 @@ export const GEAR_CATEGORIES = [
   'Other Guitar Accessories',
 ] as const;
 
+export interface Theme {
+  text: string;
+  bg: string;
+  border: string;
+  glow: string;
+  gradient: string;
+  glowColor: string;
+  ambient: {
+    top: string;
+    bottom: string;
+  };
+}
+
+export const THEME_PALETTE: Theme[] = [
+  {
+    text: 'text-cyan-400',
+    bg: 'bg-cyan-500/10',
+    border: 'border-cyan-500/20 border-cyan-500/30',
+    glow: 'shadow-[0_0_20px_rgba(34,211,238,0.2)]',
+    gradient: 'from-cyan-500 to-blue-500',
+    glowColor: 'bg-cyan-500/20',
+    ambient: {
+      top: 'from-cyan-500/15 to-transparent',
+      bottom: 'from-blue-500/10 to-transparent',
+    },
+  },
+  {
+    text: 'text-violet-400',
+    bg: 'bg-violet-500/10',
+    border: 'border-violet-500/20 border-violet-500/30',
+    glow: 'shadow-[0_0_20px_rgba(139,92,246,0.2)]',
+    gradient: 'from-violet-500 to-fuchsia-500',
+    glowColor: 'bg-violet-500/20',
+    ambient: {
+      top: 'from-violet-500/15 to-transparent',
+      bottom: 'from-fuchsia-500/10 to-transparent',
+    },
+  },
+  {
+    text: 'text-emerald-400',
+    bg: 'bg-emerald-500/10',
+    border: 'border-emerald-500/20 border-emerald-500/30',
+    glow: 'shadow-[0_0_20px_rgba(16,185,129,0.2)]',
+    gradient: 'from-emerald-500 to-teal-500',
+    glowColor: 'bg-emerald-500/20',
+    ambient: {
+      top: 'from-emerald-500/15 to-transparent',
+      bottom: 'from-teal-500/10 to-transparent',
+    },
+  },
+  {
+    text: 'text-amber-400',
+    bg: 'bg-amber-500/10',
+    border: 'border-amber-500/20 border-amber-500/30',
+    glow: 'shadow-[0_0_20px_rgba(245,158,11,0.2)]',
+    gradient: 'from-amber-500 to-orange-500',
+    glowColor: 'bg-amber-500/20',
+    ambient: {
+      top: 'from-amber-500/15 to-transparent',
+      bottom: 'from-orange-500/10 to-transparent',
+    },
+  },
+  {
+    text: 'text-rose-400',
+    bg: 'bg-rose-500/10',
+    border: 'border-rose-500/20 border-rose-500/30',
+    glow: 'shadow-[0_0_20px_rgba(244,63,94,0.2)]',
+    gradient: 'from-rose-500 to-pink-500',
+    glowColor: 'bg-rose-500/20',
+    ambient: {
+      top: 'from-rose-500/15 to-transparent',
+      bottom: 'from-pink-500/10 to-transparent',
+    },
+  },
+  {
+    text: 'text-blue-400',
+    bg: 'bg-blue-500/10',
+    border: 'border-blue-500/20 border-blue-500/30',
+    glow: 'shadow-[0_0_20px_rgba(59,130,246,0.2)]',
+    gradient: 'from-blue-500 to-indigo-500',
+    glowColor: 'bg-blue-500/20',
+    ambient: {
+      top: 'from-blue-500/15 to-transparent',
+      bottom: 'from-indigo-500/10 to-transparent',
+    },
+  },
+  {
+    text: 'text-fuchsia-400',
+    bg: 'bg-fuchsia-500/10',
+    border: 'border-fuchsia-500/20 border-fuchsia-500/30',
+    glow: 'shadow-[0_0_20px_rgba(217,70,239,0.2)]',
+    gradient: 'from-fuchsia-500 to-pink-500',
+    glowColor: 'bg-fuchsia-500/20',
+    ambient: {
+      top: 'from-fuchsia-500/15 to-transparent',
+      bottom: 'from-pink-500/10 to-transparent',
+    },
+  },
+  {
+    text: 'text-teal-400',
+    bg: 'bg-teal-500/10',
+    border: 'border-teal-500/20 border-teal-500/30',
+    glow: 'shadow-[0_0_20px_rgba(20,184,166,0.2)]',
+    gradient: 'from-teal-500 to-cyan-500',
+    glowColor: 'bg-teal-500/20',
+    ambient: {
+      top: 'from-teal-500/15 to-transparent',
+      bottom: 'from-cyan-500/10 to-transparent',
+    },
+  },
+];
+
+export const DEFAULT_THEME: Theme = {
+  text: 'text-cyan-400',
+  bg: 'bg-cyan-500/10',
+  border: 'border-cyan-500/20 border-cyan-500/30',
+  glow: 'shadow-[0_0_20px_rgba(34,211,238,0.2)]',
+  gradient: 'from-cyan-500 to-blue-500',
+  glowColor: 'bg-cyan-500/15',
+  ambient: {
+    top: 'from-cyan-500/10 to-transparent',
+    bottom: 'from-violet-500/10 to-transparent',
+  },
+};
+
 export const GEAR_ITEMS: GearItem[] = [
   {
     id: 'elixir-electric',
@@ -244,4 +369,5 @@ export const GEAR_ITEMS: GearItem[] = [
     ],
   },
 ];
+
 export type { GearItem as GearItemType };
