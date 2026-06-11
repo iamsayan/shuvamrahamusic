@@ -10,6 +10,13 @@ interface AudioPlayerProps {
   artist: string;
 }
 
+const formatTime = (secs: number) => {
+  if (isNaN(secs)) return '0:00';
+  const minutes = Math.floor(secs / 60);
+  const seconds = Math.floor(secs % 60);
+  return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+};
+
 export default function BiographyAudioPlayer({
   audioUrl,
   posterUrl,
@@ -81,13 +88,6 @@ export default function BiographyAudioPlayer({
     audioRef.current.currentTime = newTime;
     setProgress(clickPercentage * 100);
     setCurrentTime(formatTime(newTime));
-  };
-
-  const formatTime = (secs: number) => {
-    if (isNaN(secs)) return '0:00';
-    const minutes = Math.floor(secs / 60);
-    const seconds = Math.floor(secs % 60);
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
   return (

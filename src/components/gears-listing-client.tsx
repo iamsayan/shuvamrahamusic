@@ -204,17 +204,20 @@ export default function GearsListingClient({
   // Filter products based on search and category tab
   const filteredGears = useMemo(() => {
     const items = initialItems || [];
+    const query = debouncedSearchQuery.trim().toLowerCase();
+
     return items.filter((item) => {
       const matchesSearch =
-        item.title.toLowerCase().includes(debouncedSearchQuery.toLowerCase()) ||
+        !query ||
+        item.title.toLowerCase().includes(query) ||
         (item.subtitle || '')
           .toLowerCase()
-          .includes(debouncedSearchQuery.toLowerCase()) ||
+          .includes(query) ||
         (item.description || '')
           .toLowerCase()
-          .includes(debouncedSearchQuery.toLowerCase()) ||
+          .includes(query) ||
         (item.ideal_for || []).some((bf) =>
-          bf.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
+          bf.toLowerCase().includes(query)
         );
 
       const matchesCategory =

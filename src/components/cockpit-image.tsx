@@ -55,18 +55,32 @@ export default function CockpitImage({
 
   const hasAttemptedFallback = useRef(false);
 
+  const restWidth = rest.width;
+  const restHeight = rest.height;
+
   const url = useMemo(
     () =>
       preset
         ? cockpit.getImagePresetUrl(asset._id, preset, { o: 1 })
         : cockpit.getImageUrl(asset._id, {
             o: 1,
-            w: asset.width || (rest.width as number) || twidth,
-            h: asset.height || (rest.height as number) || theight,
+            w: asset.width || (restWidth as number) || twidth,
+            h: asset.height || (restHeight as number) || theight,
             q: quality,
             m: mode,
           }),
-    [asset, twidth, theight, quality, rest, preset, mode]
+    [
+      asset._id,
+      asset.width,
+      asset.height,
+      twidth,
+      theight,
+      quality,
+      restWidth,
+      restHeight,
+      preset,
+      mode,
+    ]
   );
 
   const objectPosition = useMemo(() => {
