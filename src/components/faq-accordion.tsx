@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { LuChevronDown, LuCircleHelp, LuMessageCircle } from 'react-icons/lu';
 import { categories, allFaqs } from '@/lib/guitar-data';
 
@@ -8,10 +8,11 @@ export default function FaqAccordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const [activeCategory, setActiveCategory] = useState('All');
 
-  const filteredFaqs =
-    activeCategory === 'All'
+  const filteredFaqs = useMemo(() => {
+    return activeCategory === 'All'
       ? allFaqs
       : allFaqs.filter((f) => f.category === activeCategory);
+  }, [activeCategory]);
 
   const toggleFaq = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);

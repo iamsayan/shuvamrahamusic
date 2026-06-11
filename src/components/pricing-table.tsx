@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import Link from 'next/link';
 
 import { useRegion } from '@/hooks/use-region';
@@ -72,9 +73,11 @@ export default function PricingTable({ plans }: PricingTableProps) {
     },
   };
 
-  const currentPlans = plans.filter((p) =>
-    region === 'IN' ? p.region === 'India' : p.region === 'Outside India'
-  );
+  const currentPlans = useMemo(() => {
+    return plans.filter((p) =>
+      region === 'IN' ? p.region === 'India' : p.region === 'Outside India'
+    );
+  }, [plans, region]);
 
   return (
     <div className="flex w-full flex-col items-center">

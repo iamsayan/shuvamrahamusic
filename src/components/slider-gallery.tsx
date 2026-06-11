@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 
 export default function SliderGallery({
@@ -88,6 +88,8 @@ export default function SliderGallery({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoScroll, itemsCount, isHovered, itemWidth]);
 
+  const dotsArray = useMemo(() => Array.from({ length: itemsCount }), [itemsCount]);
+
   return (
     <div
       className="relative w-full"
@@ -122,7 +124,7 @@ export default function SliderGallery({
 
       {/* Pagination Dots */}
       <div className="pointer-events-none mt-6 flex justify-center gap-2">
-        {Array.from({ length: itemsCount }).map((_, i) => (
+        {dotsArray.map((_, i) => (
           <button
             key={i}
             onClick={() => scrollToIndex(i)}
