@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import Link from 'next/link';
 
@@ -17,6 +17,7 @@ import {
   LuSparkles,
   LuStar,
   LuUsers,
+  LuX,
 } from 'react-icons/lu';
 
 // Types for structured data
@@ -1389,14 +1390,23 @@ export default function PerformanceHighlightsClient() {
     'All'
   );
   const [searchQuery, setSearchQuery] = useState('');
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
   const [selectedArtistFilter, setSelectedArtistFilter] = useState('All');
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
   // Filter shows based on search query, year and artist select
   const filteredShows = useMemo(() => {
     return PERFORMANCE_SHOWS.filter((show) => {
       const matchesYear = selectedYear === 'All' || show.year === selectedYear;
 
-      const query = searchQuery.toLowerCase();
+      const query = debouncedSearchQuery.toLowerCase();
       const matchesSearch =
         show.location.toLowerCase().includes(query) ||
         (show.venue && show.venue.toLowerCase().includes(query)) ||
@@ -1409,7 +1419,7 @@ export default function PerformanceHighlightsClient() {
 
       return matchesYear && matchesSearch && matchesArtist;
     });
-  }, [selectedYear, searchQuery, selectedArtistFilter]);
+  }, [selectedYear, debouncedSearchQuery, selectedArtistFilter]);
 
   return (
     <PageLayout
@@ -1707,7 +1717,7 @@ export default function PerformanceHighlightsClient() {
           </div>
 
           {/* Filters Bar: Search & Artist Select Filters */}
-          <div className="grid grid-cols-1 gap-4 rounded-2xl border border-white/5 bg-[#080812]/50 p-4.5 backdrop-blur-3xl md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 rounded-full border border-white/5 bg-[#080812]/50 p-4.5 backdrop-blur-3xl md:grid-cols-3">
             {/* Search Input */}
             <div className="relative md:col-span-2">
               <div className="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-gray-500">
@@ -1718,8 +1728,18 @@ export default function PerformanceHighlightsClient() {
                 placeholder="Search by city, venue, or detail..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-xl border border-white/10 bg-white/[0.02] py-2.5 pr-4 pl-10 text-xs text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04]"
+                className="w-full rounded-full border border-white/10 bg-white/[0.02] py-2.5 pr-10 pl-10 text-xs text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04]"
               />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery('')}
+                  className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-white transition-colors cursor-pointer"
+                  aria-label="Clear search"
+                >
+                  <LuX className="h-4 w-4" />
+                </button>
+              )}
             </div>
 
             {/* Artist Filter Dropdown */}
@@ -1727,7 +1747,7 @@ export default function PerformanceHighlightsClient() {
               <select
                 value={selectedArtistFilter}
                 onChange={(e) => setSelectedArtistFilter(e.target.value)}
-                className="w-full appearance-none rounded-xl border border-white/10 bg-white/[0.02] px-4 py-2.5 text-xs text-white transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04]"
+                className="w-full appearance-none rounded-full border border-white/10 bg-white/[0.02] px-4 py-2.5 text-xs text-white transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04]"
               >
                 <option value="All" className="bg-[#05050A] text-gray-300">
                   Filter by Collaborator: All

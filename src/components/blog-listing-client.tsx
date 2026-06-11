@@ -25,6 +25,7 @@ import {
   LuClock,
   LuPhone,
   LuSearch,
+  LuX,
 } from 'react-icons/lu';
 
 interface BlogListingClientProps {
@@ -155,9 +156,19 @@ export default function BlogListingClient({
                 placeholder="Search articles..."
                 value={localSearch}
                 onChange={(e) => handleSearchChange(e.target.value)}
-                className="w-full rounded-full border border-white/10 bg-white/[0.02] py-3 pr-4 pl-12 text-sm text-white placeholder-gray-500 backdrop-blur-md transition-all duration-300 outline-none focus:border-cyan-500/30 focus:bg-white/[0.04] focus:shadow-[0_0_15px_rgba(6,182,212,0.15)]"
+                className="w-full rounded-full border border-white/10 bg-white/[0.02] py-3 pr-12 pl-12 text-sm text-white placeholder-gray-500 backdrop-blur-md transition-all duration-300 outline-none focus:border-cyan-500/30 focus:bg-white/[0.04] focus:shadow-[0_0_15px_rgba(6,182,212,0.15)]"
               />
               <LuSearch className="absolute top-1/2 left-4.5 h-4.5 w-4.5 -translate-y-1/2 text-gray-500" />
+              {localSearch && (
+                <button
+                  type="button"
+                  onClick={() => handleSearchChange('')}
+                  className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-white transition-colors cursor-pointer"
+                  aria-label="Clear search"
+                >
+                  <LuX className="h-4.5 w-4.5" />
+                </button>
+              )}
             </div>
           </div>
         </div>

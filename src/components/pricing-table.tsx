@@ -218,7 +218,7 @@ export default function PricingTable({ plans }: PricingTableProps) {
                   </div>
 
                   <Link
-                    href={`/guitar-classes-with-shuvam/pay?plan=${plan._id}&region=${region}`}
+                    href={`/guitar-classes-with-shuvam/pay?h=${btoa(JSON.stringify({ plan: plan._id, region }))}`}
                     className={`w-full rounded-xl py-3.5 text-sm font-bold tracking-wide transition-all duration-300 active:scale-[0.98] sm:text-base ${styles.button} font-heading text-center`}
                   >
                     {plan.button_text}

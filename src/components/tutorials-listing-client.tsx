@@ -7,7 +7,7 @@ import Link from 'next/link';
 import YouTubeFacade from '@/components/youtube-facade';
 import { TutorialItem } from '@/types';
 
-import { LuFileText, LuSearch, LuSparkles } from 'react-icons/lu';
+import { LuFileText, LuSearch, LuSparkles, LuX } from 'react-icons/lu';
 
 export interface Theme {
   text: string;
@@ -155,8 +155,8 @@ export default function TutorialsListingClient({
           </div>
 
           {/* Filters Bar: Search Input */}
-          <div className="mb-12 flex flex-col gap-6 rounded-[2.5rem] border border-white/5 bg-[#080812]/50 p-5 shadow-[0_30px_60px_rgba(0,0,0,0.4)] backdrop-blur-3xl md:p-6">
-            <div className="relative mx-auto w-full max-w-xl">
+          <div className="relative z-30 mb-12">
+            <div className="relative w-full">
               <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-gray-500">
                 <LuSearch className="h-5 w-5 transition-colors duration-300" />
               </div>
@@ -165,8 +165,18 @@ export default function TutorialsListingClient({
                 placeholder="Search exercises, manuscript sheets, or topics..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-2xl border border-white/10 bg-white/[0.02] py-3.5 pr-4 pl-12 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04] focus:ring-1 focus:ring-cyan-500/30"
+                className="w-full rounded-full border border-white/10 bg-white/[0.02] py-3.5 pr-12 pl-12 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04] focus:ring-1 focus:ring-cyan-500/30"
               />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery('')}
+                  className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-white transition-colors cursor-pointer"
+                  aria-label="Clear search"
+                >
+                  <LuX className="h-4.5 w-4.5" />
+                </button>
+              )}
             </div>
           </div>
 
