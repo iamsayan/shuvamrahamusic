@@ -109,7 +109,7 @@ export default function Header() {
         <div className="flex h-[60px] w-full shrink-0 items-center justify-between md:h-[70px]">
           {/* Logo */}
           <Link
-            href="https://shuvamrahamusic.com"
+            href="https://www.shuvamrahamusic.com"
             className="group relative z-50 flex items-center gap-3"
             onClick={() => setIsMobileMenuOpen(false)}
           >
@@ -135,7 +135,7 @@ export default function Header() {
                     className="group/item relative flex items-center gap-1 rounded-full py-1.5 pr-2.5 pl-3.5 transition-colors"
                   >
                     <Link
-                      href={`${link.raw ? link.href : `https://shuvamrahamusic.com${link.href}`}`}
+                      href={`${link.raw ? link.href : `https://www.shuvamrahamusic.com${link.href}`}`}
                       className="relative z-10 text-sm font-bold whitespace-nowrap text-gray-300 transition-colors duration-300 group-hover/item:text-white hover:text-white"
                     >
                       {link.name}
@@ -149,7 +149,7 @@ export default function Header() {
                           {link.subItems.map((sub, sIdx) => (
                             <Link
                               key={sIdx}
-                              href={`${sub.raw ? sub.href : `https://shuvamrahamusic.com${sub.href}`}`}
+                              href={`${sub.raw ? sub.href : `https://www.shuvamrahamusic.com${sub.href}`}`}
                               className="rounded-xl px-3.5 py-2 text-sm font-bold text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
                             >
                               {sub.name}
@@ -167,7 +167,7 @@ export default function Header() {
               return (
                 <div key={idx} className="group relative">
                   <Link
-                    href={`${link.raw ? link.href : `https://shuvamrahamusic.com${link.href}`}`}
+                    href={`${link.raw ? link.href : `https://www.shuvamrahamusic.com${link.href}`}`}
                     className="relative flex items-center gap-1 overflow-hidden rounded-full px-3.5 py-1.5 transition-colors"
                   >
                     <span className="relative z-10 text-sm font-bold whitespace-nowrap text-gray-300 transition-colors duration-300 group-hover:text-white">
@@ -187,7 +187,7 @@ export default function Header() {
                         {link.subItems.map((sub, sIdx) => (
                           <Link
                             key={sIdx}
-                            href={`${sub.raw ? sub.href : `https://shuvamrahamusic.com${sub.href}`}`}
+                            href={`${sub.raw ? sub.href : `https://www.shuvamrahamusic.com${sub.href}`}`}
                             className="rounded-xl px-3.5 py-2 text-sm font-bold text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
                           >
                             {sub.name}
@@ -252,7 +252,7 @@ export default function Header() {
                     style={{ animationDelay: `${idx * 40}ms` }}
                   >
                     <Link
-                      href={`${link.raw ? link.href : `https://shuvamrahamusic.com${link.href}`}`}
+                      href={`${link.raw ? link.href : `https://www.shuvamrahamusic.com${link.href}`}`}
                       className="group flex items-center justify-between py-2 text-base font-bold text-gray-300 transition-all duration-300 hover:text-white"
                       onClick={() =>
                         (!link.subItems || isRealLink) &&
@@ -271,7 +271,7 @@ export default function Header() {
                         {link.subItems.map((sub, sIdx) => (
                           <Link
                             key={sIdx}
-                            href={`${sub.raw ? sub.href : `https://shuvamrahamusic.com${sub.href}`}`}
+                            href={`${sub.raw ? sub.href : `https://www.shuvamrahamusic.com${sub.href}`}`}
                             className="py-1 text-sm font-semibold text-gray-400 transition-colors hover:text-cyan-400"
                             onClick={() => setIsMobileMenuOpen(false)}
                           >

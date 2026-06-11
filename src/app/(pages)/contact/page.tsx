@@ -28,7 +28,7 @@ export default function ContactPage() {
           name: 'Contact Us | Shuvam Raha Music',
           description:
             'Get in touch with Shuvam Raha Music. Enroll in guitar coaching, ask questions, or request assistance.',
-          url: 'https://shuvamrahamusic.com/contact',
+          url: 'https://www.shuvamrahamusic.com/contact',
           mainEntity: {
             '@type': 'MusicInstructionBusiness',
             name: 'Shuvam Raha Music',

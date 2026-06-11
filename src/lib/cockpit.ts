@@ -31,13 +31,22 @@ export interface Entity {
   _id: string;
   _created: number;
   _modified: number;
-  _cby?: string | null;
-  _mby?: string | null;
-  _state?: number;
+  _cby: string;
+  _mby: string;
+  _state: -1 | 0 | 1;
 }
 
-export type CollectionItem<T extends object = Record<string, unknown>> =
-  Entity & T;
+export interface TreeEntity extends Entity {
+  _pid: string;
+  _o: number;
+  _children: TreeEntity[];
+}
+
+export type CollectionItem<T extends object = Record<string, unknown>> = (
+  | Entity
+  | TreeEntity
+) &
+  T;
 
 export interface CollectionGeneric {
   [key: string]: unknown;
@@ -69,7 +78,10 @@ export interface Asset extends Entity {
   thumbhash?: string;
   folder?: string;
   _hash?: string;
-  [key: string]: unknown;
+  fp?: {
+    x: number;
+    y: number;
+  };
 }
 
 export interface ListAssetsOptions {

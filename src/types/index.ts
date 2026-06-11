@@ -1,4 +1,4 @@
-import { Asset, Entity } from '@/lib/client';
+import { Asset, Entity, TreeEntity } from '@/lib/client';
 
 export interface Member extends Entity {
   name: string;
@@ -24,7 +24,7 @@ export interface TutorialLink {
   asset: Asset;
 }
 
-export interface TutorialItem extends Entity {
+export interface TutorialItem extends TreeEntity {
   title: string;
   youtube_video_id?: string;
   description?: string;
@@ -81,8 +81,7 @@ export interface RazorpayFormData {
   address: string;
 }
 
-export interface PricingPlan {
-  _id: string;
+export interface PricingPlan extends TreeEntity {
   name: string;
   region: 'India' | 'Outside India';
   amount: number;
@@ -92,7 +91,20 @@ export interface PricingPlan {
   features: string[];
   button_text: string;
   best_for: string;
-  _o?: number;
+}
+
+export interface Category extends Entity {
+  title: string;
+  slug: string;
+}
+
+export interface Post extends Entity {
+  title: string;
+  slug: string;
+  content: string;
+  featured_image: Asset;
+  categories: Category[];
+  tags?: string[];
 }
 
 declare global {

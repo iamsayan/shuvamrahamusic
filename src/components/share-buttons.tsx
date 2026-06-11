@@ -1,16 +1,17 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { LuLink, LuCheck, LuShare2 } from 'react-icons/lu';
-import { FaFacebookF, FaXTwitter, FaWhatsapp } from 'react-icons/fa6';
+import React, { useEffect, useState } from 'react';
+
+import { FaFacebookF, FaWhatsapp, FaXTwitter } from 'react-icons/fa6';
+import { LuCheck, LuLink, LuShare2 } from 'react-icons/lu';
 
 interface ShareButtonsProps {
-  url: string;
   title: string;
+  url: string;
   coverImage?: string;
 }
 
-export default function ShareButtons({ url, title, coverImage }: ShareButtonsProps) {
+export default function ShareButtons({ title, url, coverImage }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
   const [canShare, setCanShare] = useState(false);
 
@@ -56,11 +57,17 @@ export default function ShareButtons({ url, title, coverImage }: ShareButtonsPro
             const fileName = `${urlSlug}.${fileExt}`;
             const file = new File([blob], fileName, { type: blob.type });
 
-            if ('canShare' in navigator && navigator.canShare({ files: [file] })) {
+            if (
+              'canShare' in navigator &&
+              navigator.canShare({ files: [file] })
+            ) {
               shareData.files = [file];
             }
           } catch (fileErr) {
-            console.error('Failed to attach cover image file to share sheet:', fileErr);
+            console.error(
+              'Failed to attach cover image file to share sheet:',
+              fileErr
+            );
           }
         }
 

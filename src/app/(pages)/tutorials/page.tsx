@@ -48,8 +48,8 @@ export default async function TutorialsPage() {
           '@graph': [
             {
               '@type': 'WebSite',
-              '@id': 'https://shuvamrahamusic.com/#website',
-              url: 'https://shuvamrahamusic.com/',
+              '@id': 'https://www.shuvamrahamusic.com/#website',
+              url: 'https://www.shuvamrahamusic.com/',
               name: 'Shuvam Raha Music',
               description: 'Easy To Learn & Easy To Play',
               inLanguage: 'en-US',
@@ -57,13 +57,13 @@ export default async function TutorialsPage() {
             {
               '@type': 'BreadcrumbList',
               name: 'Breadcrumbs',
-              '@id': 'https://shuvamrahamusic.com/tutorials/#breadcrumblist',
+              '@id': 'https://www.shuvamrahamusic.com/tutorials/#breadcrumblist',
               itemListElement: [
                 {
                   '@type': 'ListItem',
                   position: 1,
                   name: 'Home',
-                  item: 'https://shuvamrahamusic.com/',
+                  item: 'https://www.shuvamrahamusic.com/',
                 },
                 {
                   '@type': 'ListItem',
@@ -74,17 +74,17 @@ export default async function TutorialsPage() {
             },
             {
               '@type': 'WebPage',
-              '@id': 'https://shuvamrahamusic.com/tutorials/#webpage',
-              url: 'https://shuvamrahamusic.com/tutorials/',
+              '@id': 'https://www.shuvamrahamusic.com/tutorials/#webpage',
+              url: 'https://www.shuvamrahamusic.com/tutorials/',
               inLanguage: 'en-US',
               name: 'Tutorials & Practice Sheets - Shuvam Raha Music',
               description:
                 'Download professional guitar fingering exercises, right-hand plectrum practices, manuscript staves, and jazz chord voicings curated by Shuvam Raha.',
               isPartOf: {
-                '@id': 'https://shuvamrahamusic.com/#website',
+                '@id': 'https://www.shuvamrahamusic.com/#website',
               },
               breadcrumb: {
-                '@id': 'https://shuvamrahamusic.com/tutorials/#breadcrumblist',
+                '@id': 'https://www.shuvamrahamusic.com/tutorials/#breadcrumblist',
               },
             },
           ],

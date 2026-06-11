@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
+import CockpitImage from '@/components/cockpit-image';
 
 import {
   AMBIENT_GLOWS,
@@ -11,6 +12,7 @@ import {
   BlogPost,
   CATEGORY_THEMES,
   GLOW_COLORS,
+  getThemeKey,
 } from '@/lib/blog-data';
 
 import {
@@ -102,8 +104,9 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
     <div className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
       {/* Background ambient glows */}
       {(() => {
+        const glowKey = getThemeKey(selectedCategory);
         const glow =
-          AMBIENT_GLOWS[selectedCategory] || AMBIENT_GLOWS['Default'];
+          AMBIENT_GLOWS[glowKey] || AMBIENT_GLOWS['default'];
         return (
           <>
             <div
@@ -163,11 +166,12 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
         </div>
 
         {/* Category Filter Pills */}
-        <div className="mb-12 flex flex-wrap gap-2.5 border-b border-white/5 pb-2">
+        <div className="mb-10 flex flex-wrap gap-2.5">
           {CATEGORIES.map((category) => {
             const isActive = selectedCategory === category;
+            const themeKey = getThemeKey(category);
             const theme =
-              CATEGORY_THEMES[category] || CATEGORY_THEMES['Default'];
+              CATEGORY_THEMES[themeKey] || CATEGORY_THEMES['default'];
             return (
               <button
                 key={category}
@@ -208,12 +212,12 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
           </div>
         )}
 
-        {/* Featured Post Card */}
         {featuredPost &&
           (() => {
             const primaryCat = featuredPost.categories[0];
+            const themeKey = getThemeKey(primaryCat);
             const primaryTheme =
-              CATEGORY_THEMES[primaryCat] || CATEGORY_THEMES['Default'];
+              CATEGORY_THEMES[themeKey] || CATEGORY_THEMES['default'];
             return (
               <div className="mb-16">
                 <span
@@ -227,17 +231,15 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
                 >
                   {/* Glowing Top Accent Strip */}
                   <div
-                    className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${BRIGHT_GRADIENTS[primaryCat] || BRIGHT_GRADIENTS['Default']} z-20 opacity-40 transition-opacity duration-500 group-hover:opacity-100`}
+                    className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${BRIGHT_GRADIENTS[themeKey] || BRIGHT_GRADIENTS['default']} z-20 opacity-40 transition-opacity duration-500 group-hover:opacity-100`}
                   />
 
                   {/* Cover Image */}
                   <div className="relative aspect-video w-full overflow-hidden lg:aspect-auto lg:w-[55%]">
-                    <Image
-                      src={featuredPost.coverImage}
-                      alt={featuredPost.title}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 55vw"
+                    <CockpitImage
+                      asset={featuredPost.coverImage}
                       className="object-cover transition-transform duration-[1500ms] group-hover:scale-[1.03]"
+                      fill
                       priority
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#020205] via-transparent to-transparent opacity-80 lg:hidden" />
@@ -247,14 +249,15 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
                   <div className="relative flex flex-col justify-between p-6 sm:p-10 lg:w-[45%]">
                     {/* Accent glow on hover */}
                     <div
-                      className={`pointer-events-none absolute -right-20 -bottom-20 h-56 w-56 rounded-full ${GLOW_COLORS[primaryCat] || GLOW_COLORS['Default']} opacity-0 blur-[60px] transition-opacity duration-700 group-hover:opacity-100`}
+                      className={`pointer-events-none absolute -right-20 -bottom-20 h-56 w-56 rounded-full ${GLOW_COLORS[themeKey] || GLOW_COLORS['default']} opacity-0 blur-[60px] transition-opacity duration-700 group-hover:opacity-100`}
                     />
 
                     <div>
                       <div className="mb-4 flex flex-wrap items-center gap-2">
                         {featuredPost.categories.map((cat, idx) => {
+                          const catThemeKey = getThemeKey(cat);
                           const catTheme =
-                            CATEGORY_THEMES[cat] || CATEGORY_THEMES['Default'];
+                            CATEGORY_THEMES[catThemeKey] || CATEGORY_THEMES['default'];
                           return (
                             <span
                               key={idx}
@@ -264,7 +267,7 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
                             </span>
                           );
                         })}
-                        {featuredPost.tags.map((tag, idx) => (
+                        {featuredPost.tags && featuredPost.tags.length > 0 && featuredPost.tags.map((tag, idx) => (
                           <span
                             key={idx}
                             className="rounded-full border border-white/5 bg-white/[0.03] px-2.5 py-0.5 text-[9px] font-bold tracking-wider text-gray-400 uppercase transition-all duration-300 hover:border-white/15 hover:bg-white/[0.05] hover:text-white"
@@ -333,8 +336,9 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {paginatedGridPosts.map((post) => {
                 const primaryCat = post.categories[0];
+                const themeKey = getThemeKey(primaryCat);
                 const primaryTheme =
-                  CATEGORY_THEMES[primaryCat] || CATEGORY_THEMES['Default'];
+                  CATEGORY_THEMES[themeKey] || CATEGORY_THEMES['default'];
                 return (
                   <Link
                     key={post.id}
@@ -343,31 +347,30 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
                   >
                     {/* Glowing Top Accent Strip */}
                     <div
-                      className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${BRIGHT_GRADIENTS[primaryCat] || BRIGHT_GRADIENTS['Default']} z-20 opacity-20 transition-opacity duration-500 group-hover:opacity-90`}
+                      className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${BRIGHT_GRADIENTS[themeKey] || BRIGHT_GRADIENTS['default']} z-20 opacity-20 transition-opacity duration-500 group-hover:opacity-90`}
                     />
-
+ 
                     {/* Inner accent glow on hover */}
                     <div
-                      className={`pointer-events-none absolute -right-16 -bottom-16 h-36 w-36 rounded-full ${GLOW_COLORS[primaryCat] || GLOW_COLORS['Default']} z-0 opacity-0 blur-[40px] transition-opacity duration-700 group-hover:opacity-100`}
+                      className={`pointer-events-none absolute -right-16 -bottom-16 h-36 w-36 rounded-full ${GLOW_COLORS[themeKey] || GLOW_COLORS['default']} z-0 opacity-0 blur-[40px] transition-opacity duration-700 group-hover:opacity-100`}
                     />
                     <div>
                       {/* Image */}
                       <div className="relative aspect-video w-full overflow-hidden">
-                        <Image
-                          src={post.coverImage}
-                          alt={post.title}
-                          fill
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        <CockpitImage
+                          asset={post.coverImage}
                           className="object-cover transition-transform duration-[1500ms] group-hover:scale-[1.04]"
+                          fill
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#020205]/40 to-transparent" />
-
+ 
                         {/* Floating Category Pills */}
                         <div className="absolute top-4 left-4 flex max-w-[85%] flex-wrap gap-1.5">
                           {post.categories.map((cat, idx) => {
+                            const catThemeKey = getThemeKey(cat);
                             const catTheme =
-                              CATEGORY_THEMES[cat] ||
-                              CATEGORY_THEMES['Default'];
+                              CATEGORY_THEMES[catThemeKey] ||
+                              CATEGORY_THEMES['default'];
                             return (
                               <span
                                 key={idx}
@@ -395,16 +398,18 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
                         </div>
 
                         {/* Tags */}
-                        <div className="mb-2.5 flex flex-wrap gap-1.5">
-                          {post.tags.map((tag, idx) => (
-                            <span
-                              key={idx}
-                              className={`text-[10px] font-bold ${primaryTheme.text} tracking-wide uppercase opacity-85`}
-                            >
-                              #{tag}
-                            </span>
-                          ))}
-                        </div>
+                        {post.tags && post.tags.length > 0 && (
+                          <div className="mb-2.5 flex flex-wrap gap-1.5">
+                            {post.tags.map((tag, idx) => (
+                              <span
+                                key={idx}
+                                className={`text-[10px] font-bold ${primaryTheme.text} tracking-wide uppercase opacity-85`}
+                              >
+                                #{tag}
+                              </span>
+                            ))}
+                          </div>
+                        )}
 
                         <h3
                           className={`font-heading mb-3 text-base leading-snug font-extrabold text-white group-hover:${primaryTheme.text} transition-colors duration-300`}

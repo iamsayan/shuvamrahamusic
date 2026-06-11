@@ -38,7 +38,7 @@ export default async function SecurePayPage() {
           name: 'Secure Checkout | Shuvam Raha Music',
           description:
             'Complete your enrollment securely. Choose from starter online classes, global coaching program, or Kolkata offline studio sessions.',
-          url: 'https://shuvamrahamusic.com/guitar-classes-with-shuvam/pay',
+          url: 'https://www.shuvamrahamusic.com/guitar-classes-with-shuvam/pay',
         }}
       />
       <PageLayout

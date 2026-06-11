@@ -37,17 +37,17 @@ export default async function BlogListingPage() {
           name: 'Shuvam Raha Music Blog',
           description:
             'Practical guides, finger exercises, gear reviews, and roadmaps from Shuvam Raha to help you learn guitar and master your favorite songs.',
-          url: 'https://shuvamrahamusic.com/blog',
+          url: 'https://www.shuvamrahamusic.com/blog',
           publisher: {
             '@type': 'Person',
             name: 'Shuvam Raha',
-            sameAs: 'https://shuvamrahamusic.com',
+            sameAs: 'https://www.shuvamrahamusic.com',
           },
           blogPost: posts.map((post) => ({
             '@type': 'BlogPosting',
             headline: post.title,
             description: post.excerpt,
-            url: `https://shuvamrahamusic.com/blog/${post.slug}`,
+            url: `https://www.shuvamrahamusic.com/blog/${post.slug}`,
             datePublished: post.date,
             keywords: post.tags.join(', '),
             author: {
