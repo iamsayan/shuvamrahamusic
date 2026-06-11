@@ -71,14 +71,6 @@ export default function BlogArchiveClient({
 
   return (
     <div className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
-      {/* Background ambient glows */}
-      <div
-        className={`pointer-events-none absolute top-12 left-1/4 h-[400px] w-[400px] rounded-full blur-[130px] transition-all duration-1000 ${glow.top}`}
-      />
-      <div
-        className={`pointer-events-none absolute right-12 bottom-12 h-[400px] w-[400px] rounded-full blur-[130px] transition-all duration-1000 ${glow.bottom}`}
-      />
-
       <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
         <div className="flex w-full flex-col pt-8 pb-6">
           {/* Breadcrumbs */}
