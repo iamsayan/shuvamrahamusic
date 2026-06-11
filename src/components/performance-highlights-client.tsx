@@ -184,7 +184,9 @@ export default function PerformanceHighlightsClient({
         artistsMap.set(p.artist._id, p.artist);
       }
     });
-    return Array.from(artistsMap.values());
+    return Array.from(artistsMap.values()).sort(
+      (a, b) => (a._o || 0) - (b._o || 0)
+    );
   }, [performances]);
 
   // 2. Mapped categories/circuits list
@@ -206,95 +208,96 @@ export default function PerformanceHighlightsClient({
     }));
   }, [performances]);
 
-  // 3. Mapped timeline list
-  const timeline = useMemo(() => {
-    return performances.map((p) => {
-      const dateArray = Array.isArray(p.date)
-        ? p.date
-        : [p.date].filter(Boolean);
-      let year = 2026;
-      let dateFormatted = '';
+  // 3. Mapped timeline list and associated statistics/years
+  const { timeline, years, touringYearsRange, timelineArtists } =
+    useMemo(() => {
+      const yearsSet = new Set<number>();
 
-      if (dateArray.length > 0) {
-        const sortedDates = [...dateArray].sort();
-        const firstDateStr = sortedDates[0];
-        const lastDateStr = sortedDates[sortedDates.length - 1];
+      const list = performances.map((p) => {
+        const dateArray = Array.isArray(p.date)
+          ? p.date
+          : [p.date].filter(Boolean);
+        let year = 2026;
+        let dateFormatted = '';
 
-        const firstDateObj = new Date(firstDateStr);
-        year = firstDateObj.getFullYear() || 2026;
+        if (dateArray.length > 0) {
+          const sortedDates = [...dateArray].sort();
+          const firstDateStr = sortedDates[0];
+          const lastDateStr = sortedDates[sortedDates.length - 1];
 
-        const formatOptions: Intl.DateTimeFormatOptions = {
-          day: 'numeric',
-          month: 'short',
-        };
+          const firstDateObj = new Date(firstDateStr);
+          year = firstDateObj.getFullYear() || 2026;
 
-        if (sortedDates.length === 1) {
-          try {
-            dateFormatted = firstDateObj.toLocaleDateString(
-              'en-US',
-              formatOptions
-            );
-          } catch {
-            dateFormatted = firstDateStr;
-          }
-        } else {
-          try {
-            const firstFormatted = firstDateObj.toLocaleDateString(
-              'en-US',
-              formatOptions
-            );
-            const lastFormatted = new Date(lastDateStr).toLocaleDateString(
-              'en-US',
-              formatOptions
-            );
-            dateFormatted = `${firstFormatted} – ${lastFormatted}`;
-          } catch {
-            dateFormatted = `${firstDateStr} – ${lastDateStr}`;
+          const formatOptions: Intl.DateTimeFormatOptions = {
+            day: 'numeric',
+            month: 'short',
+          };
+
+          if (sortedDates.length === 1) {
+            try {
+              dateFormatted = firstDateObj.toLocaleDateString(
+                'en-US',
+                formatOptions
+              );
+            } catch {
+              dateFormatted = firstDateStr;
+            }
+          } else {
+            try {
+              const firstFormatted = firstDateObj.toLocaleDateString(
+                'en-US',
+                formatOptions
+              );
+              const lastFormatted = new Date(lastDateStr).toLocaleDateString(
+                'en-US',
+                formatOptions
+              );
+              dateFormatted = `${firstFormatted} – ${lastFormatted}`;
+            } catch {
+              dateFormatted = `${firstDateStr} – ${lastDateStr}`;
+            }
           }
         }
+
+        yearsSet.add(year);
+
+        return {
+          date: dateFormatted || 'May 30',
+          year,
+          artist: p.artist?.name || '',
+          location: p.state
+            ? `${p.city}, ${p.state}, ${p.country}`
+            : `${p.city}, ${p.country}`,
+          venue: p.venue || null,
+          details: p.details || null,
+        };
+      });
+
+      const uniqueYears = Array.from(yearsSet);
+      const sortedYears = ['All', ...uniqueYears.sort((a, b) => b - a)];
+
+      let touringRange = 'N/A';
+      if (uniqueYears.length > 0) {
+        const minYear = Math.min(...uniqueYears);
+        const maxYear = Math.max(...uniqueYears);
+        touringRange =
+          minYear === maxYear ? `${minYear}` : `${minYear} – ${maxYear}`;
       }
 
+      // Sort existing non-hidden artists by name for the dropdown filter list
+      const artistsSortedNames = artists
+        .map((a) => a.name)
+        .sort((a, b) => a.localeCompare(b));
+
       return {
-        date: dateFormatted || 'May 30',
-        year,
-        artist: p.artist?.name || '',
-        location: p.state
-          ? `${p.city}, ${p.state}, ${p.country}`
-          : `${p.city}, ${p.country}`,
-        venue: p.venue || null,
-        details: p.details || null,
+        timeline: list,
+        years: sortedYears,
+        touringYearsRange: touringRange,
+        timelineArtists: artistsSortedNames,
       };
-    });
-  }, [performances]);
+    }, [performances, artists]);
 
-  // Dynamically extract unique years from timeline data
-  const years = useMemo(() => {
-    const uniqueYears = Array.from(new Set(timeline.map((show) => show.year)));
-    return ['All', ...uniqueYears.sort((a, b) => b - a)];
-  }, [timeline]);
-
-  // Dynamically extract unique artists from timeline data
-  const timelineArtists = useMemo(() => {
-    const uniqueArtists = Array.from(
-      new Set(timeline.map((show) => show.artist).filter(Boolean))
-    );
-    return uniqueArtists.sort((a, b) => a.localeCompare(b));
-  }, [timeline]);
-
-  // Dynamically calculate touring years range based on timeline data
-  const touringYearsRange = useMemo(() => {
-    if (timeline.length === 0) return 'N/A';
-    const yearsList = timeline.map((show) => show.year).filter(Boolean);
-    if (yearsList.length === 0) return 'N/A';
-    const minYear = Math.min(...yearsList);
-    const maxYear = Math.max(...yearsList);
-    return minYear === maxYear ? `${minYear}` : `${minYear} – ${maxYear}`;
-  }, [timeline]);
-
-  // Dynamically count shows
-  const totalShowsCount = useMemo(() => {
-    return timeline.length;
-  }, [timeline]);
+  const totalShowsCount = timeline.length;
 
   // Dynamically identify regional hubs / countries from show locations
   const hubsCovered = useMemo(() => {
@@ -311,50 +314,47 @@ export default function PerformanceHighlightsClient({
     return Array.from(countries).join(', ');
   }, [performances]);
 
-  // Dynamically count venue categories/circuits covered
-  const categoriesCount = useMemo(() => {
-    return `${categories.length} Key Segments`;
-  }, [categories]);
+  const categoriesCount = `${categories.length} Key Segments`;
 
-  // Dynamically compute Geographic Performance Reach details
-  const primaryLocations = useMemo(() => {
+  // Dynamically compute Geographic Performance Reach details in a single pass
+  const { primaryLocations, statesData, internationalTours } = useMemo(() => {
     const cityCounts = new Map<string, number>();
+    const statesSet = new Set<string>();
+    const tourSet = new Set<string>();
+
     performances.forEach((p) => {
-      if (p.city && (!p.country || p.country.toLowerCase() === 'india')) {
+      const isIndia = !p.country || p.country.toLowerCase() === 'india';
+
+      if (p.city && isIndia) {
         const city = p.city.trim();
         cityCounts.set(city, (cityCounts.get(city) || 0) + 1);
       }
-    });
-    return Array.from(cityCounts.entries())
-      .sort((a, b) => b[1] - a[1])
-      .map(([city]) => city)
-      .slice(0, 6)
-      .join(', ');
-  }, [performances]);
 
-  const statesData = useMemo(() => {
-    const statesSet = new Set<string>();
-    performances.forEach((p) => {
-      if (p.state && p.country?.toLowerCase() === 'india') {
+      if (p.state && isIndia) {
         statesSet.add(p.state.trim());
       }
-    });
-    return {
-      count: statesSet.size,
-      list: Array.from(statesSet).join(', '),
-    };
-  }, [performances]);
 
-  const internationalTours = useMemo(() => {
-    const tourSet = new Set<string>();
-    performances.forEach((p) => {
-      if (p.country && p.country.toLowerCase() !== 'india') {
+      if (p.country && !isIndia) {
         const year = p.date?.[0] ? p.date[0].split('-')[0] : '';
         const entry = `${p.country}${p.city ? ` — ${p.city}` : ''}${year ? ` (${year})` : ''}`;
         tourSet.add(entry);
       }
     });
-    return Array.from(tourSet).join(', ');
+
+    const primaryLocs = Array.from(cityCounts.entries())
+      .sort((a, b) => b[1] - a[1])
+      .map(([city]) => city)
+      .slice(0, 6)
+      .join(', ');
+
+    return {
+      primaryLocations: primaryLocs,
+      statesData: {
+        count: statesSet.size,
+        list: Array.from(statesSet).join(', '),
+      },
+      internationalTours: Array.from(tourSet).join(', '),
+    };
   }, [performances]);
 
   // Filter shows based on search query, year and artist select
