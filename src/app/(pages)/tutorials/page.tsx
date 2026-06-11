@@ -6,14 +6,14 @@ import cockpit from '@/lib/client';
 import { TutorialItem } from '@/types';
 
 export const metadata: Metadata = {
-  title: 'Tutorials & Practice Sheets | Shuvam Raha Music',
+  title: 'Tutorials & Practice Sheets',
   description:
     'Download professional guitar fingering exercises, right-hand plectrum practices, manuscript staves, and jazz chord voicings curated by Shuvam Raha.',
   alternates: {
     canonical: '/tutorials',
   },
   openGraph: {
-    title: 'Tutorials & Practice Sheets | Shuvam Raha Music',
+    title: 'Tutorials & Practice Sheets',
     description:
       'Download professional guitar fingering exercises, right-hand plectrum practices, manuscript staves, and jazz chord voicings curated by Shuvam Raha.',
     url: '/tutorials',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Tutorials & Practice Sheets | Shuvam Raha Music',
+    title: 'Tutorials & Practice Sheets',
     description:
       'Download professional guitar fingering exercises, right-hand plectrum practices, manuscript staves, and jazz chord voicings curated by Shuvam Raha.',
   },
@@ -57,7 +57,8 @@ export default async function TutorialsPage() {
             {
               '@type': 'BreadcrumbList',
               name: 'Breadcrumbs',
-              '@id': 'https://www.shuvamrahamusic.com/tutorials/#breadcrumblist',
+              '@id':
+                'https://www.shuvamrahamusic.com/tutorials/#breadcrumblist',
               itemListElement: [
                 {
                   '@type': 'ListItem',
@@ -84,7 +85,8 @@ export default async function TutorialsPage() {
                 '@id': 'https://www.shuvamrahamusic.com/#website',
               },
               breadcrumb: {
-                '@id': 'https://www.shuvamrahamusic.com/tutorials/#breadcrumblist',
+                '@id':
+                  'https://www.shuvamrahamusic.com/tutorials/#breadcrumblist',
               },
             },
           ],

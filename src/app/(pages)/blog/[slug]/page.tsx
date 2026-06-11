@@ -7,7 +7,6 @@ import CockpitImage from '@/components/cockpit-image';
 import JsonLd from '@/components/json-ld';
 import ShareButtons from '@/components/share-buttons';
 import {
-  AMBIENT_GLOWS,
   BRIGHT_GRADIENTS,
   CATEGORY_THEMES,
   GLOW_COLORS,

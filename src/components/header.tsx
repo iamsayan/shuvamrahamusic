@@ -37,7 +37,7 @@ const navLinks: NavLink[] = [
   {
     name: 'Performance Highlights',
     href: '/performance-highlights',
-    raw: process.env.NODE_ENV !== 'production',
+    raw: true,
   },
   {
     name: 'Gallery',

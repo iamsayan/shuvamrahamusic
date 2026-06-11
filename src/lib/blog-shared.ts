@@ -94,37 +94,6 @@ export const GLOW_COLORS: Record<string, string> = {
   default: 'bg-cyan-500/10',
 };
 
-export const AMBIENT_GLOWS: Record<string, { top: string; bottom: string }> = {
-  all: {
-    top: 'bg-cyan-600/10',
-    bottom: 'bg-violet-600/10',
-  },
-  emerald: {
-    top: 'bg-emerald-600/10',
-    bottom: 'bg-teal-600/10',
-  },
-  violet: {
-    top: 'bg-violet-600/10',
-    bottom: 'bg-fuchsia-600/10',
-  },
-  amber: {
-    top: 'bg-amber-600/10',
-    bottom: 'bg-orange-600/10',
-  },
-  rose: {
-    top: 'bg-rose-600/10',
-    bottom: 'bg-pink-600/10',
-  },
-  cyan: {
-    top: 'bg-cyan-600/10',
-    bottom: 'bg-blue-600/10',
-  },
-  default: {
-    top: 'bg-cyan-600/10',
-    bottom: 'bg-violet-600/10',
-  },
-};
-
 export function getThemeKey(categoryName: string): string {
   if (!categoryName) return 'default';
   const lowerName = categoryName.toLowerCase();

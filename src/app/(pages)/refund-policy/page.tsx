@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
-import PageLayout from '@/components/page-layout';
 import JsonLd from '@/components/json-ld';
+import PageLayout from '@/components/page-layout';
 
 export const metadata: Metadata = {
   title: 'Refund Policy',
@@ -16,7 +16,7 @@ export default function RefundPolicyPage() {
         schema={{
           '@context': 'https://schema.org',
           '@type': 'WebPage',
-          name: 'Refund Policy | Shuvam Raha Music',
+          name: 'Refund Policy',
           description:
             'Refund, return, cancellation, and class rescheduling policies for Shuvam Raha Music programs.',
           url: 'https://www.shuvamrahamusic.com/refund-policy',

@@ -30,14 +30,14 @@ import {
 } from 'react-icons/lu';
 
 export const metadata: Metadata = {
-  title: 'Biography | Shuvam Raha Music',
+  title: 'Biography',
   description:
     'Learn about Shuvam Raha, an LCM certified professional guitarist, instructor, composer, singer-songwriter, and music producer from Kolkata, India.',
   alternates: {
     canonical: '/biography',
   },
   openGraph: {
-    title: 'Biography | Shuvam Raha Music',
+    title: 'Biography',
     description:
       'Learn about Shuvam Raha, an LCM certified professional guitarist, instructor, composer, singer-songwriter, and music producer from Kolkata, India.',
     url: '/biography',
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Biography | Shuvam Raha Music',
+    title: 'Biography',
     description:
       'Learn about Shuvam Raha, an LCM certified professional guitarist, instructor, composer, singer-songwriter, and music producer from Kolkata, India.',
     images: ['/hero-guitarist.jpg'],
@@ -171,7 +171,8 @@ export default function BiographyPage() {
             {
               '@type': 'BreadcrumbList',
               name: 'Breadcrumbs',
-              '@id': 'https://www.shuvamrahamusic.com/biography/#breadcrumblist',
+              '@id':
+                'https://www.shuvamrahamusic.com/biography/#breadcrumblist',
               itemListElement: [
                 {
                   '@type': 'ListItem',
@@ -198,7 +199,8 @@ export default function BiographyPage() {
                 '@id': 'https://www.shuvamrahamusic.com/#website',
               },
               breadcrumb: {
-                '@id': 'https://www.shuvamrahamusic.com/biography/#breadcrumblist',
+                '@id':
+                  'https://www.shuvamrahamusic.com/biography/#breadcrumblist',
               },
               primaryImageOfPage: {
                 '@id': 'https://www.shuvamrahamusic.com/biography/#thumbnail',

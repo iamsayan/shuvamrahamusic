@@ -7,7 +7,6 @@ import { usePathname, useSearchParams } from 'next/navigation';
 
 import CockpitImage from '@/components/cockpit-image';
 import {
-  AMBIENT_GLOWS,
   BRIGHT_GRADIENTS,
   BlogPost,
   CATEGORY_THEMES,

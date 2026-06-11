@@ -1,17 +1,20 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 import JsonLd from '@/components/json-ld';
 import PerformanceHighlightsClient from '@/components/performance-highlights-client';
+import cockpit from '@/lib/client';
+import { PerformanceHighlights } from '@/types';
 
 export const metadata: Metadata = {
-  title: 'Performance Highlights | Shuvam Raha Music',
+  title: 'Performance Highlights',
   description:
     'Explore the live performance portfolio, interstate touring history, and professional stage metrics of live guitarist and performing musician Shuvam Raha (2024-2026).',
   alternates: {
     canonical: '/performance-highlights',
   },
   openGraph: {
-    title: 'Performance Highlights | Shuvam Raha Music',
+    title: 'Performance Highlights',
     description:
       'Explore the live performance portfolio, interstate touring history, and professional stage metrics of live guitarist and performing musician Shuvam Raha (2024-2026).',
     url: '/performance-highlights',
@@ -19,13 +22,30 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Performance Highlights | Shuvam Raha Music',
+    title: 'Performance Highlights',
     description:
       'Explore the live performance portfolio, interstate touring history, and professional stage metrics of live guitarist and performing musician Shuvam Raha (2024-2026).',
   },
 };
 
-export default function PerformanceHighlightsPage() {
+export default async function PerformanceHighlightsPage() {
+  let highlightsData = null;
+  try {
+    highlightsData =
+      await cockpit.getContentItemByFilter<PerformanceHighlights>(
+        'performancehighlights'
+      );
+  } catch (error) {
+    console.error(
+      'Error fetching performance highlights from Cockpit CMS:',
+      error
+    );
+  }
+
+  if (!highlightsData) {
+    notFound();
+  }
+
   return (
     <>
       <JsonLd
@@ -79,7 +99,7 @@ export default function PerformanceHighlightsPage() {
           ],
         }}
       />
-      <PerformanceHighlightsClient />
+      <PerformanceHighlightsClient initialData={highlightsData} />
     </>
   );
 }

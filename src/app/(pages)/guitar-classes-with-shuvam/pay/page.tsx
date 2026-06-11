@@ -35,7 +35,7 @@ export default async function SecurePayPage() {
         schema={{
           '@context': 'https://schema.org',
           '@type': 'CheckoutPage',
-          name: 'Secure Checkout | Shuvam Raha Music',
+          name: 'Secure Checkout',
           description:
             'Complete your enrollment securely. Choose from starter online classes, global coaching program, or Kolkata offline studio sessions.',
           url: 'https://www.shuvamrahamusic.com/guitar-classes-with-shuvam/pay',
