@@ -178,28 +178,14 @@ export default function BlogArchiveClient({
 
                       {/* Metadata & Title */}
                       <div className="p-5.5">
-                        <div className="mb-3.5 flex items-center justify-between gap-4">
-                          {/* Categories */}
-                          <div className="relative z-10 flex flex-wrap gap-1.5">
-                            {post.categories.map((cat, idx) => {
-                              const catThemeKey = getThemeKey(cat.title);
-                              const catTheme =
-                                CATEGORY_THEMES[catThemeKey] ||
-                                CATEGORY_THEMES['default'];
-                              return (
-                                <Link
-                                  key={idx}
-                                  href={`/blog/category/${cat.slug}`}
-                                  className={`rounded-full border ${catTheme.border} bg-white/[0.02] px-2.5 py-0.5 text-[9px] font-black tracking-widest ${catTheme.text} uppercase transition-colors duration-300 hover:bg-white/[0.08]`}
-                                >
-                                  {cat.title}
-                                </Link>
-                              );
-                            })}
-                          </div>
-
-                          {/* Read Time */}
-                          <span className="flex shrink-0 items-center gap-1 text-[10px] font-bold text-gray-500 uppercase">
+                        {/* Date & Read Time metadata */}
+                        <div className="mb-2.5 flex items-center gap-3 text-[10px] font-bold text-gray-500 uppercase">
+                          <span className="flex items-center gap-1">
+                            <LuCalendar className="h-3 w-3" />
+                            {post.date}
+                          </span>
+                          <span>•</span>
+                          <span className="flex items-center gap-1">
                             <LuClock className="h-3 w-3" />
                             {post.readTime}
                           </span>
@@ -216,15 +202,28 @@ export default function BlogArchiveClient({
                           </Link>
                         </h3>
 
-                        {/* Date metadata */}
-                        <div className="mb-3 flex items-center gap-1 text-[10px] font-bold text-gray-500 uppercase">
-                          <LuCalendar className="h-3 w-3" />
-                          {post.date}
-                        </div>
-
-                        <p className="line-clamp-3 text-xs leading-relaxed text-gray-400">
+                        <p className="mb-4 line-clamp-3 text-xs leading-relaxed text-gray-400">
                           {post.excerpt}
                         </p>
+
+                        {/* Categories (First 3 only) */}
+                        <div className="relative z-10 flex flex-wrap gap-1.5">
+                          {post.categories.slice(0, 3).map((cat, idx) => {
+                            const catThemeKey = getThemeKey(cat.title);
+                            const catTheme =
+                              CATEGORY_THEMES[catThemeKey] ||
+                              CATEGORY_THEMES['default'];
+                            return (
+                              <Link
+                                key={idx}
+                                href={`/blog/category/${cat.slug}`}
+                                className={`rounded-full border ${catTheme.border} bg-white/[0.02] px-2.5 py-0.5 text-[9px] font-black tracking-widest ${catTheme.text} uppercase transition-colors duration-300 hover:bg-white/[0.08]`}
+                              >
+                                {cat.title}
+                              </Link>
+                            );
+                          })}
+                        </div>
 
                         {/* Tags */}
                         {post.tags && post.tags.length > 0 && (
