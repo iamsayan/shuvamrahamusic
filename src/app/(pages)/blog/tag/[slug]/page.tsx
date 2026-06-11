@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import BlogArchiveClient from '@/components/blog-archive-client';
@@ -10,6 +11,9 @@ import {
 interface PageProps {
   params: Promise<{
     slug: string;
+  }>;
+  searchParams: Promise<{
+    page?: string;
   }>;
 }
 
@@ -34,7 +38,7 @@ export async function generateStaticParams() {
 // Generate dynamic SEO metadata
 export async function generateMetadata({
   params,
-}: PageProps): Promise<Metadata> {
+}: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const posts = await getBlogPostsByTag(slug);
 
@@ -70,23 +74,32 @@ export async function generateMetadata({
   };
 }
 
-export default async function TagArchivePage({ params }: PageProps) {
+export default async function TagArchivePage({ params, searchParams }: PageProps) {
   const { slug } = await params;
-  const posts = await getBlogPostsByTag(slug);
+  const { page } = await searchParams;
+  const pageNum = Number(page) || 1;
 
-  if (posts.length === 0) {
+  // Fetch all posts with minimal fields projection to count total and get tag casing
+  const allPosts = await getBlogPostsByTag(slug, { fields: { _id: 1, tags: 1 } });
+
+  if (allPosts.length === 0) {
     notFound();
   }
 
   // Find exact tag title casing
   let tagName = slug;
-  for (const post of posts) {
+  for (const post of allPosts) {
     const matched = post.tags.find((tag) => tag.slug === slug);
     if (matched) {
       tagName = matched.title;
       break;
     }
   }
+
+  // Fetch only the paginated slice
+  const limit = 6;
+  const skip = (pageNum - 1) * limit;
+  const posts = await getBlogPostsByTag(slug, { limit, skip });
 
   return (
     <>
@@ -116,13 +129,16 @@ export default async function TagArchivePage({ params }: PageProps) {
           })),
         }}
       />
-      <BlogArchiveClient
-        title="Tag:"
-        subtitle={`Browse all articles, patterns, and guides tagged with #${tagName}.`}
-        type="tag"
-        term={`#${tagName}`}
-        posts={posts}
-      />
+      <Suspense fallback={<div className="min-h-screen bg-[#05050A]" />}>
+        <BlogArchiveClient
+          title="Tag:"
+          subtitle={`Browse all articles, patterns, and guides tagged with #${tagName}.`}
+          type="tag"
+          term={`#${tagName}`}
+          posts={posts}
+          totalPostsCount={allPosts.length}
+        />
+      </Suspense>
     </>
   );
 }
