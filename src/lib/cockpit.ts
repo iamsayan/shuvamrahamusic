@@ -266,25 +266,29 @@ export class CockpitClient {
     // Automatically determine default Next.js cache revalidation tags from Cockpit model paths
     let tags: string[] | undefined = extraFetchOptions?.next?.tags;
 
-    if (!tags && method === 'GET' && path.startsWith('/content/')) {
-      const cleanPath = path.split('?')[0];
-      const parts = cleanPath.split('/');
+    if (!tags && method === 'GET') {
+      const [cleanPath, query] = path.split('?');
+      const parts = cleanPath.replace(/^\/|\/$/g, '').split('/');
 
-      if (parts[2] === 'items' && parts.length === 3) {
-        // Batch query: /content/items?models=...
-        try {
-          const urlParams = new URL(url).searchParams;
-          const modelsParam = urlParams.get('models');
-          if (modelsParam) {
-            const modelsObj = JSON.parse(modelsParam);
-            tags = Object.keys(modelsObj);
+      if (parts[0] === 'content') {
+        if (parts[1] === 'items' && parts.length === 2) {
+          // Batch query: /content/items?models=...
+          if (query) {
+            try {
+              const modelsParam = new URLSearchParams(query).get('models');
+              if (modelsParam) {
+                tags = Object.keys(JSON.parse(modelsParam));
+              }
+            } catch {
+              // Ignore URL parsing or JSON parsing errors
+            }
           }
-        } catch {
-          // Ignore URL parsing or JSON parsing errors
+        } else if (parts.length > 1) {
+          // The last segment of single-model paths is always the modelName
+          tags = [parts[parts.length - 1]];
         }
-      } else if (parts[3]) {
-        // Single model paths (e.g. /content/items/modelName, /content/item/modelName, /content/tree/modelName)
-        tags = [parts[3]];
+      } else if (parts[0] === 'assets') {
+        tags = ['assets'];
       }
     }
 
