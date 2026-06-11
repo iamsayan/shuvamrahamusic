@@ -151,8 +151,8 @@ export async function generateMetadata({
       authors: [post.author.name],
       images: [
         {
-          url: cockpit.getImageUrl(post.coverImage._id),
-          alt: post.title,
+          url: cockpit.getImageUrl(post.featured_image._id),
+          alt: post.featured_image?.altText || post.title,
         },
       ],
     },
@@ -160,7 +160,7 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: post.title,
       description: post.excerpt,
-      images: [cockpit.getImageUrl(post.coverImage._id)],
+      images: [cockpit.getImageUrl(post.featured_image._id)],
     },
   };
 }
@@ -216,7 +216,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           '@type': 'BlogPosting',
           headline: post.title,
           description: post.excerpt,
-          image: cockpit.getImageUrl(post.coverImage._id),
+          image: cockpit.getImageUrl(post.featured_image._id),
           datePublished: post.date,
           author: {
             '@type': 'Person',
