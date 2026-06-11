@@ -50,7 +50,8 @@ const navLinks: NavLink[] = [
   },
   { name: 'Gears', href: '/my-gears', raw: true },
   { name: 'Tutorials', href: '/tutorials', raw: true },
-  { name: 'Guitar Jam Studio', href: '/fretboard-trainer', raw: true },
+  //{ name: 'Guitar Jam Studio', href: '/fretboard-trainer', raw: true },
+  // { name: 'Rhythm Workshop', href: '/rhythm-workshop', raw: true },
   { name: 'Blog', href: '/blog', raw: true },
   // {
   //   name: 'Links',
