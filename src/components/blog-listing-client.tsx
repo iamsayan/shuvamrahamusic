@@ -32,8 +32,6 @@ interface BlogListingClientProps {
   totalPostsCount: number;
 }
 
-const POSTS_PER_PAGE = 10;
-
 export default function BlogListingClient({
   posts,
   totalPostsCount,
@@ -110,7 +108,9 @@ export default function BlogListingClient({
   const paginatedGridPosts = gridPosts;
 
   const totalPages = useMemo(() => {
-    return Math.ceil(totalPostsCount / POSTS_PER_PAGE);
+    return totalPostsCount <= 10
+      ? 1
+      : 1 + Math.ceil((totalPostsCount - 10) / 9);
   }, [totalPostsCount]);
 
   return (
