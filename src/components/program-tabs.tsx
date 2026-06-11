@@ -1,17 +1,24 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
+
+import CoachImageSlider from '@/components/coach-image-slider';
+import { authorityPoints, curriculum, features } from '@/lib/guitar-data';
+import { GuitarClassesData } from '@/types';
+
 import {
-  LuStar,
-  LuGraduationCap,
-  LuShieldCheck,
   LuBadgeCheck,
   LuCircleCheck,
+  LuGraduationCap,
+  LuShieldCheck,
+  LuStar,
 } from 'react-icons/lu';
-import { authorityPoints, curriculum, features } from '@/lib/guitar-data';
 
-export default function ProgramTabs() {
+interface ProgramTabsProps {
+  classesData: GuitarClassesData;
+}
+
+export default function ProgramTabs({ classesData }: ProgramTabsProps) {
   const [activeTab, setActiveTab] = useState<
     'instructor' | 'curriculum' | 'system'
   >('instructor');
@@ -74,25 +81,19 @@ export default function ProgramTabs() {
               <div className="flex w-full justify-center lg:w-5/12">
                 <div className="group relative aspect-[4/5] w-full max-w-[480px] rounded-[2rem] border border-white/10 bg-white/[0.02] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-3xl lg:max-w-full">
                   <div className="relative h-full w-full overflow-hidden rounded-2xl bg-[#0a0a0f]">
-                    <Image
-                      src="/hero-guitarist.jpg"
-                      alt="Shuvam Raha"
-                      fill
-                      className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 1024px) 480px, 600px"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#05050A] via-[#05050A]/20 to-transparent" />
+                    <CoachImageSlider images={classesData.coach_images} />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#05050A] via-[#05050A]/20 to-transparent" />
                     <div className="absolute right-6 bottom-6 left-6">
                       <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1.5 backdrop-blur-md">
                         <LuBadgeCheck className="h-4 w-4 text-blue-400" />
-                        <span className="text-xs sm:text-sm font-bold tracking-wide text-white uppercase">
+                        <span className="text-xs font-bold tracking-wide text-white uppercase sm:text-sm">
                           Verified Instructor
                         </span>
                       </div>
-                      <h3 className="text-2xl sm:text-3xl font-black text-white">
+                      <h3 className="text-2xl font-black text-white sm:text-3xl">
                         Shuvam Raha
                       </h3>
-                      <p className="text-sm sm:text-base font-medium text-gray-300">
+                      <p className="text-sm font-medium text-gray-300 sm:text-base">
                         Guitarist | Performer | Educator
                       </p>
                     </div>
