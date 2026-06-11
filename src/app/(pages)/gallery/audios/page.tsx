@@ -1,0 +1,213 @@
+'use client';
+
+import { useState } from 'react';
+
+import PageLayout from '@/components/page-layout';
+
+import { FaAmazon, FaApple, FaSpotify, FaYoutube } from 'react-icons/fa6';
+import { LuMusic, LuRadio, LuSparkles } from 'react-icons/lu';
+
+interface AudioTrack {
+  id: string;
+  title: string;
+  type: 'album' | 'track' | 'artist';
+  embedUrl: string;
+  description: string;
+  releaseYear: string;
+  genre: string;
+}
+
+const SHUVAM_TRACKS: AudioTrack[] = [
+  {
+    id: 'artist-profile',
+    title: 'Official Spotify Artist Profile',
+    type: 'artist',
+    embedUrl:
+      'https://open.spotify.com/embed/artist/4AmYXw6BaXjFN4urc6SyrG?utm_source=generator&theme=0',
+    description:
+      'Listen to Shuvam Raha’s complete discography, popular releases, and latest singles on Spotify.',
+    releaseYear: 'Continuous',
+    genre: 'Indie Pop / Acoustic',
+  },
+  {
+    id: 'phirti-pothe',
+    title: 'Phirti Pothe (Single)',
+    type: 'album',
+    embedUrl:
+      'https://open.spotify.com/embed/album/1ElJ94vEFe17G6kKbhuH2r?utm_source=generator&theme=0',
+    description:
+      'A soulful acoustic Bengali ballad composed, produced, and sung by Shuvam Raha, capturing the bittersweet emotions of acceptance.',
+    releaseYear: '2023',
+    genre: 'Bengali Indie / Acoustic',
+  },
+];
+
+export default function AudiosGalleryPage() {
+  const [activeTrack, setActiveTrack] = useState<AudioTrack>(SHUVAM_TRACKS[0]);
+
+  return (
+    <PageLayout
+      title="Audio Gallery"
+      subtitle="Explore Shuvam Raha’s official releases, covers, and compositions. Stream full tracks via the interactive Spotify player."
+    >
+      <div className="flex flex-col gap-10">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
+          {/* Left Column: Interactive Spotify Embed Widget */}
+          <div className="flex flex-col gap-4 lg:col-span-7">
+            <div className="relative overflow-hidden rounded-3xl border border-white/[0.06] bg-[#0A0A15]/60 p-6 shadow-2xl backdrop-blur-2xl">
+              {/* Decorative Glow */}
+              <div className="pointer-events-none absolute -top-24 -left-24 h-60 w-60 rounded-full bg-green-500/10 blur-[90px]" />
+
+              <div className="relative z-10 mb-6 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <LuRadio className="h-5 w-5 animate-pulse text-green-400" />
+                  <span className="text-xs font-black tracking-widest text-green-400 uppercase">
+                    Interactive Spotify Widget
+                  </span>
+                </div>
+                <span className="rounded-full bg-green-500/10 px-3 py-1 text-[10px] font-black tracking-wider text-green-400 uppercase">
+                  {activeTrack.type}
+                </span>
+              </div>
+
+              {/* Spotify IFrame player */}
+              <div className="relative aspect-video min-h-[352px] w-full overflow-hidden rounded-2xl bg-black/40 shadow-inner">
+                <iframe
+                  src={activeTrack.embedUrl}
+                  width="100%"
+                  height="352"
+                  frameBorder="0"
+                  allowFullScreen={true}
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"
+                  title={activeTrack.title}
+                  className="absolute inset-0 h-full w-full border-0"
+                />
+              </div>
+
+              {/* Active Track Metadata */}
+              <div className="mt-6 space-y-2">
+                <h3 className="font-heading text-lg font-black text-white sm:text-xl">
+                  {activeTrack.title}
+                </h3>
+                <p className="text-xs leading-relaxed text-gray-400">
+                  {activeTrack.description}
+                </p>
+                <div className="flex flex-wrap gap-4 pt-2 text-[10px] font-bold text-gray-500 uppercase">
+                  <span>
+                    Released:{' '}
+                    <strong className="text-white">
+                      {activeTrack.releaseYear}
+                    </strong>
+                  </span>
+                  <span>
+                    Genre:{' '}
+                    <strong className="text-white">{activeTrack.genre}</strong>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Track Selector Grid */}
+          <div className="flex flex-col gap-6 lg:col-span-5">
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <LuMusic className="h-4.5 w-4.5 text-cyan-400" />
+                <h3 className="font-heading text-base font-black text-white">
+                  Select a Release
+                </h3>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                {SHUVAM_TRACKS.map((track) => {
+                  const isSelected = activeTrack.id === track.id;
+                  return (
+                    <button
+                      key={track.id}
+                      onClick={() => setActiveTrack(track)}
+                      className={`relative flex flex-col items-start rounded-2xl border p-5 text-left transition-all duration-300 ${
+                        isSelected
+                          ? 'border-green-500/40 bg-green-500/[0.05] shadow-[0_0_20px_rgba(34,197,94,0.1)]'
+                          : 'border-white/5 bg-white/[0.01] hover:border-white/10 hover:bg-white/[0.03]'
+                      }`}
+                    >
+                      <div className="mb-2 flex w-full items-center justify-between">
+                        <span
+                          className={`text-[10px] font-black tracking-widest uppercase ${isSelected ? 'text-green-400' : 'text-gray-500'}`}
+                        >
+                          {track.type}
+                        </span>
+                        {isSelected && (
+                          <span className="relative flex h-2 w-2">
+                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+                            <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
+                          </span>
+                        )}
+                      </div>
+
+                      <h4 className="font-heading text-sm font-extrabold text-white transition-colors group-hover:text-cyan-400">
+                        {track.title}
+                      </h4>
+                      <p className="mt-1 line-clamp-2 text-xs leading-normal text-gray-400">
+                        {track.description}
+                      </p>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Portal links to major streaming networks */}
+            <div className="space-y-4 rounded-3xl border border-white/[0.04] bg-[#0A0A15]/40 p-6">
+              <div className="flex items-center gap-2">
+                <LuSparkles className="h-4.5 w-4.5 text-cyan-400" />
+                <h3 className="font-heading text-sm font-bold text-white">
+                  Stream Anywhere
+                </h3>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <a
+                  href="https://open.spotify.com/artist/4AmYXw6BaXjFN4urc6SyrG"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 rounded-xl border border-green-500/20 bg-green-500/10 py-3 text-xs font-bold text-green-400 transition-all hover:bg-green-500/20 active:scale-95"
+                >
+                  <FaSpotify className="h-4 w-4" />
+                  Spotify
+                </a>
+                <a
+                  href="https://music.apple.com/us/album/phirti-pothe/1689193396"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 rounded-xl border border-pink-500/20 bg-pink-500/10 py-3 text-xs font-bold text-pink-400 transition-all hover:bg-pink-500/20 active:scale-95"
+                >
+                  <FaApple className="h-4 w-4" />
+                  Apple
+                </a>
+                <a
+                  href="https://music.amazon.com/albums/B0C6289PXW"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 rounded-xl border border-amber-500/20 bg-amber-500/10 py-3 text-xs font-bold text-amber-400 transition-all hover:bg-amber-500/20 active:scale-95"
+                >
+                  <FaAmazon className="h-4 w-4" />
+                  Amazon
+                </a>
+                <a
+                  href="https://www.youtube.com/channel/UC-N2u9tH94W9h0MebX9zQ7A"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 rounded-xl border border-red-500/20 bg-red-500/10 py-3 text-xs font-bold text-red-400 transition-all hover:bg-red-500/20 active:scale-95"
+                >
+                  <FaYoutube className="h-4 w-4" />
+                  YouTube
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </PageLayout>
+  );
+}
