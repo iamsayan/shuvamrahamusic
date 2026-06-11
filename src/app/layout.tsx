@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Outfit } from 'next/font/google';
 
+import Providers from '@/app/providers';
 import Footer from '@/components/footer';
 import Header from '@/components/header';
 import WhatsappButton from '@/components/whatsapp-button';
@@ -65,10 +66,12 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
     >
       <body className="overflow-x-hidden bg-[#05050A] antialiased">
-        <Header />
-        <main className="relative">{children}</main>
-        <Footer />
-        <WhatsappButton />
+        <Providers>
+          <Header />
+          <main className="relative">{children}</main>
+          <Footer />
+          <WhatsappButton />
+        </Providers>
       </body>
     </html>
   );
