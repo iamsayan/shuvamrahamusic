@@ -4,7 +4,7 @@ import cockpit, {
   ContentItemGetByFilterOptions,
   ContentItemsListOptions,
 } from '@/lib/client';
-import { Post } from '@/types';
+import { Category, Post, Tag } from '@/types';
 
 export * from '@/lib/blog-shared';
 
@@ -162,14 +162,45 @@ export async function getBlogPostBySlug(
 export async function getBlogPostsByCategory(
   categorySlug: string
 ): Promise<BlogPost[]> {
-  const posts = await getBlogPosts();
-  return posts.filter((post) =>
-    post.categories.some((cat) => cat.slug === categorySlug)
-  );
+  try {
+    const category = await cockpit.getContentItemByFilter<Category>(
+      'categories',
+      {
+        filter: { slug: categorySlug },
+      }
+    );
+
+    if (!category?._id) {
+      return [];
+    }
+
+    const posts = await getBlogPosts({
+      filter: { categories: { $elemMatch: { _id: category._id } } },
+    });
+    return posts;
+  } catch (error) {
+    console.error('Error fetching posts by category:', error);
+    return [];
+  }
 }
 
 // Fetch all posts belonging to a specific tag slug
 export async function getBlogPostsByTag(tagSlug: string): Promise<BlogPost[]> {
-  const posts = await getBlogPosts();
-  return posts.filter((post) => post.tags.some((tag) => tag.slug === tagSlug));
+  try {
+    const tag = await cockpit.getContentItemByFilter<Tag>('tags', {
+      filter: { slug: tagSlug },
+    });
+
+    if (!tag?._id) {
+      return [];
+    }
+
+    const posts = await getBlogPosts({
+      filter: { tags: { $elemMatch: { _id: tag._id } } },
+    });
+    return posts;
+  } catch (error) {
+    console.error('Error fetching posts by tag:', error);
+    return [];
+  }
 }
