@@ -211,10 +211,17 @@ export default function TutorialsListingClient({
                       className={`pointer-events-none absolute -right-24 -bottom-24 h-60 w-60 rounded-full ${hoverGlowClass} z-0 opacity-0 blur-[70px] transition-opacity duration-700 group-hover:opacity-100`}
                     />
 
-                    {/* YouTube Video Section */}
-                    {item.youtube_video_id && (
+                    {/* YouTube Video Section or Themed Placeholder */}
+                    {item.youtube_video_id ? (
                       <div className="relative aspect-video w-full overflow-hidden border-b border-white/[0.04] bg-black/50">
                         <YouTubeFacade videoId={item.youtube_video_id} />
+                      </div>
+                    ) : (
+                      <div className={`relative aspect-video w-full overflow-hidden border-b border-white/[0.04] bg-gradient-to-br ${theme.gradient} flex items-center justify-center`}>
+                        <div className="absolute inset-0 bg-[#05050A]/70 backdrop-blur-[2px]" />
+                        <div className={`relative flex h-16 w-16 items-center justify-center rounded-2xl border ${theme.border} ${theme.bg} ${theme.text} ${theme.glow} transition-transform duration-500 group-hover:scale-110`}>
+                          <LuFileText className="h-8 w-8" />
+                        </div>
                       </div>
                     )}
 
