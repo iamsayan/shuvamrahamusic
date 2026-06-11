@@ -67,7 +67,6 @@ export default function BlogArchiveClient({
   }, [type, term]);
 
   const primaryTheme = CATEGORY_THEMES[themeKey] || CATEGORY_THEMES['default'];
-  const glow = AMBIENT_GLOWS[themeKey] || AMBIENT_GLOWS['default'];
 
   return (
     <div className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
