@@ -112,6 +112,34 @@ export interface Post extends Entity {
   tags?: Tag[];
 }
 
+export interface PerformanceArtist {
+  name: string;
+  format: string;
+  image: Asset;
+  description?: string;
+}
+
+export interface PerformanceCategory {
+  title: string;
+  subtitle: string;
+  places: string[];
+}
+
+export interface PerformanceTimelineItem {
+  date: string;
+  year: number;
+  artist: string;
+  location: string;
+  venue?: string | null;
+  details?: string | null;
+}
+
+export interface PerformanceHighlights extends Entity {
+  artists: PerformanceArtist[];
+  categories: PerformanceCategory[];
+  timeline: PerformanceTimelineItem[];
+}
+
 declare global {
   interface Window {
     Razorpay: new (options: unknown) => { open(): void };

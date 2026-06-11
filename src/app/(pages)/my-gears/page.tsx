@@ -6,14 +6,14 @@ import cockpit from '@/lib/client';
 import { GearItem } from '@/types';
 
 export const metadata: Metadata = {
-  title: 'My Gears | Shuvam Raha Music',
+  title: 'My Gears',
   description:
     'Explore the professional guitars, strings, pickups, cables, recording gear, and accessories personally used and recommended by Shuvam Raha.',
   alternates: {
     canonical: '/my-gears',
   },
   openGraph: {
-    title: 'My Gears | Shuvam Raha Music',
+    title: 'My Gears',
     description:
       'Explore the professional guitars, strings, pickups, cables, recording gear, and accessories personally used and recommended by Shuvam Raha.',
     url: '/my-gears',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'My Gears | Shuvam Raha Music',
+    title: 'My Gears',
     description:
       'Explore the professional guitars, strings, pickups, cables, recording gear, and accessories personally used and recommended by Shuvam Raha.',
     images: [
@@ -90,7 +90,8 @@ export default async function MyGearsPage() {
                 '@id': 'https://www.shuvamrahamusic.com/#website',
               },
               breadcrumb: {
-                '@id': 'https://www.shuvamrahamusic.com/my-gears/#breadcrumblist',
+                '@id':
+                  'https://www.shuvamrahamusic.com/my-gears/#breadcrumblist',
               },
               primaryImageOfPage: {
                 '@id': 'https://www.shuvamrahamusic.com/my-gears/#thumbnail',

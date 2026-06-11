@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
-import PageLayout from '@/components/page-layout';
 import JsonLd from '@/components/json-ld';
+import PageLayout from '@/components/page-layout';
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
@@ -16,7 +16,7 @@ export default function TermsOfServicePage() {
         schema={{
           '@context': 'https://schema.org',
           '@type': 'WebPage',
-          name: 'Terms of Service | Shuvam Raha Music',
+          name: 'Terms of Service',
           description:
             'Terms of service and enrollment agreements for Shuvam Raha Music coaching programs.',
           url: 'https://www.shuvamrahamusic.com/terms-of-service',

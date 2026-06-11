@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
-import PageLayout from '@/components/page-layout';
 import JsonLd from '@/components/json-ld';
+import PageLayout from '@/components/page-layout';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -16,7 +16,7 @@ export default function PrivacyPolicyPage() {
         schema={{
           '@context': 'https://schema.org',
           '@type': 'WebPage',
-          name: 'Privacy Policy | Shuvam Raha Music',
+          name: 'Privacy Policy',
           description:
             'Privacy policy and data protection practices for Shuvam Raha Music classes and programs.',
           url: 'https://www.shuvamrahamusic.com/privacy-policy',

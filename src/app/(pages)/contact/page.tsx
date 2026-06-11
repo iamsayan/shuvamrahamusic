@@ -25,7 +25,7 @@ export default function ContactPage() {
         schema={{
           '@context': 'https://schema.org',
           '@type': 'ContactPage',
-          name: 'Contact Us | Shuvam Raha Music',
+          name: 'Contact Us',
           description:
             'Get in touch with Shuvam Raha Music. Enroll in guitar coaching, ask questions, or request assistance.',
           url: 'https://www.shuvamrahamusic.com/contact',

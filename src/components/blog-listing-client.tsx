@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,7 +8,6 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import CockpitImage from '@/components/cockpit-image';
 import {
-  AMBIENT_GLOWS,
   BRIGHT_GRADIENTS,
   BlogPost,
   CATEGORY_THEMES,
@@ -53,16 +52,19 @@ export default function BlogListingClient({
     setLocalSearch(searchQuery);
   }, [searchQuery]);
 
-  const updateUrl = (newSearch: string, newPage: number) => {
-    const params = new URLSearchParams();
-    if (newSearch) {
-      params.set('search', newSearch);
-    }
-    if (newPage > 1) {
-      params.set('page', String(newPage));
-    }
-    router.push(`${pathname}?${params.toString()}`);
-  };
+  const updateUrl = useCallback(
+    (newSearch: string, newPage: number) => {
+      const params = new URLSearchParams();
+      if (newSearch) {
+        params.set('search', newSearch);
+      }
+      if (newPage > 1) {
+        params.set('page', String(newPage));
+      }
+      router.push(`${pathname}?${params.toString()}`);
+    },
+    [router, pathname]
+  );
 
   const getPageLink = (pageNum: number) => {
     const params = new URLSearchParams();
@@ -84,7 +86,7 @@ export default function BlogListingClient({
       }
     }, 300);
     return () => clearTimeout(timer);
-  }, [localSearch]);
+  }, [localSearch, searchQuery, updateUrl]);
 
   const handleSearchChange = (query: string) => {
     setLocalSearch(query);
