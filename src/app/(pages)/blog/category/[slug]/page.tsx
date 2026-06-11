@@ -1,12 +1,11 @@
 import { Suspense } from 'react';
+
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+
 import BlogArchiveClient from '@/components/blog-archive-client';
 import JsonLd from '@/components/json-ld';
-import {
-  getBlogPosts,
-  getBlogPostsByCategory,
-} from '@/lib/blog-data';
+import { getBlogPosts, getBlogPostsByCategory } from '@/lib/blog-data';
 
 interface PageProps {
   params: Promise<{
@@ -38,7 +37,9 @@ export async function generateStaticParams() {
 // Generate dynamic SEO metadata
 export async function generateMetadata({
   params,
-}: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
   const posts = await getBlogPostsByCategory(slug);
 
@@ -60,7 +61,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${categoryName} Archives | Shuvam Raha Music Blog`,
+    title: `${categoryName} Archives - Blog`,
     description: `Read all guitar articles, roadmaps, and guides categorized under ${categoryName} by instructor Shuvam Raha.`,
     alternates: {
       canonical: `/blog/category/${slug}`,
@@ -74,13 +75,18 @@ export async function generateMetadata({
   };
 }
 
-export default async function CategoryArchivePage({ params, searchParams }: PageProps) {
+export default async function CategoryArchivePage({
+  params,
+  searchParams,
+}: PageProps) {
   const { slug } = await params;
   const { page } = await searchParams;
   const pageNum = Number(page) || 1;
 
   // Fetch all posts with minimal fields projection to count total and get category casing
-  const allPosts = await getBlogPostsByCategory(slug, { fields: { _id: 1, categories: 1 } });
+  const allPosts = await getBlogPostsByCategory(slug, {
+    fields: { _id: 1, categories: 1 },
+  });
 
   if (allPosts.length === 0) {
     notFound();
