@@ -134,6 +134,12 @@ export default function FretboardJamStudioPage() {
   const [currentBeatIndex, setCurrentBeatIndex] = useState(0);
   const jamIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  const startJam = useCallback(() => {
+    setCurrentChordIndex(0);
+    setCurrentBeatIndex(0);
+    setIsJamActive(true);
+  }, []);
+
   // QUIZ STATE
   const [quizPrompt, setQuizPrompt] = useState<{
     note: string;
@@ -373,9 +379,6 @@ export default function FretboardJamStudioPage() {
       let currentChordIdx = 0;
       let beatsRemaining = currentProgression[0].duration;
       let beatInChord = 0;
-
-      setCurrentChordIndex(0);
-      setCurrentBeatIndex(0);
 
       jamIntervalRef.current = setInterval(() => {
         const activeChord = currentProgression[currentChordIdx];
@@ -629,7 +632,7 @@ export default function FretboardJamStudioPage() {
                   </button>
                 ) : (
                   <button
-                    onClick={() => setIsJamActive(true)}
+                    onClick={startJam}
                     className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl bg-cyan-500 py-3 text-xs font-black tracking-wider text-white uppercase shadow-md shadow-cyan-500/10 transition-all hover:bg-cyan-400 active:scale-95"
                   >
                     <LuPlay className="h-4.5 w-4.5" /> Play Jam Loop
