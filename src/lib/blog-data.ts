@@ -1,6 +1,5 @@
 import { Author, BlogPost } from '@/lib/blog-shared';
 import cockpit, {
-  Asset,
   ContentItemGetByFilterOptions,
   ContentItemsListOptions,
   PaginatedList,
