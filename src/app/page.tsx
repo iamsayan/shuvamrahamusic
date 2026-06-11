@@ -2,9 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import BiographyAudioPlayer from '@/components/biography-audio-player';
+import CockpitImage from '@/components/cockpit-image';
 import SliderGallery from '@/components/slider-gallery';
 import YouTubeFacade from '@/components/youtube-facade';
-import CockpitImage from '@/components/cockpit-image';
 import {
   BRIGHT_GRADIENTS,
   CATEGORY_THEMES,
@@ -14,30 +14,16 @@ import {
 } from '@/lib/blog-data';
 import cockpit from '@/lib/client';
 import { authorityPoints, curriculum } from '@/lib/guitar-data';
+import { GearItem } from '@/types';
 
-import {
-  FaAmazon,
-  FaApple,
-  FaFacebookF,
-  FaInstagram,
-  FaSpotify,
-  FaYoutube,
-} from 'react-icons/fa6';
+import { FaAmazon, FaApple, FaSpotify } from 'react-icons/fa6';
 import {
   LuArrowRight,
   LuAward,
   LuCalendar,
   LuChevronRight,
   LuClock,
-  LuFlame,
-  LuGlobe,
-  LuGraduationCap,
-  LuGuitar,
-  LuMic,
   LuMusic,
-  LuSettings,
-  LuSparkles,
-  LuUsers,
 } from 'react-icons/lu';
 
 const videos = [
@@ -83,13 +69,12 @@ const highlights = [
 
 export default async function Home() {
   // Fetch latest posts dynamically (returns static posts when CMS is not configured)
-  const allPosts = await getBlogPosts();
-  const latestPosts = allPosts.slice(0, 3);
+  const latestPosts = await getBlogPosts({ limit: 3 });
 
   // Take first 4 gear items dynamically from Cockpit CMS
   let featuredGears: any[] = [];
   try {
-    const response = await cockpit.listContentItems<any[]>('gears', {
+    const response = await cockpit.listContentItems<GearItem[]>('gears', {
       limit: 4,
     });
     featuredGears = response.map((item) => ({

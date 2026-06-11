@@ -180,8 +180,8 @@ export default async function BlogPostPage({ params }: PageProps) {
   const primaryTheme = CATEGORY_THEMES[themeKey] || CATEGORY_THEMES['default'];
   const contentTheme = CONTENT_THEMES[themeKey] || CONTENT_THEMES['default'];
 
-  // Get related and other posts from API
-  const allPosts = await getBlogPosts();
+  // Get related and other posts from API (limit to 15 to optimize performance)
+  const allPosts = await getBlogPosts({ limit: 15 });
 
   // Find posts sharing at least one category with the current post
   const sameCategoryPosts = allPosts.filter(
@@ -354,13 +354,13 @@ export default async function BlogPostPage({ params }: PageProps) {
                 asset={post.coverImage}
                 className="object-cover transition-transform duration-[2000ms] group-hover:scale-[1.01]"
                 fill
-                priority
+                preload
               />
             </div>
           </div>
 
           {/* 2-Column Content Layout */}
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
+          <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-3">
             {/* Main Content Column */}
             <div className="lg:col-span-2">
               <div
@@ -398,8 +398,8 @@ export default async function BlogPostPage({ params }: PageProps) {
             </div>
 
             {/* Sidebar Column */}
-            <div className="lg:col-span-1">
-              <div className="space-y-6 lg:sticky lg:top-28">
+            <div className="lg:sticky lg:top-28 lg:col-span-1">
+              <div className="space-y-6">
                 {/* Author Info Widget */}
                 <div className="rounded-2xl border border-white/[0.04] bg-white/[0.01] p-6 backdrop-blur-md">
                   <h3 className="font-heading mb-4 text-xs font-black tracking-widest text-gray-500 uppercase">
@@ -430,7 +430,6 @@ export default async function BlogPostPage({ params }: PageProps) {
                     {post.author.bio}
                   </p>
                 </div>
-
 
                 {/* Promotional CTA Box */}
                 <div className="group/card relative overflow-hidden rounded-2xl border border-white/10 bg-[#07070F]/90 p-6 shadow-xl backdrop-blur-xl">
@@ -546,33 +545,24 @@ export default async function BlogPostPage({ params }: PageProps) {
                             className="object-cover transition-transform duration-1000 group-hover:scale-103"
                             fill
                           />
-                          <div className="absolute top-4 left-4 z-10 flex max-w-[85%] flex-wrap gap-1.5">
-                            {rPost.categories.map((cat, idx) => {
-                              const catThemeKey = getThemeKey(cat.title);
-                              const catTheme =
-                                CATEGORY_THEMES[catThemeKey] ||
-                                CATEGORY_THEMES['default'];
-                              return (
-                                <Link
-                                  key={idx}
-                                  href={`/blog/category/${cat.slug}`}
-                                  className={`rounded-full border ${catTheme.border} bg-[#05050A]/85 px-2.5 py-0.5 text-[9px] font-black tracking-widest ${catTheme.text} uppercase backdrop-blur-md transition-colors duration-300 hover:bg-white/[0.08]`}
-                                >
-                                  {cat.title}
-                                </Link>
-                              );
-                            })}
-                          </div>
                         </div>
 
                         <div className="p-5">
-                          <div className="mb-2 flex items-center gap-3 text-[10px] font-bold text-gray-500 uppercase">
-                            <span>{rPost.date}</span>
+                          {/* Date & Read Time metadata */}
+                          <div className="mb-2.5 flex items-center gap-3 text-[10px] font-bold text-gray-500 uppercase">
+                            <span className="flex items-center gap-1">
+                              <LuCalendar className="h-3 w-3" />
+                              {rPost.date}
+                            </span>
                             <span>•</span>
-                            <span>{rPost.readTime}</span>
+                            <span className="flex items-center gap-1">
+                              <LuClock className="h-3 w-3" />
+                              {rPost.readTime}
+                            </span>
                           </div>
+
                           <h3
-                            className={`font-heading mb-2 text-sm leading-snug font-extrabold text-white group-hover:${rTheme.text} transition-colors duration-300`}
+                            className={`font-heading mb-2.5 text-sm leading-snug font-extrabold text-white group-hover:${rTheme.text} transition-colors duration-300`}
                           >
                             <Link
                               href={`/blog/${rPost.slug}`}
@@ -581,9 +571,29 @@ export default async function BlogPostPage({ params }: PageProps) {
                               {rPost.title}
                             </Link>
                           </h3>
-                          <p className="line-clamp-2 text-xs text-gray-400">
+
+                          <p className="mb-4 line-clamp-2 text-xs text-gray-400">
                             {rPost.excerpt}
                           </p>
+
+                          {/* Categories (First 3 only) */}
+                          <div className="relative z-10 flex flex-wrap gap-1.5">
+                            {rPost.categories.slice(0, 3).map((cat, idx) => {
+                              const catThemeKey = getThemeKey(cat.title);
+                              const catTheme =
+                                CATEGORY_THEMES[catThemeKey] ||
+                                CATEGORY_THEMES['default'];
+                              return (
+                                <Link
+                                  key={idx}
+                                  href={`/blog/category/${cat.slug}`}
+                                  className={`rounded-full border ${catTheme.border} bg-white/[0.02] px-2.5 py-0.5 text-[9px] font-black tracking-widest ${catTheme.text} uppercase transition-colors duration-300 hover:bg-white/[0.08]`}
+                                >
+                                  {cat.title}
+                                </Link>
+                              );
+                            })}
+                          </div>
                         </div>
                       </div>
 

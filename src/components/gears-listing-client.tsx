@@ -5,6 +5,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 
 import CockpitImage from '@/components/cockpit-image';
+import { useInView } from 'react-intersection-observer';
 import { GearItem } from '@/types';
 
 import { FaAmazon } from 'react-icons/fa6';
@@ -163,11 +164,6 @@ export default function GearsListingClient({
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  // Track image carousel active index for each product
-  const [carouselIndices, setCarouselIndices] = useState<
-    Record<string, number>
-  >({});
-
   // Dynamically collect active categories from data
   const activeCategories = useMemo(() => {
     const categoriesWithItems = new Set<string>();
@@ -190,40 +186,6 @@ export default function GearsListingClient({
     });
     return themes;
   }, [activeCategories]);
-
-  const handlePrevImage = (
-    id: string,
-    imageCount: number,
-    e: React.MouseEvent
-  ) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setCarouselIndices((prev) => {
-      const currentIndex = prev[id] || 0;
-      const nextIndex = currentIndex === 0 ? imageCount - 1 : currentIndex - 1;
-      return { ...prev, [id]: nextIndex };
-    });
-  };
-
-  const handleNextImage = (
-    id: string,
-    imageCount: number,
-    e: React.MouseEvent
-  ) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setCarouselIndices((prev) => {
-      const currentIndex = prev[id] || 0;
-      const nextIndex = currentIndex === imageCount - 1 ? 0 : currentIndex + 1;
-      return { ...prev, [id]: nextIndex };
-    });
-  };
-
-  const handleDotClick = (id: string, idx: number, e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setCarouselIndices((prev) => ({ ...prev, [id]: idx }));
-  };
 
   // Filter products based on search and category tab
   const filteredGears = useMemo(() => {
@@ -360,237 +322,14 @@ export default function GearsListingClient({
             </div>
           ) : (
             <div className="flex flex-col gap-8 lg:gap-12">
-              {filteredGears.map((item, idx) => {
-                const itemCat = item.categories?.[0];
-                const theme =
-                  (itemCat && categoryThemes[itemCat]) || DEFAULT_THEME;
-                const activeImgIdx = carouselIndices[item._id] || 0;
-                const hasMultipleImages = (item.images?.length || 0) > 1;
-                const hoverGlowClass = theme.glowColor;
-                const isEven = idx % 2 === 0;
-
-                return (
-                  <article
-                    key={item._id}
-                    className={`group relative flex flex-col md:flex-row ${isEven ? '' : 'md:flex-row-reverse'} overflow-hidden rounded-[2.5rem] border border-white/[0.04] bg-white/[0.01] transition-all duration-500 hover:border-white/10 hover:bg-white/[0.02] hover:shadow-[0_30px_70px_rgba(0,0,0,0.6)]`}
-                  >
-                    {/* Glowing Top Accent Strip (lights up on hover) */}
-                    <div
-                      className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${theme.gradient} z-20 opacity-20 transition-opacity duration-500 group-hover:opacity-90`}
-                    />
-
-                    {/* Inner Corner Accent Glow (fades in on hover) */}
-                    <div
-                      className={`pointer-events-none absolute ${isEven ? '-right-24' : '-left-24'} -bottom-24 h-60 w-60 rounded-full ${hoverGlowClass} z-0 opacity-0 blur-[70px] transition-opacity duration-700 group-hover:opacity-100`}
-                    />
-
-                    {/* Image Slider Wrapper */}
-                    <div className="relative h-52 min-h-[200px] shrink-0 overflow-hidden bg-black/50 sm:h-60 md:h-auto md:min-h-0 md:w-[35%] lg:w-[40%]">
-                      {item.images && item.images.length > 0 ? (
-                        <CockpitImage
-                          asset={item.images[activeImgIdx]}
-                          className="h-full w-full object-cover object-top transition-transform duration-[1500ms] group-hover:scale-[1.03]"
-                          fill
-                          mode="resize"
-                          quality={50}
-                        />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-gray-900 text-gray-700">
-                          No Photo Available
-                        </div>
-                      )}
-
-                      {/* Carousel Overlaid Controls */}
-                      {hasMultipleImages && item.images && (
-                        <>
-                          <button
-                            onClick={(e) =>
-                              handlePrevImage(item._id, item.images!.length, e)
-                            }
-                            className="absolute top-1/2 left-3 z-10 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-black/40 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:bg-black/70 active:scale-95"
-                          >
-                            <LuChevronLeft className="h-5 w-5" />
-                          </button>
-                          <button
-                            onClick={(e) =>
-                              handleNextImage(item._id, item.images!.length, e)
-                            }
-                            className="absolute top-1/2 right-3 z-10 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-black/40 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:bg-black/70 active:scale-95"
-                          >
-                            <LuChevronRight className="h-5 w-5" />
-                          </button>
-
-                          {/* Dots Position Indicator Bar */}
-                          <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 rounded-full border border-white/5 bg-black/30 px-2.5 py-1 backdrop-blur-md">
-                            {item.images.map((_, idx) => (
-                              <button
-                                key={idx}
-                                onClick={(e) =>
-                                  handleDotClick(item._id, idx, e)
-                                }
-                                className={`h-1.5 cursor-pointer rounded-full transition-all duration-300 ${
-                                  idx === activeImgIdx
-                                    ? 'w-4 bg-cyan-400'
-                                    : 'w-1.5 bg-white/40'
-                                }`}
-                              />
-                            ))}
-                          </div>
-                        </>
-                      )}
-                    </div>
-
-                    {/* Card Content details */}
-                    <div className="relative z-10 flex flex-1 flex-col justify-between p-5 sm:p-6 md:p-8">
-                      {/* Category badges */}
-                      <div className="mb-2 flex flex-wrap gap-1.5">
-                        {item.categories?.map((cat: string, catIdx: number) => {
-                          const catTheme = categoryThemes[cat] || DEFAULT_THEME;
-                          return (
-                            <span
-                              key={catIdx}
-                              className={`rounded-full ${catTheme.bg} ${catTheme.text} border border-white/5 px-3 py-1 text-[10px] font-black tracking-widest uppercase`}
-                            >
-                              {cat}
-                            </span>
-                          );
-                        })}
-                      </div>
-
-                      {/* Title & recommended Tagline */}
-                      <h2 className="mb-1 text-lg leading-snug font-black tracking-tight text-white transition-colors duration-300 group-hover:text-cyan-400 sm:text-xl md:text-2xl">
-                        {item.title}
-                      </h2>
-                      <p className="mb-2 text-xs font-semibold tracking-wide text-gray-400">
-                        {item.subtitle}
-                      </p>
-
-                      <div className="my-2.5 border-t border-white/5" />
-
-                      {/* Main Description */}
-                      <p className="mb-4 text-xs leading-relaxed font-normal text-gray-300 sm:text-sm">
-                        {item.description}
-                      </p>
-
-                      {/* Ideal For list */}
-                      <div className="mb-4">
-                        <h4 className="mb-2 text-[10px] font-black tracking-widest text-cyan-400 uppercase">
-                          Ideal For:
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {item.ideal_for?.map(
-                            (feature: string, idx: number) => (
-                              <span
-                                key={idx}
-                                className="inline-flex items-center rounded-lg border border-white/5 bg-white/[0.02] px-2.5 py-1 text-[11px] font-bold text-gray-300 backdrop-blur-sm"
-                              >
-                                <LuCheck className="mr-1.5 h-3.5 w-3.5 shrink-0 text-emerald-400" />
-                                {feature}
-                              </span>
-                            )
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Redesigned Trust & Verification Card */}
-                      <div className="group/trust relative mt-4 mb-6 overflow-hidden rounded-2xl border border-white/[0.04] bg-white/[0.01] p-4">
-                        {/* Interactive hover glow gradient */}
-                        <div className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-r from-amber-500/10 via-transparent to-cyan-500/10 opacity-0 transition-opacity duration-700 group-hover/trust:opacity-100" />
-
-                        <div className="relative z-10 flex flex-col gap-3">
-                          {/* Subtitle / Header */}
-                          <div className="flex items-center gap-1.5 text-[10px] font-black tracking-widest text-gray-500 uppercase">
-                            <LuSparkles className="h-3.5 w-3.5 animate-pulse text-amber-400" />
-                            <span>Instructor Recommendation</span>
-                          </div>
-
-                          {/* Badges list */}
-                          <div className="flex flex-col gap-2.5">
-                            {item.highlights?.map(
-                              (highlight: string, hIdx: number) => (
-                                <div
-                                  key={hIdx}
-                                  className="flex items-start gap-2.5"
-                                >
-                                  <div
-                                    className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${hIdx === 0 ? 'bg-amber-500/10 text-amber-400' : 'bg-cyan-500/10 text-cyan-400'}`}
-                                  >
-                                    {hIdx === 0 ? (
-                                      <LuStar className="h-3 w-3 fill-amber-400/20" />
-                                    ) : (
-                                      <LuTarget className="h-3 w-3 animate-pulse" />
-                                    )}
-                                  </div>
-                                  <p
-                                    className={`text-xs leading-relaxed ${hIdx === 0 ? 'font-bold text-amber-200/90' : 'font-semibold text-cyan-200/90'}`}
-                                  >
-                                    {highlight}
-                                  </p>
-                                </div>
-                              )
-                            )}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Button Actions */}
-                      <div className="mt-auto flex flex-col gap-3 sm:flex-row sm:items-center">
-                        {item.amazon_link && (
-                          <a
-                            href={item.amazon_link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex flex-1 cursor-pointer items-center justify-center rounded-xl bg-amber-500 py-3 text-xs font-black tracking-wider text-black shadow-md shadow-amber-500/10 transition-all duration-300 hover:bg-amber-400 active:scale-95"
-                          >
-                            <FaAmazon className="mr-2 h-4 w-4" />
-                            Check Price on Amazon
-                          </a>
-                        )}
-                        {item.distributor_link && (
-                          <a
-                            href={item.distributor_link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex flex-1 cursor-pointer items-center justify-center rounded-xl border border-cyan-500/20 bg-cyan-950/20 py-3 text-xs font-black tracking-wider text-cyan-400 transition-all duration-300 hover:border-cyan-500/40 hover:bg-cyan-900/30 active:scale-95"
-                          >
-                            <LuShoppingBag className="mr-2 h-4 w-4" />
-                            Get from Distributor
-                          </a>
-                        )}
-                        {!item.amazon_link &&
-                          !item.distributor_link &&
-                          item.brand_link && (
-                            <a
-                              href={item.brand_link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex flex-1 cursor-pointer items-center justify-center rounded-xl border border-white/10 bg-white/[0.02] py-3 text-xs font-black tracking-wider text-white transition-all duration-300 hover:border-white/20 hover:bg-white/[0.05] active:scale-95"
-                            >
-                              <LuExternalLink className="mr-2 h-4 w-4" />
-                              Explore Website
-                            </a>
-                          )}
-                      </div>
-
-                      {/* Visit Official Brand Website row */}
-                      {(item.amazon_link || item.distributor_link) &&
-                        item.brand_link && (
-                          <div className="mt-4 text-center">
-                            <a
-                              href={item.brand_link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center text-[10px] font-bold tracking-widest text-gray-500 uppercase transition-colors duration-200 hover:text-white"
-                            >
-                              Visit Official Brand Site
-                              <LuExternalLink className="ml-1.5 h-3 w-3" />
-                            </a>
-                          </div>
-                        )}
-                    </div>
-                  </article>
-                );
-              })}
+              {filteredGears.map((item, idx) => (
+                <GearCard
+                  key={item._id}
+                  item={item}
+                  idx={idx}
+                  categoryThemes={categoryThemes}
+                />
+              ))}
             </div>
           )}
 
@@ -619,5 +358,277 @@ export default function GearsListingClient({
         </div>
       </div>
     </div>
+  );
+}
+
+function GearCard({
+  item,
+  idx,
+  categoryThemes,
+}: {
+  item: GearItem;
+  idx: number;
+  categoryThemes: Record<string, Theme>;
+}) {
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+  });
+
+  const [activeImgIdx, setActiveImgIdx] = useState(0);
+
+  const itemCat = item.categories?.[0];
+  const theme = (itemCat && categoryThemes[itemCat]) || DEFAULT_THEME;
+  const hasMultipleImages = (item.images?.length || 0) > 1;
+  const hoverGlowClass = theme.glowColor;
+  const isEven = idx % 2 === 0;
+
+  useEffect(() => {
+    if (!hasMultipleImages || !inView) return;
+
+    const interval = setInterval(() => {
+      setActiveImgIdx((prev) => (prev + 1) % item.images!.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [hasMultipleImages, inView, item.images]);
+
+  const handlePrevImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (item.images) {
+      setActiveImgIdx((prev) =>
+        prev === 0 ? item.images!.length - 1 : prev - 1
+      );
+    }
+  };
+
+  const handleNextImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (item.images) {
+      setActiveImgIdx((prev) => (prev + 1) % item.images!.length);
+    }
+  };
+
+  const handleDotClick = (dotIdx: number, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setActiveImgIdx(dotIdx);
+  };
+
+  return (
+    <article
+      ref={ref}
+      className={`group relative flex flex-col md:flex-row ${isEven ? '' : 'md:flex-row-reverse'} overflow-hidden rounded-[2.5rem] border border-white/[0.04] bg-white/[0.01] transition-all duration-500 hover:border-white/10 hover:bg-white/[0.02] hover:shadow-[0_30px_70px_rgba(0,0,0,0.6)]`}
+    >
+      {/* Glowing Top Accent Strip (lights up on hover) */}
+      <div
+        className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${theme.gradient} z-20 opacity-20 transition-opacity duration-500 group-hover:opacity-90`}
+      />
+
+      {/* Inner Corner Accent Glow (fades in on hover) */}
+      <div
+        className={`pointer-events-none absolute ${isEven ? '-right-24' : '-left-24'} -bottom-24 h-60 w-60 rounded-full ${hoverGlowClass} z-0 opacity-0 blur-[70px] transition-opacity duration-700 group-hover:opacity-100`}
+      />
+
+      {/* Image Slider Wrapper */}
+      <div className="relative h-52 min-h-[200px] shrink-0 overflow-hidden bg-black/50 sm:h-60 md:h-auto md:min-h-0 md:w-[35%] lg:w-[40%]">
+        {item.images && item.images.length > 0 ? (
+          <div className="relative h-full w-full">
+            {item.images.map((img, imgIdx) => (
+              <div
+                key={imgIdx}
+                className="absolute inset-0 h-full w-full transition-all duration-700 ease-in-out"
+                style={{
+                  transform: `translateX(${(imgIdx - activeImgIdx) * 100}%)`,
+                }}
+              >
+                <CockpitImage
+                  asset={img}
+                  className="h-full w-full object-cover object-top transition-transform duration-[1500ms] group-hover:scale-[1.03]"
+                  fill
+                  mode="resize"
+                  quality={50}
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-gray-900 text-gray-700">
+            No Photo Available
+          </div>
+        )}
+
+        {/* Carousel Overlaid Controls */}
+        {hasMultipleImages && item.images && (
+          <>
+            <button
+              onClick={handlePrevImage}
+              className="absolute top-1/2 left-3 z-10 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-black/40 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:bg-black/70 active:scale-95"
+            >
+              <LuChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              onClick={handleNextImage}
+              className="absolute top-1/2 right-3 z-10 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-black/40 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:bg-black/70 active:scale-95"
+            >
+              <LuChevronRight className="h-5 w-5" />
+            </button>
+
+            {/* Dots Position Indicator Bar */}
+            <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 rounded-full border border-white/5 bg-black/30 px-2.5 py-1 backdrop-blur-md">
+              {item.images.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={(e) => handleDotClick(idx, e)}
+                  className={`h-1.5 cursor-pointer rounded-full transition-all duration-300 ${
+                    idx === activeImgIdx ? 'w-4 bg-cyan-400' : 'w-1.5 bg-white/40'
+                  }`}
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* Card Content details */}
+      <div className="relative z-10 flex flex-1 flex-col justify-between p-5 sm:p-6 md:p-8">
+        {/* Category badges */}
+        <div className="mb-2 flex flex-wrap gap-1.5">
+          {item.categories?.map((cat: string, catIdx: number) => {
+            const catTheme = categoryThemes[cat] || DEFAULT_THEME;
+            return (
+              <span
+                key={catIdx}
+                className={`rounded-full ${catTheme.bg} ${catTheme.text} border border-white/5 px-3 py-1 text-[10px] font-black tracking-widest uppercase`}
+              >
+                {cat}
+              </span>
+            );
+          })}
+        </div>
+
+        {/* Title & recommended Tagline */}
+        <h2 className="mb-1 text-lg leading-snug font-black tracking-tight text-white transition-colors duration-300 group-hover:text-cyan-400 sm:text-xl md:text-2xl">
+          {item.title}
+        </h2>
+        <p className="mb-2 text-xs font-semibold tracking-wide text-gray-400">
+          {item.subtitle}
+        </p>
+
+        <div className="my-2.5 border-t border-white/5" />
+
+        {/* Main Description */}
+        <p className="mb-4 text-xs leading-relaxed font-normal text-gray-300 sm:text-sm">
+          {item.description}
+        </p>
+
+        {/* Ideal For list */}
+        <div className="mb-4">
+          <h4 className="mb-2 text-[10px] font-black tracking-widest text-cyan-400 uppercase">
+            Ideal For:
+          </h4>
+          <div className="flex flex-wrap gap-2">
+            {item.ideal_for?.map((feature: string, idx: number) => (
+              <span
+                key={idx}
+                className="inline-flex items-center rounded-lg border border-white/5 bg-white/[0.02] px-2.5 py-1 text-[11px] font-bold text-gray-300 backdrop-blur-sm"
+              >
+                <LuCheck className="mr-1.5 h-3.5 w-3.5 shrink-0 text-emerald-400" />
+                {feature}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Redesigned Trust & Verification Card */}
+        <div className="group/trust relative mt-4 mb-6 overflow-hidden rounded-2xl border border-white/[0.04] bg-white/[0.01] p-4">
+          {/* Interactive hover glow gradient */}
+          <div className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-r from-amber-500/10 via-transparent to-cyan-500/10 opacity-0 transition-opacity duration-700 group-hover/trust:opacity-100" />
+
+          <div className="relative z-10 flex flex-col gap-3">
+            {/* Subtitle / Header */}
+            <div className="flex items-center gap-1.5 text-[10px] font-black tracking-widest text-gray-500 uppercase">
+              <LuSparkles className="h-3.5 w-3.5 animate-pulse text-amber-400" />
+              <span>Instructor Recommendation</span>
+            </div>
+
+            {/* Badges list */}
+            <div className="flex flex-col gap-2.5">
+              {item.highlights?.map((highlight: string, hIdx: number) => (
+                <div key={hIdx} className="flex items-start gap-2.5">
+                  <div
+                    className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${hIdx === 0 ? 'bg-amber-500/10 text-amber-400' : 'bg-cyan-500/10 text-cyan-400'}`}
+                  >
+                    {hIdx === 0 ? (
+                      <LuStar className="h-3 w-3 fill-amber-400/20" />
+                    ) : (
+                      <LuTarget className="h-3 w-3 animate-pulse" />
+                    )}
+                  </div>
+                  <p
+                    className={`text-xs leading-relaxed ${hIdx === 0 ? 'font-bold text-amber-200/90' : 'font-semibold text-cyan-200/90'}`}
+                  >
+                    {highlight}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Button Actions */}
+        <div className="mt-auto flex flex-col gap-3 sm:flex-row sm:items-center">
+          {item.amazon_link && (
+            <a
+              href={item.amazon_link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-1 cursor-pointer items-center justify-center rounded-xl bg-amber-500 py-3 text-xs font-black tracking-wider text-black shadow-md shadow-amber-500/10 transition-all duration-300 hover:bg-amber-400 active:scale-95"
+            >
+              <FaAmazon className="mr-2 h-4 w-4" />
+              Check Price on Amazon
+            </a>
+          )}
+          {item.distributor_link && (
+            <a
+              href={item.distributor_link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-1 cursor-pointer items-center justify-center rounded-xl border border-cyan-500/20 bg-cyan-950/20 py-3 text-xs font-black tracking-wider text-cyan-400 transition-all duration-300 hover:border-cyan-500/40 hover:bg-cyan-900/30 active:scale-95"
+            >
+              <LuShoppingBag className="mr-2 h-4 w-4" />
+              Get from Distributor
+            </a>
+          )}
+          {!item.amazon_link && !item.distributor_link && item.brand_link && (
+            <a
+              href={item.brand_link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-1 cursor-pointer items-center justify-center rounded-xl border border-white/10 bg-white/[0.02] py-3 text-xs font-black tracking-wider text-white transition-all duration-300 hover:border-white/20 hover:bg-white/[0.05] active:scale-95"
+            >
+              <LuExternalLink className="mr-2 h-4 w-4" />
+              Explore Website
+            </a>
+          )}
+        </div>
+
+        {/* Visit Official Brand Website row */}
+        {(item.amazon_link || item.distributor_link) && item.brand_link && (
+          <div className="mt-4 text-center">
+            <a
+              href={item.brand_link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center text-[10px] font-bold tracking-widest text-gray-500 uppercase transition-colors duration-200 hover:text-white"
+            >
+              Visit Official Brand Site
+              <LuExternalLink className="ml-1.5 h-3 w-3" />
+            </a>
+          </div>
+        )}
+      </div>
+    </article>
   );
 }

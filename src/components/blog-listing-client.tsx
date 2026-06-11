@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -62,7 +62,7 @@ export default function BlogListingClient({
     }
     router.push(`${pathname}?${params.toString()}`);
   };
- 
+
   const getPageLink = (pageNum: number) => {
     const params = new URLSearchParams();
     if (searchQuery) {
@@ -113,12 +113,8 @@ export default function BlogListingClient({
   return (
     <div className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
       {/* Background ambient glows */}
-      <div
-        className="pointer-events-none absolute top-12 left-1/4 h-[400px] w-[400px] rounded-full bg-cyan-600/10 blur-[130px] transition-all duration-1000"
-      />
-      <div
-        className="pointer-events-none absolute right-12 bottom-12 h-[400px] w-[400px] rounded-full bg-blue-600/10 blur-[130px] transition-all duration-1000"
-      />
+      <div className="pointer-events-none absolute top-12 left-1/4 h-[400px] w-[400px] rounded-full bg-cyan-600/10 blur-[130px] transition-all duration-1000" />
+      <div className="pointer-events-none absolute right-12 bottom-12 h-[400px] w-[400px] rounded-full bg-blue-600/10 blur-[130px] transition-all duration-1000" />
 
       <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
         <div className="flex w-full flex-col pt-8 pb-6">
@@ -215,7 +211,6 @@ export default function BlogListingClient({
                       asset={featuredPost.coverImage}
                       className="object-cover transition-transform duration-[1500ms] group-hover:scale-[1.03]"
                       fill
-                      priority
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#020205] via-transparent to-transparent opacity-80 lg:hidden" />
                   </div>
@@ -348,30 +343,12 @@ export default function BlogListingClient({
                           fill
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#020205]/40 to-transparent" />
-
-                        {/* Floating Category Pills */}
-                        <div className="absolute top-4 left-4 z-10 flex max-w-[85%] flex-wrap gap-1.5">
-                          {post.categories.map((cat, idx) => {
-                            const catThemeKey = getThemeKey(cat.title);
-                            const catTheme =
-                              CATEGORY_THEMES[catThemeKey] ||
-                              CATEGORY_THEMES['default'];
-                            return (
-                              <Link
-                                key={idx}
-                                href={`/blog/category/${cat.slug}`}
-                                className={`rounded-full border ${catTheme.border} bg-[#05050A]/85 px-2.5 py-0.5 text-[9px] font-black tracking-widest ${catTheme.text} uppercase backdrop-blur-md transition-colors duration-300 hover:bg-white/[0.08]`}
-                              >
-                                {cat.title}
-                              </Link>
-                            );
-                          })}
-                        </div>
                       </div>
 
                       {/* Metadata & Title */}
                       <div className="p-5.5">
-                        <div className="mb-2 flex items-center gap-3 text-[10px] font-bold text-gray-500 uppercase">
+                        {/* Date & Read Time metadata */}
+                        <div className="mb-2.5 flex items-center gap-3 text-[10px] font-bold text-gray-500 uppercase">
                           <span className="flex items-center gap-1">
                             <LuCalendar className="h-3 w-3" />
                             {post.date}
@@ -383,23 +360,8 @@ export default function BlogListingClient({
                           </span>
                         </div>
 
-                        {/* Tags */}
-                        {post.tags && post.tags.length > 0 && (
-                          <div className="relative z-10 mb-2.5 flex flex-wrap gap-1.5">
-                            {post.tags.map((tag, idx) => (
-                              <Link
-                                key={idx}
-                                href={`/blog/tag/${tag.slug}`}
-                                className={`text-[10px] font-bold ${primaryTheme.text} tracking-wide uppercase opacity-85 hover:underline`}
-                              >
-                                #{tag.title}
-                              </Link>
-                            ))}
-                          </div>
-                        )}
-
                         <h3
-                          className={`font-heading mb-3 text-base leading-snug font-extrabold text-white transition-colors duration-300 group-hover:text-cyan-400`}
+                          className={`font-heading mb-2.5 text-base leading-snug font-extrabold text-white transition-colors duration-300 group-hover:text-cyan-400`}
                         >
                           <Link
                             href={`/blog/${post.slug}`}
@@ -409,9 +371,28 @@ export default function BlogListingClient({
                           </Link>
                         </h3>
 
-                        <p className="line-clamp-3 text-xs leading-relaxed text-gray-400">
+                        <p className="mb-4 line-clamp-3 text-xs leading-relaxed text-gray-400">
                           {post.excerpt}
                         </p>
+
+                        {/* Categories (First 3 only) */}
+                        <div className="relative z-10 flex flex-wrap gap-1.5">
+                          {post.categories.slice(0, 3).map((cat, idx) => {
+                            const catThemeKey = getThemeKey(cat.title);
+                            const catTheme =
+                              CATEGORY_THEMES[catThemeKey] ||
+                              CATEGORY_THEMES['default'];
+                            return (
+                              <Link
+                                key={idx}
+                                href={`/blog/category/${cat.slug}`}
+                                className={`rounded-full border ${catTheme.border} bg-white/[0.02] px-2.5 py-0.5 text-[9px] font-black tracking-widest ${catTheme.text} uppercase transition-colors duration-300 hover:bg-white/[0.08]`}
+                              >
+                                {cat.title}
+                              </Link>
+                            );
+                          })}
+                        </div>
                       </div>
                     </div>
 
@@ -430,12 +411,13 @@ export default function BlogListingClient({
                   </div>
                 );
               })}
-            </div>            {/* Pagination Controls */}
+            </div>{' '}
+            {/* Pagination Controls */}
             {totalPages > 1 && (
               <div className="mt-12 flex items-center justify-center gap-2">
                 {currentPage === 1 ? (
                   <span
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 opacity-30 cursor-not-allowed"
+                    className="inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 opacity-30"
                     aria-label="Previous Page (disabled)"
                   >
                     <LuChevronLeft className="h-4 w-4" />
@@ -449,7 +431,7 @@ export default function BlogListingClient({
                     <LuChevronLeft className="h-4 w-4" />
                   </Link>
                 )}
- 
+
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                   (pageNum) => {
                     const isActive = currentPage === pageNum;
@@ -468,10 +450,10 @@ export default function BlogListingClient({
                     );
                   }
                 )}
- 
+
                 {currentPage === totalPages ? (
                   <span
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 opacity-30 cursor-not-allowed"
+                    className="inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 opacity-30"
                     aria-label="Next Page (disabled)"
                   >
                     <LuChevronRight className="h-4 w-4" />
