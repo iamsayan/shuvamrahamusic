@@ -12,6 +12,7 @@ interface AudioTrack {
   title: string;
   type: 'album' | 'track' | 'artist';
   embedUrl: string;
+  appleEmbedUrl: string;
   description: string;
   releaseYear: string;
   genre: string;
@@ -20,12 +21,14 @@ interface AudioTrack {
 const SHUVAM_TRACKS: AudioTrack[] = [
   {
     id: 'artist-profile',
-    title: 'Official Spotify Artist Profile',
+    title: 'Official Artist Profile',
     type: 'artist',
     embedUrl:
       'https://open.spotify.com/embed/artist/4AmYXw6BaXjFN4urc6SyrG?utm_source=generator&theme=0',
+    appleEmbedUrl:
+      'https://embed.music.apple.com/us/album/phirti-pothe/1689193396?theme=dark',
     description:
-      'Listen to Shuvam Raha’s complete discography, popular releases, and latest singles on Spotify.',
+      'Listen to Shuvam Raha’s complete discography, popular releases, and latest singles.',
     releaseYear: 'Continuous',
     genre: 'Indie Pop / Acoustic',
   },
@@ -35,6 +38,8 @@ const SHUVAM_TRACKS: AudioTrack[] = [
     type: 'album',
     embedUrl:
       'https://open.spotify.com/embed/album/1ElJ94vEFe17G6kKbhuH2r?utm_source=generator&theme=0',
+    appleEmbedUrl:
+      'https://embed.music.apple.com/us/album/phirti-pothe/1689193396?theme=dark',
     description:
       'A soulful acoustic Bengali ballad composed, produced, and sung by Shuvam Raha, capturing the bittersweet emotions of acceptance.',
     releaseYear: '2023',
@@ -44,36 +49,61 @@ const SHUVAM_TRACKS: AudioTrack[] = [
 
 export default function AudiosGalleryPage() {
   const [activeTrack, setActiveTrack] = useState<AudioTrack>(SHUVAM_TRACKS[0]);
+  const [activePlayer, setActivePlayer] = useState<'spotify' | 'apple'>('spotify');
+
+  const activeEmbedUrl = activePlayer === 'spotify' ? activeTrack.embedUrl : activeTrack.appleEmbedUrl;
 
   return (
     <PageLayout
       title="Audio Gallery"
-      subtitle="Explore Shuvam Raha’s official releases, covers, and compositions. Stream full tracks via the interactive Spotify player."
+      subtitle="Explore Shuvam Raha’s official releases, covers, and compositions. Stream full tracks via the interactive players."
     >
       <div className="flex flex-col gap-10">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
-          {/* Left Column: Interactive Spotify Embed Widget */}
+          {/* Left Column: Interactive Embed Widget */}
           <div className="flex flex-col gap-4 lg:col-span-7">
             <div className="relative overflow-hidden rounded-3xl border border-white/[0.06] bg-[#0A0A15]/60 p-6 shadow-2xl backdrop-blur-2xl">
               {/* Decorative Glow */}
-              <div className="pointer-events-none absolute -top-24 -left-24 h-60 w-60 rounded-full bg-green-500/10 blur-[90px]" />
+              <div className="pointer-events-none absolute -top-24 -left-24 h-60 w-60 rounded-full bg-cyan-500/10 blur-[90px]" />
 
-              <div className="relative z-10 mb-6 flex items-center justify-between">
+              <div className="relative z-10 mb-6 flex flex-wrap items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
-                  <LuRadio className="h-5 w-5 animate-pulse text-green-400" />
-                  <span className="text-xs font-black tracking-widest text-green-400 uppercase">
-                    Interactive Spotify Widget
+                  <LuRadio className="h-5 w-5 animate-pulse text-cyan-400" />
+                  <span className="text-xs font-black tracking-widest text-cyan-400 uppercase">
+                    Interactive Music Widget
                   </span>
                 </div>
-                <span className="rounded-full bg-green-500/10 px-3 py-1 text-[10px] font-black tracking-wider text-green-400 uppercase">
-                  {activeTrack.type}
-                </span>
+                
+                <div className="flex gap-2 rounded-full border border-white/10 bg-white/[0.02] p-1">
+                  <button
+                    onClick={() => setActivePlayer('spotify')}
+                    className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[10px] font-black tracking-wider uppercase transition-all duration-300 ${
+                      activePlayer === 'spotify'
+                        ? 'border border-green-500/30 bg-green-500/20 text-green-400 shadow-[0_0_10px_rgba(34,197,94,0.15)]'
+                        : 'border border-transparent text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    <FaSpotify className="h-3.5 w-3.5" />
+                    Spotify
+                  </button>
+                  <button
+                    onClick={() => setActivePlayer('apple')}
+                    className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[10px] font-black tracking-wider uppercase transition-all duration-300 ${
+                      activePlayer === 'apple'
+                        ? 'border border-pink-500/30 bg-pink-500/20 text-pink-400 shadow-[0_0_10px_rgba(244,63,94,0.15)]'
+                        : 'border border-transparent text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    <FaApple className="h-3.5 w-3.5" />
+                    Apple Music
+                  </button>
+                </div>
               </div>
 
-              {/* Spotify IFrame player */}
+              {/* IFrame player */}
               <div className="relative aspect-video min-h-[352px] w-full overflow-hidden rounded-2xl bg-black/40 shadow-inner">
                 <iframe
-                  src={activeTrack.embedUrl}
+                  src={activeEmbedUrl}
                   width="100%"
                   height="352"
                   frameBorder="0"

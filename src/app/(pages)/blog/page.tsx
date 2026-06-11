@@ -5,11 +5,9 @@ import type { Metadata } from 'next';
 import BlogListingClient from '@/components/blog-listing-client';
 import JsonLd from '@/components/json-ld';
 import { getPaginatedBlogPosts } from '@/lib/blog-data';
-import cockpit from '@/lib/client';
-import { Category } from '@/types';
 
 export const metadata: Metadata = {
-  title: 'Blog | Learn Guitar, Play Your Favorite Songs',
+  title: 'Learn Guitar, Play Your Favorite Songs',
   description:
     'Explore guitar learning guides, hand exercises, strumming patterns, and gear reviews from LCM-certified instructor Shuvam Raha.',
   alternates: {
@@ -40,11 +38,11 @@ export default async function BlogListingPage({
 }) {
   const { page, search } = await searchParams;
   const pageNum = Number(page) || 1;
-  const limit = 10;
-  const skip = (pageNum - 1) * limit;
+  const limit = pageNum === 1 ? 10 : 9;
+  const skip = pageNum === 1 ? 0 : 10 + (pageNum - 2) * 9;
 
   // Build query filter
-  const filter: any = {};
+  const filter: Record<string, unknown> = {};
   if (search) {
     filter.title = { $regex: search, $options: 'i' };
   }
@@ -85,10 +83,7 @@ export default async function BlogListingPage({
         }}
       />
       <Suspense fallback={<div className="min-h-screen bg-[#05050A]" />}>
-        <BlogListingClient
-          posts={posts}
-          totalPostsCount={total}
-        />
+        <BlogListingClient posts={posts} totalPostsCount={total} />
       </Suspense>
     </>
   );
