@@ -1,6 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+
+import Image from 'next/image';
+
 import { LuPlay } from 'react-icons/lu';
 
 export default function YouTubeFacade({ videoId }: { videoId: string }) {
@@ -24,12 +27,14 @@ export default function YouTubeFacade({ videoId }: { videoId: string }) {
       onClick={() => setIsPlaying(true)}
     >
       {/* Thumbnail Facade */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
+        width={300}
+        height={300}
         src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
         alt="Video Thumbnail Placeholder"
         className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         loading="lazy"
+        unoptimized
       />
 
       {/* Dark Ambient Overlay */}

@@ -20,7 +20,7 @@ const navLinks: NavLink[] = [
   {
     name: 'Biography',
     href: '/biography',
-    raw: process.env.NODE_ENV !== 'production',
+    raw: true,
   },
   {
     name: 'Guiter Classes',

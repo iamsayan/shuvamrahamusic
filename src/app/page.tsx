@@ -68,6 +68,7 @@ const highlights = [
 ];
 
 export default async function Home() {
+  return null;
   // Fetch latest posts dynamically (returns static posts when CMS is not configured)
   const latestPosts = await getBlogPosts({ limit: 3 });
 

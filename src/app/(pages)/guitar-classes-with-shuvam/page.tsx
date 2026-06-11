@@ -1086,8 +1086,9 @@ export default async function Page() {
                         <div className="relative">
                           <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-amber-500 to-orange-500 opacity-20 blur-[3px] transition-opacity duration-500 group-hover:opacity-60" />
                           <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full ring-2 ring-white/[0.08] transition-all duration-500 group-hover:ring-amber-500/40">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
+                            <Image
+                              width={100}
+                              height={100}
                               src={review.profileImage}
                               alt={review.author}
                               className="h-full w-full rounded-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -1154,8 +1155,9 @@ export default async function Page() {
                           <div className="relative">
                             <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-amber-500 to-orange-500 opacity-20 blur-[3px] transition-opacity duration-500 group-hover:opacity-60" />
                             <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full ring-2 ring-white/[0.08] transition-all duration-500 group-hover:ring-amber-500/40">
-                              {/* eslint-disable-next-line @next/next/no-img-element */}
-                              <img
+                              <Image
+                                width={100}
+                                height={100}
                                 src={review.profileImage}
                                 alt={review.author}
                                 className="h-full w-full rounded-full object-cover transition-transform duration-500 group-hover:scale-105"
