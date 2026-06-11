@@ -6,27 +6,34 @@ import BlogListingClient from '@/components/blog-listing-client';
 import JsonLd from '@/components/json-ld';
 import { getPaginatedBlogPosts } from '@/lib/blog-data';
 
-export const metadata: Metadata = {
-  title: 'Learn Guitar, Play Your Favorite Songs',
-  description:
-    'Explore guitar learning guides, hand exercises, strumming patterns, and gear reviews from LCM-certified instructor Shuvam Raha.',
-  alternates: {
-    canonical: '/blog',
-  },
-  openGraph: {
-    title: 'Guitar Learning Blog - Shuvam Raha Music',
-    description:
-      'Explore guitar learning guides, hand exercises, strumming patterns, and gear reviews from Shuvam Raha.',
-    url: '/blog',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Guitar Learning Blog - Shuvam Raha Music',
-    description:
-      'Explore guitar learning guides, hand exercises, strumming patterns, and gear reviews from Shuvam Raha.',
-  },
-};
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string; search?: string }>;
+}): Promise<Metadata> {
+  const { page } = await searchParams;
+  const pageNum = Number(page) || 1;
+  const pageSuffix = pageNum > 1 ? ` - Page ${pageNum}` : '';
+
+  return {
+    title: `Learn Guitar, Play Your Favorite Songs${pageSuffix}`,
+    description: `Explore guitar learning guides, hand exercises, strumming patterns, and gear reviews from LCM-certified instructor Shuvam Raha.${pageSuffix}`,
+    alternates: {
+      canonical: `/blog${pageNum > 1 ? `?page=${pageNum}` : ''}`,
+    },
+    openGraph: {
+      title: `Guitar Learning Blog${pageSuffix}`,
+      description: `Explore guitar learning guides, hand exercises, strumming patterns, and gear reviews from Shuvam Raha.${pageSuffix}`,
+      url: `/blog${pageNum > 1 ? `?page=${pageNum}` : ''}`,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `Guitar Learning Blog${pageSuffix}`,
+      description: `Explore guitar learning guides, hand exercises, strumming patterns, and gear reviews from Shuvam Raha.${pageSuffix}`,
+    },
+  };
+}
 
 export default async function BlogListingPage({
   searchParams,
@@ -56,31 +63,48 @@ export default async function BlogListingPage({
   return (
     <>
       <JsonLd
-        schema={{
-          '@context': 'https://schema.org',
-          '@type': 'Blog',
-          name: 'Shuvam Raha Music Blog',
-          description:
-            'Practical guides, finger exercises, gear reviews, and roadmaps from Shuvam Raha to help you learn guitar and master your favorite songs.',
-          url: 'https://www.shuvamrahamusic.com/blog',
-          publisher: {
-            '@type': 'Person',
-            name: 'Shuvam Raha',
-            sameAs: 'https://www.shuvamrahamusic.com',
-          },
-          blogPost: posts.map((post) => ({
-            '@type': 'BlogPosting',
-            headline: post.title,
-            description: post.excerpt,
-            url: `https://www.shuvamrahamusic.com/blog/${post.slug}`,
-            datePublished: post.date,
-            keywords: post.tags.map((t) => t.title).join(', '),
-            author: {
-              '@type': 'Person',
-              name: post.author.name,
+        schema={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'Shuvam Raha Music',
+            url: 'https://www.shuvamrahamusic.com',
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: {
+                '@type': 'EntryPoint',
+                urlTemplate:
+                  'https://www.shuvamrahamusic.com/blog?search={search_term_string}',
+              },
+              'query-input': 'required name=search_term_string',
             },
-          })),
-        }}
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'Blog',
+            name: 'Shuvam Raha Music Blog',
+            description:
+              'Practical guides, finger exercises, gear reviews, and roadmaps from Shuvam Raha to help you learn guitar and master your favorite songs.',
+            url: 'https://www.shuvamrahamusic.com/blog',
+            publisher: {
+              '@type': 'Person',
+              name: 'Shuvam Raha',
+              sameAs: 'https://www.shuvamrahamusic.com',
+            },
+            blogPost: posts.map((post) => ({
+              '@type': 'BlogPosting',
+              headline: post.title,
+              description: post.excerpt,
+              url: `https://www.shuvamrahamusic.com/blog/${post.slug}`,
+              datePublished: post.date,
+              keywords: post.tags.map((t) => t.title).join(', '),
+              author: {
+                '@type': 'Person',
+                name: post.author.name,
+              },
+            })),
+          },
+        ]}
       />
       <Suspense fallback={<div className="min-h-screen bg-[#05050A]" />}>
         <BlogListingClient posts={posts} totalPostsCount={total} />

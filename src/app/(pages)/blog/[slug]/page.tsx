@@ -136,7 +136,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${post.title} | Shuvam Raha Music Blog`,
+    title: `${post.title} - Blog`,
     description: post.excerpt,
     alternates: {
       canonical: `/blog/${post.slug}`,
