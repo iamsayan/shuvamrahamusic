@@ -1,8 +1,9 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 import CockpitImage from '@/components/cockpit-image';
 import {
@@ -30,6 +31,7 @@ interface BlogArchiveClientProps {
   type: 'category' | 'tag';
   term: string;
   posts: BlogPost[];
+  totalPostsCount: number;
 }
 
 const POSTS_PER_PAGE = 6;
@@ -40,18 +42,24 @@ export default function BlogArchiveClient({
   type,
   term,
   posts,
+  totalPostsCount,
 }: BlogArchiveClientProps) {
-  const [currentPage, setCurrentPage] = useState(1);
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const currentPage = Number(searchParams.get('page')) || 1;
 
-  // Paginated posts
-  const paginatedPosts = useMemo(() => {
-    const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-    return posts.slice(startIndex, startIndex + POSTS_PER_PAGE);
-  }, [posts, currentPage]);
+  // Already paginated on the server
+  const paginatedPosts = posts;
 
   const totalPages = useMemo(() => {
-    return Math.ceil(posts.length / POSTS_PER_PAGE);
-  }, [posts]);
+    return Math.ceil(totalPostsCount / POSTS_PER_PAGE);
+  }, [totalPostsCount]);
+
+  const getPageLink = (pageNum: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('page', String(pageNum));
+    return `${pathname}?${params.toString()}`;
+  };
 
   // Determine theme based on category name (or default for tags)
   const themeKey = useMemo(() => {
@@ -93,7 +101,7 @@ export default function BlogArchiveClient({
             <span className="text-[10px] font-normal text-gray-700 sm:text-xs">
               /
             </span>
-            <span className="text-gray-500 capitalize">{type}</span>
+            <span className="text-gray-500 uppercase">{type}</span>
             <span className="text-[10px] font-normal text-gray-700 sm:text-xs">
               /
             </span>
@@ -225,7 +233,7 @@ export default function BlogArchiveClient({
                               <Link
                                 key={idx}
                                 href={`/blog/tag/${tag.slug}`}
-                                className="rounded-lg bg-white/[0.02] border border-white/[0.05] px-2.5 py-0.5 text-[9px] font-bold text-gray-400 tracking-wide uppercase hover:bg-white/[0.05] hover:text-white transition-colors"
+                                className="rounded-lg border border-white/[0.05] bg-white/[0.02] px-2.5 py-0.5 text-[9px] font-bold tracking-wide text-gray-400 uppercase transition-colors hover:bg-white/[0.05] hover:text-white"
                               >
                                 #{tag.title}
                               </Link>
@@ -255,24 +263,30 @@ export default function BlogArchiveClient({
             {/* Pagination Controls */}
             {totalPages > 1 && (
               <div className="mt-12 flex items-center justify-center gap-2">
-                <button
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.max(prev - 1, 1))
-                  }
-                  disabled={currentPage === 1}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white disabled:pointer-events-none disabled:opacity-30"
-                  aria-label="Previous Page"
-                >
-                  <LuChevronLeft className="h-4 w-4" />
-                </button>
+                {currentPage === 1 ? (
+                  <span
+                    className="inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 opacity-30"
+                    aria-label="Previous Page (disabled)"
+                  >
+                    <LuChevronLeft className="h-4 w-4" />
+                  </span>
+                ) : (
+                  <Link
+                    href={getPageLink(currentPage - 1)}
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white"
+                    aria-label="Previous Page"
+                  >
+                    <LuChevronLeft className="h-4 w-4" />
+                  </Link>
+                )}
 
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                   (pageNum) => {
                     const isActive = currentPage === pageNum;
                     return (
-                      <button
+                      <Link
                         key={pageNum}
-                        onClick={() => setCurrentPage(pageNum)}
+                        href={getPageLink(pageNum)}
                         className={`inline-flex h-9 w-9 items-center justify-center rounded-xl text-xs font-bold transition-all ${
                           isActive
                             ? 'border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.15)]'
@@ -280,21 +294,27 @@ export default function BlogArchiveClient({
                         }`}
                       >
                         {pageNum}
-                      </button>
+                      </Link>
                     );
                   }
                 )}
 
-                <button
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                  }
-                  disabled={currentPage === totalPages}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white disabled:pointer-events-none disabled:opacity-30"
-                  aria-label="Next Page"
-                >
-                  <LuChevronRight className="h-4 w-4" />
-                </button>
+                {currentPage === totalPages ? (
+                  <span
+                    className="inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 opacity-30"
+                    aria-label="Next Page (disabled)"
+                  >
+                    <LuChevronRight className="h-4 w-4" />
+                  </span>
+                ) : (
+                  <Link
+                    href={getPageLink(currentPage + 1)}
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white"
+                    aria-label="Next Page"
+                  >
+                    <LuChevronRight className="h-4 w-4" />
+                  </Link>
+                )}
               </div>
             )}
           </div>

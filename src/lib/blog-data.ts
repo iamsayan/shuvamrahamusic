@@ -3,6 +3,7 @@ import cockpit, {
   Asset,
   ContentItemGetByFilterOptions,
   ContentItemsListOptions,
+  PaginatedList,
 } from '@/lib/client';
 import { Category, Post, Tag } from '@/types';
 
@@ -41,7 +42,8 @@ function formatDate(timestamp?: number | string): string {
 }
 
 // Helper to calculate reading time dynamically
-function calculateReadTime(content: string): string {
+function calculateReadTime(content?: string): string {
+  if (!content) return '1 min read';
   const words = content
     .replace(/<[^>]*>/g, '')
     .trim()
@@ -51,7 +53,8 @@ function calculateReadTime(content: string): string {
 }
 
 // Helper to calculate excerpt if not present
-function generateExcerpt(content: string): string {
+function generateExcerpt(content?: string): string {
+  if (!content) return '';
   const plainText = content
     .replace(/<[^>]*>/g, '')
     .replace(/\s+/g, ' ')
@@ -106,13 +109,20 @@ async function mapPostToBlogPost(entry: Post): Promise<BlogPost> {
   };
 }
 
-// Plug-and-play fetcher: Queries Cockpit CMS when configured, otherwise falls back to static content
-export async function getBlogPosts(
+export interface PaginatedBlogPosts {
+  posts: BlogPost[];
+  total: number;
+}
+
+// Fetch paginated posts with total count
+export async function getPaginatedBlogPosts(
   options: ContentItemsListOptions = {}
-): Promise<BlogPost[]> {
+): Promise<PaginatedBlogPosts> {
   try {
     // Queries the Cockpit collection named 'posts'
-    const cockpitPosts = await cockpit.listContentItems<Post[]>('posts', {
+    const response = await cockpit.listContentItems<
+      PaginatedList<Post> | Post[]
+    >('posts', {
       populate: 1,
       sort: {
         _created: -1,
@@ -120,15 +130,41 @@ export async function getBlogPosts(
       ...options,
     });
 
-    if (!cockpitPosts || !Array.isArray(cockpitPosts)) {
-      return [];
+    if (!response) {
+      return { posts: [], total: 0 };
     }
 
-    return Promise.all(cockpitPosts.map(mapPostToBlogPost));
+    // If skip or limit options were passed, Cockpit returns a PaginatedList structure
+    if ('data' in response && Array.isArray(response.data)) {
+      const posts = await Promise.all(response.data.map(mapPostToBlogPost));
+      return {
+        posts,
+        total: response.meta?.total || posts.length,
+      };
+    }
+
+    // Otherwise it returns a plain array of posts
+    if (Array.isArray(response)) {
+      const posts = await Promise.all(response.map(mapPostToBlogPost));
+      return {
+        posts,
+        total: posts.length,
+      };
+    }
+
+    return { posts: [], total: 0 };
   } catch (error) {
     console.error('Error fetching posts from Cockpit CMS:', error);
-    return [];
+    return { posts: [], total: 0 };
   }
+}
+
+// Plug-and-play fetcher: Queries Cockpit CMS when configured, otherwise falls back to static content
+export async function getBlogPosts(
+  options: ContentItemsListOptions = {}
+): Promise<BlogPost[]> {
+  const result = await getPaginatedBlogPosts(options);
+  return result.posts;
 }
 
 // Plug-and-play item fetcher by slug: Queries Cockpit CMS when configured, otherwise falls back to static content
@@ -160,7 +196,8 @@ export async function getBlogPostBySlug(
 
 // Fetch all posts belonging to a specific category slug
 export async function getBlogPostsByCategory(
-  categorySlug: string
+  categorySlug: string,
+  options: ContentItemsListOptions = {}
 ): Promise<BlogPost[]> {
   try {
     const category = await cockpit.getContentItemByFilter<Category>(
@@ -175,7 +212,13 @@ export async function getBlogPostsByCategory(
     }
 
     const posts = await getBlogPosts({
-      filter: { categories: { $elemMatch: { _id: category._id } } },
+      ...options,
+      filter: {
+        ...(options.filter && typeof options.filter === 'object'
+          ? options.filter
+          : {}),
+        categories: { $elemMatch: { _id: category._id } },
+      },
     });
     return posts;
   } catch (error) {
@@ -185,7 +228,10 @@ export async function getBlogPostsByCategory(
 }
 
 // Fetch all posts belonging to a specific tag slug
-export async function getBlogPostsByTag(tagSlug: string): Promise<BlogPost[]> {
+export async function getBlogPostsByTag(
+  tagSlug: string,
+  options: ContentItemsListOptions = {}
+): Promise<BlogPost[]> {
   try {
     const tag = await cockpit.getContentItemByFilter<Tag>('tags', {
       filter: { slug: tagSlug },
@@ -196,7 +242,13 @@ export async function getBlogPostsByTag(tagSlug: string): Promise<BlogPost[]> {
     }
 
     const posts = await getBlogPosts({
-      filter: { tags: { $elemMatch: { _id: tag._id } } },
+      ...options,
+      filter: {
+        ...(options.filter && typeof options.filter === 'object'
+          ? options.filter
+          : {}),
+        tags: { $elemMatch: { _id: tag._id } },
+      },
     });
     return posts;
   } catch (error) {

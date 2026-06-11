@@ -180,9 +180,33 @@ export default async function BlogPostPage({ params }: PageProps) {
   const primaryTheme = CATEGORY_THEMES[themeKey] || CATEGORY_THEMES['default'];
   const contentTheme = CONTENT_THEMES[themeKey] || CONTENT_THEMES['default'];
 
-  // Get related posts from API
+  // Get related and other posts from API
   const allPosts = await getBlogPosts();
-  const relatedPosts = allPosts.filter((p) => p.slug !== slug).slice(0, 3);
+
+  // Find posts sharing at least one category with the current post
+  const sameCategoryPosts = allPosts.filter(
+    (p) =>
+      p.slug !== slug &&
+      p.categories.some((cat) =>
+        post.categories.some((c) => c.slug === cat.slug)
+      )
+  );
+
+  // Keep Reading posts (prioritize same category, max 3)
+  const keepReadingPosts = [
+    ...sameCategoryPosts,
+    ...allPosts.filter(
+      (p) =>
+        p.slug !== slug && !sameCategoryPosts.some((x) => x.slug === p.slug)
+    ),
+  ].slice(0, 3);
+
+  // Other Articles posts (different from keepReadingPosts and current post, max 3)
+  const otherArticlesPosts = allPosts
+    .filter(
+      (p) => p.slug !== slug && !keepReadingPosts.some((k) => k.slug === p.slug)
+    )
+    .slice(0, 3);
 
   return (
     <>
@@ -407,17 +431,6 @@ export default async function BlogPostPage({ params }: PageProps) {
                   </p>
                 </div>
 
-                {/* Share Widget Card */}
-                <div className="rounded-2xl border border-white/[0.04] bg-white/[0.01] p-6 backdrop-blur-md">
-                  <h3 className="font-heading mb-4 text-xs font-black tracking-widest text-gray-500 uppercase">
-                    Share This Article
-                  </h3>
-                  <ShareButtons
-                    title={post.title}
-                    url={postUrl}
-                    coverImage={cockpit.getImageUrl(post.coverImage._id)}
-                  />
-                </div>
 
                 {/* Promotional CTA Box */}
                 <div className="group/card relative overflow-hidden rounded-2xl border border-white/10 bg-[#07070F]/90 p-6 shadow-xl backdrop-blur-xl">
@@ -457,7 +470,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                     Other Articles
                   </h3>
                   <div className="flex flex-col gap-4">
-                    {relatedPosts.map((rPost) => {
+                    {otherArticlesPosts.map((rPost) => {
                       const rPrimaryCat = rPost.categories[0]?.title || '';
                       const rThemeKey = getThemeKey(rPrimaryCat);
                       const rTheme =
@@ -496,7 +509,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           </div>
 
           {/* Related Posts Bottom Section */}
-          {relatedPosts.length > 0 && (
+          {keepReadingPosts.length > 0 && (
             <div className="mt-20 border-t border-white/5 pt-16">
               <h2 className="font-heading mb-8 text-xl font-black tracking-tight text-white sm:text-2xl lg:text-3xl">
                 Keep{' '}
@@ -506,7 +519,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               </h2>
 
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {relatedPosts.map((rPost) => {
+                {keepReadingPosts.map((rPost) => {
                   const rPrimaryCat = rPost.categories[0]?.title || '';
                   const rThemeKey = getThemeKey(rPrimaryCat);
                   const rTheme =
@@ -561,7 +574,10 @@ export default async function BlogPostPage({ params }: PageProps) {
                           <h3
                             className={`font-heading mb-2 text-sm leading-snug font-extrabold text-white group-hover:${rTheme.text} transition-colors duration-300`}
                           >
-                            <Link href={`/blog/${rPost.slug}`} className="after:absolute after:inset-0">
+                            <Link
+                              href={`/blog/${rPost.slug}`}
+                              className="after:absolute after:inset-0"
+                            >
                               {rPost.title}
                             </Link>
                           </h3>

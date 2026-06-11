@@ -1,7 +1,12 @@
+import { Suspense } from 'react';
+
 import type { Metadata } from 'next';
+
 import BlogListingClient from '@/components/blog-listing-client';
 import JsonLd from '@/components/json-ld';
-import { getBlogPosts } from '@/lib/blog-data';
+import { getPaginatedBlogPosts } from '@/lib/blog-data';
+import cockpit from '@/lib/client';
+import { Category } from '@/types';
 
 export const metadata: Metadata = {
   title: 'Blog | Learn Guitar, Play Your Favorite Songs',
@@ -25,8 +30,30 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function BlogListingPage() {
-  const posts = await getBlogPosts();
+export default async function BlogListingPage({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    page?: string;
+    search?: string;
+  }>;
+}) {
+  const { page, search } = await searchParams;
+  const pageNum = Number(page) || 1;
+  const limit = 10;
+  const skip = (pageNum - 1) * limit;
+
+  // Build query filter
+  const filter: any = {};
+  if (search) {
+    filter.title = { $regex: search, $options: 'i' };
+  }
+
+  const { posts, total } = await getPaginatedBlogPosts({
+    filter,
+    limit,
+    skip,
+  });
 
   return (
     <>
@@ -49,7 +76,7 @@ export default async function BlogListingPage() {
             description: post.excerpt,
             url: `https://www.shuvamrahamusic.com/blog/${post.slug}`,
             datePublished: post.date,
-            keywords: post.tags.join(', '),
+            keywords: post.tags.map((t) => t.title).join(', '),
             author: {
               '@type': 'Person',
               name: post.author.name,
@@ -57,7 +84,12 @@ export default async function BlogListingPage() {
           })),
         }}
       />
-      <BlogListingClient posts={posts} />
+      <Suspense fallback={<div className="min-h-screen bg-[#05050A]" />}>
+        <BlogListingClient
+          posts={posts}
+          totalPostsCount={total}
+        />
+      </Suspense>
     </>
   );
 }

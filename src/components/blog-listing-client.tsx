@@ -1,9 +1,10 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import CockpitImage from '@/components/cockpit-image';
 import {
@@ -28,95 +29,96 @@ import {
 
 interface BlogListingClientProps {
   posts: BlogPost[];
+  totalPostsCount: number;
 }
 
-const POSTS_PER_PAGE = 3; // Excluding the featured post, 3 per page is perfect for testing with 5 posts
+const POSTS_PER_PAGE = 10;
 
-export default function BlogListingClient({ posts }: BlogListingClientProps) {
-  const CATEGORIES = useMemo(() => {
-    const cats = new Set<string>();
-    posts.forEach((post) => {
-      post.categories.forEach((cat) => {
-        if (cat?.title) cats.add(cat.title);
-      });
-    });
-    return ['All', ...Array.from(cats)];
-  }, [posts]);
+export default function BlogListingClient({
+  posts,
+  totalPostsCount,
+}: BlogListingClientProps) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [currentPage, setCurrentPage] = useState(1);
+  const currentPage = Number(searchParams.get('page')) || 1;
+  const searchQuery = searchParams.get('search') || '';
 
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategory(category);
-    setCurrentPage(1);
+  const [localSearch, setLocalSearch] = useState(searchQuery);
+
+  // Sync localSearch when URL query changes (e.g. on reset or back navigation)
+  useEffect(() => {
+    setLocalSearch(searchQuery);
+  }, [searchQuery]);
+
+  const updateUrl = (newSearch: string, newPage: number) => {
+    const params = new URLSearchParams();
+    if (newSearch) {
+      params.set('search', newSearch);
+    }
+    if (newPage > 1) {
+      params.set('page', String(newPage));
+    }
+    router.push(`${pathname}?${params.toString()}`);
   };
+ 
+  const getPageLink = (pageNum: number) => {
+    const params = new URLSearchParams();
+    if (searchQuery) {
+      params.set('search', searchQuery);
+    }
+    if (pageNum > 1) {
+      params.set('page', String(pageNum));
+    }
+    const queryStr = params.toString();
+    return queryStr ? `${pathname}?${queryStr}` : pathname;
+  };
+
+  // Debounce search update to URL
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (localSearch !== searchQuery) {
+        updateUrl(localSearch, 1);
+      }
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [localSearch]);
 
   const handleSearchChange = (query: string) => {
-    setSearchQuery(query);
-    setCurrentPage(1);
+    setLocalSearch(query);
   };
 
-  // Filter posts based on search query and selected category
-  const filteredPosts = useMemo(() => {
-    return posts.filter((post) => {
-      const matchesSearch =
-        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.categories.some((cat) =>
-          cat.title.toLowerCase().includes(searchQuery.toLowerCase())
-        ) ||
-        post.tags.some((tag) =>
-          tag.title.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-
-      const matchesCategory =
-        selectedCategory === 'All' ||
-        post.categories.some((cat) => cat.title === selectedCategory);
-
-      return matchesSearch && matchesCategory;
-    });
-  }, [posts, searchQuery, selectedCategory]);
-
-  // The first post of the filtered list will be highlighted as featured when starting out
+  // The first post of the list will be highlighted as featured when on page 1
   const featuredPost = useMemo(() => {
-    if (filteredPosts.length === 0) return null;
-    return filteredPosts[0];
-  }, [filteredPosts]);
+    if (currentPage > 1) return null;
+    if (posts.length === 0) return null;
+    return posts[0];
+  }, [posts, currentPage]);
 
   // The remaining posts will be displayed in the grid
   const gridPosts = useMemo(() => {
-    if (filteredPosts.length <= 1) return [];
-    return filteredPosts.slice(1);
-  }, [filteredPosts]);
+    if (currentPage > 1) return posts;
+    if (posts.length <= 1) return [];
+    return posts.slice(1);
+  }, [posts, currentPage]);
 
-  // Paginated grid posts
-  const paginatedGridPosts = useMemo(() => {
-    const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-    return gridPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
-  }, [gridPosts, currentPage]);
+  // Paginated grid posts - passed directly from server
+  const paginatedGridPosts = gridPosts;
 
   const totalPages = useMemo(() => {
-    return Math.ceil(gridPosts.length / POSTS_PER_PAGE);
-  }, [gridPosts]);
+    return Math.ceil(totalPostsCount / POSTS_PER_PAGE);
+  }, [totalPostsCount]);
 
   return (
     <div className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
       {/* Background ambient glows */}
-      {(() => {
-        const glowKey = getThemeKey(selectedCategory);
-        const glow = AMBIENT_GLOWS[glowKey] || AMBIENT_GLOWS['default'];
-        return (
-          <>
-            <div
-              className={`pointer-events-none absolute top-12 left-1/4 h-[400px] w-[400px] rounded-full blur-[130px] transition-all duration-1000 ${glow.top}`}
-            />
-            <div
-              className={`pointer-events-none absolute right-12 bottom-12 h-[400px] w-[400px] rounded-full blur-[130px] transition-all duration-1000 ${glow.bottom}`}
-            />
-          </>
-        );
-      })()}
+      <div
+        className="pointer-events-none absolute top-12 left-1/4 h-[400px] w-[400px] rounded-full bg-cyan-600/10 blur-[130px] transition-all duration-1000"
+      />
+      <div
+        className="pointer-events-none absolute right-12 bottom-12 h-[400px] w-[400px] rounded-full bg-blue-600/10 blur-[130px] transition-all duration-1000"
+      />
 
       <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
         <div className="flex w-full flex-col pt-8 pb-6">
@@ -155,7 +157,7 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
               <input
                 type="text"
                 placeholder="Search articles..."
-                value={searchQuery}
+                value={localSearch}
                 onChange={(e) => handleSearchChange(e.target.value)}
                 className="w-full rounded-full border border-white/10 bg-white/[0.02] py-3 pr-4 pl-12 text-sm text-white placeholder-gray-500 backdrop-blur-md transition-all duration-300 outline-none focus:border-cyan-500/30 focus:bg-white/[0.04] focus:shadow-[0_0_15px_rgba(6,182,212,0.15)]"
               />
@@ -164,31 +166,8 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
           </div>
         </div>
 
-        {/* Category Filter Pills */}
-        <div className="mb-10 flex flex-wrap gap-2.5">
-          {CATEGORIES.map((category) => {
-            const isActive = selectedCategory === category;
-            const themeKey = getThemeKey(category);
-            const theme =
-              CATEGORY_THEMES[themeKey] || CATEGORY_THEMES['default'];
-            return (
-              <button
-                key={category}
-                onClick={() => handleCategoryChange(category)}
-                className={`relative rounded-full px-5 py-2.5 text-xs font-bold transition-all duration-300 outline-none ${
-                  isActive
-                    ? `bg-gradient-to-r ${theme.gradient} border ${theme.border} text-white ${theme.glow}`
-                    : 'border border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/15 hover:bg-white/[0.03] hover:text-white'
-                }`}
-              >
-                {category}
-              </button>
-            );
-          })}
-        </div>
-
         {/* If no articles found */}
-        {filteredPosts.length === 0 && (
+        {posts.length === 0 && (
           <div className="flex flex-col items-center justify-center rounded-[2.5rem] border border-white/10 bg-[#07070F]/85 p-12 text-center backdrop-blur-3xl md:p-20">
             <LuBookOpen className="mb-6 h-12 w-12 animate-pulse text-gray-600" />
             <h3 className="font-heading text-lg font-bold text-white sm:text-xl">
@@ -196,13 +175,11 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
             </h3>
             <p className="mt-2 max-w-sm text-xs text-gray-400 sm:text-sm">
               We couldn&apos;t find any articles matching &quot;{searchQuery}
-              &quot;. Try adjusting your keywords or category filters.
+              &quot;. Try adjusting your keywords.
             </p>
             <button
               onClick={() => {
-                setSearchQuery('');
-                setSelectedCategory('All');
-                setCurrentPage(1);
+                updateUrl('', 1);
               }}
               className="font-heading mt-6 rounded-full border border-white/10 bg-white/5 px-6 py-2.5 text-xs font-bold text-white transition-all hover:bg-white/10"
             >
@@ -453,29 +430,33 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
                   </div>
                 );
               })}
-            </div>
-
-            {/* Pagination Controls */}
+            </div>            {/* Pagination Controls */}
             {totalPages > 1 && (
               <div className="mt-12 flex items-center justify-center gap-2">
-                <button
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.max(prev - 1, 1))
-                  }
-                  disabled={currentPage === 1}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white disabled:pointer-events-none disabled:opacity-30"
-                  aria-label="Previous Page"
-                >
-                  <LuChevronLeft className="h-4 w-4" />
-                </button>
-
+                {currentPage === 1 ? (
+                  <span
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 opacity-30 cursor-not-allowed"
+                    aria-label="Previous Page (disabled)"
+                  >
+                    <LuChevronLeft className="h-4 w-4" />
+                  </span>
+                ) : (
+                  <Link
+                    href={getPageLink(currentPage - 1)}
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white"
+                    aria-label="Previous Page"
+                  >
+                    <LuChevronLeft className="h-4 w-4" />
+                  </Link>
+                )}
+ 
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                   (pageNum) => {
                     const isActive = currentPage === pageNum;
                     return (
-                      <button
+                      <Link
                         key={pageNum}
-                        onClick={() => setCurrentPage(pageNum)}
+                        href={getPageLink(pageNum)}
                         className={`inline-flex h-9 w-9 items-center justify-center rounded-xl text-xs font-bold transition-all ${
                           isActive
                             ? 'border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.15)]'
@@ -483,21 +464,27 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
                         }`}
                       >
                         {pageNum}
-                      </button>
+                      </Link>
                     );
                   }
                 )}
-
-                <button
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                  }
-                  disabled={currentPage === totalPages}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white disabled:pointer-events-none disabled:opacity-30"
-                  aria-label="Next Page"
-                >
-                  <LuChevronRight className="h-4 w-4" />
-                </button>
+ 
+                {currentPage === totalPages ? (
+                  <span
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 opacity-30 cursor-not-allowed"
+                    aria-label="Next Page (disabled)"
+                  >
+                    <LuChevronRight className="h-4 w-4" />
+                  </span>
+                ) : (
+                  <Link
+                    href={getPageLink(currentPage + 1)}
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white"
+                    aria-label="Next Page"
+                  >
+                    <LuChevronRight className="h-4 w-4" />
+                  </Link>
+                )}
               </div>
             )}
           </div>

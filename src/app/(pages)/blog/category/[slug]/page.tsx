@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import BlogArchiveClient from '@/components/blog-archive-client';
@@ -10,6 +11,9 @@ import {
 interface PageProps {
   params: Promise<{
     slug: string;
+  }>;
+  searchParams: Promise<{
+    page?: string;
   }>;
 }
 
@@ -34,7 +38,7 @@ export async function generateStaticParams() {
 // Generate dynamic SEO metadata
 export async function generateMetadata({
   params,
-}: PageProps): Promise<Metadata> {
+}: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const posts = await getBlogPostsByCategory(slug);
 
@@ -70,23 +74,32 @@ export async function generateMetadata({
   };
 }
 
-export default async function CategoryArchivePage({ params }: PageProps) {
+export default async function CategoryArchivePage({ params, searchParams }: PageProps) {
   const { slug } = await params;
-  const posts = await getBlogPostsByCategory(slug);
+  const { page } = await searchParams;
+  const pageNum = Number(page) || 1;
 
-  if (posts.length === 0) {
+  // Fetch all posts with minimal fields projection to count total and get category casing
+  const allPosts = await getBlogPostsByCategory(slug, { fields: { _id: 1, categories: 1 } });
+
+  if (allPosts.length === 0) {
     notFound();
   }
 
   // Find exact category title casing
   let categoryName = slug;
-  for (const post of posts) {
+  for (const post of allPosts) {
     const matched = post.categories.find((cat) => cat.slug === slug);
     if (matched) {
       categoryName = matched.title;
       break;
     }
   }
+
+  // Fetch only the paginated slice
+  const limit = 6;
+  const skip = (pageNum - 1) * limit;
+  const posts = await getBlogPostsByCategory(slug, { limit, skip });
 
   return (
     <>
@@ -108,7 +121,7 @@ export default async function CategoryArchivePage({ params }: PageProps) {
             description: post.excerpt,
             url: `https://www.shuvamrahamusic.com/blog/${post.slug}`,
             datePublished: post.date,
-            keywords: post.tags.join(', '),
+            keywords: post.tags.map((t) => t.title).join(', '),
             author: {
               '@type': 'Person',
               name: post.author.name,
@@ -116,13 +129,16 @@ export default async function CategoryArchivePage({ params }: PageProps) {
           })),
         }}
       />
-      <BlogArchiveClient
-        title="Category:"
-        subtitle={`Browse all articles, patterns, and guides published under ${categoryName}.`}
-        type="category"
-        term={categoryName}
-        posts={posts}
-      />
+      <Suspense fallback={<div className="min-h-screen bg-[#05050A]" />}>
+        <BlogArchiveClient
+          title="Category:"
+          subtitle={`Browse all articles, patterns, and guides published under ${categoryName}.`}
+          type="category"
+          term={categoryName}
+          posts={posts}
+          totalPostsCount={allPosts.length}
+        />
+      </Suspense>
     </>
   );
 }
