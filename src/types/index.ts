@@ -112,32 +112,23 @@ export interface Post extends Entity {
   tags?: Tag[];
 }
 
-export interface PerformanceArtist {
+export interface Artist extends TreeEntity {
   name: string;
-  format: string;
-  image: Asset;
   description?: string;
+  image: Asset;
+  formats: string;
+  hidden?: boolean;
 }
 
-export interface PerformanceCategory {
-  title: string;
-  subtitle: string;
-  places: string[];
-}
-
-export interface PerformanceTimelineItem {
-  date: string;
-  year: number;
-  artist: string;
-  location: string;
-  venue?: string | null;
+export interface Performance extends TreeEntity {
+  date: string[];
+  country: string;
+  state?: string;
+  city: string;
+  artist: Artist;
+  venue?: string;
+  circuit?: string;
   details?: string | null;
-}
-
-export interface PerformanceHighlights extends Entity {
-  artists: PerformanceArtist[];
-  categories: PerformanceCategory[];
-  timeline: PerformanceTimelineItem[];
 }
 
 declare global {
