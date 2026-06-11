@@ -1,6 +1,13 @@
 'use client';
 
-import React, { useRef, useState, useEffect, useMemo } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+
 import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 
 export default function SliderGallery({
@@ -17,7 +24,7 @@ export default function SliderGallery({
   const [isHovered, setIsHovered] = useState(false);
   const itemsCount = React.Children.count(children);
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     if (!scrollRef.current) return;
     const scrollLeft = scrollRef.current.scrollLeft;
     const scrollWidth =
@@ -32,7 +39,7 @@ export default function SliderGallery({
     const percentage = scrollLeft / scrollWidth;
     const index = Math.round(percentage * (itemsCount - 1));
     setActiveIndex(Math.min(itemsCount - 1, Math.max(0, index)));
-  };
+  }, [itemsCount]);
 
   const scrollToIndex = (index: number) => {
     if (!scrollRef.current) return;
@@ -60,8 +67,7 @@ export default function SliderGallery({
       handleScroll();
     }, 0);
     return () => clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [handleScroll]);
 
   // Autoscroll timer effect (pauses on hover and handles multiple visible items correctly)
   useEffect(() => {
@@ -85,10 +91,12 @@ export default function SliderGallery({
     }, 4000); // 4-second scroll interval
 
     return () => clearInterval(interval);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoScroll, itemsCount, isHovered, itemWidth]);
 
-  const dotsArray = useMemo(() => Array.from({ length: itemsCount }), [itemsCount]);
+  const dotsArray = useMemo(
+    () => Array.from({ length: itemsCount }),
+    [itemsCount]
+  );
 
   return (
     <div

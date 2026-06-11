@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import JsonLd from '@/components/json-ld';
@@ -229,11 +230,13 @@ export default function BiographyPage() {
             {/* Desktop Side Profile Frame */}
             <div className="relative mx-auto w-full max-w-[340px] shrink-0 lg:mx-0">
               <div className="group relative aspect-[3/4] overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/[0.02] shadow-[0_30px_70px_rgba(0,0,0,0.6)] backdrop-blur-md">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
+                  width={600}
+                  height={600}
                   src="/hero-guitarist.jpg"
                   alt="Shuvam Raha"
                   className="h-full w-full object-cover opacity-90 transition-transform duration-[1500ms] group-hover:scale-105"
+                  loading="eager"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#020205]/80 via-transparent to-transparent opacity-60" />
               </div>
@@ -289,11 +292,13 @@ export default function BiographyPage() {
                   levels.
                 </p>
                 <div className="flex justify-start pt-3">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="https://www.shuvamrahamusic.com/wp-content/uploads/2025/04/Shuvam-Raha-Signature-Logo-Png-png.avif"
+                  <Image
+                    width={100}
+                    height={100}
+                    src="/signature.png"
                     alt="Shuvam Raha Signature Logo"
                     className="h-14 w-auto object-contain opacity-75 brightness-0 invert transition-opacity duration-300 hover:opacity-95"
+                    loading="eager"
                   />
                 </div>
               </div>
@@ -564,10 +569,10 @@ export default function BiographyPage() {
                 ].map((item, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center gap-2 text-xs text-gray-300 sm:text-sm"
+                    className="flex items-start gap-3 text-xs text-gray-300 sm:text-sm"
                   >
-                    <LuCheck className="h-4 w-4 shrink-0 text-emerald-400" />
-                    {item}
+                    <LuCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                    <span>{item}</span>
                   </div>
                 ))}
               </div>
@@ -583,6 +588,11 @@ export default function BiographyPage() {
                   What Makes His Approach Different
                 </h3>
               </div>
+              <p className="text-xs leading-relaxed text-gray-400 sm:text-sm">
+                His curriculum bridges the gap between bedroom practicing and
+                real-world performance, teaching students not just how to play
+                notes, but how to express them with professional control.
+              </p>
               <div className="space-y-3">
                 {[
                   'Personalized training structure based on students goals',
@@ -593,7 +603,7 @@ export default function BiographyPage() {
                 ].map((item, idx) => (
                   <div
                     key={idx}
-                    className="flex items-start gap-2.5 text-xs text-gray-300 sm:text-sm"
+                    className="flex items-start gap-3 text-xs text-gray-300 sm:text-sm"
                   >
                     <LuTarget className="mt-0.5 h-4 w-4 shrink-0 text-cyan-400" />
                     <span>{item}</span>
