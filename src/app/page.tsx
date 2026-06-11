@@ -604,7 +604,7 @@ export default async function Home() {
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {latestPosts.map((post) => {
-                const primaryCat = post.categories[0] || '';
+                const primaryCat = post.categories[0]?.title || '';
                 const themeKey = getThemeKey(primaryCat);
                 const primaryTheme =
                   CATEGORY_THEMES[themeKey] || CATEGORY_THEMES['default'];
@@ -633,7 +633,7 @@ export default async function Home() {
                         <div className="absolute inset-0 bg-gradient-to-t from-[#020205]/40 to-transparent" />
                         <div className="absolute top-4 left-4 flex max-w-[85%] flex-wrap gap-1.5">
                           {post.categories.map((cat, idx) => {
-                            const catThemeKey = getThemeKey(cat);
+                            const catThemeKey = getThemeKey(cat.title);
                             const catTheme =
                               CATEGORY_THEMES[catThemeKey] ||
                               CATEGORY_THEMES['default'];
@@ -642,7 +642,7 @@ export default async function Home() {
                                 key={idx}
                                 className={`rounded-full border ${catTheme.border} bg-[#05050A]/85 px-2.5 py-0.5 text-[9px] font-black tracking-widest ${catTheme.text} uppercase backdrop-blur-md`}
                               >
-                                {cat}
+                                {cat.title}
                               </span>
                             );
                           })}

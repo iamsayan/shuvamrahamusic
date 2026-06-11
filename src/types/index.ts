@@ -1,4 +1,4 @@
-import { Asset, Entity, TreeEntity } from '@/lib/client';
+import type { Asset, Entity, TreeEntity } from '@/lib/cockpit';
 
 export interface Member extends Entity {
   name: string;
@@ -98,13 +98,18 @@ export interface Category extends Entity {
   slug: string;
 }
 
+export interface Tag extends Entity {
+  title: string;
+  slug: string;
+}
+
 export interface Post extends Entity {
   title: string;
   slug: string;
   content: string;
   featured_image: Asset;
   categories: Category[];
-  tags?: string[];
+  tags?: Tag[];
 }
 
 declare global {
