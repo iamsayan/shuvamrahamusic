@@ -42,15 +42,6 @@ export default async function PerformanceHighlightsPage() {
     notFound();
   }
 
-  performances = await Promise.all(
-    performances.map(async (p: Performance) => {
-      if (p.artist?.image?._id) {
-        p.artist.image = await cockpit.getAsset(p.artist.image._id);
-      }
-      return p;
-    })
-  );
-
   return (
     <>
       <JsonLd

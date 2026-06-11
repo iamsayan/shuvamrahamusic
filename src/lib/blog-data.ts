@@ -78,29 +78,14 @@ export function getThemeKey(categoryName: string): string {
   return themeKeys[index];
 }
 
-async function mapPostToBlogPost(entry: Post): Promise<BlogPost> {
-  let coverImage = entry.featured_image as Asset;
-  if (entry.featured_image?._id) {
-    try {
-      const fullAsset = await cockpit.getAsset(entry.featured_image._id);
-      if (fullAsset) {
-        coverImage = fullAsset;
-      }
-    } catch (err) {
-      console.error(
-        `Error refetching cover image asset ${entry.featured_image._id}:`,
-        err
-      );
-    }
-  }
-
+function mapPostToBlogPost(entry: Post): BlogPost {
   return {
     id: entry._id,
     slug: entry.slug,
     title: entry.title,
     excerpt: generateExcerpt(entry.content),
     content: entry.content,
-    coverImage,
+    coverImage: entry.featured_image,
     featured_image: entry.featured_image,
     categories: Array.isArray(entry.categories) ? entry.categories : [],
     tags: Array.isArray(entry.tags) ? entry.tags : [],
@@ -137,7 +122,7 @@ export async function getPaginatedBlogPosts(
 
     // If skip or limit options were passed, Cockpit returns a PaginatedList structure
     if ('data' in response && Array.isArray(response.data)) {
-      const posts = await Promise.all(response.data.map(mapPostToBlogPost));
+      const posts = response.data.map(mapPostToBlogPost);
       return {
         posts,
         total: response.meta?.total || posts.length,
@@ -146,7 +131,7 @@ export async function getPaginatedBlogPosts(
 
     // Otherwise it returns a plain array of posts
     if (Array.isArray(response)) {
-      const posts = await Promise.all(response.map(mapPostToBlogPost));
+      const posts = response.map(mapPostToBlogPost);
       return {
         posts,
         total: posts.length,
@@ -182,7 +167,7 @@ export async function getBlogPostBySlug(
     });
 
     if (entry) {
-      return await mapPostToBlogPost(entry);
+      return mapPostToBlogPost(entry);
     }
 
     return undefined;
