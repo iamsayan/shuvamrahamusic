@@ -166,58 +166,39 @@ export default function BlogArchiveClient({
                           fill
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#020205]/40 to-transparent" />
-
-                        {/* Floating Category Pills */}
-                        <div className="absolute top-4 left-4 z-10 flex max-w-[85%] flex-wrap gap-1.5">
-                          {post.categories.map((cat, idx) => {
-                            const catThemeKey = getThemeKey(cat.title);
-                            const catTheme =
-                              CATEGORY_THEMES[catThemeKey] ||
-                              CATEGORY_THEMES['default'];
-                            return (
-                              <Link
-                                key={idx}
-                                href={`/blog/category/${cat.slug}`}
-                                className={`rounded-full border ${catTheme.border} bg-[#05050A]/85 px-2.5 py-0.5 text-[9px] font-black tracking-widest ${catTheme.text} relative z-10 uppercase backdrop-blur-md transition-colors duration-300 hover:bg-white/[0.08]`}
-                              >
-                                {cat.title}
-                              </Link>
-                            );
-                          })}
-                        </div>
                       </div>
 
                       {/* Metadata & Title */}
                       <div className="p-5.5">
-                        <div className="mb-2 flex items-center gap-3 text-[10px] font-bold text-gray-500 uppercase">
-                          <span className="flex items-center gap-1">
-                            <LuCalendar className="h-3 w-3" />
-                            {post.date}
-                          </span>
-                          <span>•</span>
-                          <span className="flex items-center gap-1">
+                        <div className="mb-3.5 flex items-center justify-between gap-4">
+                          {/* Categories */}
+                          <div className="relative z-10 flex flex-wrap gap-1.5">
+                            {post.categories.map((cat, idx) => {
+                              const catThemeKey = getThemeKey(cat.title);
+                              const catTheme =
+                                CATEGORY_THEMES[catThemeKey] ||
+                                CATEGORY_THEMES['default'];
+                              return (
+                                <Link
+                                  key={idx}
+                                  href={`/blog/category/${cat.slug}`}
+                                  className={`rounded-full border ${catTheme.border} bg-white/[0.02] px-2.5 py-0.5 text-[9px] font-black tracking-widest ${catTheme.text} uppercase transition-colors duration-300 hover:bg-white/[0.08]`}
+                                >
+                                  {cat.title}
+                                </Link>
+                              );
+                            })}
+                          </div>
+
+                          {/* Read Time */}
+                          <span className="flex shrink-0 items-center gap-1 text-[10px] font-bold text-gray-500 uppercase">
                             <LuClock className="h-3 w-3" />
                             {post.readTime}
                           </span>
                         </div>
 
-                        {/* Tags */}
-                        {post.tags && post.tags.length > 0 && (
-                          <div className="relative z-10 mb-2.5 flex flex-wrap gap-1.5">
-                            {post.tags.map((tag, idx) => (
-                              <Link
-                                key={idx}
-                                href={`/blog/tag/${tag.slug}`}
-                                className={`text-[10px] font-bold ${postTheme.text} tracking-wide uppercase opacity-85 hover:underline`}
-                              >
-                                #{tag.title}
-                              </Link>
-                            ))}
-                          </div>
-                        )}
-
                         <h3
-                          className={`font-heading mb-3 text-base leading-snug font-extrabold text-white transition-colors duration-300 group-hover:text-cyan-400`}
+                          className={`font-heading mb-2.5 text-base leading-snug font-extrabold text-white transition-colors duration-300 group-hover:text-cyan-400`}
                         >
                           <Link
                             href={`/blog/${post.slug}`}
@@ -227,9 +208,30 @@ export default function BlogArchiveClient({
                           </Link>
                         </h3>
 
+                        {/* Date metadata */}
+                        <div className="mb-3 flex items-center gap-1 text-[10px] font-bold text-gray-500 uppercase">
+                          <LuCalendar className="h-3 w-3" />
+                          {post.date}
+                        </div>
+
                         <p className="line-clamp-3 text-xs leading-relaxed text-gray-400">
                           {post.excerpt}
                         </p>
+
+                        {/* Tags */}
+                        {post.tags && post.tags.length > 0 && (
+                          <div className="relative z-10 mt-4 flex flex-wrap gap-1.5">
+                            {post.tags.map((tag, idx) => (
+                              <Link
+                                key={idx}
+                                href={`/blog/tag/${tag.slug}`}
+                                className="rounded-lg bg-white/[0.02] border border-white/[0.05] px-2.5 py-0.5 text-[9px] font-bold text-gray-400 tracking-wide uppercase hover:bg-white/[0.05] hover:text-white transition-colors"
+                              >
+                                #{tag.title}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
 
