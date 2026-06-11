@@ -15,6 +15,7 @@ export interface BlogPost {
   excerpt: string;
   content: string;
   coverImage: Asset;
+  featured_image: Asset;
   categories: Category[];
   tags: Tag[];
   date: string;

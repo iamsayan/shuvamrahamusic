@@ -101,6 +101,7 @@ async function mapPostToBlogPost(entry: Post): Promise<BlogPost> {
     excerpt: generateExcerpt(entry.content),
     content: entry.content,
     coverImage,
+    featured_image: entry.featured_image,
     categories: Array.isArray(entry.categories) ? entry.categories : [],
     tags: Array.isArray(entry.tags) ? entry.tags : [],
     date: formatDate(entry._created),
