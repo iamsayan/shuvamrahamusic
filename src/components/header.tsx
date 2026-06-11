@@ -16,7 +16,7 @@ type NavLink = {
 };
 
 const navLinks: NavLink[] = [
-  { name: 'Home', href: '/', raw: process.env.NODE_ENV !== 'production' },
+  { name: 'Home', href: '/', raw: true },
   {
     name: 'Biography',
     href: '/biography',
@@ -113,7 +113,7 @@ export default function Header() {
         <div className="flex h-[60px] w-full shrink-0 items-center justify-between md:h-[70px]">
           {/* Logo */}
           <Link
-            href="https://shuvamrahamusic.com"
+            href="/"
             className="group relative z-50 flex items-center gap-3"
             onClick={() => setIsMobileMenuOpen(false)}
           >
