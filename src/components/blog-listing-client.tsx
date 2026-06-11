@@ -113,10 +113,6 @@ export default function BlogListingClient({
 
   return (
     <div className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
-      {/* Background ambient glows */}
-      <div className="pointer-events-none absolute top-12 left-1/4 h-[400px] w-[400px] rounded-full bg-cyan-600/10 blur-[130px] transition-all duration-1000" />
-      <div className="pointer-events-none absolute right-12 bottom-12 h-[400px] w-[400px] rounded-full bg-blue-600/10 blur-[130px] transition-all duration-1000" />
-
       <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
         <div className="flex w-full flex-col pt-8 pb-6">
           {/* Breadcrumbs */}
@@ -163,7 +159,7 @@ export default function BlogListingClient({
                 <button
                   type="button"
                   onClick={() => handleSearchChange('')}
-                  className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-white transition-colors cursor-pointer"
+                  className="absolute inset-y-0 right-4 flex cursor-pointer items-center text-gray-500 transition-colors hover:text-white"
                   aria-label="Clear search"
                 >
                   <LuX className="h-4.5 w-4.5" />

@@ -49,22 +49,24 @@ const navLinks: NavLink[] = [
     ],
   },
   { name: 'Gears', href: '/my-gears', raw: true },
-  {
-    name: 'Links',
-    href: '#',
-    subItems: [
-      {
-        name: 'Tutorials',
-        href: '/tutorials',
-        raw: process.env.NODE_ENV !== 'production',
-      },
-      {
-        name: 'Blog',
-        href: '/blog',
-        raw: process.env.NODE_ENV !== 'production',
-      },
-    ],
-  },
+  { name: 'Tutorials', href: '/tutorials', raw: true },
+  { name: 'Blog', href: '/blog', raw: true },
+  // {
+  //   name: 'Links',
+  //   href: '#',
+  //   subItems: [
+  //     {
+  //       name: 'Tutorials',
+  //       href: '/tutorials',
+  //       raw: true,
+  //     },
+  //     {
+  //       name: 'Blog',
+  //       href: '/blog',
+  //       raw: process.env.NODE_ENV !== 'production',
+  //     },
+  //   ],
+  // },
   { name: 'Contact', href: '/contact', raw: true },
 ];
 
@@ -116,8 +118,8 @@ export default function Header() {
             <Image
               src="/site-logo.png"
               alt="Shuvam Raha Logo"
-              width={80}
-              height={50}
+              width={65}
+              height={40}
               className="-mt-2 h-auto w-auto"
               loading="eager"
             />
