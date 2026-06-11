@@ -36,6 +36,11 @@ export interface Entity {
   _state: -1 | 0 | 1;
 }
 
+export interface SingletonEntity extends Entity {
+  _model: string;
+  _state: 0 | 1;
+}
+
 export interface TreeEntity extends Entity {
   _pid: string;
   _o: number;

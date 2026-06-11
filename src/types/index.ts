@@ -131,6 +131,13 @@ export interface Performance extends TreeEntity {
   details?: string | null;
 }
 
+export interface GuitarClassesData extends Entity {
+  student_performance_videos: string[];
+  performance_videos: string[];
+  hero_image: Asset;
+  coach_images: Asset[];
+}
+
 declare global {
   interface Window {
     Razorpay: new (options: unknown) => { open(): void };

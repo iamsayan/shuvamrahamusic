@@ -1,19 +1,18 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 
+// Client Components
+import CockpitImage from '@/components/cockpit-image';
 import FaqAccordion from '@/components/faq-accordion';
 import JsonLd from '@/components/json-ld';
 import PricingTable from '@/components/pricing-table';
 import ProgramTabs from '@/components/program-tabs';
-// Client Components
 import SliderGallery from '@/components/slider-gallery';
 import YouTubeFacade from '@/components/youtube-facade';
-import YouTubeModal from '@/components/youtube-modal';
 import cockpit from '@/lib/client';
 // Static Data
 import { notFor, perfectFor } from '@/lib/guitar-data';
-import { PricingPlan } from '@/types';
+import { GuitarClassesData, PricingPlan } from '@/types';
 
 import {
   LuArrowRight,
@@ -31,7 +30,6 @@ import {
   LuMonitorSmartphone,
   LuPhone,
   LuStar,
-  LuUsers,
 } from 'react-icons/lu';
 
 export const metadata: Metadata = {
@@ -172,22 +170,14 @@ async function getReviews() {
   }
 }
 
-async function getPricingPlans(): Promise<PricingPlan[]> {
-  try {
-    const cockpitPlans =
-      await cockpit.listContentItems<PricingPlan[]>('pricingplans');
-    if (cockpitPlans && cockpitPlans.length > 0) {
-      return cockpitPlans;
-    }
-  } catch (error) {
-    console.error('Error fetching pricing plans from Cockpit:', error);
-  }
-  return [];
-}
-
 export default async function Page() {
-  const reviews = await getReviews();
-  const pricingPlans = await getPricingPlans();
+  const [reviews, pricingPlans, classesData] = await Promise.all([
+    getReviews(),
+    cockpit.listContentItems<PricingPlan[]>('pricingplans'),
+    cockpit.getContentItemByFilter<GuitarClassesData>('guiterclasses', {
+      populate: -1,
+    }),
+  ]);
   const hasReviews = reviews && reviews.length > 0;
 
   const half = Math.ceil(reviews.length / 2);
@@ -342,12 +332,13 @@ export default async function Page() {
           1. HERO SECTION
           ======================================================================= */}
         <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-[#020205] pt-24 pb-16 md:pt-32">
-          <Image
-            src="/bg.png"
-            alt="Hero Background"
+          <CockpitImage
             fill
-            priority
             className="absolute inset-0 object-cover object-center opacity-50"
+            asset={classesData.hero_image}
+            lazy={false}
+            loaderPlaceholder={false}
+            containerClassName="absolute inset-0 w-full h-full bg-transparent"
           />
 
           <div className="relative z-20 mx-auto flex w-full max-w-[1400px] flex-col items-center gap-12 px-5 md:px-12 lg:flex-row lg:gap-20 lg:px-20">
@@ -520,43 +511,6 @@ export default async function Page() {
                 </div>
               </div>
             </div>
-
-            {/* ── Right Column: Hero Visuals (Hidden in initial responsive layout) ── */}
-            <div className="relative mt-16 hidden w-full flex-1 lg:mt-0">
-              <div className="relative mx-auto aspect-[4/5] w-full max-w-[450px] sm:aspect-square lg:ml-auto lg:max-w-none">
-                <div className="group absolute inset-0 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] shadow-[0_30px_100px_rgba(0,0,0,0.8)] backdrop-blur-3xl sm:rounded-[2.5rem]">
-                  <Image
-                    src="/hero-guitarist.jpg"
-                    alt="Shuvam Raha - Online Guitar Instructor"
-                    fill
-                    className="object-cover opacity-90 transition-transform duration-[2000ms] group-hover:scale-105"
-                    loading="eager"
-                    sizes="(max-width: 1024px) 480px, 600px"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#020205] via-transparent to-transparent opacity-80" />
-
-                  {/* Central Play Button Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <YouTubeModal videoId="Mldyf1c3uxc" triggerType="hero" />
-                  </div>
-                </div>
-
-                {/* Floating UI Elements */}
-                <div className="pointer-events-none absolute top-[15%] -left-2 flex items-center gap-3 rounded-2xl border border-white/10 bg-[#0a0a0f]/80 p-3 shadow-2xl backdrop-blur-xl sm:top-1/4 sm:-left-12 sm:p-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full border border-blue-500/30 bg-blue-500/20">
-                    <LuUsers className="h-5 w-5 text-blue-400" />
-                  </div>
-                  <div className="flex flex-col pr-2">
-                    <span className="font-heading text-sm leading-tight font-bold text-white sm:text-base">
-                      1-on-1 Sessions
-                    </span>
-                    <span className="text-xs text-gray-400">
-                      Personalized Focus
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -602,14 +556,7 @@ export default async function Page() {
               </div>
               <div className="relative z-10 w-full">
                 <SliderGallery itemWidth={220} autoScroll={true}>
-                  {[
-                    'QAJUivdGB5k',
-                    '4y2bCPoBtQw',
-                    '7rgtIwJlHcc',
-                    'MuHzObO8sdU',
-                    '461nZ5U9Wiw',
-                    'dfTZc5wDeK8',
-                  ].map((item) => (
+                  {classesData.student_performance_videos.map((item) => (
                     <div key={item} className="w-[220px] shrink-0 snap-center">
                       <VideoCard videoId={item} isShort />
                     </div>
@@ -628,15 +575,7 @@ export default async function Page() {
               </div>
               <div className="relative z-10 w-full">
                 <SliderGallery itemWidth={220} autoScroll={true}>
-                  {[
-                    'F4SwCit-b20',
-                    'azQquv9akto',
-                    'gnlzLjNdzPQ',
-                    '0DO8upx3NAw',
-                    'rHn8HmNSiPs',
-                    'Ul7A9VNI77o',
-                    '8kDGelnc6dQ',
-                  ].map((item) => (
+                  {classesData.performance_videos.map((item) => (
                     <div key={item} className="w-[220px] shrink-0 snap-center">
                       <VideoCard videoId={item} isShort />
                     </div>
@@ -665,7 +604,7 @@ export default async function Page() {
             </div>
 
             {/* Interactive Client ProgramTabs */}
-            <ProgramTabs />
+            <ProgramTabs classesData={classesData} />
           </div>
         </section>
 
