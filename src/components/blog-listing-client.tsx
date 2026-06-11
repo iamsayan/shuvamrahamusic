@@ -4,8 +4,8 @@ import { useMemo, useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import CockpitImage from '@/components/cockpit-image';
 
+import CockpitImage from '@/components/cockpit-image';
 import {
   AMBIENT_GLOWS,
   BRIGHT_GRADIENTS,
@@ -13,7 +13,7 @@ import {
   CATEGORY_THEMES,
   GLOW_COLORS,
   getThemeKey,
-} from '@/lib/blog-data';
+} from '@/lib/blog-shared';
 
 import {
   LuArrowRight,
@@ -37,7 +37,7 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
     const cats = new Set<string>();
     posts.forEach((post) => {
       post.categories.forEach((cat) => {
-        if (cat) cats.add(cat);
+        if (cat?.title) cats.add(cat.title);
       });
     });
     return ['All', ...Array.from(cats)];
@@ -64,15 +64,15 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
         post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.categories.some((cat) =>
-          cat.toLowerCase().includes(searchQuery.toLowerCase())
+          cat.title.toLowerCase().includes(searchQuery.toLowerCase())
         ) ||
         post.tags.some((tag) =>
-          tag.toLowerCase().includes(searchQuery.toLowerCase())
+          tag.title.toLowerCase().includes(searchQuery.toLowerCase())
         );
 
       const matchesCategory =
         selectedCategory === 'All' ||
-        post.categories.includes(selectedCategory);
+        post.categories.some((cat) => cat.title === selectedCategory);
 
       return matchesSearch && matchesCategory;
     });
@@ -105,8 +105,7 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
       {/* Background ambient glows */}
       {(() => {
         const glowKey = getThemeKey(selectedCategory);
-        const glow =
-          AMBIENT_GLOWS[glowKey] || AMBIENT_GLOWS['default'];
+        const glow = AMBIENT_GLOWS[glowKey] || AMBIENT_GLOWS['default'];
         return (
           <>
             <div
@@ -196,8 +195,8 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
               No Articles Found
             </h3>
             <p className="mt-2 max-w-sm text-xs text-gray-400 sm:text-sm">
-              We couldn't find any articles matching "{searchQuery}". Try
-              adjusting your keywords or category filters.
+              We couldn&apos;t find any articles matching &quot;{searchQuery}
+              &quot;. Try adjusting your keywords or category filters.
             </p>
             <button
               onClick={() => {
@@ -214,7 +213,7 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
 
         {featuredPost &&
           (() => {
-            const primaryCat = featuredPost.categories[0];
+            const primaryCat = featuredPost.categories[0]?.title || '';
             const themeKey = getThemeKey(primaryCat);
             const primaryTheme =
               CATEGORY_THEMES[themeKey] || CATEGORY_THEMES['default'];
@@ -225,8 +224,7 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
                 >
                   Featured Article
                 </span>
-                <Link
-                  href={`/blog/${featuredPost.slug}`}
+                <div
                   className={`group relative flex flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-[#07070F]/80 shadow-2xl backdrop-blur-3xl transition-all duration-500 lg:flex-row hover:${primaryTheme.border} hover:shadow-[0_40px_80px_rgba(0,0,0,0.6)]`}
                 >
                   {/* Glowing Top Accent Strip */}
@@ -253,28 +251,33 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
                     />
 
                     <div>
-                      <div className="mb-4 flex flex-wrap items-center gap-2">
+                      <div className="relative z-10 mb-4 flex flex-wrap items-center gap-2">
                         {featuredPost.categories.map((cat, idx) => {
-                          const catThemeKey = getThemeKey(cat);
+                          const catThemeKey = getThemeKey(cat.title);
                           const catTheme =
-                            CATEGORY_THEMES[catThemeKey] || CATEGORY_THEMES['default'];
+                            CATEGORY_THEMES[catThemeKey] ||
+                            CATEGORY_THEMES['default'];
                           return (
-                            <span
+                            <Link
                               key={idx}
-                              className={`rounded-full border ${catTheme.border} ${catTheme.bg} px-3 py-1 text-[10px] font-black tracking-widest ${catTheme.text} uppercase`}
+                              href={`/blog/category/${cat.slug}`}
+                              className={`rounded-full border ${catTheme.border} ${catTheme.bg} px-3 py-1 text-[10px] font-black tracking-widest ${catTheme.text} uppercase transition-colors duration-300 hover:bg-white/[0.08]`}
                             >
-                              {cat}
-                            </span>
+                              {cat.title}
+                            </Link>
                           );
                         })}
-                        {featuredPost.tags && featuredPost.tags.length > 0 && featuredPost.tags.map((tag, idx) => (
-                          <span
-                            key={idx}
-                            className="rounded-full border border-white/5 bg-white/[0.03] px-2.5 py-0.5 text-[9px] font-bold tracking-wider text-gray-400 uppercase transition-all duration-300 hover:border-white/15 hover:bg-white/[0.05] hover:text-white"
-                          >
-                            #{tag}
-                          </span>
-                        ))}
+                        {featuredPost.tags &&
+                          featuredPost.tags.length > 0 &&
+                          featuredPost.tags.map((tag, idx) => (
+                            <Link
+                              key={idx}
+                              href={`/blog/tag/${tag.slug}`}
+                              className="rounded-full border border-white/5 bg-white/[0.03] px-2.5 py-0.5 text-[9px] font-bold tracking-wider text-gray-400 uppercase transition-all duration-300 hover:border-white/15 hover:bg-white/[0.05] hover:text-white"
+                            >
+                              #{tag.title}
+                            </Link>
+                          ))}
                         <span className="ml-1 flex items-center gap-1 text-[11px] font-bold text-gray-500 uppercase">
                           <LuCalendar className="h-3 w-3" />
                           {featuredPost.date}
@@ -282,9 +285,14 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
                       </div>
 
                       <h2
-                        className={`font-heading mb-4 text-xl leading-tight font-black tracking-tight text-white sm:text-2xl lg:text-3xl group-hover:${primaryTheme.text} transition-colors duration-300`}
+                        className={`font-heading mb-4 text-xl leading-tight font-black tracking-tight text-white transition-colors duration-300 group-hover:text-cyan-400 sm:text-2xl lg:text-3xl`}
                       >
-                        {featuredPost.title}
+                        <Link
+                          href={`/blog/${featuredPost.slug}`}
+                          className="after:absolute after:inset-0"
+                        >
+                          {featuredPost.title}
+                        </Link>
                       </h2>
 
                       <p className="mb-6 text-xs leading-relaxed text-gray-400 sm:text-sm">
@@ -315,14 +323,15 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
                       </div>
 
                       {/* Read Link */}
-                      <span
-                        className={`inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 ${primaryTheme.text} transition-all duration-300 group-hover:scale-110 group-hover:border-cyan-500/20 group-hover:bg-cyan-500/10`}
+                      <Link
+                        href={`/blog/${featuredPost.slug}`}
+                        className={`relative z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 ${primaryTheme.text} transition-all duration-300 hover:scale-110 hover:border-cyan-500/20 hover:bg-cyan-500/10`}
                       >
                         <LuArrowRight className="h-4.5 w-4.5 transition-transform duration-300 group-hover:translate-x-0.5" />
-                      </span>
+                      </Link>
                     </div>
                   </div>
-                </Link>
+                </div>
               </div>
             );
           })()}
@@ -335,21 +344,20 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
             </span>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {paginatedGridPosts.map((post) => {
-                const primaryCat = post.categories[0];
+                const primaryCat = post.categories[0]?.title || '';
                 const themeKey = getThemeKey(primaryCat);
                 const primaryTheme =
                   CATEGORY_THEMES[themeKey] || CATEGORY_THEMES['default'];
                 return (
-                  <Link
+                  <div
                     key={post.id}
-                    href={`/blog/${post.slug}`}
                     className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.04] bg-white/[0.01] transition-all duration-500 hover:${primaryTheme.border} hover:bg-white/[0.03] hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]`}
                   >
                     {/* Glowing Top Accent Strip */}
                     <div
                       className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${BRIGHT_GRADIENTS[themeKey] || BRIGHT_GRADIENTS['default']} z-20 opacity-20 transition-opacity duration-500 group-hover:opacity-90`}
                     />
- 
+
                     {/* Inner accent glow on hover */}
                     <div
                       className={`pointer-events-none absolute -right-16 -bottom-16 h-36 w-36 rounded-full ${GLOW_COLORS[themeKey] || GLOW_COLORS['default']} z-0 opacity-0 blur-[40px] transition-opacity duration-700 group-hover:opacity-100`}
@@ -363,21 +371,22 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
                           fill
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#020205]/40 to-transparent" />
- 
+
                         {/* Floating Category Pills */}
-                        <div className="absolute top-4 left-4 flex max-w-[85%] flex-wrap gap-1.5">
+                        <div className="absolute top-4 left-4 z-10 flex max-w-[85%] flex-wrap gap-1.5">
                           {post.categories.map((cat, idx) => {
-                            const catThemeKey = getThemeKey(cat);
+                            const catThemeKey = getThemeKey(cat.title);
                             const catTheme =
                               CATEGORY_THEMES[catThemeKey] ||
                               CATEGORY_THEMES['default'];
                             return (
-                              <span
+                              <Link
                                 key={idx}
-                                className={`rounded-full border ${catTheme.border} bg-[#05050A]/85 px-2.5 py-0.5 text-[9px] font-black tracking-widest ${catTheme.text} uppercase backdrop-blur-md`}
+                                href={`/blog/category/${cat.slug}`}
+                                className={`rounded-full border ${catTheme.border} bg-[#05050A]/85 px-2.5 py-0.5 text-[9px] font-black tracking-widest ${catTheme.text} uppercase backdrop-blur-md transition-colors duration-300 hover:bg-white/[0.08]`}
                               >
-                                {cat}
-                              </span>
+                                {cat.title}
+                              </Link>
                             );
                           })}
                         </div>
@@ -399,22 +408,28 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
 
                         {/* Tags */}
                         {post.tags && post.tags.length > 0 && (
-                          <div className="mb-2.5 flex flex-wrap gap-1.5">
+                          <div className="relative z-10 mb-2.5 flex flex-wrap gap-1.5">
                             {post.tags.map((tag, idx) => (
-                              <span
+                              <Link
                                 key={idx}
-                                className={`text-[10px] font-bold ${primaryTheme.text} tracking-wide uppercase opacity-85`}
+                                href={`/blog/tag/${tag.slug}`}
+                                className={`text-[10px] font-bold ${primaryTheme.text} tracking-wide uppercase opacity-85 hover:underline`}
                               >
-                                #{tag}
-                              </span>
+                                #{tag.title}
+                              </Link>
                             ))}
                           </div>
                         )}
 
                         <h3
-                          className={`font-heading mb-3 text-base leading-snug font-extrabold text-white group-hover:${primaryTheme.text} transition-colors duration-300`}
+                          className={`font-heading mb-3 text-base leading-snug font-extrabold text-white transition-colors duration-300 group-hover:text-cyan-400`}
                         >
-                          {post.title}
+                          <Link
+                            href={`/blog/${post.slug}`}
+                            className="after:absolute after:inset-0"
+                          >
+                            {post.title}
+                          </Link>
                         </h3>
 
                         <p className="line-clamp-3 text-xs leading-relaxed text-gray-400">
@@ -428,13 +443,14 @@ export default function BlogListingClient({ posts }: BlogListingClientProps) {
                       <span className="text-[11px] font-bold tracking-wider text-gray-400 uppercase transition-colors duration-300 group-hover:text-white">
                         Read Article
                       </span>
-                      <span
-                        className={`${primaryTheme.text} transition-transform duration-300 group-hover:translate-x-1.5`}
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        className={`relative z-10 ${primaryTheme.text} transition-transform duration-300 hover:translate-x-1.5`}
                       >
                         <LuChevronRight className="h-4.5 w-4.5" />
-                      </span>
+                      </Link>
                     </div>
-                  </Link>
+                  </div>
                 );
               })}
             </div>

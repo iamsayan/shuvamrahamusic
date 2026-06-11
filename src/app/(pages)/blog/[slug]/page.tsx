@@ -175,7 +175,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   const postUrl = `https://www.shuvamrahamusic.com/blog/${post.slug}`;
 
-  const primaryCat = post.categories[0] || '';
+  const primaryCat = post.categories[0]?.title || '';
   const themeKey = getThemeKey(primaryCat);
   const primaryTheme = CATEGORY_THEMES[themeKey] || CATEGORY_THEMES['default'];
   const contentTheme = CONTENT_THEMES[themeKey] || CONTENT_THEMES['default'];
@@ -264,16 +264,17 @@ export default async function BlogPostPage({ params }: PageProps) {
             <div className="max-w-4xl">
               <div className="mb-4 flex flex-wrap items-center gap-2">
                 {post.categories.map((cat, idx) => {
-                  const catThemeKey = getThemeKey(cat);
+                  const catThemeKey = getThemeKey(cat.title);
                   const catTheme =
                     CATEGORY_THEMES[catThemeKey] || CATEGORY_THEMES['default'];
                   return (
-                    <span
+                    <Link
                       key={idx}
-                      className={`rounded-full border ${catTheme.border} ${catTheme.bg} px-3 py-1 text-[10px] font-black tracking-widest ${catTheme.text} uppercase`}
+                      href={`/blog/category/${cat.slug}`}
+                      className={`rounded-full border ${catTheme.border} ${catTheme.bg} px-3 py-1 text-[10px] font-black tracking-widest ${catTheme.text} uppercase transition-colors duration-300 hover:bg-white/[0.08]`}
                     >
-                      {cat}
-                    </span>
+                      {cat.title}
+                    </Link>
                   );
                 })}
               </div>
@@ -351,12 +352,13 @@ export default async function BlogPostPage({ params }: PageProps) {
                       Tags:
                     </span>
                     {post.tags.map((tag, idx) => (
-                      <span
+                      <Link
                         key={idx}
-                        className={`rounded-full border ${primaryTheme.border} ${primaryTheme.bg} px-3 py-1 text-xs font-bold ${primaryTheme.text}`}
+                        href={`/blog/tag/${tag.slug}`}
+                        className={`rounded-full border ${primaryTheme.border} ${primaryTheme.bg} px-3 py-1 text-xs font-bold ${primaryTheme.text} transition-colors duration-300 hover:bg-white/[0.08]`}
                       >
-                        #{tag}
-                      </span>
+                        #{tag.title}
+                      </Link>
                     ))}
                   </div>
                 )}
@@ -456,7 +458,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                   </h3>
                   <div className="flex flex-col gap-4">
                     {relatedPosts.map((rPost) => {
-                      const rPrimaryCat = rPost.categories[0] || '';
+                      const rPrimaryCat = rPost.categories[0]?.title || '';
                       const rThemeKey = getThemeKey(rPrimaryCat);
                       const rTheme =
                         CATEGORY_THEMES[rThemeKey] ||
@@ -505,14 +507,13 @@ export default async function BlogPostPage({ params }: PageProps) {
 
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {relatedPosts.map((rPost) => {
-                  const rPrimaryCat = rPost.categories[0] || '';
+                  const rPrimaryCat = rPost.categories[0]?.title || '';
                   const rThemeKey = getThemeKey(rPrimaryCat);
                   const rTheme =
                     CATEGORY_THEMES[rThemeKey] || CATEGORY_THEMES['default'];
                   return (
-                    <Link
+                    <div
                       key={rPost.id}
-                      href={`/blog/${rPost.slug}`}
                       className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.04] bg-white/[0.01] transition-all duration-500 hover:${rTheme.border} hover:bg-white/[0.03] hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]`}
                     >
                       {/* Glowing Top Accent Strip */}
@@ -532,19 +533,20 @@ export default async function BlogPostPage({ params }: PageProps) {
                             className="object-cover transition-transform duration-1000 group-hover:scale-103"
                             fill
                           />
-                          <div className="absolute top-4 left-4 flex max-w-[85%] flex-wrap gap-1.5">
+                          <div className="absolute top-4 left-4 z-10 flex max-w-[85%] flex-wrap gap-1.5">
                             {rPost.categories.map((cat, idx) => {
-                              const catThemeKey = getThemeKey(cat);
+                              const catThemeKey = getThemeKey(cat.title);
                               const catTheme =
                                 CATEGORY_THEMES[catThemeKey] ||
                                 CATEGORY_THEMES['default'];
                               return (
-                                <span
+                                <Link
                                   key={idx}
-                                  className={`rounded-full border ${catTheme.border} bg-[#05050A]/85 px-2.5 py-0.5 text-[9px] font-black tracking-widest ${catTheme.text} uppercase backdrop-blur-md`}
+                                  href={`/blog/category/${cat.slug}`}
+                                  className={`rounded-full border ${catTheme.border} bg-[#05050A]/85 px-2.5 py-0.5 text-[9px] font-black tracking-widest ${catTheme.text} uppercase backdrop-blur-md transition-colors duration-300 hover:bg-white/[0.08]`}
                                 >
-                                  {cat}
-                                </span>
+                                  {cat.title}
+                                </Link>
                               );
                             })}
                           </div>
@@ -559,7 +561,9 @@ export default async function BlogPostPage({ params }: PageProps) {
                           <h3
                             className={`font-heading mb-2 text-sm leading-snug font-extrabold text-white group-hover:${rTheme.text} transition-colors duration-300`}
                           >
-                            {rPost.title}
+                            <Link href={`/blog/${rPost.slug}`} className="after:absolute after:inset-0">
+                              {rPost.title}
+                            </Link>
                           </h3>
                           <p className="line-clamp-2 text-xs text-gray-400">
                             {rPost.excerpt}
@@ -571,11 +575,14 @@ export default async function BlogPostPage({ params }: PageProps) {
                         <span className="text-[10px] font-bold tracking-wider text-gray-400 uppercase transition-colors duration-300 group-hover:text-white">
                           Read Article
                         </span>
-                        <LuChevronRight
-                          className={`h-4 w-4 ${rTheme.text} transition-transform group-hover:translate-x-1`}
-                        />
+                        <Link
+                          href={`/blog/${rPost.slug}`}
+                          className={`relative z-10 ${rTheme.text} transition-transform duration-300 hover:translate-x-1`}
+                        >
+                          <LuChevronRight className="h-4 w-4" />
+                        </Link>
                       </div>
-                    </Link>
+                    </div>
                   );
                 })}
               </div>
