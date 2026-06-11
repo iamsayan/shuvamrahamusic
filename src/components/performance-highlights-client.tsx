@@ -6,11 +6,7 @@ import Link from 'next/link';
 
 import CockpitImage from '@/components/cockpit-image';
 import PageLayout from '@/components/page-layout';
-import {
-  PerformanceArtist,
-  PerformanceCategory,
-  PerformanceTimelineItem,
-} from '@/types';
+import { Artist, Performance } from '@/types';
 
 import {
   LuCalendarDays,
@@ -27,11 +23,7 @@ import {
 } from 'react-icons/lu';
 
 interface PerformanceHighlightsClientProps {
-  initialData: {
-    artists?: PerformanceArtist[];
-    categories?: PerformanceCategory[];
-    timeline?: PerformanceTimelineItem[];
-  };
+  performances: Performance[];
 }
 
 const ARTIST_THEME_PALETTES = [
@@ -89,6 +81,35 @@ function getArtistTheme(name: string) {
   return ARTIST_THEME_PALETTES[index];
 }
 
+function getCircuitSubtitle(title: string): string {
+  const lower = title.toLowerCase();
+  if (
+    lower.includes('hotel') ||
+    lower.includes('luxury') ||
+    lower.includes('premium')
+  ) {
+    return 'Corporate • Luxury Hospitality • Premium Live Events • Destination Music Performances';
+  }
+  if (
+    lower.includes('club') ||
+    lower.includes('urban') ||
+    lower.includes('circuit')
+  ) {
+    return 'Urban/ Modern Live Music • Commercial Club Circuit • Contemporary Performance Spaces';
+  }
+  if (lower.includes('festival') || lower.includes('cultural')) {
+    return 'Large Audience Cultural Performances • Festival Touring Circuit';
+  }
+  if (
+    lower.includes('institution') ||
+    lower.includes('college') ||
+    lower.includes('campus')
+  ) {
+    return 'Youth Audience • Institutional Engagement • Campus Concerts';
+  }
+  return 'Live Performance Circuit';
+}
+
 // Helpers for dynamic styling based on category title
 function getCategoryTheme(title: string) {
   const lower = title.toLowerCase();
@@ -135,15 +156,8 @@ function getCategoryTheme(title: string) {
 }
 
 export default function PerformanceHighlightsClient({
-  initialData,
+  performances,
 }: PerformanceHighlightsClientProps) {
-  const artists = useMemo(() => initialData?.artists || [], [initialData]);
-  const categories = useMemo(
-    () => initialData?.categories || [],
-    [initialData]
-  );
-  const timeline = useMemo(() => initialData?.timeline || [], [initialData]);
-
   const [selectedYear, setSelectedYear] = useState<string | number>('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
@@ -156,6 +170,102 @@ export default function PerformanceHighlightsClient({
 
     return () => clearTimeout(timer);
   }, [searchQuery]);
+
+  // 1. Mapped artists list
+  const artists = useMemo(() => {
+    const artistsMap = new Map<string, Artist>();
+    performances.forEach((p) => {
+      if (
+        p.artist &&
+        p.artist._id &&
+        !artistsMap.has(p.artist._id) &&
+        !p.artist.hidden
+      ) {
+        artistsMap.set(p.artist._id, p.artist);
+      }
+    });
+    return Array.from(artistsMap.values());
+  }, [performances]);
+
+  // 2. Mapped categories/circuits list
+  const categories = useMemo(() => {
+    const circuitsMap = new Map<string, Set<string>>();
+    performances.forEach((p) => {
+      if (p.circuit && p.venue) {
+        if (!circuitsMap.has(p.circuit)) {
+          circuitsMap.set(p.circuit, new Set());
+        }
+        const placeName = p.city ? `${p.venue}, ${p.city}` : p.venue;
+        circuitsMap.get(p.circuit)!.add(placeName);
+      }
+    });
+    return Array.from(circuitsMap.entries()).map(([title, placesSet]) => ({
+      title,
+      subtitle: getCircuitSubtitle(title),
+      places: Array.from(placesSet),
+    }));
+  }, [performances]);
+
+  // 3. Mapped timeline list
+  const timeline = useMemo(() => {
+    return performances.map((p) => {
+      const dateArray = Array.isArray(p.date)
+        ? p.date
+        : [p.date].filter(Boolean);
+      let year = 2026;
+      let dateFormatted = '';
+
+      if (dateArray.length > 0) {
+        const sortedDates = [...dateArray].sort();
+        const firstDateStr = sortedDates[0];
+        const lastDateStr = sortedDates[sortedDates.length - 1];
+
+        const firstDateObj = new Date(firstDateStr);
+        year = firstDateObj.getFullYear() || 2026;
+
+        const formatOptions: Intl.DateTimeFormatOptions = {
+          day: 'numeric',
+          month: 'short',
+        };
+
+        if (sortedDates.length === 1) {
+          try {
+            dateFormatted = firstDateObj.toLocaleDateString(
+              'en-US',
+              formatOptions
+            );
+          } catch {
+            dateFormatted = firstDateStr;
+          }
+        } else {
+          try {
+            const firstFormatted = firstDateObj.toLocaleDateString(
+              'en-US',
+              formatOptions
+            );
+            const lastFormatted = new Date(lastDateStr).toLocaleDateString(
+              'en-US',
+              formatOptions
+            );
+            dateFormatted = `${firstFormatted} – ${lastFormatted}`;
+          } catch {
+            dateFormatted = `${firstDateStr} – ${lastDateStr}`;
+          }
+        }
+      }
+
+      return {
+        date: dateFormatted || 'May 30',
+        year,
+        artist: p.artist?.name || '',
+        location: p.state
+          ? `${p.city}, ${p.state}, ${p.country}`
+          : `${p.city}, ${p.country}`,
+        venue: p.venue || null,
+        details: p.details || null,
+      };
+    });
+  }, [performances]);
 
   // Dynamically extract unique years from timeline data
   const years = useMemo(() => {
@@ -183,25 +293,69 @@ export default function PerformanceHighlightsClient({
 
   // Dynamically count shows
   const totalShowsCount = useMemo(() => {
-    return `${timeline.length}+ Gigs`;
+    return timeline.length;
   }, [timeline]);
 
   // Dynamically identify regional hubs / countries from show locations
   const hubsCovered = useMemo(() => {
-    const locations = timeline.map((show) => show.location.toLowerCase());
     const countries = new Set<string>();
     countries.add('India'); // Default
-    for (const loc of locations) {
-      if (loc.includes('nepal')) countries.add('Nepal');
-      if (loc.includes('bangladesh')) countries.add('Bangladesh');
-    }
-    return Array.from(countries).join(' & ');
-  }, [timeline]);
+    performances.forEach((p) => {
+      if (p.country) {
+        const countryTrimmed = p.country.trim();
+        if (countryTrimmed) {
+          countries.add(countryTrimmed);
+        }
+      }
+    });
+    return Array.from(countries).join(', ');
+  }, [performances]);
 
   // Dynamically count venue categories/circuits covered
   const categoriesCount = useMemo(() => {
     return `${categories.length} Key Segments`;
   }, [categories]);
+
+  // Dynamically compute Geographic Performance Reach details
+  const primaryLocations = useMemo(() => {
+    const cityCounts = new Map<string, number>();
+    performances.forEach((p) => {
+      if (p.city && (!p.country || p.country.toLowerCase() === 'india')) {
+        const city = p.city.trim();
+        cityCounts.set(city, (cityCounts.get(city) || 0) + 1);
+      }
+    });
+    return Array.from(cityCounts.entries())
+      .sort((a, b) => b[1] - a[1])
+      .map(([city]) => city)
+      .slice(0, 6)
+      .join(', ');
+  }, [performances]);
+
+  const statesData = useMemo(() => {
+    const statesSet = new Set<string>();
+    performances.forEach((p) => {
+      if (p.state && p.country?.toLowerCase() === 'india') {
+        statesSet.add(p.state.trim());
+      }
+    });
+    return {
+      count: statesSet.size,
+      list: Array.from(statesSet).join(', '),
+    };
+  }, [performances]);
+
+  const internationalTours = useMemo(() => {
+    const tourSet = new Set<string>();
+    performances.forEach((p) => {
+      if (p.country && p.country.toLowerCase() !== 'india') {
+        const year = p.date?.[0] ? p.date[0].split('-')[0] : '';
+        const entry = `${p.country}${p.city ? ` — ${p.city}` : ''}${year ? ` (${year})` : ''}`;
+        tourSet.add(entry);
+      }
+    });
+    return Array.from(tourSet).join(', ');
+  }, [performances]);
 
   // Filter shows based on search query, year and artist select
   const filteredShows = useMemo(() => {
@@ -227,7 +381,7 @@ export default function PerformanceHighlightsClient({
   return (
     <PageLayout
       title="Performance Highlights"
-      subtitle="Live Performance Portfolio &amp; Professional Stage Metrics (2024 – 2026)"
+      subtitle="Live Performance Portfolio, Tour History & Professional Stage Metrics Across Events & Festivals."
     >
       <div className="flex flex-col gap-16 text-left">
         {/* ==========================================
@@ -255,8 +409,8 @@ export default function PerformanceHighlightsClient({
             <p className="text-sm leading-relaxed text-gray-400 sm:text-base">
               He has collaborated with multiple established artists and live
               acts including Priyanka Das Raha, Antara Nandy &amp; Ankita Nandy
-              (Nandy Sisters), and Kanishk Arora across 150+ live performances
-              during the 2024–2026 touring season.
+              (Nandy Sisters), and Kanishk Arora across {totalShowsCount}+ live
+              performances during the {touringYearsRange} touring season.
             </p>
           </div>
 
@@ -271,7 +425,7 @@ export default function PerformanceHighlightsClient({
               },
               {
                 label: 'Shows Performed',
-                value: totalShowsCount,
+                value: totalShowsCount + '+ Gigs',
                 icon: LuSparkles,
                 color: 'text-amber-400 border-amber-500/20 bg-amber-500/5',
               },
@@ -337,7 +491,7 @@ export default function PerformanceHighlightsClient({
                   Primary Locations
                 </p>
                 <p className="mt-1 text-xs leading-relaxed text-gray-300 sm:text-sm">
-                  Kolkata, Siliguri, Guwahati, Darjeeling
+                  {primaryLocations || 'Kolkata, Siliguri, Guwahati'}
                 </p>
               </div>
             </div>
@@ -348,11 +502,10 @@ export default function PerformanceHighlightsClient({
               </span>
               <div>
                 <p className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
-                  9 States Covered
+                  {statesData.count} States Covered
                 </p>
                 <p className="mt-1 text-xs leading-relaxed text-gray-300 sm:text-sm">
-                  Kerala, Punjab, Madhya Pradesh, Assam, Jharkhand, Odisha,
-                  Tamil Nadu, Gujarat, Uttar Pradesh
+                  {statesData.list || 'No interstate tours listed'}
                 </p>
               </div>
             </div>
@@ -366,7 +519,7 @@ export default function PerformanceHighlightsClient({
                   Global Concerts
                 </p>
                 <p className="mt-1 text-xs leading-relaxed text-gray-300 sm:text-sm">
-                  Nepal — Itahari Performance (2024)
+                  {internationalTours || 'No international tours listed'}
                 </p>
               </div>
             </div>
@@ -430,7 +583,7 @@ export default function PerformanceHighlightsClient({
                             Performance Formats
                           </p>
                           <p className="mt-1 text-xs leading-relaxed text-gray-300 sm:text-sm">
-                            {collab.format}
+                            {collab.formats}
                           </p>
                         </div>
                       </div>
@@ -482,9 +635,9 @@ export default function PerformanceHighlightsClient({
                           <h4 className="font-heading text-base font-bold text-white transition-colors duration-300 group-hover:text-cyan-300">
                             {cat.title}
                           </h4>
-                          <span className="mt-1 block text-[10px] leading-relaxed font-bold tracking-wide text-gray-500">
+                          {/* <span className="mt-1 block text-[10px] leading-relaxed font-bold tracking-wide text-gray-500">
                             {cat.subtitle}
-                          </span>
+                          </span> */}
                         </div>
 
                         <ul className="grid grid-cols-1 gap-1.5 border-t border-white/5 pt-4 sm:grid-cols-2">

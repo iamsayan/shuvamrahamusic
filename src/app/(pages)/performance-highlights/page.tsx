@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import JsonLd from '@/components/json-ld';
 import PerformanceHighlightsClient from '@/components/performance-highlights-client';
 import cockpit from '@/lib/client';
-import { PerformanceHighlights } from '@/types';
+import { Performance } from '@/types';
 
 export const metadata: Metadata = {
   title: 'Performance Highlights',
@@ -29,22 +29,27 @@ export const metadata: Metadata = {
 };
 
 export default async function PerformanceHighlightsPage() {
-  let highlightsData = null;
+  let performances: Performance[] = [];
   try {
-    highlightsData =
-      await cockpit.getContentItemByFilter<PerformanceHighlights>(
-        'performancehighlights'
-      );
+    performances = await cockpit.getContentTree<Performance[]>('performances', {
+      populate: 1,
+    });
   } catch (error) {
-    console.error(
-      'Error fetching performance highlights from Cockpit CMS:',
-      error
-    );
+    console.error('Error fetching performances from Cockpit CMS:', error);
   }
 
-  if (!highlightsData) {
+  if (!performances || performances.length === 0) {
     notFound();
   }
+
+  performances = await Promise.all(
+    performances.map(async (p: Performance) => {
+      if (p.artist?.image?._id) {
+        p.artist.image = await cockpit.getAsset(p.artist.image._id);
+      }
+      return p;
+    })
+  );
 
   return (
     <>
@@ -99,7 +104,7 @@ export default async function PerformanceHighlightsPage() {
           ],
         }}
       />
-      <PerformanceHighlightsClient initialData={highlightsData} />
+      <PerformanceHighlightsClient performances={performances} />
     </>
   );
 }
