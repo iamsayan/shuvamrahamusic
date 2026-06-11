@@ -17,7 +17,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/refund-policy',
     '/terms-of-service',
     '/tutorials',
-    '/fretboard-trainer',
+    //'/fretboard-trainer',
+    // '/rhythm-workshop',
     '/blog',
   ];
 
