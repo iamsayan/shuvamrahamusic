@@ -68,7 +68,6 @@ const highlights = [
 ];
 
 export default async function Home() {
-  return null;
   // Fetch latest posts dynamically (returns static posts when CMS is not configured)
   const latestPosts = await getBlogPosts({ limit: 3 });
 
@@ -366,7 +365,7 @@ export default async function Home() {
       {/* ==========================================================
           5. FEATURED COMPOSITION (AUDIO PLAYER)
          ========================================================== */}
-      <section className="relative z-10 py-20 md:py-28">
+      <section className="relative z-10 hidden py-20 md:py-28">
         <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-12 px-5 md:px-12 lg:grid-cols-12 lg:px-20">
           <div className="space-y-6 lg:col-span-7">
             <span className="font-heading text-sm font-bold tracking-[0.15em] text-cyan-400 uppercase">
@@ -510,7 +509,7 @@ export default async function Home() {
       {/* ==========================================================
           8. GEARS HIGHLIGHT (Drawn dynamically from GEAR_ITEMS)
          ========================================================== */}
-      <section className="relative z-10 border-t border-white/5 bg-[#07070F]/30 py-20 md:py-28">
+      <section className="relative z-10 hidden border-t border-white/5 bg-[#07070F]/30 py-20 md:py-28">
         <div className="mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
           <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div className="max-w-xl space-y-4">
@@ -677,48 +676,6 @@ export default async function Home() {
           </div>
         </section>
       )}
-
-      {/* ==========================================================
-          10. PERFORMANCE HIGHLIGHTS / TIMELINE
-         ========================================================== */}
-      <section className="relative z-10 border-t border-white/5 bg-[#07070F]/30 py-20 md:py-28">
-        <div className="mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
-          <div className="mx-auto mb-16 max-w-2xl space-y-4 text-center">
-            <span className="font-heading text-sm font-bold tracking-[0.15em] text-cyan-400 uppercase">
-              Live Concerts &amp; Sessions
-            </span>
-            <h2 className="font-heading text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl">
-              Performance Milestones
-            </h2>
-            <p className="text-sm text-gray-400 sm:text-base">
-              A record of featured public concerts, corporate gigs, and live
-              performance collaborations.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {highlights.map((item, idx) => (
-              <div
-                key={idx}
-                className="group relative rounded-2xl border border-white/[0.04] bg-[#131320]/40 p-6 shadow-md transition-all duration-300 hover:border-violet-500/20 hover:bg-[#131320]/60"
-              >
-                <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-violet-500/20 bg-violet-500/5 text-violet-400 transition-transform group-hover:scale-105">
-                  <LuMusic className="h-5 w-5" />
-                </div>
-                <span className="font-heading mb-1 block text-[9px] font-black tracking-widest text-gray-500 uppercase">
-                  {item.type}
-                </span>
-                <h3 className="font-heading text-base font-extrabold text-white">
-                  {item.title}
-                </h3>
-                <p className="font-heading mt-1 text-xs font-semibold tracking-wider text-violet-400 uppercase">
-                  {item.organization}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ==========================================================
           13. FOOTER CTA CALLOUT
