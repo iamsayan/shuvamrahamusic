@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import Link from 'next/link';
 
 import CockpitImage from '@/components/cockpit-image';
-import { useInView } from 'react-intersection-observer';
 import { GearItem } from '@/types';
 
 import { FaAmazon } from 'react-icons/fa6';
@@ -20,7 +19,9 @@ import {
   LuSparkles,
   LuStar,
   LuTarget,
+  LuX,
 } from 'react-icons/lu';
+import { useInView } from 'react-intersection-observer';
 
 export interface Theme {
   text: string;
@@ -156,6 +157,19 @@ export default function GearsListingClient({
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery);
@@ -211,6 +225,8 @@ export default function GearsListingClient({
     });
   }, [initialItems, debouncedSearchQuery, selectedCategory]);
 
+  const activeTheme = categoryThemes[selectedCategory] || DEFAULT_THEME;
+
   return (
     <div className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
       {/* Background ambient glows wrapper (prevents horizontal scroll without breaking sticky positioning) */}
@@ -237,16 +253,6 @@ export default function GearsListingClient({
             </span>
           </nav>
 
-          {/* Micro accent stats */}
-          {/* <div className="mb-4 flex flex-wrap items-center gap-4">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/20 px-3 py-1 text-[10px] font-black tracking-wider text-cyan-400 uppercase backdrop-blur-md">
-              <LuSparkles className="h-3 w-3 animate-pulse" /> 8 Pro Gear Items
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/30 bg-violet-950/20 px-3 py-1 text-[10px] font-black tracking-wider text-violet-400 uppercase backdrop-blur-md">
-              <LuMusic className="h-3 w-3" /> Live & Session Verified
-            </span>
-          </div> */}
-
           {/* Page Title & Tagline */}
           <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div className="relative">
@@ -263,50 +269,81 @@ export default function GearsListingClient({
             </div>
           </div>
 
-          {/* Filters Bar: Search & Category Pills */}
-          <div className="mb-12 flex flex-col gap-6 rounded-[2.5rem] border border-white/5 bg-[#080812]/50 p-5 shadow-[0_30px_60px_rgba(0,0,0,0.4)] backdrop-blur-3xl md:p-6">
-            {/* Search input capsule */}
-            <div className="relative mx-auto w-full max-w-xl">
-              <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-gray-500">
-                <LuSearch className="h-5 w-5 transition-colors duration-300" />
+          {/* Filters Bar: Search & Category Dropdown */}
+          <div className="relative z-30 mb-12">
+            <div className="flex w-full flex-col gap-4 md:flex-row md:items-center">
+              {/* Search input capsule */}
+              <div className="relative flex-1">
+                <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-gray-500">
+                  <LuSearch className="h-5 w-5 transition-colors duration-300" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search gears, brands, or features..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full rounded-full border border-white/10 bg-white/[0.02] py-3.5 pr-12 pl-12 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04] focus:ring-1 focus:ring-cyan-500/30"
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery('')}
+                    className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-white transition-colors cursor-pointer"
+                    aria-label="Clear search"
+                  >
+                    <LuX className="h-4.5 w-4.5" />
+                  </button>
+                )}
               </div>
-              <input
-                type="text"
-                placeholder="Search gears, brands, or features..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-2xl border border-white/10 bg-white/[0.02] py-3.5 pr-4 pl-12 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04] focus:ring-1 focus:ring-cyan-500/30"
-              />
-            </div>
 
-            {/* Divider line for clean visual separation */}
-            <div className="h-px w-full bg-white/[0.04]" />
+              {/* Custom Category Dropdown selector */}
+              <div ref={dropdownRef} className="relative w-full md:w-60 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setIsDropdownOpen((prev) => !prev)}
+                  className="flex w-full items-center justify-between rounded-full border border-white/10 bg-white/[0.02] px-5 py-3.5 text-sm text-white transition-all duration-300 hover:border-white/20 hover:bg-white/[0.04] focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/30 outline-none cursor-pointer"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <span className={`h-2.5 w-2.5 rounded-full bg-gradient-to-r ${activeTheme.gradient} ${activeTheme.glow}`} />
+                    <span className="font-semibold tracking-wide">{selectedCategory}</span>
+                  </div>
+                  <svg
+                    className={`h-4 w-4 text-gray-500 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
 
-            {/* Category selection */}
-            <div className="relative w-full overflow-hidden">
-              {/* Left Gradient Fade */}
-              <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-8 bg-gradient-to-r from-[#080812] to-transparent" />
-              {/* Right Gradient Fade */}
-              <div className="pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-8 bg-gradient-to-l from-[#080812] to-transparent" />
-
-              <div className="scrollbar-hide flex flex-nowrap gap-2 overflow-x-auto px-6 py-1.5">
-                {activeCategories.map((cat) => {
-                  const isActive = selectedCategory === cat;
-                  const theme = categoryThemes[cat] || DEFAULT_THEME;
-                  return (
-                    <button
-                      key={cat}
-                      onClick={() => setSelectedCategory(cat)}
-                      className={`shrink-0 cursor-pointer rounded-xl px-4 py-2.5 text-xs font-bold tracking-wide transition-all duration-300 outline-none focus:ring-0 focus:outline-none focus-visible:ring-0 ${
-                        isActive
-                          ? `scale-[1.02] bg-gradient-to-r ${theme.gradient} border border-transparent text-white shadow-lg ${theme.glow}`
-                          : 'border border-white/[0.03] bg-white/[0.01] text-gray-400 hover:bg-white/[0.03] hover:text-white'
-                      }`}
-                    >
-                      {cat}
-                    </button>
-                  );
-                })}
+                {isDropdownOpen && (
+                  <div className="absolute right-0 left-0 z-50 mt-2 max-h-60 overflow-y-auto rounded-2xl border border-white/10 bg-[#0A0A16] p-2 shadow-2xl backdrop-blur-md animate-in fade-in slide-in-from-top-2 duration-200">
+                    {activeCategories.map((cat) => {
+                      const theme = categoryThemes[cat] || DEFAULT_THEME;
+                      const isSelected = selectedCategory === cat;
+                      return (
+                        <button
+                          key={cat}
+                          type="button"
+                          onClick={() => {
+                            setSelectedCategory(cat);
+                            setIsDropdownOpen(false);
+                          }}
+                          className={`flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-xs font-semibold transition-all duration-200 hover:bg-white/[0.04] cursor-pointer ${
+                            isSelected ? `${theme.text} bg-white/[0.03]` : 'text-gray-400'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            <span className={`h-1.5 w-1.5 rounded-full bg-gradient-to-r ${theme.gradient}`} />
+                            <span>{cat}</span>
+                          </div>
+                          {isSelected && <span className={`h-1 w-1 rounded-full bg-gradient-to-r ${theme.gradient} ${theme.glow}`} />}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -482,7 +519,9 @@ function GearCard({
                   key={idx}
                   onClick={(e) => handleDotClick(idx, e)}
                   className={`h-1.5 cursor-pointer rounded-full transition-all duration-300 ${
-                    idx === activeImgIdx ? 'w-4 bg-cyan-400' : 'w-1.5 bg-white/40'
+                    idx === activeImgIdx
+                      ? 'w-4 bg-cyan-400'
+                      : 'w-1.5 bg-white/40'
                   }`}
                 />
               ))}

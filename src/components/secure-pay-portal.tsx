@@ -198,17 +198,34 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
   const [selectedPlanId, setSelectedPlanId] = useState<string | null>(null);
 
   const searchParams = useSearchParams();
+  const hasPlanParam = !!(searchParams?.get('h') || searchParams?.get('plan'));
+  const isPlanSelectionLocked = hasPlanParam && searchParams?.get('e') !== '1';
 
-  // Sync plan and region from search query params if provided
+  // Sync plan and region from search query params if provided (handles hashed 'h' param, falls back to raw query params)
   useEffect(() => {
-    const planParam = searchParams?.get('plan');
-    const regionParam = searchParams?.get('region');
+    const hashParam = searchParams?.get('h');
+    if (hashParam) {
+      try {
+        const decoded = JSON.parse(atob(hashParam));
+        if (decoded.plan) {
+          setSelectedPlanId(decoded.plan);
+        }
+        if (decoded.region && (decoded.region === 'IN' || decoded.region === 'GLOBAL')) {
+          setRegion(decoded.region);
+        }
+      } catch (e) {
+        console.error('Failed to parse query hash:', e);
+      }
+    } else {
+      const planParam = searchParams?.get('plan');
+      const regionParam = searchParams?.get('region');
 
-    if (planParam) {
-      setSelectedPlanId(planParam);
-    }
-    if (regionParam && (regionParam === 'IN' || regionParam === 'GLOBAL')) {
-      setRegion(regionParam);
+      if (planParam) {
+        setSelectedPlanId(planParam);
+      }
+      if (regionParam && (regionParam === 'IN' || regionParam === 'GLOBAL')) {
+        setRegion(regionParam);
+      }
     }
   }, [searchParams, setRegion]);
 
@@ -402,104 +419,124 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
       </div>
 
       {/* Region Switcher */}
-      <div className="relative mb-8 flex w-full rounded-full border border-white/5 bg-white/[0.03] p-1.5 shadow-2xl backdrop-blur-xl">
-        <div
-          className={`absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] rounded-full border border-white/10 bg-white/10 shadow-lg transition-transform duration-500 ease-out ${
-            region === 'IN' ? 'translate-x-0' : 'translate-x-[100%]'
-          }`}
-        />
-        <button
-          onClick={() => {
-            setRegion('IN');
-            setSelectedPlanId(null);
-          }}
-          className={`relative z-10 flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-full py-2.5 text-xs font-bold transition-colors duration-300 sm:text-sm ${
-            region === 'IN' ? 'text-white' : 'text-gray-400 hover:text-white'
-          }`}
-        >
-          <LuMapPin className="h-4 w-4" />
-          India (INR)
-        </button>
-        <button
-          onClick={() => {
-            setRegion('GLOBAL');
-            setSelectedPlanId(null);
-          }}
-          className={`relative z-10 flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-full py-2.5 text-xs font-bold transition-colors duration-300 sm:text-sm ${
-            region === 'GLOBAL'
-              ? 'text-white'
-              : 'text-gray-400 hover:text-white'
-          }`}
-        >
-          <LuGlobe className="h-4 w-4" />
-          Global (USD)
-        </button>
-      </div>
+      {!isPlanSelectionLocked && (
+        <div className="relative mb-8 flex w-full rounded-full border border-white/5 bg-white/[0.03] p-1.5 shadow-2xl backdrop-blur-xl">
+          <div
+            className={`absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] rounded-full border border-white/10 bg-white/10 shadow-lg transition-transform duration-500 ease-out ${
+              region === 'IN' ? 'translate-x-0' : 'translate-x-[100%]'
+            }`}
+          />
+          <button
+            disabled={isPlanSelectionLocked}
+            onClick={() => {
+              setRegion('IN');
+              setSelectedPlanId(null);
+            }}
+            className={`relative z-10 flex flex-1 items-center justify-center gap-1.5 rounded-full py-2.5 text-xs font-bold transition-colors duration-300 sm:text-sm cursor-pointer ${
+              region === 'IN' ? 'text-white' : 'text-gray-400 hover:text-white'
+            }`}
+          >
+            <LuMapPin className="h-4 w-4" />
+            India (INR)
+          </button>
+          <button
+            disabled={isPlanSelectionLocked}
+            onClick={() => {
+              setRegion('GLOBAL');
+              setSelectedPlanId(null);
+            }}
+            className={`relative z-10 flex flex-1 items-center justify-center gap-1.5 rounded-full py-2.5 text-xs font-bold transition-colors duration-300 sm:text-sm cursor-pointer ${
+              region === 'GLOBAL'
+                ? 'text-white'
+                : 'text-gray-400 hover:text-white'
+            }`}
+          >
+            <LuGlobe className="h-4 w-4" />
+            Global (USD)
+          </button>
+        </div>
+      )}
 
       {/* Plan Selection Buttons */}
       <div className="flex w-full flex-col gap-3">
-        {currentPlans.map((plan: PricingPlan, idx: number) => {
-          const isActive = activePlan?._id === plan._id;
-          const themeName = getPlanThemeName(plan.region, idx);
-          const theme = themeMap[themeName] || themeMap.blue;
-          const popular = plan.is_popular === true;
-          const currency = plan.region === 'India' ? '₹' : '$';
+        {isPlanSelectionLocked && (
+          <div className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
+            Your Selected Plan
+          </div>
+        )}
+        {currentPlans
+          .filter((plan: PricingPlan) => !isPlanSelectionLocked || activePlan?._id === plan._id)
+          .map((plan: PricingPlan, idx: number) => {
+            const isActive = activePlan?._id === plan._id;
+            const themeName = getPlanThemeName(plan.region, idx);
+            const theme = themeMap[themeName] || themeMap.blue;
+            const popular = plan.is_popular === true;
+            const currency = plan.region === 'India' ? '₹' : '$';
 
-          return (
-            <button
-              key={idx}
-              onClick={() => setSelectedPlanId(plan._id)}
-              className={`group/plan-btn relative flex w-full cursor-pointer items-center justify-between rounded-2xl border p-5 text-left transition-all duration-300 ${
-                isActive
-                  ? `border-cyan-500/40 bg-white/[0.03] shadow-[0_10px_35px_rgba(6,182,212,0.06)]`
-                  : 'border-white/[0.04] bg-white/[0.005] hover:border-white/10 hover:bg-white/[0.01]'
-              }`}
-            >
-              <div className="flex items-center gap-4">
-                <div
-                  className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300 ${
-                    isActive
-                      ? 'border-cyan-400 bg-cyan-400/10'
-                      : 'border-gray-600'
-                  }`}
-                >
-                  {isActive && (
-                    <div className="h-2.5 w-2.5 rounded-full bg-cyan-400" />
+            return (
+              <button
+                key={idx}
+                disabled={isPlanSelectionLocked}
+                onClick={() => setSelectedPlanId(plan._id)}
+                className={`group/plan-btn relative flex w-full items-center justify-between rounded-2xl border p-5 text-left transition-all duration-300 ${
+                  isPlanSelectionLocked
+                    ? 'border-cyan-500/20 bg-white/[0.02] cursor-default'
+                    : isActive
+                      ? 'border-cyan-500/40 bg-white/[0.03] shadow-[0_10px_35px_rgba(6,182,212,0.06)] cursor-pointer'
+                      : 'border-white/[0.04] bg-white/[0.005] hover:border-white/10 hover:bg-white/[0.01] cursor-pointer'
+                }`}
+              >
+                <div className="flex items-center gap-4">
+                  {isPlanSelectionLocked ? (
+                    <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-400">
+                      <LuShieldCheck className="h-4 w-4" />
+                    </div>
+                  ) : (
+                    <div
+                      className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300 ${
+                        isActive
+                          ? 'border-cyan-400 bg-cyan-400/10'
+                          : 'border-gray-600'
+                      }`}
+                    >
+                      {isActive && (
+                        <div className="h-2.5 w-2.5 rounded-full bg-cyan-400" />
+                      )}
+                    </div>
                   )}
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-heading text-sm font-bold text-white sm:text-base">
-                      {plan.name}
-                    </span>
-                    {popular && (
-                      <span className="rounded-full bg-gradient-to-r from-amber-500 to-orange-400 px-2 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase">
-                        Popular
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-heading text-sm font-bold text-white sm:text-base">
+                        {plan.name}
                       </span>
-                    )}
+                      {popular && (
+                        <span className="rounded-full bg-gradient-to-r from-amber-500 to-orange-400 px-2 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase">
+                          Popular
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-1 line-clamp-1 max-w-[200px] text-xs text-gray-400 sm:max-w-none">
+                      {plan.description}
+                    </p>
                   </div>
-                  <p className="mt-1 line-clamp-1 max-w-[200px] text-xs text-gray-400 sm:max-w-none">
-                    {plan.description}
-                  </p>
                 </div>
-              </div>
 
-              <div className="text-right">
-                <span
-                  className={`font-heading text-base font-black transition-colors duration-300 sm:text-lg ${
-                    isActive ? theme.text : 'text-gray-400'
-                  }`}
-                >
-                  {currency}
-                  {plan.amount}
-                </span>
-                <span className="mt-0.5 block text-[10px] text-gray-500 lowercase">
-                  /{plan.duration || 'month'}
-                </span>
-              </div>
-            </button>
-          );
-        })}
+                <div className="text-right">
+                  <span
+                    className={`font-heading text-base font-black transition-colors duration-300 sm:text-lg ${
+                      isActive || isPlanSelectionLocked ? theme.text : 'text-gray-400'
+                    }`}
+                  >
+                    {currency}
+                    {plan.amount}
+                  </span>
+                  <span className="mt-0.5 block text-[10px] text-gray-500 lowercase">
+                    /{plan.duration || 'month'}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
       </div>
 
       {/* Detailed Order Summary Panel */}
