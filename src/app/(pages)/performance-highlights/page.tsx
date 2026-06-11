@@ -34,8 +34,8 @@ export default function PerformanceHighlightsPage() {
           '@graph': [
             {
               '@type': 'WebSite',
-              '@id': 'https://shuvamrahamusic.com/#website',
-              url: 'https://shuvamrahamusic.com/',
+              '@id': 'https://www.shuvamrahamusic.com/#website',
+              url: 'https://www.shuvamrahamusic.com/',
               name: 'Shuvam Raha Music',
               description: 'Easy To Learn & Easy To Play',
               inLanguage: 'en-US',
@@ -44,13 +44,13 @@ export default function PerformanceHighlightsPage() {
               '@type': 'BreadcrumbList',
               name: 'Breadcrumbs',
               '@id':
-                'https://shuvamrahamusic.com/performance-highlights/#breadcrumblist',
+                'https://www.shuvamrahamusic.com/performance-highlights/#breadcrumblist',
               itemListElement: [
                 {
                   '@type': 'ListItem',
                   position: 1,
                   name: 'Home',
-                  item: 'https://shuvamrahamusic.com/',
+                  item: 'https://www.shuvamrahamusic.com/',
                 },
                 {
                   '@type': 'ListItem',
@@ -62,18 +62,18 @@ export default function PerformanceHighlightsPage() {
             {
               '@type': 'WebPage',
               '@id':
-                'https://shuvamrahamusic.com/performance-highlights/#webpage',
-              url: 'https://shuvamrahamusic.com/performance-highlights/',
+                'https://www.shuvamrahamusic.com/performance-highlights/#webpage',
+              url: 'https://www.shuvamrahamusic.com/performance-highlights/',
               inLanguage: 'en-US',
               name: 'Performance Highlights - Shuvam Raha Music',
               description:
                 'Explore the live performance portfolio, interstate touring history, and professional stage metrics of live guitarist and performing musician Shuvam Raha (2024-2026).',
               isPartOf: {
-                '@id': 'https://shuvamrahamusic.com/#website',
+                '@id': 'https://www.shuvamrahamusic.com/#website',
               },
               breadcrumb: {
                 '@id':
-                  'https://shuvamrahamusic.com/performance-highlights/#breadcrumblist',
+                  'https://www.shuvamrahamusic.com/performance-highlights/#breadcrumblist',
               },
             },
           ],

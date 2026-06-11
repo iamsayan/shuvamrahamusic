@@ -19,7 +19,7 @@ export default function PrivacyPolicyPage() {
           name: 'Privacy Policy | Shuvam Raha Music',
           description:
             'Privacy policy and data protection practices for Shuvam Raha Music classes and programs.',
-          url: 'https://shuvamrahamusic.com/privacy-policy',
+          url: 'https://www.shuvamrahamusic.com/privacy-policy',
         }}
       />
       <PageLayout
@@ -197,7 +197,7 @@ export default function PrivacyPolicyPage() {
               <p className="text-sm text-gray-300">
                 Website:{' '}
                 <a
-                  href="https://shuvamrahamusic.com"
+                  href="https://www.shuvamrahamusic.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-emerald-400 hover:underline"

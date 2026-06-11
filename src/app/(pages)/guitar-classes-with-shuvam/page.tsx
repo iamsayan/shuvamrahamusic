@@ -207,7 +207,7 @@ export default async function Page() {
             provider: {
               '@type': 'Person',
               name: 'Shuvam Raha',
-              sameAs: 'https://shuvamrahamusic.com',
+              sameAs: 'https://www.shuvamrahamusic.com',
             },
             courseCode: 'SR-GUITAR-30',
             educationalLevel: 'Beginner to Advanced',
@@ -220,7 +220,7 @@ export default async function Page() {
                 name: 'Offline Coaching (Studio)',
                 description:
                   'Physical presence, real-time correction & faster progress at the studio in Kolkata.',
-                url: 'https://shuvamrahamusic.com/guitar-classes-with-shuvam',
+                url: 'https://www.shuvamrahamusic.com/guitar-classes-with-shuvam',
               },
               {
                 '@type': 'Offer',
@@ -230,7 +230,7 @@ export default async function Page() {
                 name: 'Starter Online Plan',
                 description:
                   '4 sessions per month online with a fixed weekly schedule.',
-                url: 'https://shuvamrahamusic.com/guitar-classes-with-shuvam',
+                url: 'https://www.shuvamrahamusic.com/guitar-classes-with-shuvam',
               },
               {
                 '@type': 'Offer',
@@ -240,7 +240,7 @@ export default async function Page() {
                 name: 'Global Guitar Program',
                 description:
                   'Song-based learning with flexible scheduling across time zones.',
-                url: 'https://shuvamrahamusic.com/guitar-classes-with-shuvam',
+                url: 'https://www.shuvamrahamusic.com/guitar-classes-with-shuvam',
               },
             ],
             hasCourseInstance: {
@@ -260,7 +260,7 @@ export default async function Page() {
             name: 'Shuvam Raha Music',
             description:
               'LCM certified professional guitar instruction, offering online classes globally and offline classes at the studio in Kolkata.',
-            url: 'https://shuvamrahamusic.com',
+            url: 'https://www.shuvamrahamusic.com',
             telephone: '+918961369468',
             address: {
               '@type': 'PostalAddress',

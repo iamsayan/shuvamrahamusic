@@ -162,8 +162,8 @@ export default function BiographyPage() {
           '@graph': [
             {
               '@type': 'WebSite',
-              '@id': 'https://shuvamrahamusic.com/#website',
-              url: 'https://shuvamrahamusic.com/',
+              '@id': 'https://www.shuvamrahamusic.com/#website',
+              url: 'https://www.shuvamrahamusic.com/',
               name: 'Shuvam Raha Music',
               description: 'Easy To Learn & Easy To Play',
               inLanguage: 'en-US',
@@ -171,13 +171,13 @@ export default function BiographyPage() {
             {
               '@type': 'BreadcrumbList',
               name: 'Breadcrumbs',
-              '@id': 'https://shuvamrahamusic.com/biography/#breadcrumblist',
+              '@id': 'https://www.shuvamrahamusic.com/biography/#breadcrumblist',
               itemListElement: [
                 {
                   '@type': 'ListItem',
                   position: 1,
                   name: 'Home',
-                  item: 'https://shuvamrahamusic.com/',
+                  item: 'https://www.shuvamrahamusic.com/',
                 },
                 {
                   '@type': 'ListItem',
@@ -188,29 +188,29 @@ export default function BiographyPage() {
             },
             {
               '@type': 'WebPage',
-              '@id': 'https://shuvamrahamusic.com/biography/#webpage',
-              url: 'https://shuvamrahamusic.com/biography/',
+              '@id': 'https://www.shuvamrahamusic.com/biography/#webpage',
+              url: 'https://www.shuvamrahamusic.com/biography/',
               inLanguage: 'en-US',
               name: 'Biography - Shuvam Raha Music',
               description:
                 'A multifaceted musician from Kolkata, India, Shuvam Raha has established himself as a skilled guitarist, instructor, composer, and music producer. LCM certified with distinction.',
               isPartOf: {
-                '@id': 'https://shuvamrahamusic.com/#website',
+                '@id': 'https://www.shuvamrahamusic.com/#website',
               },
               breadcrumb: {
-                '@id': 'https://shuvamrahamusic.com/biography/#breadcrumblist',
+                '@id': 'https://www.shuvamrahamusic.com/biography/#breadcrumblist',
               },
               primaryImageOfPage: {
-                '@id': 'https://shuvamrahamusic.com/biography/#thumbnail',
+                '@id': 'https://www.shuvamrahamusic.com/biography/#thumbnail',
               },
               image: {
-                '@id': 'https://shuvamrahamusic.com/biography/#thumbnail',
+                '@id': 'https://www.shuvamrahamusic.com/biography/#thumbnail',
               },
             },
             {
               '@type': 'ImageObject',
-              '@id': 'https://shuvamrahamusic.com/biography/#thumbnail',
-              url: 'https://shuvamrahamusic.com/wp-content/uploads/2025/04/Shuvam-Raha-Signature-Logo-Png.png',
+              '@id': 'https://www.shuvamrahamusic.com/biography/#thumbnail',
+              url: 'https://www.shuvamrahamusic.com/wp-content/uploads/2025/04/Shuvam-Raha-Signature-Logo-Png.png',
             },
           ],
         }}
@@ -289,7 +289,7 @@ export default function BiographyPage() {
                 <div className="flex justify-start pt-3">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="https://shuvamrahamusic.com/wp-content/uploads/2025/04/Shuvam-Raha-Signature-Logo-Png-png.avif"
+                    src="https://www.shuvamrahamusic.com/wp-content/uploads/2025/04/Shuvam-Raha-Signature-Logo-Png-png.avif"
                     alt="Shuvam Raha Signature Logo"
                     className="h-14 w-auto object-contain opacity-75 brightness-0 invert transition-opacity duration-300 hover:opacity-95"
                   />

@@ -19,7 +19,7 @@ export default function RefundPolicyPage() {
           name: 'Refund Policy | Shuvam Raha Music',
           description:
             'Refund, return, cancellation, and class rescheduling policies for Shuvam Raha Music programs.',
-          url: 'https://shuvamrahamusic.com/refund-policy',
+          url: 'https://www.shuvamrahamusic.com/refund-policy',
         }}
       />
       <PageLayout title="Refund Policy" subtitle="Effective Date: June 1, 2026">
@@ -220,7 +220,7 @@ export default function RefundPolicyPage() {
               <p className="text-sm text-gray-300">
                 Website:{' '}
                 <a
-                  href="https://shuvamrahamusic.com"
+                  href="https://www.shuvamrahamusic.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-emerald-400 hover:underline"

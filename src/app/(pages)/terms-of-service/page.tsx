@@ -19,7 +19,7 @@ export default function TermsOfServicePage() {
           name: 'Terms of Service | Shuvam Raha Music',
           description:
             'Terms of service and enrollment agreements for Shuvam Raha Music coaching programs.',
-          url: 'https://shuvamrahamusic.com/terms-of-service',
+          url: 'https://www.shuvamrahamusic.com/terms-of-service',
         }}
       />
       <PageLayout
@@ -206,7 +206,7 @@ export default function TermsOfServicePage() {
               <p className="text-sm text-gray-300">
                 Website:{' '}
                 <a
-                  href="https://shuvamrahamusic.com"
+                  href="https://www.shuvamrahamusic.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-emerald-400 hover:underline"

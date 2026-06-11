@@ -1,21 +1,30 @@
 import type { Metadata } from 'next';
-import { headers } from 'next/headers';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import {
-  LuCalendar,
-  LuClock,
-  LuArrowLeft,
-  LuArrowRight,
-  LuBookOpen,
-  LuChevronRight,
-  LuPhone,
-  LuGlobe,
-} from 'react-icons/lu';
+
+import CockpitImage from '@/components/cockpit-image';
 import JsonLd from '@/components/json-ld';
 import ShareButtons from '@/components/share-buttons';
-import { getBlogPostBySlug, getBlogPosts, BLOG_POSTS, CATEGORY_THEMES, BRIGHT_GRADIENTS, GLOW_COLORS, AMBIENT_GLOWS } from '@/lib/blog-data';
+import {
+  AMBIENT_GLOWS,
+  BRIGHT_GRADIENTS,
+  CATEGORY_THEMES,
+  GLOW_COLORS,
+  getBlogPostBySlug,
+  getBlogPosts,
+  getThemeKey,
+} from '@/lib/blog-data';
+import cockpit from '@/lib/client';
+
+import {
+  LuArrowLeft,
+  LuArrowRight,
+  LuCalendar,
+  LuChevronRight,
+  LuClock,
+  LuPhone,
+} from 'react-icons/lu';
 
 interface ContentTheme {
   blockquoteBorder: string;
@@ -30,7 +39,7 @@ interface ContentTheme {
 }
 
 const CONTENT_THEMES: Record<string, ContentTheme> = {
-  'Getting Started': {
+  emerald: {
     blockquoteBorder: 'border-emerald-500',
     blockquoteBg: 'bg-emerald-500/[0.03]',
     blockquoteStrong: 'text-emerald-400',
@@ -41,7 +50,7 @@ const CONTENT_THEMES: Record<string, ContentTheme> = {
     preBorder: 'border-emerald-500/10',
     preCode: 'text-emerald-300',
   },
-  'Technique': {
+  violet: {
     blockquoteBorder: 'border-violet-500',
     blockquoteBg: 'bg-violet-500/[0.03]',
     blockquoteStrong: 'text-violet-400',
@@ -52,7 +61,7 @@ const CONTENT_THEMES: Record<string, ContentTheme> = {
     preBorder: 'border-violet-500/10',
     preCode: 'text-violet-300',
   },
-  'Roadmap': {
+  amber: {
     blockquoteBorder: 'border-amber-500',
     blockquoteBg: 'bg-amber-500/[0.03]',
     blockquoteStrong: 'text-amber-400',
@@ -63,7 +72,7 @@ const CONTENT_THEMES: Record<string, ContentTheme> = {
     preBorder: 'border-amber-500/10',
     preCode: 'text-amber-300',
   },
-  'Gears': {
+  rose: {
     blockquoteBorder: 'border-rose-500',
     blockquoteBg: 'bg-rose-500/[0.03]',
     blockquoteStrong: 'text-rose-400',
@@ -74,7 +83,7 @@ const CONTENT_THEMES: Record<string, ContentTheme> = {
     preBorder: 'border-rose-500/10',
     preCode: 'text-rose-300',
   },
-  'Rhythm': {
+  cyan: {
     blockquoteBorder: 'border-cyan-500',
     blockquoteBg: 'bg-cyan-500/[0.03]',
     blockquoteStrong: 'text-cyan-400',
@@ -85,7 +94,7 @@ const CONTENT_THEMES: Record<string, ContentTheme> = {
     preBorder: 'border-cyan-500/10',
     preCode: 'text-cyan-300',
   },
-  'Default': {
+  default: {
     blockquoteBorder: 'border-cyan-500',
     blockquoteBg: 'bg-cyan-500/[0.03]',
     blockquoteStrong: 'text-cyan-400',
@@ -106,14 +115,17 @@ interface PageProps {
 
 // Generate static params for all dynamic blog routes
 export async function generateStaticParams() {
-  // Static export uses fallback list to pre-render routes at build-time
-  return BLOG_POSTS.map((post) => ({
+  const posts = await getBlogPosts();
+
+  return posts.map((post) => ({
     slug: post.slug,
   }));
 }
 
 // Dynamic metadata generation for SEO
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = await getBlogPostBySlug(slug);
 
@@ -139,7 +151,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       authors: [post.author.name],
       images: [
         {
-          url: post.coverImage,
+          url: cockpit.getImageUrl(post.coverImage._id),
           alt: post.title,
         },
       ],
@@ -148,7 +160,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       card: 'summary_large_image',
       title: post.title,
       description: post.excerpt,
-      images: [post.coverImage],
+      images: [cockpit.getImageUrl(post.coverImage._id)],
     },
   };
 }
@@ -161,15 +173,12 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
-  // Get current URL using Next.js 15 headers API
-  const headersList = await headers();
-  const host = headersList.get('host') || 'shuvamrahamusic.com';
-  const protocol = headersList.get('x-forwarded-proto') || 'https';
-  const currentUrl = `${protocol}://${host}/blog/${post.slug}`;
+  const postUrl = `https://www.shuvamrahamusic.com/blog/${post.slug}`;
 
-  const primaryCat = post.categories[0] || 'Default';
-  const primaryTheme = CATEGORY_THEMES[primaryCat] || CATEGORY_THEMES['Default'];
-  const contentTheme = CONTENT_THEMES[primaryCat] || CONTENT_THEMES['Default'];
+  const primaryCat = post.categories[0] || '';
+  const themeKey = getThemeKey(primaryCat);
+  const primaryTheme = CATEGORY_THEMES[themeKey] || CATEGORY_THEMES['default'];
+  const contentTheme = CONTENT_THEMES[themeKey] || CONTENT_THEMES['default'];
 
   // Get related posts from API
   const allPosts = await getBlogPosts();
@@ -183,45 +192,63 @@ export default async function BlogPostPage({ params }: PageProps) {
           '@type': 'BlogPosting',
           headline: post.title,
           description: post.excerpt,
-          image: `https://shuvamrahamusic.com${post.coverImage}`,
+          image: cockpit.getImageUrl(post.coverImage._id),
           datePublished: post.date,
           author: {
             '@type': 'Person',
             name: post.author.name,
             jobTitle: post.author.role,
-            image: `https://shuvamrahamusic.com${post.author.avatar}`,
+            image: `https://www.shuvamrahamusic.com${post.author.avatar}`,
           },
           publisher: {
             '@type': 'Organization',
             name: 'Shuvam Raha Music',
-            url: 'https://shuvamrahamusic.com',
+            url: 'https://www.shuvamrahamusic.com',
           },
           mainEntityOfPage: {
             '@type': 'WebPage',
-            '@id': `https://shuvamrahamusic.com/blog/${post.slug}`,
+            '@id': `https://www.shuvamrahamusic.com/blog/${post.slug}`,
           },
         }}
       />
 
       <article className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
         {/* Background ambient glows matching primary category */}
-        <div className={`pointer-events-none absolute top-12 left-1/4 h-[400px] w-[400px] rounded-full blur-[130px] transition-all duration-1000 ${AMBIENT_GLOWS[primaryCat] ? AMBIENT_GLOWS[primaryCat].top : 'bg-cyan-600/10'}`} />
-        <div className={`pointer-events-none absolute right-12 bottom-1/2 h-[400px] w-[400px] rounded-full blur-[130px] transition-all duration-1000 ${AMBIENT_GLOWS[primaryCat] ? AMBIENT_GLOWS[primaryCat].bottom : 'bg-violet-600/10'}`} />
+        <div
+          className={`pointer-events-none absolute top-12 left-1/4 h-[400px] w-[400px] rounded-full blur-[130px] transition-all duration-1000 ${AMBIENT_GLOWS[themeKey] ? AMBIENT_GLOWS[themeKey].top : 'bg-cyan-600/10'}`}
+        />
+        <div
+          className={`pointer-events-none absolute right-12 bottom-1/2 h-[400px] w-[400px] rounded-full blur-[130px] transition-all duration-1000 ${AMBIENT_GLOWS[themeKey] ? AMBIENT_GLOWS[themeKey].bottom : 'bg-violet-600/10'}`}
+        />
 
         <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
           <div className="flex w-full flex-col pt-8 pb-6">
             {/* Breadcrumbs & Back Link */}
             <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
               <nav className="font-heading flex items-center gap-1.5 text-[11px] font-bold text-gray-500 uppercase sm:text-xs">
-                <Link href="/" className="transition-colors duration-200 hover:text-white">
+                <Link
+                  href="/"
+                  className="transition-colors duration-200 hover:text-white"
+                >
                   Home
                 </Link>
-                <span className="text-[10px] font-normal text-gray-700 sm:text-xs">/</span>
-                <Link href="/blog" className="transition-colors duration-200 hover:text-white">
+                <span className="text-[10px] font-normal text-gray-700 sm:text-xs">
+                  /
+                </span>
+                <Link
+                  href="/blog"
+                  className="transition-colors duration-200 hover:text-white"
+                >
                   Blog
                 </Link>
-                <span className="text-[10px] font-normal text-gray-700 sm:text-xs">/</span>
-                <span className={`font-black tracking-wide ${primaryTheme.text}`}>Article</span>
+                <span className="text-[10px] font-normal text-gray-700 sm:text-xs">
+                  /
+                </span>
+                <span
+                  className={`font-black tracking-wide ${primaryTheme.text}`}
+                >
+                  Article
+                </span>
               </nav>
 
               <Link
@@ -237,16 +264,21 @@ export default async function BlogPostPage({ params }: PageProps) {
             <div className="max-w-4xl">
               <div className="mb-4 flex flex-wrap items-center gap-2">
                 {post.categories.map((cat, idx) => {
-                  const catTheme = CATEGORY_THEMES[cat] || CATEGORY_THEMES['Default'];
+                  const catThemeKey = getThemeKey(cat);
+                  const catTheme =
+                    CATEGORY_THEMES[catThemeKey] || CATEGORY_THEMES['default'];
                   return (
-                    <span key={idx} className={`rounded-full border ${catTheme.border} ${catTheme.bg} px-3 py-1 text-[10px] font-black tracking-widest ${catTheme.text} uppercase`}>
+                    <span
+                      key={idx}
+                      className={`rounded-full border ${catTheme.border} ${catTheme.bg} px-3 py-1 text-[10px] font-black tracking-widest ${catTheme.text} uppercase`}
+                    >
                       {cat}
                     </span>
                   );
                 })}
               </div>
 
-              <h1 className="font-heading mb-6 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl leading-[1.15]">
+              <h1 className="font-heading mb-6 text-3xl leading-[1.15] font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
                 {post.title}
               </h1>
 
@@ -264,18 +296,20 @@ export default async function BlogPostPage({ params }: PageProps) {
                   </div>
                   <div>
                     <p className="font-bold text-white">{post.author.name}</p>
-                    <p className="text-[10px] text-gray-500">{post.author.role}</p>
+                    <p className="text-[10px] text-gray-500">
+                      {post.author.role}
+                    </p>
                   </div>
                 </div>
 
                 <div className="hidden h-4 w-px bg-white/10 sm:block" />
 
                 <div className="flex items-center gap-4">
-                  <span className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-[10px]">
+                  <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase">
                     <LuCalendar className="h-3.5 w-3.5 text-gray-500" />
                     {post.date}
                   </span>
-                  <span className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-[10px]">
+                  <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase">
                     <LuClock className="h-3.5 w-3.5 text-gray-500" />
                     {post.readTime}
                   </span>
@@ -286,16 +320,16 @@ export default async function BlogPostPage({ params }: PageProps) {
 
           {/* Featured Image Banner */}
           <div className="group relative mb-12 overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.02] shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
-            <div className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${BRIGHT_GRADIENTS[primaryCat] || BRIGHT_GRADIENTS['Default']} opacity-50 z-20`} />
+            <div
+              className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${BRIGHT_GRADIENTS[themeKey] || BRIGHT_GRADIENTS['default']} z-20 opacity-50`}
+            />
             <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-[#020205]/60 via-transparent to-transparent" />
-            <div className="relative aspect-video w-full max-h-[500px]">
-              <Image
-                src={post.coverImage}
-                alt={post.title}
+            <div className="relative aspect-video max-h-[500px] w-full">
+              <CockpitImage
+                asset={post.coverImage}
+                className="object-cover transition-transform duration-[2000ms] group-hover:scale-[1.01]"
                 fill
                 priority
-                sizes="(max-width: 1400px) 100vw, 1400px"
-                className="object-cover transition-transform duration-[2000ms] group-hover:scale-[1.01]"
               />
             </div>
           </div>
@@ -305,37 +339,34 @@ export default async function BlogPostPage({ params }: PageProps) {
             {/* Main Content Column */}
             <div className="lg:col-span-2">
               <div
-                className={`blog-content text-gray-300 
-                  [&_p]:mb-6 [&_p]:leading-relaxed [&_p]:text-sm sm:[&_p]:text-base
-                  [&_p:first-of-type]:text-base sm:[&_p:first-of-type]:text-lg sm:[&_p:first-of-type]:leading-relaxed [&_p:first-of-type]:text-white [&_p:first-of-type]:font-medium [&_p:first-of-type]:mb-8
-                  [&_h2]:font-heading [&_h2]:text-xl sm:[&_h2]:text-2xl [&_h2]:font-black [&_h2]:text-white [&_h2]:mt-10 [&_h2]:mb-4
-                  [&_h3]:font-heading [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-white [&_h3]:mt-8 [&_h3]:mb-3
-                  [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-6 [&_ul]:space-y-2
-                  [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-6 [&_ol]:space-y-2
-                  [&_li]:text-gray-300 [&_li]:text-sm sm:[&_li]:text-base
-                  [&_strong]:text-white [&_strong]:font-bold
-                  [&_em]:italic [&_em]:text-gray-200
-                  [&_blockquote]:border-l-4 [&_blockquote]:${contentTheme.blockquoteBorder} [&_blockquote]:${contentTheme.blockquoteBg} [&_blockquote]:p-5 [&_blockquote]:rounded-r-2xl [&_blockquote]:my-8 [&_blockquote]:italic [&_blockquote]:text-gray-200 [&_blockquote_strong]:${contentTheme.blockquoteStrong} [&_blockquote_strong]:not-italic
-                  [&_code]:font-mono [&_code]:text-xs sm:[&_code]:text-sm [&_code]:${contentTheme.codeText} [&_code]:${contentTheme.codeBg} [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:border [&_code]:${contentTheme.codeBorder}
-                  [&_pre]:font-mono [&_pre]:${contentTheme.preBg} [&_pre]:border [&_pre]:${contentTheme.preBorder} [&_pre]:p-5 [&_pre]:rounded-2xl [&_pre]:my-6 [&_pre]:overflow-x-auto [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:border-none [&_pre_code]:${contentTheme.preCode} [&_pre_code]:text-sm [&_pre_code]:block [&_pre_code]:w-full`}
+                className={`blog-content [&_h2]:font-heading [&_h3]:font-heading text-gray-300 [&_blockquote]:border-l-4 [&_em]:text-gray-200 [&_em]:italic [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-xl [&_h2]:font-black [&_h2]:text-white sm:[&_h2]:text-2xl [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-white [&_li]:text-sm [&_li]:text-gray-300 sm:[&_li]:text-base [&_ol]:mb-6 [&_ol]:list-decimal [&_ol]:space-y-2 [&_ol]:pl-6 [&_p]:mb-6 [&_p]:text-sm [&_p]:leading-relaxed sm:[&_p]:text-base [&_p:first-of-type]:mb-8 [&_p:first-of-type]:text-base [&_p:first-of-type]:font-medium [&_p:first-of-type]:text-white sm:[&_p:first-of-type]:text-lg sm:[&_p:first-of-type]:leading-relaxed [&_strong]:font-bold [&_strong]:text-white [&_ul]:mb-6 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-6 [&_blockquote]:${contentTheme.blockquoteBorder} [&_blockquote]:${contentTheme.blockquoteBg} [&_blockquote]:my-8 [&_blockquote]:rounded-r-2xl [&_blockquote]:p-5 [&_blockquote]:text-gray-200 [&_blockquote]:italic [&_blockquote_strong]:${contentTheme.blockquoteStrong} [&_blockquote_strong]:not-italic [&_code]:font-mono [&_code]:text-xs sm:[&_code]:text-sm [&_code]:${contentTheme.codeText} [&_code]:${contentTheme.codeBg} [&_code]:rounded [&_code]:border [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:${contentTheme.codeBorder} [&_pre]:font-mono [&_pre]:${contentTheme.preBg} [&_pre]:border [&_pre]:${contentTheme.preBorder} [&_pre]:my-6 [&_pre]:overflow-x-auto [&_pre]:rounded-2xl [&_pre]:p-5 [&_pre_code]:border-none [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:${contentTheme.preCode} [&_pre_code]:block [&_pre_code]:w-full [&_pre_code]:text-sm`}
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
 
               {/* Tags Footer info & Share Buttons */}
-              <div className="mt-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6 border-t border-white/5 pt-8">
-                <div className="flex flex-wrap items-center gap-2.5">
-                  <span className="text-xs font-bold text-gray-500 uppercase tracking-wider mr-1">
-                    Tags:
-                  </span>
-                  {post.tags.map((tag, idx) => (
-                    <span key={idx} className={`rounded-full border ${primaryTheme.border} ${primaryTheme.bg} px-3 py-1 text-xs font-bold ${primaryTheme.text}`}>
-                      #{tag}
+              <div className="mt-12 flex flex-col gap-6 border-t border-white/5 pt-8 md:flex-row md:items-center md:justify-between">
+                {post.tags && post.tags.length > 0 && (
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <span className="mr-1 text-xs font-bold tracking-wider text-gray-500 uppercase">
+                      Tags:
                     </span>
-                  ))}
-                </div>
+                    {post.tags.map((tag, idx) => (
+                      <span
+                        key={idx}
+                        className={`rounded-full border ${primaryTheme.border} ${primaryTheme.bg} px-3 py-1 text-xs font-bold ${primaryTheme.text}`}
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
 
                 <div className="shrink-0">
-                  <ShareButtons url={currentUrl} title={post.title} coverImage={post.coverImage} />
+                  <ShareButtons
+                    title={post.title}
+                    url={postUrl}
+                    coverImage={cockpit.getImageUrl(post.coverImage._id)}
+                  />
                 </div>
               </div>
             </div>
@@ -359,8 +390,12 @@ export default async function BlogPostPage({ params }: PageProps) {
                       />
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-white">{post.author.name}</h4>
-                      <p className={`text-[10px] font-semibold ${primaryTheme.text} uppercase`}>
+                      <h4 className="text-sm font-bold text-white">
+                        {post.author.name}
+                      </h4>
+                      <p
+                        className={`text-[10px] font-semibold ${primaryTheme.text} uppercase`}
+                      >
                         Instructor
                       </p>
                     </div>
@@ -375,19 +410,25 @@ export default async function BlogPostPage({ params }: PageProps) {
                   <h3 className="font-heading mb-4 text-xs font-black tracking-widest text-gray-500 uppercase">
                     Share This Article
                   </h3>
-                  <ShareButtons url={currentUrl} title={post.title} coverImage={post.coverImage} />
+                  <ShareButtons
+                    title={post.title}
+                    url={postUrl}
+                    coverImage={cockpit.getImageUrl(post.coverImage._id)}
+                  />
                 </div>
 
                 {/* Promotional CTA Box */}
                 <div className="group/card relative overflow-hidden rounded-2xl border border-white/10 bg-[#07070F]/90 p-6 shadow-xl backdrop-blur-xl">
                   {/* Glowing Top Strip */}
                   <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />
-                  
+
                   <h3 className="font-heading mb-2 text-base font-extrabold text-white">
                     Master the Guitar
                   </h3>
                   <p className="mb-6 text-xs leading-relaxed text-gray-400">
-                    Join 150+ students globally. Learn in 30 days with personalized 1-on-1 coaching online or in the Kolkata studio.
+                    Join 150+ students globally. Learn in 30 days with
+                    personalized 1-on-1 coaching online or in the Kolkata
+                    studio.
                   </p>
 
                   <div className="space-y-3">
@@ -415,8 +456,11 @@ export default async function BlogPostPage({ params }: PageProps) {
                   </h3>
                   <div className="flex flex-col gap-4">
                     {relatedPosts.map((rPost) => {
-                      const rPrimaryCat = rPost.categories[0] || 'Default';
-                      const rTheme = CATEGORY_THEMES[rPrimaryCat] || CATEGORY_THEMES['Default'];
+                      const rPrimaryCat = rPost.categories[0] || '';
+                      const rThemeKey = getThemeKey(rPrimaryCat);
+                      const rTheme =
+                        CATEGORY_THEMES[rThemeKey] ||
+                        CATEGORY_THEMES['default'];
                       return (
                         <Link
                           key={rPost.id}
@@ -424,16 +468,16 @@ export default async function BlogPostPage({ params }: PageProps) {
                           className="group flex gap-3 text-left"
                         >
                           <div className="relative h-12 w-16 shrink-0 overflow-hidden rounded-lg border border-white/10 bg-white/5">
-                            <Image
-                              src={rPost.coverImage}
-                              alt={rPost.title}
-                              fill
-                              sizes="64px"
+                            <CockpitImage
+                              asset={rPost.coverImage}
                               className="object-cover transition-transform duration-500 group-hover:scale-105"
+                              fill
                             />
                           </div>
                           <div className="flex flex-col justify-center">
-                            <h4 className={`line-clamp-2 text-xs font-bold text-gray-300 leading-snug group-hover:${rTheme.text} transition-colors duration-300`}>
+                            <h4
+                              className={`line-clamp-2 text-xs leading-snug font-bold text-gray-300 group-hover:${rTheme.text} transition-colors duration-300`}
+                            >
                               {rPost.title}
                             </h4>
                             <span className="mt-1 text-[9px] font-semibold text-gray-500 uppercase">
@@ -461,8 +505,10 @@ export default async function BlogPostPage({ params }: PageProps) {
 
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {relatedPosts.map((rPost) => {
-                  const rPrimaryCat = rPost.categories[0] || 'Default';
-                  const rTheme = CATEGORY_THEMES[rPrimaryCat] || CATEGORY_THEMES['Default'];
+                  const rPrimaryCat = rPost.categories[0] || '';
+                  const rThemeKey = getThemeKey(rPrimaryCat);
+                  const rTheme =
+                    CATEGORY_THEMES[rThemeKey] || CATEGORY_THEMES['default'];
                   return (
                     <Link
                       key={rPost.id}
@@ -470,25 +516,33 @@ export default async function BlogPostPage({ params }: PageProps) {
                       className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.04] bg-white/[0.01] transition-all duration-500 hover:${rTheme.border} hover:bg-white/[0.03] hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]`}
                     >
                       {/* Glowing Top Accent Strip */}
-                      <div className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${BRIGHT_GRADIENTS[rPrimaryCat] || BRIGHT_GRADIENTS['Default']} opacity-20 transition-opacity duration-500 group-hover:opacity-90 z-20`} />
+                      <div
+                        className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${BRIGHT_GRADIENTS[rThemeKey] || BRIGHT_GRADIENTS['default']} z-20 opacity-20 transition-opacity duration-500 group-hover:opacity-90`}
+                      />
 
                       {/* Inner accent glow on hover */}
-                      <div className={`pointer-events-none absolute -right-16 -bottom-16 h-36 w-36 rounded-full ${GLOW_COLORS[rPrimaryCat] || GLOW_COLORS['Default']} opacity-0 blur-[40px] transition-opacity duration-700 group-hover:opacity-100 z-0`} />
+                      <div
+                        className={`pointer-events-none absolute -right-16 -bottom-16 h-36 w-36 rounded-full ${GLOW_COLORS[rThemeKey] || GLOW_COLORS['default']} z-0 opacity-0 blur-[40px] transition-opacity duration-700 group-hover:opacity-100`}
+                      />
 
                       <div>
                         <div className="relative aspect-video w-full overflow-hidden">
-                          <Image
-                            src={rPost.coverImage}
-                            alt={rPost.title}
-                            fill
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          <CockpitImage
+                            asset={rPost.coverImage}
                             className="object-cover transition-transform duration-1000 group-hover:scale-103"
+                            fill
                           />
-                          <div className="absolute top-4 left-4 flex flex-wrap gap-1.5 max-w-[85%]">
+                          <div className="absolute top-4 left-4 flex max-w-[85%] flex-wrap gap-1.5">
                             {rPost.categories.map((cat, idx) => {
-                              const catTheme = CATEGORY_THEMES[cat] || CATEGORY_THEMES['Default'];
+                              const catThemeKey = getThemeKey(cat);
+                              const catTheme =
+                                CATEGORY_THEMES[catThemeKey] ||
+                                CATEGORY_THEMES['default'];
                               return (
-                                <span key={idx} className={`rounded-full border ${catTheme.border} bg-[#05050A]/85 px-2.5 py-0.5 text-[9px] font-black tracking-widest ${catTheme.text} uppercase backdrop-blur-md`}>
+                                <span
+                                  key={idx}
+                                  className={`rounded-full border ${catTheme.border} bg-[#05050A]/85 px-2.5 py-0.5 text-[9px] font-black tracking-widest ${catTheme.text} uppercase backdrop-blur-md`}
+                                >
                                   {cat}
                                 </span>
                               );
@@ -502,20 +556,24 @@ export default async function BlogPostPage({ params }: PageProps) {
                             <span>•</span>
                             <span>{rPost.readTime}</span>
                           </div>
-                          <h3 className={`font-heading mb-2 text-sm font-extrabold text-white leading-snug group-hover:${rTheme.text} transition-colors duration-300`}>
+                          <h3
+                            className={`font-heading mb-2 text-sm leading-snug font-extrabold text-white group-hover:${rTheme.text} transition-colors duration-300`}
+                          >
                             {rPost.title}
                           </h3>
-                          <p className="text-xs text-gray-400 line-clamp-2">
+                          <p className="line-clamp-2 text-xs text-gray-400">
                             {rPost.excerpt}
                           </p>
                         </div>
                       </div>
 
                       <div className="flex items-center justify-between border-t border-white/[0.04] p-5 pt-3">
-                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider group-hover:text-white transition-colors duration-300">
+                        <span className="text-[10px] font-bold tracking-wider text-gray-400 uppercase transition-colors duration-300 group-hover:text-white">
                           Read Article
                         </span>
-                        <LuChevronRight className={`h-4 w-4 ${rTheme.text} transition-transform group-hover:translate-x-1`} />
+                        <LuChevronRight
+                          className={`h-4 w-4 ${rTheme.text} transition-transform group-hover:translate-x-1`}
+                        />
                       </div>
                     </Link>
                   );

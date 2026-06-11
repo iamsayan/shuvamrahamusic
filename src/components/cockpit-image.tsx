@@ -69,6 +69,17 @@ export default function CockpitImage({
     [asset, twidth, theight, quality, rest, preset, mode]
   );
 
+  const objectPosition = useMemo(() => {
+    if (
+      asset.fp &&
+      typeof asset.fp.x === 'number' &&
+      typeof asset.fp.y === 'number'
+    ) {
+      return `${asset.fp.x * 100}% ${asset.fp.y * 100}%`;
+    }
+    return undefined;
+  }, [asset.fp]);
+
   const { ref, inView } = useInView({
     triggerOnce: true,
     rootMargin: '100px 50px',
@@ -145,6 +156,10 @@ export default function CockpitImage({
           onError={handleError}
           unoptimized // true, as this is hosted on vercel, and dont want to use next's optimization is vercel.
           {...rest}
+          style={{
+            objectPosition,
+            ...(rest.style as React.CSSProperties),
+          }}
         />
       )}
 

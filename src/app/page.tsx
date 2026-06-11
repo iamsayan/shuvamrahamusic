@@ -4,11 +4,13 @@ import Link from 'next/link';
 import BiographyAudioPlayer from '@/components/biography-audio-player';
 import SliderGallery from '@/components/slider-gallery';
 import YouTubeFacade from '@/components/youtube-facade';
+import CockpitImage from '@/components/cockpit-image';
 import {
   BRIGHT_GRADIENTS,
   CATEGORY_THEMES,
   GLOW_COLORS,
   getBlogPosts,
+  getThemeKey,
 } from '@/lib/blog-data';
 import cockpit from '@/lib/client';
 import { authorityPoints, curriculum } from '@/lib/guitar-data';
@@ -435,8 +437,8 @@ export default async function Home() {
 
           <div className="lg:col-span-5">
             <BiographyAudioPlayer
-              audioUrl="https://shuvamrahamusic.com/wp-content/uploads/2018/10/music_preview.mp3"
-              posterUrl="https://shuvamrahamusic.com/wp-content/uploads/2025/04/Phirti-Pothe-downloaded-from-SpotiSongDownloader.com_-150x150.jpg"
+              audioUrl="https://www.shuvamrahamusic.com/wp-content/uploads/2018/10/music_preview.mp3"
+              posterUrl="https://www.shuvamrahamusic.com/wp-content/uploads/2025/04/Phirti-Pothe-downloaded-from-SpotiSongDownloader.com_-150x150.jpg"
               title="Phirti Pothe"
               artist="Shuvam Raha"
             />
@@ -602,9 +604,10 @@ export default async function Home() {
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {latestPosts.map((post) => {
-                const primaryCat = post.categories[0];
+                const primaryCat = post.categories[0] || '';
+                const themeKey = getThemeKey(primaryCat);
                 const primaryTheme =
-                  CATEGORY_THEMES[primaryCat] || CATEGORY_THEMES['Default'];
+                  CATEGORY_THEMES[themeKey] || CATEGORY_THEMES['default'];
                 return (
                   <Link
                     key={post.id}
@@ -612,29 +615,28 @@ export default async function Home() {
                     className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.04] bg-white/[0.01] transition-all duration-500 hover:${primaryTheme.border} hover:bg-white/[0.03] hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]`}
                   >
                     <div
-                      className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${BRIGHT_GRADIENTS[primaryCat] || BRIGHT_GRADIENTS['Default']} z-20 opacity-20 transition-opacity duration-500 group-hover:opacity-90`}
+                      className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${BRIGHT_GRADIENTS[themeKey] || BRIGHT_GRADIENTS['default']} z-20 opacity-20 transition-opacity duration-500 group-hover:opacity-90`}
                     />
                     <div
-                      className={`pointer-events-none absolute -right-16 -bottom-16 h-36 w-36 rounded-full ${GLOW_COLORS[primaryCat] || GLOW_COLORS['Default']} z-0 opacity-0 blur-[40px] transition-opacity duration-700 group-hover:opacity-100`}
+                      className={`pointer-events-none absolute -right-16 -bottom-16 h-36 w-36 rounded-full ${GLOW_COLORS[themeKey] || GLOW_COLORS['default']} z-0 opacity-0 blur-[40px] transition-opacity duration-700 group-hover:opacity-100`}
                     />
 
                     <div>
                       <div className="relative aspect-video w-full overflow-hidden bg-gray-900">
                         {post.coverImage && (
-                          <Image
-                            src={post.coverImage}
-                            alt={post.title}
-                            fill
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          <CockpitImage
+                            asset={post.coverImage}
                             className="object-cover transition-transform duration-[1500ms] group-hover:scale-[1.04]"
+                            fill
                           />
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#020205]/40 to-transparent" />
                         <div className="absolute top-4 left-4 flex max-w-[85%] flex-wrap gap-1.5">
                           {post.categories.map((cat, idx) => {
+                            const catThemeKey = getThemeKey(cat);
                             const catTheme =
-                              CATEGORY_THEMES[cat] ||
-                              CATEGORY_THEMES['Default'];
+                              CATEGORY_THEMES[catThemeKey] ||
+                              CATEGORY_THEMES['default'];
                             return (
                               <span
                                 key={idx}
