@@ -344,7 +344,7 @@ export default function PerformanceHighlightsClient({
     const primaryLocs = Array.from(cityCounts.entries())
       .sort((a, b) => b[1] - a[1])
       .map(([city]) => city)
-      .slice(0, 6)
+      //.slice(0, 6)
       .join(', ');
 
     return {
