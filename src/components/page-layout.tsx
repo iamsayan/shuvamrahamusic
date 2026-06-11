@@ -22,6 +22,7 @@ const segmentNames: Record<string, string> = {
   contact: 'Contact Us',
   'my-gears': 'My Gears',
   'performance-highlights': 'Performance Highlights',
+  'fretboard-trainer': 'Fretboard Trainer',
 };
 
 export default function PageLayout({
