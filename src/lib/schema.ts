@@ -6,7 +6,7 @@
  *   <JsonLd schema={SCHEMA.webSite()} />
  */
 
-const BASE_URL = 'https://www.shuvamrahamusic.com';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL;
 
 /** Shuvam Raha's verified social / platform profile URLs */
 const SAME_AS = [

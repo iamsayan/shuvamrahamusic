@@ -173,7 +173,7 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
-  const postUrl = `https://www.shuvamrahamusic.com/blog/${post.slug}`;
+  const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/blog/${post.slug}`;
 
   const primaryCat = post.categories[0]?.title || '';
   const themeKey = getThemeKey(primaryCat);
@@ -231,24 +231,24 @@ export default async function BlogPostPage({ params }: PageProps) {
               '@type': 'Person',
               name: post.author.name,
               jobTitle: post.author.role,
-              image: `https://www.shuvamrahamusic.com${post.author.avatar}`,
+              image: `${SCHEMA.BASE_URL}${post.author.avatar}`,
             },
             publisher: {
               '@type': 'Organization',
               name: 'Shuvam Raha Music',
-              url: 'https://www.shuvamrahamusic.com',
+              url: SCHEMA.BASE_URL,
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://www.shuvamrahamusic.com/logo.png',
+                url: `${SCHEMA.BASE_URL}/logo.png`,
               },
             },
             mainEntityOfPage: {
               '@type': 'WebPage',
-              '@id': `https://www.shuvamrahamusic.com/blog/${post.slug}`,
+              '@id': `${SCHEMA.BASE_URL}/blog/${post.slug}`,
             },
             isPartOf: {
               '@type': 'Blog',
-              '@id': 'https://www.shuvamrahamusic.com/blog',
+              '@id': `${SCHEMA.BASE_URL}/blog`,
               name: 'Shuvam Raha Music Blog',
             },
           },
@@ -321,7 +321,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               <div className="flex flex-wrap items-center gap-6 text-xs text-gray-400">
                 {/* Author metadata */}
                 <div className="flex items-center gap-3">
-                  <div className="relative overflow-hidden rounded-full border border-white/10 bg-white/5 size-9">
+                  <div className="relative size-9 overflow-hidden rounded-full border border-white/10 bg-white/5">
                     <Image
                       src={post.author.avatar}
                       alt={post.author.name}
@@ -342,11 +342,11 @@ export default async function BlogPostPage({ params }: PageProps) {
 
                 <div className="flex items-center gap-4">
                   <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase">
-                    <LuCalendar className="text-gray-500 size-3.5" />
+                    <LuCalendar className="size-3.5 text-gray-500" />
                     {post.date}
                   </span>
                   <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase">
-                    <LuClock className="text-gray-500 size-3.5" />
+                    <LuClock className="size-3.5 text-gray-500" />
                     {post.readTime}
                   </span>
                 </div>
@@ -417,7 +417,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                     About The Author
                   </h3>
                   <div className="mb-4 flex items-center gap-3.5">
-                    <div className="relative overflow-hidden rounded-full border border-white/10 bg-white/5 size-12">
+                    <div className="relative size-12 overflow-hidden rounded-full border border-white/10 bg-white/5">
                       <Image
                         src={post.author.avatar}
                         alt={post.author.name}
@@ -546,7 +546,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
                       {/* Inner accent glow on hover */}
                       <div
-                        className={`pointer-events-none absolute -right-16 -bottom-16 rounded-full ${GLOW_COLORS[rThemeKey] || GLOW_COLORS['default']} z-0 opacity-0 blur-[40px] transition-opacity duration-700 group-hover:opacity-100 size-36`}
+                        className={`pointer-events-none absolute -right-16 -bottom-16 rounded-full ${GLOW_COLORS[rThemeKey] || GLOW_COLORS['default']} z-0 size-36 opacity-0 blur-[40px] transition-opacity duration-700 group-hover:opacity-100`}
                       />
 
                       <div>

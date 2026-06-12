@@ -210,7 +210,7 @@ export default function TermsOfServicePage() {
               <p className="text-sm text-gray-300">
                 Website:{' '}
                 <a
-                  href="https://www.shuvamrahamusic.com"
+                  href={process.env.NEXT_PUBLIC_SITE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-emerald-400 hover:underline"
