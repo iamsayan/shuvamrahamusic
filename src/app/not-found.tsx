@@ -18,7 +18,7 @@ export default function NotFound() {
         </p>
         <Link
           href="/"
-          className="group from-primary-600 to-primary-500 dark:from-primary-500 dark:to-primary-400 mt-8 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r px-6 py-3 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+          className="group from-primary-600 to-primary-500 dark:from-primary-500 dark:to-primary-400 mt-8 inline-flex items-center gap-2 rounded-lg bg-linear-to-r px-6 py-3 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
         >
           <BiHomeAlt className="h-5 w-5 transition-transform group-hover:rotate-3" />
           Back to Home

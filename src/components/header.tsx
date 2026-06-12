@@ -112,7 +112,7 @@ export default function Header() {
             : 'border-b border-transparent bg-transparent py-2 md:py-3.5'
       }`}
     >
-      <div className="mx-auto flex min-h-0 w-full max-w-[1400px] flex-1 flex-col justify-start px-5 md:px-12 lg:px-20">
+      <div className="mx-auto flex min-h-0 w-full max-w-350 flex-1 flex-col justify-start px-5 md:px-12 lg:px-20">
         {/* Top Header Bar */}
         <div className="flex h-[60px] w-full shrink-0 items-center justify-between md:h-[70px]">
           {/* Logo */}
@@ -132,7 +132,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.02] px-2 py-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.2)] backdrop-blur-md xl:flex">
+          <nav className="hidden items-center gap-0.5 rounded-full border border-white/10 bg-white/2 px-2 py-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.2)] backdrop-blur-md xl:flex">
             {navLinks.map((link, idx) => {
               const isRealLink = link.href && link.href !== '#';
 

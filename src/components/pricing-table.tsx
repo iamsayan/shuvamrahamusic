@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
+
 import Link from 'next/link';
 
 import { useRegion } from '@/hooks/use-region';
@@ -56,11 +57,11 @@ export default function PricingTable({ plans }: PricingTableProps) {
       card: 'border-blue-500/40 bg-blue-900/20 hover:border-blue-400/60 hover:bg-blue-900/30 shadow-[0_0_50px_rgba(59,130,246,0.15)]',
       glow: 'bg-blue-500/20',
       button:
-        'bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-[0_0_30px_rgba(59,130,246,0.5)]',
+        'bg-linear-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-[0_0_30px_rgba(59,130,246,0.5)]',
       icon: 'text-blue-400 bg-blue-500/20',
       text: 'text-blue-400',
       price:
-        'text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200',
+        'text-transparent bg-clip-text bg-linear-to-r from-white to-blue-200',
     },
     violet: {
       card: 'border-violet-500/20 bg-violet-950/10 hover:border-violet-500/40 hover:bg-violet-900/10 shadow-[0_0_30px_rgba(139,92,246,0.02)]',
@@ -83,7 +84,7 @@ export default function PricingTable({ plans }: PricingTableProps) {
     <div className="flex w-full flex-col items-center">
       {/* Interactive Geo-Toggle Switch */}
       <div className="mt-2 mb-12 w-full sm:w-auto">
-        <div className="relative mx-auto flex w-full rounded-full border border-white/5 bg-white/[0.03] p-1.5 shadow-2xl backdrop-blur-xl sm:w-[360px]">
+        <div className="relative mx-auto flex w-full rounded-full border border-white/5 bg-white/3 p-1.5 shadow-2xl backdrop-blur-xl sm:w-[360px]">
           {/* Sliding Active Background */}
           <div
             className={`absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] rounded-full border border-white/10 bg-white/10 shadow-lg transition-transform duration-500 ease-out ${
@@ -118,7 +119,7 @@ export default function PricingTable({ plans }: PricingTableProps) {
       </div>
 
       {/* Pricing Dashboard */}
-      <div className="group relative z-10 mx-auto w-full max-w-5xl overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] shadow-2xl backdrop-blur-3xl sm:rounded-[2.5rem]">
+      <div className="group relative z-10 mx-auto w-full max-w-5xl overflow-hidden rounded-3xl border border-white/10 bg-white/2 shadow-2xl backdrop-blur-3xl sm:rounded-[2.5rem]">
         {/* Ambient Corner Glows (Dynamic based on selected plans) */}
         {currentPlans[0] && (
           <div
@@ -142,7 +143,7 @@ export default function PricingTable({ plans }: PricingTableProps) {
             return (
               <div
                 key={`${region}-${i}`}
-                className={`relative flex flex-col p-6 transition-all duration-500 hover:bg-white/[0.02] sm:p-8 lg:p-10 ${
+                className={`relative flex flex-col p-6 transition-all duration-500 hover:bg-white/2 sm:p-8 lg:p-10 ${
                   isFirst
                     ? 'border-b border-white/5 md:border-r md:border-b-0'
                     : ''
@@ -151,7 +152,7 @@ export default function PricingTable({ plans }: PricingTableProps) {
                 {/* Popular Badge */}
                 {popular && (
                   <div className="absolute top-3 right-3 z-20 sm:top-6 sm:right-10">
-                    <div className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-400 px-3 py-1 shadow-[0_0_15px_rgba(245,158,11,0.4)]">
+                    <div className="flex items-center gap-1.5 rounded-full bg-linear-to-r from-amber-500 to-orange-400 px-3 py-1 shadow-[0_0_15px_rgba(245,158,11,0.4)]">
                       <LuSparkles className="h-3 w-3 text-white" />
                       <span className="text-[9px] font-bold tracking-widest whitespace-nowrap text-white uppercase sm:text-xs">
                         Most Popular
@@ -211,7 +212,7 @@ export default function PricingTable({ plans }: PricingTableProps) {
 
                 {/* Footer Blocks (Best For & CTA) */}
                 <div className="mt-auto flex flex-col gap-4">
-                  <div className="rounded-xl border border-white/5 bg-white/[0.03] p-3 text-center">
+                  <div className="rounded-xl border border-white/5 bg-white/3 p-3 text-center">
                     <span className="mb-0.5 block text-[10px] tracking-widest text-gray-500 uppercase">
                       Best for
                     </span>
@@ -236,7 +237,7 @@ export default function PricingTable({ plans }: PricingTableProps) {
       {/* Global Geographic & Availability Notices Deck */}
       <div className="z-10 mx-auto mt-12 grid w-full max-w-4xl grid-cols-1 gap-4 px-4 md:grid-cols-2">
         {/* Card 1: Residence Policy */}
-        <div className="group/note relative flex gap-4 rounded-2xl border border-white/[0.04] bg-white/[0.01] p-5 backdrop-blur-xl transition-all duration-300 hover:border-white/[0.08] hover:bg-white/[0.02]">
+        <div className="group/note relative flex gap-4 rounded-2xl border border-white/[0.04] bg-white/1 p-5 backdrop-blur-xl transition-all duration-300 hover:border-white/[0.08] hover:bg-white/2">
           <div className="pointer-events-none absolute inset-0 rounded-2xl bg-cyan-500/[0.01] opacity-0 blur-xl transition-all duration-500 group-hover/note:bg-cyan-500/[0.02] group-hover/note:opacity-100" />
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400 transition-transform duration-300 group-hover/note:scale-105">
             <LuGlobe className="h-5 w-5" />

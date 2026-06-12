@@ -448,7 +448,7 @@ export default function PerformanceHighlightsClient({
               return (
                 <div
                   key={idx}
-                  className="group relative overflow-hidden rounded-2xl border border-white/[0.05] bg-white/[0.01] p-4.5 backdrop-blur-md transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/[0.03]"
+                  className="group relative overflow-hidden rounded-2xl border border-white/5 bg-white/1 p-4.5 backdrop-blur-md transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/3"
                 >
                   <div
                     className={`mb-3 inline-flex h-9 w-9 items-center justify-center rounded-xl border ${metric.color} shadow-sm transition-transform duration-300 group-hover:scale-105`}
@@ -623,7 +623,7 @@ export default function PerformanceHighlightsClient({
                 return (
                   <div
                     key={idx}
-                    className="group relative overflow-hidden rounded-2xl border border-white/[0.05] bg-[#0A0A15]/40 p-6 backdrop-blur-md transition-all duration-300 hover:border-cyan-500/20 hover:bg-[#0E0E22]/60"
+                    className="group relative overflow-hidden rounded-2xl border border-white/5 bg-[#0A0A15]/40 p-6 backdrop-blur-md transition-all duration-300 hover:border-cyan-500/20 hover:bg-[#0E0E22]/60"
                   >
                     <div className="flex items-start gap-4">
                       <div
@@ -687,7 +687,7 @@ export default function PerformanceHighlightsClient({
                   className={`rounded-full px-4.5 py-1.5 text-[11px] font-black tracking-wider uppercase transition-all duration-300 ${
                     selectedYear === year
                       ? 'border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.15)]'
-                      : 'border border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/15 hover:bg-white/[0.03] hover:text-white'
+                      : 'border border-white/5 bg-white/1 text-gray-400 hover:border-white/15 hover:bg-white/3 hover:text-white'
                   }`}
                 >
                   {year}
@@ -708,7 +708,7 @@ export default function PerformanceHighlightsClient({
                 placeholder="Search by city, venue, or detail..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-full border border-white/10 bg-white/[0.02] py-2.5 pr-10 pl-10 text-xs text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04]"
+                className="w-full rounded-full border border-white/10 bg-white/2 py-2.5 pr-10 pl-10 text-xs text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4"
               />
               {searchQuery && (
                 <button
@@ -727,7 +727,7 @@ export default function PerformanceHighlightsClient({
               <select
                 value={selectedArtistFilter}
                 onChange={(e) => setSelectedArtistFilter(e.target.value)}
-                className="w-full appearance-none rounded-full border border-white/10 bg-white/[0.02] px-4 py-2.5 text-xs text-white transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04]"
+                className="w-full appearance-none rounded-full border border-white/10 bg-white/2 px-4 py-2.5 text-xs text-white transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4"
               >
                 <option value="All" className="bg-[#05050A] text-gray-300">
                   Filter by Collaborator: All
@@ -763,7 +763,7 @@ export default function PerformanceHighlightsClient({
                 return (
                   <div
                     key={idx}
-                    className="group relative flex flex-col gap-2 rounded-2xl border border-white/[0.03] bg-white/[0.01] p-4.5 transition-all duration-300 hover:border-cyan-500/15 hover:bg-[#0E0E22]/30"
+                    className="group relative flex flex-col gap-2 rounded-2xl border border-white/[0.03] bg-white/1 p-4.5 transition-all duration-300 hover:border-cyan-500/15 hover:bg-[#0E0E22]/30"
                   >
                     {/* Timeline Dot */}
                     <div className="absolute top-[22px] -left-[31px] flex h-2 w-2 items-center justify-center rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.7)] transition-transform duration-300 group-hover:scale-125" />
@@ -822,13 +822,13 @@ export default function PerformanceHighlightsClient({
                 href="https://wa.me/918961369468?text=Hi%20Shuvam,%20I%27m%20interested%20in%20booking%20you%20for%20a%20live%20show!"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group font-heading flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-3 text-xs font-bold text-white shadow-md transition-all hover:scale-105 active:scale-95 sm:text-sm"
+                className="group font-heading flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-6 py-3 text-xs font-bold text-white shadow-md transition-all hover:scale-105 active:scale-95 sm:text-sm"
               >
                 Inquire via WhatsApp
               </a>
               <Link
                 href="/contact"
-                className="group font-heading flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 text-xs font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95 sm:text-sm"
+                className="group font-heading flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/3 px-6 py-3 text-xs font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95 sm:text-sm"
               >
                 Get In Touch
               </Link>

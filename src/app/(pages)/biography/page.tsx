@@ -229,7 +229,7 @@ export default function BiographyPage() {
           <div className="flex flex-col gap-10 lg:flex-row lg:items-center">
             {/* Desktop Side Profile Frame */}
             <div className="relative mx-auto w-full max-w-[340px] shrink-0 lg:mx-0">
-              <div className="group relative aspect-[3/4] overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/[0.02] shadow-[0_30px_70px_rgba(0,0,0,0.6)] backdrop-blur-md">
+              <div className="group relative aspect-3/4 overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/2 shadow-[0_30px_70px_rgba(0,0,0,0.6)] backdrop-blur-md">
                 <Image
                   width={600}
                   height={600}
@@ -238,7 +238,7 @@ export default function BiographyPage() {
                   className="h-full w-full object-cover opacity-90 transition-transform duration-[1500ms] group-hover:scale-105"
                   loading="eager"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#020205]/80 via-transparent to-transparent opacity-60" />
+                <div className="absolute inset-0 bg-linear-to-t from-[#020205]/80 via-transparent to-transparent opacity-60" />
               </div>
             </div>
 
@@ -255,15 +255,15 @@ export default function BiographyPage() {
                   Shuvam Raha
                 </h2>
                 <div className="flex flex-wrap gap-2 text-xs font-semibold text-gray-400">
-                  <span className="inline-flex items-center gap-1.5 rounded-md border border-white/5 bg-white/[0.02] px-2.5 py-1">
+                  <span className="inline-flex items-center gap-1.5 rounded-md border border-white/5 bg-white/2 px-2.5 py-1">
                     <LuMapPin className="h-3.5 w-3.5 text-cyan-400" />
                     <span>Based in Kolkata</span>
                   </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-md border border-white/5 bg-white/[0.02] px-2.5 py-1">
+                  <span className="inline-flex items-center gap-1.5 rounded-md border border-white/5 bg-white/2 px-2.5 py-1">
                     <LuGuitar className="h-3.5 w-3.5 text-cyan-400" />
                     <span>11+ Years of Experience</span>
                   </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-md border border-white/5 bg-white/[0.02] px-2.5 py-1">
+                  <span className="inline-flex items-center gap-1.5 rounded-md border border-white/5 bg-white/2 px-2.5 py-1">
                     <LuGlobe className="h-3.5 w-3.5 text-cyan-400" />
                     <span>Online &amp; International Classes Available</span>
                   </span>
@@ -329,7 +329,7 @@ export default function BiographyPage() {
                 return (
                   <div
                     key={idx}
-                    className="group relative overflow-hidden rounded-2xl border border-white/[0.05] bg-gradient-to-br from-white/[0.03] to-white/[0.01] p-6 backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-cyan-500/30 hover:bg-[#0E0E22]/80 hover:shadow-[0_20px_40px_rgba(6,182,212,0.1)]"
+                    className="group relative overflow-hidden rounded-2xl border border-white/5 bg-linear-to-br from-white/[0.03] to-white/[0.01] p-6 backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-cyan-500/30 hover:bg-[#0E0E22]/80 hover:shadow-[0_20px_40px_rgba(6,182,212,0.1)]"
                   >
                     {/* Faint premium index number */}
                     <span className="font-heading absolute top-2 right-4 text-4xl font-black text-white/[0.02] transition-colors duration-500 select-none group-hover:text-white/[0.06]">
@@ -418,7 +418,7 @@ export default function BiographyPage() {
                     key={idx}
                     className={`group relative flex gap-4 rounded-2xl border p-5 transition-all duration-300 ${item.color} hover:shadow-[0_15px_30px_rgba(0,0,0,0.4)]`}
                   >
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/5 bg-white/[0.02] shadow-sm">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/5 bg-white/2 shadow-sm">
                       <Icon className="h-5 w-5" />
                     </div>
                     <div className="space-y-1">
@@ -468,7 +468,7 @@ export default function BiographyPage() {
                   {/* Glow overlay inside card */}
                   <div className="pointer-events-none absolute -right-20 -bottom-20 h-40 w-40 rounded-full bg-cyan-500/0 blur-2xl transition-all duration-500 group-hover:bg-cyan-500/5" />
 
-                  <div className="relative aspect-video w-full overflow-hidden border-b border-white/[0.05] bg-black/40">
+                  <div className="relative aspect-video w-full overflow-hidden border-b border-white/5 bg-black/40">
                     <YouTubeFacade videoId={vid.id} />
                   </div>
                   <div className="relative z-10 p-5">
@@ -515,21 +515,21 @@ export default function BiographyPage() {
                 </p>
 
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/[0.01] p-4 text-sm text-gray-300 transition-all duration-300 hover:border-white/10 hover:bg-white/[0.02]">
+                  <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/1 p-4 text-sm text-gray-300 transition-all duration-300 hover:border-white/10 hover:bg-white/2">
                     <LuFlame className="h-5 w-5 text-rose-400" />
                     <span>Laney Amplification India Endorsed Artist</span>
                   </div>
-                  <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/[0.01] p-4 text-sm text-gray-300 transition-all duration-300 hover:border-white/10 hover:bg-white/[0.02]">
+                  <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/1 p-4 text-sm text-gray-300 transition-all duration-300 hover:border-white/10 hover:bg-white/2">
                     <LuGuitar className="h-5 w-5 text-cyan-400" />
                     <span>Collaborating Artist with Furtados</span>
                   </div>
-                  <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/[0.01] p-4 text-sm text-gray-300 transition-all duration-300 hover:border-white/10 hover:bg-white/[0.02]">
+                  <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/1 p-4 text-sm text-gray-300 transition-all duration-300 hover:border-white/10 hover:bg-white/2">
                     <LuSparkles className="h-5 w-5 text-amber-400" />
                     <span>
                       Feature Artist – Tone Connoisseur (The Stockist)
                     </span>
                   </div>
-                  <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/[0.01] p-4 text-sm text-gray-300 transition-all duration-300 hover:border-white/10 hover:bg-white/[0.02]">
+                  <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/1 p-4 text-sm text-gray-300 transition-all duration-300 hover:border-white/10 hover:bg-white/2">
                     <LuHeadphones className="h-5 w-5 text-violet-400" />
                     <span>Representing DiMarzio Guitar Cables</span>
                   </div>
@@ -658,19 +658,19 @@ export default function BiographyPage() {
                   href="https://calendly.com/shuvamraha10/intro-call"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group font-heading flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-3 text-xs font-bold text-white shadow-md transition-all hover:scale-105 active:scale-95 sm:text-sm"
+                  className="group font-heading flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-6 py-3 text-xs font-bold text-white shadow-md transition-all hover:scale-105 active:scale-95 sm:text-sm"
                 >
                   Book a Consultation Call
                 </a>
                 <Link
                   href="/guitar-classes-with-shuvam"
-                  className="group font-heading flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 text-xs font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95 sm:text-sm"
+                  className="group font-heading flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/3 px-6 py-3 text-xs font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95 sm:text-sm"
                 >
                   Explore the Plans
                 </Link>
                 <Link
                   href="/contact"
-                  className="group font-heading flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 text-xs font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95 sm:text-sm"
+                  className="group font-heading flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/3 px-6 py-3 text-xs font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95 sm:text-sm"
                 >
                   Get In Touch
                 </Link>

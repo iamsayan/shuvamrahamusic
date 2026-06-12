@@ -48,7 +48,7 @@ const SuccessModal = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#020205]/80 backdrop-blur-md transition-all duration-300">
       <div className="relative mx-4 w-full max-w-md transform overflow-hidden rounded-[2rem] border border-white/10 bg-[#0A0A15]/95 p-8 text-center shadow-2xl backdrop-blur-3xl">
         {/* Glowing top accent */}
-        <div className="absolute top-0 left-0 h-1.5 w-full bg-gradient-to-r from-emerald-500 to-teal-400" />
+        <div className="absolute top-0 left-0 h-1.5 w-full bg-linear-to-r from-emerald-500 to-teal-400" />
 
         <div className="flex flex-col items-center">
           <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400 shadow-[0_0_30px_rgba(52,211,153,0.2)]">
@@ -64,7 +64,7 @@ const SuccessModal = ({
           </p>
 
           {/* Slip details */}
-          <div className="mt-6 w-full rounded-2xl border border-white/5 bg-white/[0.01] p-5 text-left text-xs leading-relaxed text-gray-400">
+          <div className="mt-6 w-full rounded-2xl border border-white/5 bg-white/1 p-5 text-left text-xs leading-relaxed text-gray-400">
             <div className="space-y-3">
               <div className="flex items-center justify-between border-b border-white/5 pb-2">
                 <span className="text-[9px] font-bold tracking-widest text-gray-500 uppercase">
@@ -125,7 +125,7 @@ const SuccessModal = ({
           <button
             type="button"
             onClick={onReset}
-            className="font-heading mt-8 w-full cursor-pointer rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 py-3 text-xs font-bold text-white shadow-md transition-all hover:scale-[1.01] hover:shadow-[0_0_20px_rgba(52,211,153,0.3)] active:scale-95 sm:text-sm"
+            className="font-heading mt-8 w-full cursor-pointer rounded-xl bg-linear-to-r from-emerald-500 to-teal-600 py-3 text-xs font-bold text-white shadow-md transition-all hover:scale-[1.01] hover:shadow-[0_0_20px_rgba(52,211,153,0.3)] active:scale-95 sm:text-sm"
           >
             Go Back
           </button>
@@ -145,7 +145,7 @@ const ErrorModal = ({
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#020205]/80 backdrop-blur-md transition-all duration-300">
     <div className="relative mx-4 w-full max-w-md transform overflow-hidden rounded-[2rem] border border-white/10 bg-[#0A0A15]/95 p-8 text-center shadow-2xl backdrop-blur-3xl">
       {/* Glowing top accent */}
-      <div className="absolute top-0 left-0 h-1.5 w-full bg-gradient-to-r from-rose-500 to-red-600" />
+      <div className="absolute top-0 left-0 h-1.5 w-full bg-linear-to-r from-rose-500 to-red-600" />
 
       <div className="flex flex-col items-center">
         <div className="mb-6 flex h-16 w-16 animate-pulse items-center justify-center rounded-full bg-rose-500/10 text-rose-400 shadow-[0_0_30px_rgba(244,63,94,0.2)]">
@@ -169,7 +169,7 @@ const ErrorModal = ({
         <button
           type="button"
           onClick={onClose}
-          className="font-heading mt-8 w-full cursor-pointer rounded-xl bg-gradient-to-r from-rose-500 to-red-600 py-3 text-xs font-bold text-white shadow-md transition-all hover:scale-[1.01] hover:shadow-[0_0_20px_rgba(244,63,94,0.3)] active:scale-95 sm:text-sm"
+          className="font-heading mt-8 w-full cursor-pointer rounded-xl bg-linear-to-r from-rose-500 to-red-600 py-3 text-xs font-bold text-white shadow-md transition-all hover:scale-[1.01] hover:shadow-[0_0_20px_rgba(244,63,94,0.3)] active:scale-95 sm:text-sm"
         >
           Close &amp; Try Again
         </button>
@@ -210,7 +210,10 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
         if (decoded.plan) {
           setSelectedPlanId(decoded.plan);
         }
-        if (decoded.region && (decoded.region === 'IN' || decoded.region === 'GLOBAL')) {
+        if (
+          decoded.region &&
+          (decoded.region === 'IN' || decoded.region === 'GLOBAL')
+        ) {
           setRegion(decoded.region);
         }
       } catch (e) {
@@ -386,7 +389,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
       text: 'text-amber-400',
     },
     blue: {
-      btn: 'bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-[0_0_20px_rgba(59,130,246,0.3)] border-blue-500/30',
+      btn: 'bg-linear-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-[0_0_20px_rgba(59,130,246,0.3)] border-blue-500/30',
       text: 'text-cyan-400',
     },
     violet: {
@@ -420,7 +423,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
 
       {/* Region Switcher */}
       {!isPlanSelectionLocked && (
-        <div className="relative mb-8 flex w-full rounded-full border border-white/5 bg-white/[0.03] p-1.5 shadow-2xl backdrop-blur-xl">
+        <div className="relative mb-8 flex w-full rounded-full border border-white/5 bg-white/3 p-1.5 shadow-2xl backdrop-blur-xl">
           <div
             className={`absolute top-1.5 bottom-1.5 w-[calc(50%-6px)] rounded-full border border-white/10 bg-white/10 shadow-lg transition-transform duration-500 ease-out ${
               region === 'IN' ? 'translate-x-0' : 'translate-x-[100%]'
@@ -432,7 +435,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
               setRegion('IN');
               setSelectedPlanId(null);
             }}
-            className={`relative z-10 flex flex-1 items-center justify-center gap-1.5 rounded-full py-2.5 text-xs font-bold transition-colors duration-300 sm:text-sm cursor-pointer ${
+            className={`relative z-10 flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-full py-2.5 text-xs font-bold transition-colors duration-300 sm:text-sm ${
               region === 'IN' ? 'text-white' : 'text-gray-400 hover:text-white'
             }`}
           >
@@ -445,7 +448,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
               setRegion('GLOBAL');
               setSelectedPlanId(null);
             }}
-            className={`relative z-10 flex flex-1 items-center justify-center gap-1.5 rounded-full py-2.5 text-xs font-bold transition-colors duration-300 sm:text-sm cursor-pointer ${
+            className={`relative z-10 flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-full py-2.5 text-xs font-bold transition-colors duration-300 sm:text-sm ${
               region === 'GLOBAL'
                 ? 'text-white'
                 : 'text-gray-400 hover:text-white'
@@ -465,7 +468,10 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
           </div>
         )}
         {currentPlans
-          .filter((plan: PricingPlan) => !isPlanSelectionLocked || activePlan?._id === plan._id)
+          .filter(
+            (plan: PricingPlan) =>
+              !isPlanSelectionLocked || activePlan?._id === plan._id
+          )
           .map((plan: PricingPlan, idx: number) => {
             const isActive = activePlan?._id === plan._id;
             const themeName = getPlanThemeName(plan.region, idx);
@@ -480,10 +486,10 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
                 onClick={() => setSelectedPlanId(plan._id)}
                 className={`group/plan-btn relative flex w-full items-center justify-between rounded-2xl border p-5 text-left transition-all duration-300 ${
                   isPlanSelectionLocked
-                    ? 'border-cyan-500/20 bg-white/[0.02] cursor-default'
+                    ? 'cursor-default border-cyan-500/20 bg-white/2'
                     : isActive
-                      ? 'border-cyan-500/40 bg-white/[0.03] shadow-[0_10px_35px_rgba(6,182,212,0.06)] cursor-pointer'
-                      : 'border-white/[0.04] bg-white/[0.005] hover:border-white/10 hover:bg-white/[0.01] cursor-pointer'
+                      ? 'cursor-pointer border-cyan-500/40 bg-white/3 shadow-[0_10px_35px_rgba(6,182,212,0.06)]'
+                      : 'cursor-pointer border-white/4 bg-white/0.5 hover:border-white/10 hover:bg-white/1'
                 }`}
               >
                 <div className="flex items-center gap-4">
@@ -510,7 +516,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
                         {plan.name}
                       </span>
                       {popular && (
-                        <span className="rounded-full bg-gradient-to-r from-amber-500 to-orange-400 px-2 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase">
+                        <span className="rounded-full bg-linear-to-r from-amber-500 to-orange-400 px-2 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase">
                           Popular
                         </span>
                       )}
@@ -524,7 +530,9 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
                 <div className="text-right">
                   <span
                     className={`font-heading text-base font-black transition-colors duration-300 sm:text-lg ${
-                      isActive || isPlanSelectionLocked ? theme.text : 'text-gray-400'
+                      isActive || isPlanSelectionLocked
+                        ? theme.text
+                        : 'text-gray-400'
                     }`}
                   >
                     {currency}
@@ -541,9 +549,9 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
 
       {/* Detailed Order Summary Panel */}
       {activePlan && (
-        <div className="group/summary relative mt-8 overflow-hidden rounded-3xl border border-white/5 bg-white/[0.01] p-6 shadow-xl backdrop-blur-md">
+        <div className="group/summary relative mt-8 overflow-hidden rounded-3xl border border-white/5 bg-white/1 p-6 shadow-xl backdrop-blur-md">
           <div
-            className={`absolute top-0 left-0 h-1 w-full bg-gradient-to-r ${
+            className={`absolute top-0 left-0 h-1 w-full bg-linear-to-r ${
               activePlanThemeName === 'emerald'
                 ? 'from-emerald-500 to-teal-400'
                 : activePlanThemeName === 'amber'
@@ -594,7 +602,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
             </div>
 
             {/* Best For Tag */}
-            <div className="mt-2 rounded-xl border border-white/5 bg-white/[0.02] px-4 py-2.5 text-center">
+            <div className="mt-2 rounded-xl border border-white/5 bg-white/2 px-4 py-2.5 text-center">
               <span className="block text-[10px] font-bold tracking-widest text-gray-500 uppercase">
                 Best suited for
               </span>
@@ -627,7 +635,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
       {/* Checkout Form */}
       <form
         onSubmit={handlePayment}
-        className="mt-8 space-y-5 rounded-3xl border border-white/5 bg-white/[0.01] p-6 text-left shadow-xl"
+        className="mt-8 space-y-5 rounded-3xl border border-white/5 bg-white/1 p-6 text-left shadow-xl"
       >
         <h4 className="font-heading text-sm font-extrabold text-white sm:text-base">
           Enter Your Contact Details
@@ -654,7 +662,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
               value={formData.name}
               onChange={handleInputChange}
               placeholder="John Doe"
-              className="w-full rounded-xl border border-white/10 bg-[#080812]/50 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04] focus:ring-1 focus:ring-cyan-500/30"
+              className="w-full rounded-xl border border-white/10 bg-[#080812]/50 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30"
             />
           </div>
         </div>
@@ -682,7 +690,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder="john@example.com"
-                className="w-full rounded-xl border border-white/10 bg-[#080812]/50 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04] focus:ring-1 focus:ring-cyan-500/30"
+                className="w-full rounded-xl border border-white/10 bg-[#080812]/50 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30"
               />
             </div>
           </div>
@@ -709,7 +717,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
                 onChange={handleInputChange}
                 placeholder="10-digit mobile number"
                 pattern="[0-9]{10}"
-                className="w-full rounded-xl border border-white/10 bg-[#080812]/50 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04] focus:ring-1 focus:ring-cyan-500/30"
+                className="w-full rounded-xl border border-white/10 bg-[#080812]/50 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30"
               />
             </div>
           </div>
@@ -738,7 +746,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
                 value={formData.city}
                 onChange={handleInputChange}
                 placeholder="e.g. Kolkata"
-                className="w-full rounded-xl border border-white/10 bg-[#080812]/50 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04] focus:ring-1 focus:ring-cyan-500/30"
+                className="w-full rounded-xl border border-white/10 bg-[#080812]/50 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30"
               />
             </div>
           </div>
@@ -764,7 +772,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
                 value={formData.address}
                 onChange={handleInputChange}
                 placeholder="e.g. Flat 3B, 12 Park Street"
-                className="w-full rounded-xl border border-white/10 bg-[#080812]/50 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04] focus:ring-1 focus:ring-cyan-500/30"
+                className="w-full rounded-xl border border-white/10 bg-[#080812]/50 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30"
               />
             </div>
           </div>

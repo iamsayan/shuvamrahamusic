@@ -115,7 +115,7 @@ export default function BlogListingClient({
 
   return (
     <div className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
-      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
+      <div className="relative z-10 mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
         <div className="flex w-full flex-col pt-8 pb-6">
           {/* Breadcrumbs */}
           <nav className="font-heading mb-6 flex items-center gap-1.5 text-[11px] font-bold text-gray-500 uppercase sm:text-xs">
@@ -134,9 +134,9 @@ export default function BlogListingClient({
           {/* Header Title */}
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
-              <h1 className="font-heading mb-4 bg-gradient-to-r from-white via-white to-gray-400 bg-clip-text text-3xl leading-[1.15] font-black tracking-tight text-transparent sm:text-4xl lg:text-5xl">
+              <h1 className="font-heading mb-4 bg-linear-to-r from-white via-white to-gray-400 bg-clip-text text-3xl leading-[1.15] font-black tracking-tight text-transparent sm:text-4xl lg:text-5xl">
                 The Guitar{' '}
-                <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
                   Journal
                 </span>
               </h1>
@@ -154,7 +154,7 @@ export default function BlogListingClient({
                 placeholder="Search articles..."
                 value={localSearch}
                 onChange={(e) => handleSearchChange(e.target.value)}
-                className="w-full rounded-full border border-white/10 bg-white/[0.02] py-3 pr-12 pl-12 text-sm text-white placeholder-gray-500 backdrop-blur-md transition-all duration-300 outline-none focus:border-cyan-500/30 focus:bg-white/[0.04] focus:shadow-[0_0_15px_rgba(6,182,212,0.15)]"
+                className="w-full rounded-full border border-white/10 bg-white/2 py-3 pr-12 pl-12 text-sm text-white placeholder-gray-500 backdrop-blur-md transition-all duration-300 outline-none focus:border-cyan-500/30 focus:bg-white/4 focus:shadow-[0_0_15px_rgba(6,182,212,0.15)]"
               />
               <LuSearch className="absolute top-1/2 left-4.5 h-4.5 w-4.5 -translate-y-1/2 text-gray-500" />
               {localSearch && (
@@ -211,7 +211,7 @@ export default function BlogListingClient({
                 >
                   {/* Glowing Top Accent Strip */}
                   <div
-                    className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${BRIGHT_GRADIENTS[themeKey] || BRIGHT_GRADIENTS['default']} z-20 opacity-40 transition-opacity duration-500 group-hover:opacity-100`}
+                    className={`absolute top-0 left-0 h-[3px] w-full bg-linear-to-r ${BRIGHT_GRADIENTS[themeKey] || BRIGHT_GRADIENTS['default']} z-20 opacity-40 transition-opacity duration-500 group-hover:opacity-100`}
                   />
 
                   {/* Cover Image */}
@@ -221,7 +221,7 @@ export default function BlogListingClient({
                       className="object-cover transition-transform duration-[1500ms] group-hover:scale-[1.03]"
                       fill
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#020205] via-transparent to-transparent opacity-80 lg:hidden" />
+                    <div className="absolute inset-0 bg-linear-to-t from-[#020205] via-transparent to-transparent opacity-80 lg:hidden" />
                   </div>
 
                   {/* Content Panel */}
@@ -242,7 +242,7 @@ export default function BlogListingClient({
                             <Link
                               key={idx}
                               href={`/blog/category/${cat.slug}`}
-                              className={`rounded-full border ${catTheme.border} ${catTheme.bg} px-3 py-1 text-[10px] font-black tracking-widest ${catTheme.text} uppercase transition-colors duration-300 hover:bg-white/[0.08]`}
+                              className={`rounded-full border ${catTheme.border} ${catTheme.bg} px-3 py-1 text-[10px] font-black tracking-widest ${catTheme.text} uppercase transition-colors duration-300 hover:bg-white/8`}
                             >
                               {cat.title}
                             </Link>
@@ -254,7 +254,7 @@ export default function BlogListingClient({
                             <Link
                               key={idx}
                               href={`/blog/tag/${tag.slug}`}
-                              className="rounded-full border border-white/5 bg-white/[0.03] px-2.5 py-0.5 text-[9px] font-bold tracking-wider text-gray-400 uppercase transition-all duration-300 hover:border-white/15 hover:bg-white/[0.05] hover:text-white"
+                              className="rounded-full border border-white/5 bg-white/3 px-2.5 py-0.5 text-[9px] font-bold tracking-wider text-gray-400 uppercase transition-all duration-300 hover:border-white/15 hover:bg-white/5 hover:text-white"
                             >
                               #{tag.title}
                             </Link>
@@ -333,7 +333,7 @@ export default function BlogListingClient({
               <div className="mt-12 flex items-center justify-center gap-2">
                 {currentPage === 1 ? (
                   <span
-                    className="inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 opacity-30"
+                    className="inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 opacity-30"
                     aria-label="Previous Page (disabled)"
                   >
                     <LuChevronLeft className="h-4 w-4" />
@@ -341,7 +341,7 @@ export default function BlogListingClient({
                 ) : (
                   <Link
                     href={getPageLink(currentPage - 1)}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white"
                     aria-label="Previous Page"
                   >
                     <LuChevronLeft className="h-4 w-4" />
@@ -358,7 +358,7 @@ export default function BlogListingClient({
                         className={`inline-flex h-9 w-9 items-center justify-center rounded-xl text-xs font-bold transition-all ${
                           isActive
                             ? 'border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.15)]'
-                            : 'border border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/10 hover:bg-white/5 hover:text-white'
+                            : 'border border-white/5 bg-white/1 text-gray-400 hover:border-white/10 hover:bg-white/5 hover:text-white'
                         }`}
                       >
                         {pageNum}
@@ -369,7 +369,7 @@ export default function BlogListingClient({
 
                 {currentPage === totalPages ? (
                   <span
-                    className="inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 opacity-30"
+                    className="inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 opacity-30"
                     aria-label="Next Page (disabled)"
                   >
                     <LuChevronRight className="h-4 w-4" />
@@ -377,7 +377,7 @@ export default function BlogListingClient({
                 ) : (
                   <Link
                     href={getPageLink(currentPage + 1)}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white"
                     aria-label="Next Page"
                   >
                     <LuChevronRight className="h-4 w-4" />
@@ -391,8 +391,8 @@ export default function BlogListingClient({
         {/* CTA Section Card (Matching design cards of the site) */}
         <div className="group/card relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#07070F]/85 p-8 shadow-[0_40px_100px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-500 hover:border-cyan-500/20 sm:p-12">
           {/* Glowing Top Accent Strip */}
-          <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />
-          <div className="pointer-events-none absolute -top-[40%] -right-[10%] h-[300px] w-[300px] rounded-full bg-cyan-600/10 blur-[100px]" />
+          <div className="absolute top-0 left-0 h-1 w-full bg-linear-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />
+          <div className="pointer-events-none absolute -top-[40%] -right-[10%] size-75 rounded-full bg-cyan-600/10 blur-[100px]" />
 
           <div className="relative z-10 flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
             <div className="max-w-2xl">
@@ -401,7 +401,7 @@ export default function BlogListingClient({
               </span>
               <h2 className="font-heading mb-3 text-2xl font-black tracking-tight text-white sm:text-3xl lg:text-4xl">
                 Ready to Accelerate Your{' '}
-                <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
                   Guitar Journey?
                 </span>
               </h2>
@@ -415,7 +415,7 @@ export default function BlogListingClient({
             <div className="shrink-0">
               <Link
                 href="https://calendly.com/shuvamraha10/intro-call"
-                className="group/btn font-heading relative inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-7 py-3.5 text-xs font-bold text-white shadow-[0_0_20px_rgba(6,182,212,0.2)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] active:scale-95 sm:text-sm"
+                className="group/btn font-heading relative inline-flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-7 py-3.5 text-xs font-bold text-white shadow-[0_0_20px_rgba(6,182,212,0.2)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] active:scale-95 sm:text-sm"
               >
                 <LuPhone className="h-4 w-4" />
                 Book Free Call

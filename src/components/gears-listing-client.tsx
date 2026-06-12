@@ -162,7 +162,10 @@ export default function GearsListingClient({
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsDropdownOpen(false);
       }
     }
@@ -210,15 +213,9 @@ export default function GearsListingClient({
       const matchesSearch =
         !query ||
         item.title.toLowerCase().includes(query) ||
-        (item.subtitle || '')
-          .toLowerCase()
-          .includes(query) ||
-        (item.description || '')
-          .toLowerCase()
-          .includes(query) ||
-        (item.ideal_for || []).some((bf) =>
-          bf.toLowerCase().includes(query)
-        );
+        (item.subtitle || '').toLowerCase().includes(query) ||
+        (item.description || '').toLowerCase().includes(query) ||
+        (item.ideal_for || []).some((bf) => bf.toLowerCase().includes(query));
 
       const matchesCategory =
         selectedCategory === 'All' ||
@@ -245,13 +242,13 @@ export default function GearsListingClient({
               placeholder="Search gears, brands, or features..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-full border border-white/10 bg-white/[0.02] py-3.5 pr-12 pl-12 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04] focus:ring-1 focus:ring-cyan-500/30"
+              className="w-full rounded-full border border-white/10 bg-white/2 py-3.5 pr-12 pl-12 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-white transition-colors cursor-pointer"
+                className="absolute inset-y-0 right-4 flex cursor-pointer items-center text-gray-500 transition-colors hover:text-white"
                 aria-label="Clear search"
               >
                 <LuX className="h-4.5 w-4.5" />
@@ -260,15 +257,19 @@ export default function GearsListingClient({
           </div>
 
           {/* Custom Category Dropdown selector */}
-          <div ref={dropdownRef} className="relative w-full md:w-60 shrink-0">
+          <div ref={dropdownRef} className="relative w-full shrink-0 md:w-60">
             <button
               type="button"
               onClick={() => setIsDropdownOpen((prev) => !prev)}
-              className="flex w-full items-center justify-between rounded-full border border-white/10 bg-white/[0.02] px-5 py-3.5 text-sm text-white transition-all duration-300 hover:border-white/20 hover:bg-white/[0.04] focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/30 outline-none cursor-pointer"
+              className="flex w-full cursor-pointer items-center justify-between rounded-full border border-white/10 bg-white/2 px-5 py-3.5 text-sm text-white transition-all duration-300 outline-none hover:border-white/20 hover:bg-white/4 focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/30"
             >
               <div className="flex items-center gap-2.5">
-                <span className={`h-2.5 w-2.5 rounded-full bg-gradient-to-r ${activeTheme.gradient} ${activeTheme.glow}`} />
-                <span className="font-semibold tracking-wide">{selectedCategory}</span>
+                <span
+                  className={`h-2.5 w-2.5 rounded-full bg-linear-to-r ${activeTheme.gradient} ${activeTheme.glow}`}
+                />
+                <span className="font-semibold tracking-wide">
+                  {selectedCategory}
+                </span>
               </div>
               <svg
                 className={`h-4 w-4 text-gray-500 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`}
@@ -276,12 +277,17 @@ export default function GearsListingClient({
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </button>
 
             {isDropdownOpen && (
-              <div className="absolute right-0 left-0 z-50 mt-2 max-h-60 overflow-y-auto rounded-2xl border border-white/10 bg-[#0A0A16] p-2 shadow-2xl backdrop-blur-md animate-in fade-in slide-in-from-top-2 duration-200">
+              <div className="animate-in fade-in slide-in-from-top-2 absolute right-0 left-0 z-50 mt-2 max-h-60 overflow-y-auto rounded-2xl border border-white/10 bg-[#0A0A16] p-2 shadow-2xl backdrop-blur-md duration-200">
                 {activeCategories.map((cat) => {
                   const theme = categoryThemes[cat] || DEFAULT_THEME;
                   const isSelected = selectedCategory === cat;
@@ -293,15 +299,23 @@ export default function GearsListingClient({
                         setSelectedCategory(cat);
                         setIsDropdownOpen(false);
                       }}
-                      className={`flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-xs font-semibold transition-all duration-200 hover:bg-white/[0.04] cursor-pointer ${
-                        isSelected ? `${theme.text} bg-white/[0.03]` : 'text-gray-400'
+                      className={`flex w-full cursor-pointer items-center justify-between rounded-xl px-3 py-2.5 text-xs font-semibold transition-all duration-200 hover:bg-white/4 ${
+                        isSelected
+                          ? `${theme.text} bg-white/3`
+                          : 'text-gray-400'
                       }`}
                     >
                       <div className="flex items-center gap-2">
-                        <span className={`h-1.5 w-1.5 rounded-full bg-gradient-to-r ${theme.gradient}`} />
+                        <span
+                          className={`h-1.5 w-1.5 rounded-full bg-linear-to-r ${theme.gradient}`}
+                        />
                         <span>{cat}</span>
                       </div>
-                      {isSelected && <span className={`h-1 w-1 rounded-full bg-gradient-to-r ${theme.gradient} ${theme.glow}`} />}
+                      {isSelected && (
+                        <span
+                          className={`h-1 w-1 rounded-full bg-linear-to-r ${theme.gradient} ${theme.glow}`}
+                        />
+                      )}
                     </button>
                   );
                 })}
@@ -345,12 +359,12 @@ export default function GearsListingClient({
             </h3>
             <p className="text-xs leading-relaxed text-gray-400 sm:text-sm">
               Some of the purchase links provided above are affiliate links
-              (such as Amazon Store links). Using these links to make a
-              purchase quietly supports my music training work and
-              high-quality tutorial development — at absolutely{' '}
-              <strong>no extra cost to you</strong>. I only recommend gear
-              items that I have personally played, verified, and trusted in
-              my studio or on stage. Thank you for supporting the music!
+              (such as Amazon Store links). Using these links to make a purchase
+              quietly supports my music training work and high-quality tutorial
+              development — at absolutely <strong>no extra cost to you</strong>.
+              I only recommend gear items that I have personally played,
+              verified, and trusted in my studio or on stage. Thank you for
+              supporting the music!
             </p>
           </div>
         </div>
@@ -417,11 +431,11 @@ function GearCard({
   return (
     <article
       ref={ref}
-      className={`group relative flex flex-col md:flex-row ${isEven ? '' : 'md:flex-row-reverse'} overflow-hidden rounded-[2.5rem] border border-white/[0.04] bg-white/[0.01] transition-all duration-500 hover:border-white/10 hover:bg-white/[0.02] hover:shadow-[0_30px_70px_rgba(0,0,0,0.6)]`}
+      className={`group relative flex flex-col md:flex-row ${isEven ? '' : 'md:flex-row-reverse'} overflow-hidden rounded-[2.5rem] border border-white/[0.04] bg-white/1 transition-all duration-500 hover:border-white/10 hover:bg-white/2 hover:shadow-[0_30px_70px_rgba(0,0,0,0.6)]`}
     >
       {/* Glowing Top Accent Strip (lights up on hover) */}
       <div
-        className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${theme.gradient} z-20 opacity-20 transition-opacity duration-500 group-hover:opacity-90`}
+        className={`absolute top-0 left-0 h-[3px] w-full bg-linear-to-r ${theme.gradient} z-20 opacity-20 transition-opacity duration-500 group-hover:opacity-90`}
       />
 
       {/* Inner Corner Accent Glow (fades in on hover) */}
@@ -532,7 +546,7 @@ function GearCard({
             {item.ideal_for?.map((feature: string, idx: number) => (
               <span
                 key={idx}
-                className="inline-flex items-center rounded-lg border border-white/5 bg-white/[0.02] px-2.5 py-1 text-[11px] font-bold text-gray-300 backdrop-blur-sm"
+                className="inline-flex items-center rounded-lg border border-white/5 bg-white/2 px-2.5 py-1 text-[11px] font-bold text-gray-300 backdrop-blur-sm"
               >
                 <LuCheck className="mr-1.5 h-3.5 w-3.5 shrink-0 text-emerald-400" />
                 {feature}
@@ -542,9 +556,9 @@ function GearCard({
         </div>
 
         {/* Redesigned Trust & Verification Card */}
-        <div className="group/trust relative mt-4 mb-6 overflow-hidden rounded-2xl border border-white/[0.04] bg-white/[0.01] p-4">
+        <div className="group/trust relative mt-4 mb-6 overflow-hidden rounded-2xl border border-white/[0.04] bg-white/1 p-4">
           {/* Interactive hover glow gradient */}
-          <div className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-r from-amber-500/10 via-transparent to-cyan-500/10 opacity-0 transition-opacity duration-700 group-hover/trust:opacity-100" />
+          <div className="pointer-events-none absolute -inset-px rounded-2xl bg-linear-to-r from-amber-500/10 via-transparent to-cyan-500/10 opacity-0 transition-opacity duration-700 group-hover/trust:opacity-100" />
 
           <div className="relative z-10 flex flex-col gap-3">
             {/* Subtitle / Header */}
@@ -606,7 +620,7 @@ function GearCard({
               href={item.brand_link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-1 cursor-pointer items-center justify-center rounded-xl border border-white/10 bg-white/[0.02] py-3 text-xs font-black tracking-wider text-white transition-all duration-300 hover:border-white/20 hover:bg-white/[0.05] active:scale-95"
+              className="flex flex-1 cursor-pointer items-center justify-center rounded-xl border border-white/10 bg-white/2 py-3 text-xs font-black tracking-wider text-white transition-all duration-300 hover:border-white/20 hover:bg-white/5 active:scale-95"
             >
               <LuExternalLink className="mr-2 h-4 w-4" />
               Explore Website

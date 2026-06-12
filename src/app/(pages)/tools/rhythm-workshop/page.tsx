@@ -335,7 +335,7 @@ export default function RhythmWorkshopPage() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsMuted(!isMuted)}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.02] text-gray-300 hover:bg-white/5 hover:text-white"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/2 text-gray-300 hover:bg-white/5 hover:text-white"
             >
               {isMuted ? (
                 <LuVolumeX className="h-5 w-5 text-rose-400" />
@@ -345,7 +345,7 @@ export default function RhythmWorkshopPage() {
             </button>
             <button
               onClick={clearPattern}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.02] text-gray-300 hover:bg-white/5 hover:text-white"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/2 text-gray-300 hover:bg-white/5 hover:text-white"
               title="Clear sequencer pattern"
             >
               <LuRotateCcw className="h-5 w-5" />
@@ -436,7 +436,7 @@ export default function RhythmWorkshopPage() {
                 <button
                   key={idx}
                   onClick={() => loadPreset(preset.pattern)}
-                  className="flex items-center justify-between rounded-2xl border border-white/5 bg-white/[0.01] p-4 text-left transition-all hover:bg-white/5 hover:text-white"
+                  className="flex items-center justify-between rounded-2xl border border-white/5 bg-white/1 p-4 text-left transition-all hover:bg-white/5 hover:text-white"
                 >
                   <div className="space-y-1">
                     <p className="text-xs font-black text-white">
@@ -493,7 +493,7 @@ export default function RhythmWorkshopPage() {
                     className={`flex items-center justify-between rounded-2xl border p-4 text-left transition-all ${
                       isActiveProg
                         ? 'border-cyan-500/40 bg-cyan-500/10 text-white'
-                        : 'border-white/5 bg-white/[0.01] text-gray-400 hover:bg-white/5 hover:text-white'
+                        : 'border-white/5 bg-white/1 text-gray-400 hover:bg-white/5 hover:text-white'
                     }`}
                   >
                     <div className="space-y-1">

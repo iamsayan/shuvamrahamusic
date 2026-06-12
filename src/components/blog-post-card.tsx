@@ -22,11 +22,11 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
 
   return (
     <div
-      className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.04] bg-white/[0.01] transition-all duration-500 hover:${theme.border} hover:bg-white/[0.03] hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]`}
+      className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.04] bg-white/1 transition-all duration-500 hover:${theme.border} hover:bg-white/3 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]`}
     >
       {/* Glowing Top Accent Strip */}
       <div
-        className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${BRIGHT_GRADIENTS[themeKey] || BRIGHT_GRADIENTS['default']} z-20 opacity-20 transition-opacity duration-500 group-hover:opacity-90`}
+        className={`absolute top-0 left-0 h-[3px] w-full bg-linear-to-r ${BRIGHT_GRADIENTS[themeKey] || BRIGHT_GRADIENTS['default']} z-20 opacity-20 transition-opacity duration-500 group-hover:opacity-90`}
       />
 
       {/* Inner accent glow on hover */}
@@ -44,7 +44,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
               fill
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#020205]/40 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-[#020205]/40 to-transparent" />
         </div>
 
         {/* Metadata & Title */}
@@ -87,7 +87,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
                 <Link
                   key={idx}
                   href={`/blog/category/${cat.slug}`}
-                  className={`rounded-full border ${catTheme.border} bg-white/[0.02] px-2.5 py-0.5 text-[9px] font-black tracking-widest ${catTheme.text} uppercase transition-colors duration-300 hover:bg-white/[0.08]`}
+                  className={`rounded-full border ${catTheme.border} bg-white/2 px-2.5 py-0.5 text-[9px] font-black tracking-widest ${catTheme.text} uppercase transition-colors duration-300 hover:bg-white/8`}
                 >
                   {cat.title}
                 </Link>
@@ -102,7 +102,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
                 <Link
                   key={idx}
                   href={`/blog/tag/${tag.slug}`}
-                  className="rounded-lg border border-white/[0.05] bg-white/[0.02] px-2.5 py-0.5 text-[9px] font-bold tracking-wide text-gray-400 uppercase transition-colors hover:bg-white/[0.05] hover:text-white"
+                  className="rounded-lg border border-white/5 bg-white/2 px-2.5 py-0.5 text-[9px] font-bold tracking-wide text-gray-400 uppercase transition-colors hover:bg-white/5 hover:text-white"
                 >
                   #{tag.title}
                 </Link>

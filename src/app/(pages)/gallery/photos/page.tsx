@@ -145,7 +145,7 @@ export default function PhotosGalleryPage() {
               className={`rounded-full px-5 py-2 text-xs font-bold tracking-wider uppercase transition-all duration-300 ${
                 selectedCategory === cat
                   ? 'border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.2)]'
-                  : 'border border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/10 hover:bg-white/5 hover:text-white'
+                  : 'border border-white/5 bg-white/1 text-gray-400 hover:border-white/10 hover:bg-white/5 hover:text-white'
               }`}
             >
               {cat}
@@ -159,7 +159,7 @@ export default function PhotosGalleryPage() {
             <div
               key={photo.id}
               onClick={() => setLightboxIndex(idx)}
-              className="group relative cursor-pointer overflow-hidden rounded-2xl border border-white/[0.05] bg-white/[0.01] p-4 transition-all duration-500 hover:border-cyan-500/20 hover:bg-white/[0.02]"
+              className="group relative cursor-pointer overflow-hidden rounded-2xl border border-white/5 bg-white/1 p-4 transition-all duration-500 hover:border-cyan-500/20 hover:bg-white/2"
             >
               {/* Image Container */}
               <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-gray-900">
@@ -170,7 +170,7 @@ export default function PhotosGalleryPage() {
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#020205]/60 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-[#020205]/60 to-transparent" />
                 <span className="absolute top-3 right-3 rounded-full border border-white/10 bg-black/60 px-2.5 py-1 text-[8px] font-bold tracking-widest text-cyan-400 uppercase backdrop-blur-md">
                   {photo.category}
                 </span>

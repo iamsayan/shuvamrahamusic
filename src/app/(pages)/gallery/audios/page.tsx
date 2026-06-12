@@ -81,7 +81,7 @@ export default function AudiosGalleryPage() {
                   </span>
                 </div>
 
-                <div className="flex gap-2 rounded-full border border-white/10 bg-white/[0.02] p-1">
+                <div className="flex gap-2 rounded-full border border-white/10 bg-white/2 p-1">
                   <button
                     onClick={() => setActivePlayer('spotify')}
                     className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[10px] font-black tracking-wider uppercase transition-all duration-300 ${
@@ -166,7 +166,7 @@ export default function AudiosGalleryPage() {
                       className={`relative flex flex-col items-start rounded-2xl border p-5 text-left transition-all duration-300 ${
                         isSelected
                           ? 'border-green-500/40 bg-green-500/[0.05] shadow-[0_0_20px_rgba(34,197,94,0.1)]'
-                          : 'border-white/5 bg-white/[0.01] hover:border-white/10 hover:bg-white/[0.03]'
+                          : 'border-white/5 bg-white/1 hover:border-white/10 hover:bg-white/3'
                       }`}
                     >
                       <div className="mb-2 flex w-full items-center justify-between">

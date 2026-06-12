@@ -125,13 +125,13 @@ export default function TutorialsListingClient({
             placeholder="Search exercises, manuscript sheets, or topics..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-full border border-white/10 bg-white/[0.02] py-3.5 pr-12 pl-12 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04] focus:ring-1 focus:ring-cyan-500/30"
+            className="w-full rounded-full border border-white/10 bg-white/2 py-3.5 pr-12 pl-12 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30"
           />
           {searchQuery && (
             <button
               type="button"
               onClick={() => setSearchQuery('')}
-              className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-white transition-colors cursor-pointer"
+              className="absolute inset-y-0 right-4 flex cursor-pointer items-center text-gray-500 transition-colors hover:text-white"
               aria-label="Clear search"
             >
               <LuX className="h-4.5 w-4.5" />
@@ -145,8 +145,8 @@ export default function TutorialsListingClient({
         <div className="flex flex-col items-center justify-center rounded-3xl border border-white/5 bg-[#080812]/30 py-24 text-center backdrop-blur-xl">
           <LuSearch className="mb-4 h-10 w-10 animate-bounce text-gray-600" />
           <p className="max-w-md text-base text-gray-500 sm:text-lg">
-            No materials match &quot;{searchQuery}&quot;. Try typing a
-            different search term.
+            No materials match &quot;{searchQuery}&quot;. Try typing a different
+            search term.
           </p>
         </div>
       ) : (
@@ -159,11 +159,11 @@ export default function TutorialsListingClient({
             return (
               <article
                 key={item._id}
-                className="group relative flex flex-col overflow-hidden rounded-[2.5rem] border border-white/[0.04] bg-white/[0.01] transition-all duration-500 hover:border-white/10 hover:bg-white/[0.02] hover:shadow-[0_30px_70px_rgba(0,0,0,0.6)]"
+                className="group relative flex flex-col overflow-hidden rounded-[2.5rem] border border-white/[0.04] bg-white/1 transition-all duration-500 hover:border-white/10 hover:bg-white/2 hover:shadow-[0_30px_70px_rgba(0,0,0,0.6)]"
               >
                 {/* Glowing Top Accent Strip */}
                 <div
-                  className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${theme.gradient} z-20 opacity-20 transition-opacity duration-500 group-hover:opacity-90`}
+                  className={`absolute top-0 left-0 h-[3px] w-full bg-linear-to-r ${theme.gradient} z-20 opacity-20 transition-opacity duration-500 group-hover:opacity-90`}
                 />
 
                 {/* Inner Corner Accent Glow */}
@@ -177,9 +177,13 @@ export default function TutorialsListingClient({
                     <YouTubeFacade videoId={item.youtube_video_id} />
                   </div>
                 ) : (
-                  <div className={`relative aspect-video w-full overflow-hidden border-b border-white/[0.04] bg-gradient-to-br ${theme.gradient} flex items-center justify-center`}>
+                  <div
+                    className={`relative aspect-video w-full overflow-hidden border-b border-white/[0.04] bg-linear-to-br ${theme.gradient} flex items-center justify-center`}
+                  >
                     <div className="absolute inset-0 bg-[#05050A]/70 backdrop-blur-[2px]" />
-                    <div className={`relative flex h-16 w-16 items-center justify-center rounded-2xl border ${theme.border} ${theme.bg} ${theme.text} ${theme.glow} transition-transform duration-500 group-hover:scale-110`}>
+                    <div
+                      className={`relative flex h-16 w-16 items-center justify-center rounded-2xl border ${theme.border} ${theme.bg} ${theme.text} ${theme.glow} transition-transform duration-500 group-hover:scale-110`}
+                    >
                       <LuFileText className="h-8 w-8" />
                     </div>
                   </div>
@@ -215,7 +219,7 @@ export default function TutorialsListingClient({
                         return (
                           <div
                             key={linkIdx}
-                            className="flex flex-col justify-between gap-3 rounded-2xl border border-white/[0.03] bg-white/[0.01] p-4 transition-all duration-300 hover:border-white/10 hover:bg-white/[0.03] sm:flex-row sm:items-center"
+                            className="flex flex-col justify-between gap-3 rounded-2xl border border-white/[0.03] bg-white/1 p-4 transition-all duration-300 hover:border-white/10 hover:bg-white/3 sm:flex-row sm:items-center"
                           >
                             <div className="flex min-w-0 items-center gap-3">
                               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400">

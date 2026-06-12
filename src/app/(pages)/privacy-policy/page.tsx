@@ -183,7 +183,7 @@ export default function PrivacyPolicyPage() {
             <p className="text-gray-300">
               For privacy-related questions, please contact:
             </p>
-            <div className="mt-2 space-y-2 rounded-xl border border-white/5 bg-white/[0.02] p-4 text-left">
+            <div className="mt-2 space-y-2 rounded-xl border border-white/5 bg-white/2 p-4 text-left">
               <p className="font-bold text-white">Shuvam Raha Music</p>
               <p className="text-sm text-gray-300">
                 Email:{' '}

@@ -34,14 +34,14 @@ export default async function Home() {
   return (
     <main className="relative min-h-screen overflow-x-hidden bg-[#05050A] text-[#f0f0f5]">
       {/* Ambient background glows */}
-      <div className="animate-blob-1 pointer-events-none absolute top-1/4 left-1/4 h-[400px] w-[400px] rounded-full bg-cyan-600/10 blur-[150px]" />
-      <div className="animate-blob-2 pointer-events-none absolute top-1/3 right-1/4 h-[450px] w-[450px] rounded-full bg-violet-600/10 blur-[150px]" />
-      <div className="animate-blob-3 pointer-events-none absolute bottom-1/4 left-1/3 h-[400px] w-[400px] rounded-full bg-amber-600/5 blur-[150px]" />
+      <div className="animate-blob-1 pointer-events-none absolute top-1/4 left-1/4 size-100 rounded-full bg-cyan-600/10 blur-[150px]" />
+      <div className="animate-blob-2 pointer-events-none absolute top-1/3 right-1/4 size-112.5 rounded-full bg-violet-600/10 blur-[150px]" />
+      <div className="animate-blob-3 pointer-events-none absolute bottom-1/4 left-1/3 size-100 rounded-full bg-amber-600/5 blur-[150px]" />
 
       {/* ==========================================================
           1. HERO SECTION
          ========================================================== */}
-      <section className="relative flex min-h-[100svh] items-center pt-28 pb-20 md:pt-36">
+      <section className="relative flex min-h-svh items-center pt-28 pb-20 md:pt-36">
         <div className="absolute inset-0 z-0">
           <Image
             src="/bg.png"
@@ -50,10 +50,10 @@ export default async function Home() {
             priority
             className="object-cover object-center opacity-40 mix-blend-color-dodge"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#05050A]/90 via-[#05050A]/70 to-[#05050A]" />
+          <div className="absolute inset-0 bg-linear-to-b from-[#05050A]/90 via-[#05050A]/70 to-[#05050A]" />
         </div>
 
-        <div className="relative z-10 mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-12 px-5 md:px-12 lg:grid-cols-12 lg:gap-8 lg:px-20">
+        <div className="relative z-10 mx-auto grid w-full max-w-350 grid-cols-1 items-center gap-12 px-5 md:px-12 lg:grid-cols-12 lg:gap-8 lg:px-20">
           <div className="animate-in-1 space-y-6 text-center lg:col-span-7 lg:text-left">
             <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3.5 py-1.5 shadow-[0_0_15px_rgba(6,182,212,0.15)] backdrop-blur-md">
               <LuAward className="h-4 w-4 text-cyan-400" />
@@ -64,7 +64,7 @@ export default async function Home() {
 
             <h1 className="font-heading text-3xl leading-[1.15] font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
               Shuvam Raha{' '}
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(6,182,212,0.3)]">
+              <span className="bg-linear-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(6,182,212,0.3)]">
                 Music
               </span>
             </h1>
@@ -82,14 +82,14 @@ export default async function Home() {
             <div className="flex flex-col justify-center gap-4 pt-4 sm:flex-row lg:justify-start">
               <Link
                 href="/guitar-classes-with-shuvam"
-                className="group font-heading relative flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 text-sm font-bold text-white shadow-[0_0_20px_rgba(6,182,212,0.2)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] active:scale-95"
+                className="group font-heading relative flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-8 py-4 text-sm font-bold text-white shadow-[0_0_20px_rgba(6,182,212,0.2)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] active:scale-95"
               >
                 Join Guitar Classes
                 <LuArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 href="/biography"
-                className="group font-heading flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-8 py-4 text-sm font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95"
+                className="group font-heading flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/3 px-8 py-4 text-sm font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95"
               >
                 Read Biography
               </Link>
@@ -97,7 +97,7 @@ export default async function Home() {
           </div>
 
           <div className="animate-in-3 flex justify-center lg:col-span-5 lg:justify-end">
-            <div className="relative aspect-[3/4] w-full max-w-[380px] overflow-hidden rounded-3xl border border-white/10 shadow-2xl shadow-cyan-500/5">
+            <div className="relative aspect-3/4 w-full max-w-95 overflow-hidden rounded-3xl border border-white/10 shadow-2xl shadow-cyan-500/5">
               <Image
                 src="/hero-guitarist.jpg"
                 alt="Shuvam Raha playing guitar"
@@ -106,7 +106,7 @@ export default async function Home() {
                 className="object-cover opacity-90 transition-transform duration-1000 hover:scale-105"
                 sizes="(max-width: 1024px) 380px, 450px"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#05050A]/70 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-[#05050A]/70 via-transparent to-transparent" />
             </div>
           </div>
         </div>
@@ -116,7 +116,7 @@ export default async function Home() {
           2. STATS BAR / CREDENTIALS (Drawn from authorityPoints)
          ========================================================== */}
       <section className="relative z-10 border-y border-white/5 bg-[#07070F]/50 py-10 backdrop-blur-sm">
-        <div className="mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
+        <div className="mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
           <div className="grid grid-cols-2 gap-8 text-center md:grid-cols-4">
             <div className="space-y-1">
               <div className="font-heading text-3xl font-black text-cyan-400 sm:text-4xl">
@@ -158,14 +158,14 @@ export default async function Home() {
           3. BIO INTRO SECTION
          ========================================================== */}
       <section className="relative z-10 py-20 md:py-28">
-        <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-12 px-5 md:px-12 lg:grid-cols-12 lg:px-20">
+        <div className="mx-auto grid w-full max-w-350 grid-cols-1 items-center gap-12 px-5 md:px-12 lg:grid-cols-12 lg:px-20">
           <div className="space-y-6 lg:col-span-5">
             <span className="font-heading text-sm font-bold tracking-[0.15em] text-cyan-400 uppercase">
               Meet the Instructor
             </span>
             <h2 className="font-heading text-3xl leading-tight font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
               A Unique Fusion of{' '}
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                 Tech &amp; Melody
               </span>
             </h2>
@@ -194,7 +194,7 @@ export default async function Home() {
               return (
                 <div
                   key={idx}
-                  className={`group relative rounded-2xl border ${point.border} ${point.bg} p-6 transition-all duration-300 hover:border-white/10 hover:bg-white/[0.02]`}
+                  className={`group relative rounded-2xl border ${point.border} ${point.bg} p-6 transition-all duration-300 hover:border-white/10 hover:bg-white/2`}
                 >
                   <div
                     className={`mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl border ${point.border} ${point.bg} ${point.color} transition-transform group-hover:scale-105`}
@@ -218,7 +218,7 @@ export default async function Home() {
           4. GUITAR CLASSES / CURRICULUM HIGHLIGHTS
          ========================================================== */}
       <section className="relative z-10 border-t border-white/5 bg-[#07070F]/30 py-20 md:py-28">
-        <div className="mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
+        <div className="mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
           {/* Section Header */}
           <div className="mx-auto mb-16 max-w-3xl space-y-4 text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3.5 py-1.5 shadow-[0_0_15px_rgba(6,182,212,0.15)] backdrop-blur-md">
@@ -229,7 +229,7 @@ export default async function Home() {
             </div>
             <h2 className="font-heading text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl">
               What You Will{' '}
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(6,182,212,0.25)]">
+              <span className="bg-linear-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(6,182,212,0.25)]">
                 Learn
               </span>
             </h2>
@@ -248,7 +248,7 @@ export default async function Home() {
               return (
                 <div
                   key={idx}
-                  className={`group relative flex flex-col justify-between rounded-2xl border border-white/[0.05] bg-[#0c0c16]/50 p-6 shadow-lg backdrop-blur-md transition-all duration-500 md:p-7 ${item.styles.hoverBorder} overflow-hidden hover:-translate-y-1 hover:bg-white/[0.02] hover:shadow-2xl ${colSpanClass}`}
+                  className={`group relative flex flex-col justify-between rounded-2xl border border-white/5 bg-[#0c0c16]/50 p-6 shadow-lg backdrop-blur-md transition-all duration-500 md:p-7 ${item.styles.hoverBorder} overflow-hidden hover:-translate-y-1 hover:bg-white/2 hover:shadow-2xl ${colSpanClass}`}
                 >
                   {/* Ambient hover glow inside card */}
                   <div
@@ -256,7 +256,7 @@ export default async function Home() {
                   />
 
                   {/* Giant floating step numbers */}
-                  <div className="font-heading pointer-events-none absolute right-4 bottom-1 text-[6.5rem] leading-none font-black text-white/[0.015] transition-all duration-700 select-none group-hover:translate-y-1 group-hover:text-white/[0.04]">
+                  <div className="font-heading pointer-events-none absolute right-4 bottom-1 text-[6.5rem] leading-none font-black text-white/1.5 transition-all duration-700 select-none group-hover:translate-y-1 group-hover:text-white/4">
                     0{idx + 1}
                   </div>
 
@@ -297,7 +297,7 @@ export default async function Home() {
           <div className="mt-12 text-center">
             <Link
               href="/guitar-classes-with-shuvam"
-              className="group font-heading inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 text-xs font-bold text-white shadow-lg shadow-cyan-500/10 transition-all hover:scale-105 hover:shadow-cyan-500/20 active:scale-95 sm:text-sm"
+              className="group font-heading inline-flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-8 py-4 text-xs font-bold text-white shadow-lg shadow-cyan-500/10 transition-all hover:scale-105 hover:shadow-cyan-500/20 active:scale-95 sm:text-sm"
             >
               Explore Course Packages &amp; Pricing
               <LuArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -310,7 +310,7 @@ export default async function Home() {
           6. MUSIC VIDEOS CAROUSEL
          ========================================================== */}
       <section className="relative z-10 border-t border-white/5 bg-[#07070F]/30 py-20 md:py-28">
-        <div className="mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
+        <div className="mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
           <div className="mb-12 space-y-3 text-center">
             <span className="font-heading text-sm font-bold tracking-[0.15em] text-cyan-400 uppercase">
               Video Portfolios
@@ -329,7 +329,7 @@ export default async function Home() {
               {videos.map((vid) => (
                 <div
                   key={vid.id}
-                  className="group w-[340px] shrink-0 snap-center overflow-hidden rounded-2xl border border-white/10 bg-[#0f0f1b]/70 shadow-lg backdrop-blur-sm transition-all duration-300 hover:border-cyan-500/20"
+                  className="group w-85 shrink-0 snap-center overflow-hidden rounded-2xl border border-white/10 bg-[#0f0f1b]/70 shadow-lg backdrop-blur-sm transition-all duration-300 hover:border-cyan-500/20"
                 >
                   <div className="relative aspect-video w-full overflow-hidden bg-black/40">
                     <YouTubeFacade videoId={vid.id} />
@@ -353,7 +353,7 @@ export default async function Home() {
           7. STUDENT PERFORMANCE VIDEOS CAROUSEL
          ========================================================== */}
       <section className="relative z-10 bg-[#05050A] py-20 md:py-28">
-        <div className="mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
+        <div className="mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
           <div className="mb-12 space-y-3 text-center">
             <span className="font-heading text-sm font-bold tracking-[0.15em] text-violet-400 uppercase">
               Student Showcases
@@ -370,8 +370,8 @@ export default async function Home() {
           <div className="relative w-full">
             <SliderGallery itemWidth={220} autoScroll={true}>
               {studentVideos.map((videoId) => (
-                <div key={videoId} className="w-[220px] shrink-0 snap-center">
-                  <div className="relative aspect-[9/16] w-full overflow-hidden rounded-2xl border border-white/10 bg-[#131320] shadow-md">
+                <div key={videoId} className="w-55 shrink-0 snap-center">
+                  <div className="relative aspect-9/16 w-full overflow-hidden rounded-2xl border border-white/10 bg-[#131320] shadow-md">
                     <YouTubeFacade videoId={videoId} />
                   </div>
                 </div>
@@ -386,7 +386,7 @@ export default async function Home() {
          ========================================================== */}
       {latestPosts.length > 0 && (
         <section className="relative z-10 bg-[#05050A] py-20 md:py-28">
-          <div className="mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
+          <div className="mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
             <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
               <div className="max-w-xl space-y-4">
                 <span className="font-heading text-sm font-bold tracking-[0.15em] text-violet-400 uppercase">
@@ -403,7 +403,7 @@ export default async function Home() {
               <div className="shrink-0">
                 <Link
                   href="/blog"
-                  className="group font-heading inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-6 py-3.5 text-xs font-bold text-white hover:bg-white/10 active:scale-95 sm:text-sm"
+                  className="group font-heading inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/3 px-6 py-3.5 text-xs font-bold text-white hover:bg-white/10 active:scale-95 sm:text-sm"
                 >
                   Read All Articles
                   <LuArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -439,14 +439,14 @@ export default async function Home() {
           <div className="flex flex-col justify-center gap-4 pt-4 sm:flex-row">
             <Link
               href="/guitar-classes-with-shuvam"
-              className="group font-heading relative flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 text-sm font-bold text-white shadow-lg transition-all hover:scale-105 active:scale-95"
+              className="group font-heading relative flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-8 py-4 text-sm font-bold text-white shadow-lg transition-all hover:scale-105 active:scale-95"
             >
               Book Class Details
               <LuArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               href="/contact"
-              className="group font-heading flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-8 py-4 text-sm font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95"
+              className="group font-heading flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/3 px-8 py-4 text-sm font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95"
             >
               Contact Shuvam
             </Link>

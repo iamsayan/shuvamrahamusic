@@ -5,7 +5,7 @@ import Link from 'next/link';
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
 
-import { LuImage, LuMusic, LuVideo, LuArrowRight } from 'react-icons/lu';
+import { LuArrowRight, LuImage, LuMusic, LuVideo } from 'react-icons/lu';
 
 export const metadata: Metadata = {
   title: 'Media Gallery',
@@ -32,33 +32,39 @@ export const metadata: Metadata = {
 const GALLERY_HUBS = [
   {
     title: 'Photo Gallery',
-    description: 'Behind the scenes, live stages, studio recordings, and guitar masterclasses.',
+    description:
+      'Behind the scenes, live stages, studio recordings, and guitar masterclasses.',
     href: '/gallery/photos',
     icon: LuImage,
     btnText: 'Explore Photos',
-    bgImage: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=800&auto=format&fit=crop',
+    bgImage:
+      'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=800&auto=format&fit=crop',
     gradient: 'from-cyan-500 via-blue-500 to-indigo-500',
     glowColor: 'group-hover:shadow-[0_0_30px_rgba(6,182,212,0.3)]',
     iconColor: 'text-cyan-400 border-cyan-500/20 bg-cyan-500/10',
   },
   {
     title: 'Audio Gallery',
-    description: 'Stream official releases, indie singles, acoustic covers, and compositions.',
+    description:
+      'Stream official releases, indie singles, acoustic covers, and compositions.',
     href: '/gallery/audios',
     icon: LuMusic,
     btnText: 'Stream Music',
-    bgImage: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=800&auto=format&fit=crop',
+    bgImage:
+      'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=800&auto=format&fit=crop',
     gradient: 'from-emerald-500 via-teal-500 to-cyan-500',
     glowColor: 'group-hover:shadow-[0_0_30px_rgba(16,185,129,0.3)]',
     iconColor: 'text-emerald-400 border-emerald-500/20 bg-emerald-500/10',
   },
   {
     title: 'Video Gallery',
-    description: 'Watch music videos, gear unboxings, playthroughs, and guitar guides.',
+    description:
+      'Watch music videos, gear unboxings, playthroughs, and guitar guides.',
     href: '/gallery/videos',
     icon: LuVideo,
     btnText: 'Watch Videos',
-    bgImage: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=800&auto=format&fit=crop',
+    bgImage:
+      'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=800&auto=format&fit=crop',
     gradient: 'from-red-500 via-rose-500 to-pink-500',
     glowColor: 'group-hover:shadow-[0_0_30px_rgba(239,68,68,0.3)]',
     iconColor: 'text-red-400 border-red-500/20 bg-red-500/10',
@@ -110,7 +116,8 @@ export default function GalleryHubPage() {
                 '@id': 'https://www.shuvamrahamusic.com/#website',
               },
               breadcrumb: {
-                '@id': 'https://www.shuvamrahamusic.com/gallery/#breadcrumblist',
+                '@id':
+                  'https://www.shuvamrahamusic.com/gallery/#breadcrumblist',
               },
             },
           ],
@@ -141,12 +148,12 @@ export default function GalleryHubPage() {
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   {/* Overlay shadow gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#030308] via-[#030308]/75 to-[#030308]/30 transition-all duration-500 group-hover:via-[#030308]/65" />
+                  <div className="absolute inset-0 bg-linear-to-t from-[#030308] via-[#030308]/75 to-[#030308]/30 transition-all duration-500 group-hover:via-[#030308]/65" />
                 </div>
 
                 {/* Top Glowing Color Accent Strip */}
                 <div
-                  className={`absolute top-0 left-0 h-1 w-full bg-gradient-to-r ${hub.gradient} opacity-60 transition-opacity duration-500 group-hover:opacity-100`}
+                  className={`absolute top-0 left-0 h-1 w-full bg-linear-to-r ${hub.gradient} opacity-60 transition-opacity duration-500 group-hover:opacity-100`}
                 />
 
                 {/* Card Content Wrapper */}
@@ -160,7 +167,7 @@ export default function GalleryHubPage() {
 
                   {/* Title & Description */}
                   <div className="space-y-2">
-                    <h3 className="font-heading text-xl font-black text-white sm:text-2xl transition-colors duration-300 group-hover:text-cyan-400">
+                    <h3 className="font-heading text-xl font-black text-white transition-colors duration-300 group-hover:text-cyan-400 sm:text-2xl">
                       {hub.title}
                     </h3>
                     <p className="text-xs leading-relaxed text-gray-400 sm:text-sm">

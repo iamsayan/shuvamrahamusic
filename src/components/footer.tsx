@@ -1,8 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
-import { LuChevronRight, LuMail, LuMapPin, LuPhone } from 'react-icons/lu';
+import Link from 'next/link';
+
 import {
   FaApple,
   FaFacebookF,
@@ -10,6 +10,7 @@ import {
   FaSpotify,
   FaYoutube,
 } from 'react-icons/fa6';
+import { LuChevronRight, LuMail, LuMapPin, LuPhone } from 'react-icons/lu';
 
 const socialLinks = [
   {
@@ -67,13 +68,13 @@ export default function Footer() {
   return (
     <footer className="relative w-full overflow-hidden bg-[#020205] pt-8 pb-4 md:pt-10">
       {/* Glowing Top Border */}
-      <div className="absolute top-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent via-indigo-500/10 to-transparent" />
-      <div className="absolute top-0 left-1/2 h-[1px] w-1/2 -translate-x-1/2 bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent blur-[2px]" />
+      <div className="absolute top-0 left-0 h-[1px] w-full bg-linear-to-r from-transparent via-indigo-500/10 to-transparent" />
+      <div className="absolute top-0 left-1/2 h-[1px] w-1/2 -translate-x-1/2 bg-linear-to-r from-transparent via-cyan-400/30 to-transparent blur-[2px]" />
 
       {/* Background Ambient Glows */}
-      <div className="pointer-events-none absolute top-0 left-1/2 h-[150px] w-full max-w-[1000px] -translate-x-1/2 bg-gradient-to-b from-cyan-950/5 via-blue-950/5 to-transparent blur-[80px]" />
+      <div className="pointer-events-none absolute top-0 left-1/2 h-[150px] w-full max-w-[1000px] -translate-x-1/2 bg-linear-to-b from-cyan-950/5 via-blue-950/5 to-transparent blur-[80px]" />
 
-      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
+      <div className="relative z-10 mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
         {/* === TOP GRID LAYOUT === */}
         <div className="flex w-full flex-col items-center justify-between gap-10 lg:flex-row lg:items-start">
           {/* Left Brand block */}
@@ -144,7 +145,7 @@ export default function Footer() {
                 {/* Email link */}
                 <a
                   href="mailto:contact@shuvamrahamusic.com"
-                  className="group flex w-fit items-center gap-2.5 rounded-xl border border-white/[0.04] bg-white/[0.01] px-4 py-2 text-xs text-gray-400 transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/[0.03] hover:text-white hover:shadow-[0_0_12px_rgba(6,182,212,0.08)] sm:text-sm"
+                  className="group flex w-fit items-center gap-2.5 rounded-xl border border-white/[0.04] bg-white/1 px-4 py-2 text-xs text-gray-400 transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/3 hover:text-white hover:shadow-[0_0_12px_rgba(6,182,212,0.08)] sm:text-sm"
                 >
                   <LuMail className="h-3.5 w-3.5 text-cyan-400 transition-transform group-hover:scale-110" />
                   <span className="font-semibold">
@@ -157,7 +158,7 @@ export default function Footer() {
                   href="https://wa.me/918961369468"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex w-fit items-center gap-2.5 rounded-xl border border-white/[0.04] bg-white/[0.01] px-4 py-2 text-xs text-gray-400 transition-all duration-300 hover:border-emerald-500/20 hover:bg-white/[0.03] hover:text-white hover:shadow-[0_0_12px_rgba(16,185,129,0.08)] sm:text-sm"
+                  className="group flex w-fit items-center gap-2.5 rounded-xl border border-white/[0.04] bg-white/1 px-4 py-2 text-xs text-gray-400 transition-all duration-300 hover:border-emerald-500/20 hover:bg-white/3 hover:text-white hover:shadow-[0_0_12px_rgba(16,185,129,0.08)] sm:text-sm"
                 >
                   <LuPhone className="h-3.5 w-3.5 text-emerald-400 transition-transform group-hover:scale-110" />
                   <span className="font-semibold">+91 8961369468</span>
@@ -168,7 +169,7 @@ export default function Footer() {
                   href="https://maps.app.goo.gl/sYFmaYbfmikB9MRb7"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex w-fit items-center gap-2.5 rounded-xl border border-white/[0.04] bg-white/[0.01] px-4 py-2 text-xs text-gray-400 transition-all duration-300 hover:border-rose-500/20 hover:bg-white/[0.03] hover:text-white hover:shadow-[0_0_12px_rgba(244,63,94,0.08)] sm:text-sm"
+                  className="group flex w-fit items-center gap-2.5 rounded-xl border border-white/[0.04] bg-white/1 px-4 py-2 text-xs text-gray-400 transition-all duration-300 hover:border-rose-500/20 hover:bg-white/3 hover:text-white hover:shadow-[0_0_12px_rgba(244,63,94,0.08)] sm:text-sm"
                 >
                   <LuMapPin className="h-3.5 w-3.5 text-rose-400 transition-transform group-hover:scale-110" />
                   <span className="font-semibold">

@@ -49,7 +49,7 @@ export default async function SecurePayPage() {
       >
         <Suspense
           fallback={
-            <div className="flex min-h-[300px] flex-col items-center justify-center gap-4">
+            <div className="flex min-h-75 flex-col items-center justify-center gap-4">
               <div className="h-12 w-12 animate-spin rounded-full border-4 border-cyan-500/20 border-t-cyan-500" />
               <p className="text-sm text-gray-400">Loading secure portal...</p>
             </div>

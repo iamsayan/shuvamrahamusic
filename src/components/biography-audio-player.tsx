@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+
 import { LuPause, LuPlay, LuVolume2 } from 'react-icons/lu';
 
 interface AudioPlayerProps {
@@ -83,7 +84,7 @@ export default function BiographyAudioPlayer({
     const clickX = e.clientX - rect.left;
     const width = rect.width;
     const clickPercentage = clickX / width;
-    
+
     const newTime = clickPercentage * audioRef.current.duration;
     audioRef.current.currentTime = newTime;
     setProgress(clickPercentage * 100);
@@ -101,19 +102,19 @@ export default function BiographyAudioPlayer({
         <img
           src={posterUrl}
           alt={`${title} artwork`}
-          className="h-20 w-20 rounded-xl object-cover shadow-lg border border-white/5 mx-auto sm:mx-0"
+          className="mx-auto h-20 w-20 rounded-xl border border-white/5 object-cover shadow-lg sm:mx-0"
         />
 
         <div className="flex-1 text-center sm:text-left">
           <h4 className="font-heading text-base font-extrabold text-white sm:text-lg">
             {title}
           </h4>
-          <p className="text-xs font-semibold text-cyan-400 uppercase tracking-wider mt-0.5">
+          <p className="mt-0.5 text-xs font-semibold tracking-wider text-cyan-400 uppercase">
             {artist}
           </p>
 
           {/* Controls */}
-          <div className="mt-3 flex items-center justify-center sm:justify-start gap-4">
+          <div className="mt-3 flex items-center justify-center gap-4 sm:justify-start">
             <button
               onClick={togglePlay}
               className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white shadow-md transition-all hover:scale-105 hover:bg-white/20 active:scale-95"
@@ -122,12 +123,14 @@ export default function BiographyAudioPlayer({
               {isPlaying ? (
                 <LuPause className="h-4 w-4 fill-white" />
               ) : (
-                <LuPlay className="h-4 w-4 fill-white ml-0.5" />
+                <LuPlay className="ml-0.5 h-4 w-4 fill-white" />
               )}
             </button>
             <div className="flex items-center gap-1.5 text-gray-400">
               <LuVolume2 className="h-4 w-4 text-cyan-400/80" />
-              <span className="text-xs font-bold tracking-wide">Audio Preview</span>
+              <span className="text-xs font-bold tracking-wide">
+                Audio Preview
+              </span>
             </div>
           </div>
         </div>
@@ -137,10 +140,10 @@ export default function BiographyAudioPlayer({
       <div className="mt-4">
         <div
           onClick={handleScrubberChange}
-          className="relative h-1.5 w-full cursor-pointer rounded-full bg-white/10 overflow-hidden"
+          className="relative h-1.5 w-full cursor-pointer overflow-hidden rounded-full bg-white/10"
         >
           <div
-            className="absolute top-0 left-0 h-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-100"
+            className="absolute top-0 left-0 h-full bg-linear-to-r from-cyan-500 to-blue-500 transition-all duration-100"
             style={{ width: `${progress}%` }}
           />
         </div>

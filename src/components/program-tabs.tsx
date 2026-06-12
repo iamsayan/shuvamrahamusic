@@ -26,7 +26,7 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
   return (
     <div className="flex w-full flex-col items-center">
       {/* Segmented Control (Tabs) */}
-      <div className="mb-12 flex flex-wrap justify-center gap-2 rounded-3xl border border-white/10 bg-white/[0.02] p-2 backdrop-blur-md sm:mb-16 sm:gap-4">
+      <div className="mb-12 flex flex-wrap justify-center gap-2 rounded-3xl border border-white/10 bg-white/2 p-2 backdrop-blur-md sm:mb-16 sm:gap-4">
         <button
           onClick={() => setActiveTab('instructor')}
           className={`flex items-center gap-2 rounded-2xl px-5 py-3 text-sm font-bold transition-all duration-300 sm:px-8 sm:text-base ${
@@ -79,10 +79,10 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
           <div className="animate-in fade-in zoom-in-95 duration-500">
             <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-16">
               <div className="flex w-full justify-center lg:w-5/12">
-                <div className="group relative aspect-[4/5] w-full max-w-[480px] rounded-[2rem] border border-white/10 bg-white/[0.02] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-3xl lg:max-w-full">
+                <div className="group relative aspect-4/5 w-full max-w-[480px] rounded-[2rem] border border-white/10 bg-white/2 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-3xl lg:max-w-full">
                   <div className="relative h-full w-full overflow-hidden rounded-2xl bg-[#0a0a0f]">
                     <CoachImageSlider images={classesData.coach_images} />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#05050A] via-[#05050A]/20 to-transparent" />
+                    <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-[#05050A] via-[#05050A]/20 to-transparent" />
                     <div className="absolute right-6 bottom-6 left-6">
                       <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1.5 backdrop-blur-md">
                         <LuBadgeCheck className="h-4 w-4 text-blue-400" />
@@ -109,7 +109,7 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
                   {authorityPoints.map((point, idx) => (
                     <div
                       key={idx}
-                      className="flex items-start gap-4 rounded-2xl border border-white/5 bg-white/[0.02] p-5 backdrop-blur-md transition-colors hover:border-white/10 hover:bg-white/[0.05]"
+                      className="flex items-start gap-4 rounded-2xl border border-white/5 bg-white/2 p-5 backdrop-blur-md transition-colors hover:border-white/10 hover:bg-white/5"
                     >
                       <div
                         className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${point.bg} border ${point.border} ${point.color}`}
@@ -139,7 +139,7 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
               {curriculum.map((item, i) => (
                 <div
                   key={i}
-                  className={`group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.02] p-6 backdrop-blur-3xl transition-colors hover:bg-white/[0.04] sm:p-8 ${item.colSpan}`}
+                  className={`group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/2 p-6 backdrop-blur-3xl transition-colors hover:bg-white/4 sm:p-8 ${item.colSpan}`}
                 >
                   <div
                     className={`absolute top-0 right-0 h-40 w-40 ${item.styles.ambientGlow} rounded-full opacity-0 blur-[60px] transition-transform duration-700 group-hover:scale-150 group-hover:opacity-100`}
@@ -179,7 +179,7 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
               ))}
             </div>
             <div className="mt-12 flex w-full justify-center px-5">
-              <p className="max-w-2xl rounded-full border border-white/5 bg-white/[0.02] px-6 py-3 text-center text-sm font-medium text-gray-500 md:text-base">
+              <p className="max-w-2xl rounded-full border border-white/5 bg-white/2 px-6 py-3 text-center text-sm font-medium text-gray-500 md:text-base">
                 <span className="mr-2 text-red-400">📌</span>
                 From basics to advanced—everything you need to become a complete
                 guitarist.
@@ -195,7 +195,7 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
               {features.map((feature, idx) => (
                 <div
                   key={idx}
-                  className="flex flex-col rounded-[2rem] border border-white/10 bg-white/[0.02] p-6 backdrop-blur-3xl transition-colors hover:bg-white/[0.04] sm:p-8"
+                  className="flex flex-col rounded-[2rem] border border-white/10 bg-white/2 p-6 backdrop-blur-3xl transition-colors hover:bg-white/4 sm:p-8"
                 >
                   <div className="mb-6 flex items-center gap-4 border-b border-white/10 pb-6">
                     <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400">
