@@ -135,7 +135,7 @@ export default function CockpitImage({
   const containerClasses = useMemo(
     () =>
       cn(
-        'relative h-full w-full bg-gray-200',
+        'relative bg-gray-200 size-full',
         imageState.error && 'bg-red-100',
         containerClassName
       ),
@@ -146,7 +146,7 @@ export default function CockpitImage({
     <div ref={ref} className={containerClasses}>
       {shouldShowPlaceholder &&
         (typeof loaderPlaceholder === 'boolean' ? (
-          <div className="relative flex h-full w-full flex-col items-center justify-center bg-linear-to-br from-blue-50 to-indigo-100">
+          <div className="relative flex flex-col items-center justify-center bg-linear-to-br from-blue-50 to-indigo-100 size-full">
             <div className="mb-3 flex size-16 items-center justify-center rounded-full bg-white shadow-lg">
               <Image
                 src={placeholderImage}

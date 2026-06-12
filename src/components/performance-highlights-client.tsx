@@ -392,7 +392,7 @@ export default function PerformanceHighlightsClient({
           <div className="flex-1 space-y-6">
             <div className="flex flex-col gap-3">
               <div className="inline-flex items-center gap-2 self-start rounded-full border border-cyan-500/20 bg-cyan-500/10 px-4 py-1.5 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
-                <LuGuitar className="h-4.5 w-4.5 text-cyan-400" />
+                <LuGuitar className="text-cyan-400 size-4.5" />
                 <span className="text-[10px] font-black tracking-widest text-cyan-200 uppercase">
                   Performing Artist
                 </span>
@@ -451,9 +451,9 @@ export default function PerformanceHighlightsClient({
                   className="group relative overflow-hidden rounded-2xl border border-white/5 bg-white/1 p-4.5 backdrop-blur-md transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/3"
                 >
                   <div
-                    className={`mb-3 inline-flex h-9 w-9 items-center justify-center rounded-xl border ${metric.color} shadow-sm transition-transform duration-300 group-hover:scale-105`}
+                    className={`mb-3 inline-flex items-center justify-center rounded-xl border ${metric.color} shadow-sm transition-transform duration-300 group-hover:scale-105 size-9`}
                   >
-                    <MetricIcon className="h-4.5 w-4.5" />
+                    <MetricIcon className="size-4.5" />
                   </div>
                   <h4 className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
                     {metric.label}
@@ -483,7 +483,7 @@ export default function PerformanceHighlightsClient({
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <div className="space-y-2.5 rounded-2xl border border-white/[0.04] bg-[#0A0A15]/60 p-5">
+            <div className="space-y-2.5 rounded-2xl border border-white/4 bg-[#0A0A15]/60 p-5">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-widest text-cyan-400 uppercase">
                 Strong Regional Hubs
               </span>
@@ -497,7 +497,7 @@ export default function PerformanceHighlightsClient({
               </div>
             </div>
 
-            <div className="space-y-2.5 rounded-2xl border border-white/[0.04] bg-[#0A0A15]/60 p-5">
+            <div className="space-y-2.5 rounded-2xl border border-white/4 bg-[#0A0A15]/60 p-5">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/20 bg-violet-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-widest text-violet-400 uppercase">
                 Interstate Touring
               </span>
@@ -511,7 +511,7 @@ export default function PerformanceHighlightsClient({
               </div>
             </div>
 
-            <div className="space-y-2.5 rounded-2xl border border-white/[0.04] bg-[#0A0A15]/60 p-5">
+            <div className="space-y-2.5 rounded-2xl border border-white/4 bg-[#0A0A15]/60 p-5">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-widest text-emerald-400 uppercase">
                 International Tours
               </span>
@@ -627,9 +627,9 @@ export default function PerformanceHighlightsClient({
                   >
                     <div className="flex items-start gap-4">
                       <div
-                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border ${theme.themeColor} shadow-sm transition-transform duration-300 group-hover:scale-105`}
+                        className={`flex shrink-0 items-center justify-center rounded-lg border ${theme.themeColor} shadow-sm transition-transform duration-300 group-hover:scale-105 size-10`}
                       >
-                        <Icon className="h-5 w-5" />
+                        <Icon className="size-5" />
                       </div>
                       <div className="flex-1 space-y-4">
                         <div>
@@ -648,7 +648,7 @@ export default function PerformanceHighlightsClient({
                                 key={itemIdx}
                                 className="flex items-center gap-1.5 text-[11px] leading-relaxed text-gray-400 sm:text-xs"
                               >
-                                <span className="h-1 w-1 shrink-0 rounded-full bg-cyan-400/60" />
+                                <span className="shrink-0 rounded-full bg-cyan-400/60 size-1" />
                                 <span className="line-clamp-1">{place}</span>
                               </li>
                             ))}
@@ -701,7 +701,7 @@ export default function PerformanceHighlightsClient({
             {/* Search Input */}
             <div className="relative md:col-span-2">
               <div className="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-gray-500">
-                <LuSearch className="h-4 w-4" />
+                <LuSearch className="size-4" />
               </div>
               <input
                 type="text"
@@ -717,7 +717,7 @@ export default function PerformanceHighlightsClient({
                   className="absolute inset-y-0 right-4 flex cursor-pointer items-center text-gray-500 transition-colors hover:text-white"
                   aria-label="Clear search"
                 >
-                  <LuX className="h-4 w-4" />
+                  <LuX className="size-4" />
                 </button>
               )}
             </div>
@@ -751,7 +751,7 @@ export default function PerformanceHighlightsClient({
           {/* Vertical Timeline Lists */}
           {filteredShows.length === 0 ? (
             <div className="flex flex-col items-center justify-center rounded-2xl border border-white/5 bg-[#080812]/30 py-16 text-center">
-              <LuSearch className="mb-3 h-8 w-8 animate-pulse text-gray-600" />
+              <LuSearch className="mb-3 animate-pulse text-gray-600 size-8" />
               <p className="text-sm text-gray-500">
                 No performances match your current search options.
               </p>
@@ -763,10 +763,10 @@ export default function PerformanceHighlightsClient({
                 return (
                   <div
                     key={idx}
-                    className="group relative flex flex-col gap-2 rounded-2xl border border-white/[0.03] bg-white/1 p-4.5 transition-all duration-300 hover:border-cyan-500/15 hover:bg-[#0E0E22]/30"
+                    className="group relative flex flex-col gap-2 rounded-2xl border border-white/3 bg-white/1 p-4.5 transition-all duration-300 hover:border-cyan-500/15 hover:bg-[#0E0E22]/30"
                   >
                     {/* Timeline Dot */}
-                    <div className="absolute top-[22px] -left-[31px] flex h-2 w-2 items-center justify-center rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.7)] transition-transform duration-300 group-hover:scale-125" />
+                    <div className="absolute top-[22px] -left-[31px] flex items-center justify-center rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.7)] transition-transform duration-300 group-hover:scale-125 size-2" />
 
                     <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-2">
                       <span className="font-heading text-xs font-bold text-gray-400">
@@ -780,7 +780,7 @@ export default function PerformanceHighlightsClient({
                     </div>
 
                     <div className="flex items-start gap-2 pt-1 text-sm leading-snug font-bold text-white sm:text-base">
-                      <LuMapPin className="mt-0.5 h-4 w-4 shrink-0 text-cyan-400" />
+                      <LuMapPin className="mt-0.5 shrink-0 text-cyan-400 size-4" />
                       <div>
                         <span>
                           {show.venue ? `${show.venue}, ` : ''}
@@ -803,9 +803,9 @@ export default function PerformanceHighlightsClient({
         {/* ==========================================
             SECTION 6: CTA CALL
            ========================================== */}
-        <div className="group relative overflow-hidden rounded-[2.5rem] border border-white/[0.04] bg-[#0A0A15]/60 p-8 text-center shadow-2xl backdrop-blur-2xl transition-all duration-500 hover:border-cyan-500/20 sm:p-10">
-          <div className="pointer-events-none absolute -top-20 -left-20 h-48 w-48 rounded-full bg-cyan-500/10 blur-[80px]" />
-          <div className="pointer-events-none absolute -right-20 -bottom-20 h-48 w-48 rounded-full bg-violet-500/10 blur-[80px]" />
+        <div className="group relative overflow-hidden rounded-[2.5rem] border border-white/4 bg-[#0A0A15]/60 p-8 text-center shadow-2xl backdrop-blur-2xl transition-all duration-500 hover:border-cyan-500/20 sm:p-10">
+          <div className="pointer-events-none absolute -top-20 -left-20 rounded-full bg-cyan-500/10 blur-[80px] size-48" />
+          <div className="pointer-events-none absolute -right-20 -bottom-20 rounded-full bg-violet-500/10 blur-[80px] size-48" />
 
           <div className="relative z-10 flex flex-col items-center gap-6">
             <h4 className="font-heading text-2xl leading-tight font-black text-white sm:text-3xl">

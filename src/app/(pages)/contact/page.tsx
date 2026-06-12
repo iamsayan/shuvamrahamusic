@@ -66,11 +66,11 @@ export default function ContactPage() {
                 href="https://wa.me/918961369468?text=Hi%20Shuvam,%20I%27m%20interested%20in%20your%20guitar%20classes!"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col justify-between rounded-2xl border border-white/[0.04] bg-white/1 p-5 transition-all duration-300 hover:border-emerald-500/20 hover:bg-white/3 hover:shadow-[0_0_15px_rgba(16,185,129,0.06)]"
+                className="group flex flex-col justify-between rounded-2xl border border-white/4 bg-white/1 p-5 transition-all duration-300 hover:border-emerald-500/20 hover:bg-white/3 hover:shadow-[0_0_15px_rgba(16,185,129,0.06)]"
               >
                 <div>
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 transition-transform duration-300 group-hover:scale-110">
-                    <LuMessageSquare className="h-5 w-5" />
+                  <div className="mb-4 inline-flex items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 transition-transform duration-300 group-hover:scale-110 size-10">
+                    <LuMessageSquare className="size-5" />
                   </div>
                   <h4 className="font-heading text-sm font-bold text-white sm:text-base">
                     WhatsApp Chat
@@ -87,11 +87,11 @@ export default function ContactPage() {
               {/* Email Card */}
               <a
                 href="mailto:contact@shuvamrahamusic.com"
-                className="group flex flex-col justify-between rounded-2xl border border-white/[0.04] bg-white/1 p-5 transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/3 hover:shadow-[0_0_15px_rgba(6,182,212,0.06)]"
+                className="group flex flex-col justify-between rounded-2xl border border-white/4 bg-white/1 p-5 transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/3 hover:shadow-[0_0_15px_rgba(6,182,212,0.06)]"
               >
                 <div>
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400 transition-transform duration-300 group-hover:scale-110">
-                    <LuMail className="h-5 w-5" />
+                  <div className="mb-4 inline-flex items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400 transition-transform duration-300 group-hover:scale-110 size-10">
+                    <LuMail className="size-5" />
                   </div>
                   <h4 className="font-heading text-sm font-bold text-white sm:text-base">
                     Email Us
@@ -113,7 +113,7 @@ export default function ContactPage() {
               </h4>
 
               <div className="flex items-start gap-3.5">
-                <LuPhone className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
+                <LuPhone className="mt-0.5 shrink-0 text-gray-400 size-4" />
                 <div>
                   <p className="text-xs font-semibold tracking-wider text-gray-500 uppercase">
                     Call / Support
@@ -128,7 +128,7 @@ export default function ContactPage() {
               </div>
 
               <div className="flex items-start gap-3.5 border-t border-white/5 pt-3.5">
-                <LuMapPin className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
+                <LuMapPin className="mt-0.5 shrink-0 text-gray-400 size-4" />
                 <div>
                   <p className="text-xs font-semibold tracking-wider text-gray-500 uppercase">
                     Location
@@ -145,7 +145,7 @@ export default function ContactPage() {
               </div>
 
               <div className="flex items-start gap-3.5 border-t border-white/5 pt-3.5">
-                <LuClock className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
+                <LuClock className="mt-0.5 shrink-0 text-gray-400 size-4" />
                 <div>
                   <p className="text-xs font-semibold tracking-wider text-gray-500 uppercase">
                     Working Hours

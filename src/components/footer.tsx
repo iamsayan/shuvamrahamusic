@@ -85,7 +85,7 @@ export default function Footer() {
                 alt="Shuvam Raha Logo"
                 width={80}
                 height={50}
-                className="h-auto w-auto"
+                className="size-auto"
               />
             </div>
 
@@ -103,11 +103,11 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group flex h-8 w-8 items-center justify-center rounded-full border border-white/5 bg-white/5 backdrop-blur-md transition-all duration-300 ${social.hoverBg}`}
+                  className={`group flex items-center justify-center rounded-full border border-white/5 bg-white/5 backdrop-blur-md transition-all duration-300 ${social.hoverBg} size-8`}
                   aria-label={social.name}
                 >
                   <social.icon
-                    className={`h-3.5 w-3.5 text-gray-400 transition-colors duration-300 ${social.hoverColor}`}
+                    className={`text-gray-400 transition-colors duration-300 ${social.hoverColor} size-3.5`}
                   />
                 </a>
               ))}
@@ -128,7 +128,7 @@ export default function Footer() {
                       href={link.href}
                       className="group flex items-center gap-1.5 text-xs font-bold text-gray-400 transition-colors duration-200 hover:text-white sm:text-sm"
                     >
-                      <LuChevronRight className="h-3.5 w-3.5 text-cyan-400/80 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-cyan-300" />
+                      <LuChevronRight className="text-cyan-400/80 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-cyan-300 size-3.5" />
                       <span>{link.name}</span>
                     </Link>
                   </li>
@@ -145,9 +145,9 @@ export default function Footer() {
                 {/* Email link */}
                 <a
                   href="mailto:contact@shuvamrahamusic.com"
-                  className="group flex w-fit items-center gap-2.5 rounded-xl border border-white/[0.04] bg-white/1 px-4 py-2 text-xs text-gray-400 transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/3 hover:text-white hover:shadow-[0_0_12px_rgba(6,182,212,0.08)] sm:text-sm"
+                  className="group flex w-fit items-center gap-2.5 rounded-xl border border-white/4 bg-white/1 px-4 py-2 text-xs text-gray-400 transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/3 hover:text-white hover:shadow-[0_0_12px_rgba(6,182,212,0.08)] sm:text-sm"
                 >
-                  <LuMail className="h-3.5 w-3.5 text-cyan-400 transition-transform group-hover:scale-110" />
+                  <LuMail className="text-cyan-400 transition-transform group-hover:scale-110 size-3.5" />
                   <span className="font-semibold">
                     contact@shuvamrahamusic.com
                   </span>
@@ -158,9 +158,9 @@ export default function Footer() {
                   href="https://wa.me/918961369468"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex w-fit items-center gap-2.5 rounded-xl border border-white/[0.04] bg-white/1 px-4 py-2 text-xs text-gray-400 transition-all duration-300 hover:border-emerald-500/20 hover:bg-white/3 hover:text-white hover:shadow-[0_0_12px_rgba(16,185,129,0.08)] sm:text-sm"
+                  className="group flex w-fit items-center gap-2.5 rounded-xl border border-white/4 bg-white/1 px-4 py-2 text-xs text-gray-400 transition-all duration-300 hover:border-emerald-500/20 hover:bg-white/3 hover:text-white hover:shadow-[0_0_12px_rgba(16,185,129,0.08)] sm:text-sm"
                 >
-                  <LuPhone className="h-3.5 w-3.5 text-emerald-400 transition-transform group-hover:scale-110" />
+                  <LuPhone className="text-emerald-400 transition-transform group-hover:scale-110 size-3.5" />
                   <span className="font-semibold">+91 8961369468</span>
                 </a>
 
@@ -169,9 +169,9 @@ export default function Footer() {
                   href="https://maps.app.goo.gl/sYFmaYbfmikB9MRb7"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex w-fit items-center gap-2.5 rounded-xl border border-white/[0.04] bg-white/1 px-4 py-2 text-xs text-gray-400 transition-all duration-300 hover:border-rose-500/20 hover:bg-white/3 hover:text-white hover:shadow-[0_0_12px_rgba(244,63,94,0.08)] sm:text-sm"
+                  className="group flex w-fit items-center gap-2.5 rounded-xl border border-white/4 bg-white/1 px-4 py-2 text-xs text-gray-400 transition-all duration-300 hover:border-rose-500/20 hover:bg-white/3 hover:text-white hover:shadow-[0_0_12px_rgba(244,63,94,0.08)] sm:text-sm"
                 >
-                  <LuMapPin className="h-3.5 w-3.5 text-rose-400 transition-transform group-hover:scale-110" />
+                  <LuMapPin className="text-rose-400 transition-transform group-hover:scale-110 size-3.5" />
                   <span className="font-semibold">
                     South Dumdum, Kolkata, India
                   </span>

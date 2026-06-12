@@ -38,8 +38,8 @@ export default function ContactForm() {
   if (state.success) {
     return (
       <div className="flex flex-col items-center justify-center px-4 py-10 text-center">
-        <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400 shadow-[0_0_30px_rgba(52,211,153,0.2)]">
-          <LuShieldCheck className="h-10 w-10 animate-bounce" />
+        <div className="mb-6 inline-flex items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400 shadow-[0_0_30px_rgba(52,211,153,0.2)] size-16">
+          <LuShieldCheck className="animate-bounce size-10" />
         </div>
         <h3 className="font-heading text-xl font-black text-white sm:text-2xl">
           Message Sent!
@@ -68,7 +68,7 @@ export default function ContactForm() {
 
       {state.message && !state.success && (
         <div className="flex items-start gap-2.5 rounded-xl border border-red-500/10 bg-red-500/4 p-3.5 text-xs text-red-400">
-          <LuTriangleAlert className="mt-0.5 h-4 w-4 shrink-0 text-red-500" />
+          <LuTriangleAlert className="mt-0.5 shrink-0 text-red-500 size-4" />
           <p className="leading-snug">{state.message}</p>
         </div>
       )}
@@ -95,7 +95,7 @@ export default function ContactForm() {
         </label>
         <div className="relative">
           <div className="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-gray-500">
-            <LuUser className="h-4 w-4" />
+            <LuUser className="size-4" />
           </div>
           <input
             type="text"
@@ -124,7 +124,7 @@ export default function ContactForm() {
           </label>
           <div className="relative">
             <div className="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-gray-500">
-              <LuMail className="h-4 w-4" />
+              <LuMail className="size-4" />
             </div>
             <input
               type="email"
@@ -151,7 +151,7 @@ export default function ContactForm() {
           </label>
           <div className="relative">
             <div className="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-gray-500">
-              <LuPhone className="h-4 w-4" />
+              <LuPhone className="size-4" />
             </div>
             <input
               type="tel"
@@ -175,7 +175,7 @@ export default function ContactForm() {
         </label>
         <div className="relative">
           <div className="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-gray-500">
-            <LuTag className="h-4 w-4" />
+            <LuTag className="size-4" />
           </div>
           <select
             id="subject"
@@ -230,7 +230,7 @@ export default function ContactForm() {
         </label>
         <div className="relative">
           <div className="pointer-events-none absolute top-3.5 left-3.5 text-gray-500">
-            <LuMessageSquare className="h-4 w-4" />
+            <LuMessageSquare className="size-4" />
           </div>
           <textarea
             id="message"
@@ -256,7 +256,7 @@ export default function ContactForm() {
         {isPending ? (
           <>
             <svg
-              className="mr-2 -ml-1 h-4 w-4 animate-spin text-white"
+              className="mr-2 -ml-1 animate-spin text-white size-4"
               fill="none"
               viewBox="0 0 24 24"
             >
@@ -279,7 +279,7 @@ export default function ContactForm() {
         ) : (
           <>
             Send Message
-            <LuSend className="h-4 w-4" />
+            <LuSend className="size-4" />
           </>
         )}
       </button>

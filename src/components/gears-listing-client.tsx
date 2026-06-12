@@ -235,7 +235,7 @@ export default function GearsListingClient({
           {/* Search input capsule */}
           <div className="relative flex-1">
             <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-gray-500">
-              <LuSearch className="h-5 w-5 transition-colors duration-300" />
+              <LuSearch className="transition-colors duration-300 size-5" />
             </div>
             <input
               type="text"
@@ -251,7 +251,7 @@ export default function GearsListingClient({
                 className="absolute inset-y-0 right-4 flex cursor-pointer items-center text-gray-500 transition-colors hover:text-white"
                 aria-label="Clear search"
               >
-                <LuX className="h-4.5 w-4.5" />
+                <LuX className="size-4.5" />
               </button>
             )}
           </div>
@@ -265,14 +265,14 @@ export default function GearsListingClient({
             >
               <div className="flex items-center gap-2.5">
                 <span
-                  className={`h-2.5 w-2.5 rounded-full bg-linear-to-r ${activeTheme.gradient} ${activeTheme.glow}`}
+                  className={`rounded-full bg-linear-to-r ${activeTheme.gradient} ${activeTheme.glow} size-2.5`}
                 />
                 <span className="font-semibold tracking-wide">
                   {selectedCategory}
                 </span>
               </div>
               <svg
-                className={`h-4 w-4 text-gray-500 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`}
+                className={`text-gray-500 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''} size-4`}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -307,13 +307,13 @@ export default function GearsListingClient({
                     >
                       <div className="flex items-center gap-2">
                         <span
-                          className={`h-1.5 w-1.5 rounded-full bg-linear-to-r ${theme.gradient}`}
+                          className={`rounded-full bg-linear-to-r ${theme.gradient} size-1.5`}
                         />
                         <span>{cat}</span>
                       </div>
                       {isSelected && (
                         <span
-                          className={`h-1 w-1 rounded-full bg-linear-to-r ${theme.gradient} ${theme.glow}`}
+                          className={`rounded-full bg-linear-to-r ${theme.gradient} ${theme.glow} size-1`}
                         />
                       )}
                     </button>
@@ -328,7 +328,7 @@ export default function GearsListingClient({
       {/* Gears Inventory Listing Grid */}
       {filteredGears.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-3xl border border-white/5 bg-[#080812]/30 py-24 text-center backdrop-blur-xl">
-          <LuSearch className="mb-4 h-10 w-10 animate-bounce text-gray-600" />
+          <LuSearch className="mb-4 animate-bounce text-gray-600 size-10" />
           <p className="max-w-md text-base text-gray-500 sm:text-lg">
             No gear matches &quot;{searchQuery}&quot;. Try exploring other
             categories or type a different search term.
@@ -350,8 +350,8 @@ export default function GearsListingClient({
       {/* Affiliate support and support text footer section */}
       <div className="mt-20 rounded-3xl border border-white/5 bg-[#080812]/40 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-3xl sm:p-8 md:p-10">
         <div className="flex flex-col gap-6 md:flex-row md:items-center">
-          <div className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-400">
-            <LuInfo className="h-6 w-6" />
+          <div className="inline-flex shrink-0 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-400 size-12">
+            <LuInfo className="size-6" />
           </div>
           <div>
             <h3 className="mb-2 text-lg font-bold text-white sm:text-xl">
@@ -431,7 +431,7 @@ function GearCard({
   return (
     <article
       ref={ref}
-      className={`group relative flex flex-col md:flex-row ${isEven ? '' : 'md:flex-row-reverse'} overflow-hidden rounded-[2.5rem] border border-white/[0.04] bg-white/1 transition-all duration-500 hover:border-white/10 hover:bg-white/2 hover:shadow-[0_30px_70px_rgba(0,0,0,0.6)]`}
+      className={`group relative flex flex-col md:flex-row ${isEven ? '' : 'md:flex-row-reverse'} overflow-hidden rounded-[2.5rem] border border-white/4 bg-white/1 transition-all duration-500 hover:border-white/10 hover:bg-white/2 hover:shadow-[0_30px_70px_rgba(0,0,0,0.6)]`}
     >
       {/* Glowing Top Accent Strip (lights up on hover) */}
       <div
@@ -440,24 +440,24 @@ function GearCard({
 
       {/* Inner Corner Accent Glow (fades in on hover) */}
       <div
-        className={`pointer-events-none absolute ${isEven ? '-right-24' : '-left-24'} -bottom-24 h-60 w-60 rounded-full ${hoverGlowClass} z-0 opacity-0 blur-[70px] transition-opacity duration-700 group-hover:opacity-100`}
+        className={`pointer-events-none absolute ${isEven ? '-right-24' : '-left-24'} -bottom-24 rounded-full ${hoverGlowClass} z-0 opacity-0 blur-[70px] transition-opacity duration-700 group-hover:opacity-100 size-60`}
       />
 
       {/* Image Slider Wrapper */}
       <div className="relative h-52 min-h-[200px] shrink-0 overflow-hidden bg-black/50 sm:h-60 md:h-auto md:min-h-0 md:w-[35%] lg:w-[40%]">
         {item.images && item.images.length > 0 ? (
-          <div className="relative h-full w-full">
+          <div className="relative size-full">
             {item.images.map((img, imgIdx) => (
               <div
                 key={imgIdx}
-                className="absolute inset-0 h-full w-full transition-all duration-700 ease-in-out"
+                className="absolute inset-0 transition-all duration-700 ease-in-out size-full"
                 style={{
                   transform: `translateX(${(imgIdx - activeImgIdx) * 100}%)`,
                 }}
               >
                 <CockpitImage
                   asset={img}
-                  className="h-full w-full object-cover object-top transition-transform duration-[1500ms] group-hover:scale-[1.03]"
+                  className="object-cover object-top transition-transform duration-[1500ms] group-hover:scale-[1.03] size-full"
                   fill
                   mode="resize"
                   quality={50}
@@ -466,7 +466,7 @@ function GearCard({
             ))}
           </div>
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gray-900 text-gray-700">
+          <div className="flex items-center justify-center bg-gray-900 text-gray-700 size-full">
             No Photo Available
           </div>
         )}
@@ -476,15 +476,15 @@ function GearCard({
           <>
             <button
               onClick={handlePrevImage}
-              className="absolute top-1/2 left-3 z-10 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-black/40 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:bg-black/70 active:scale-95"
+              className="absolute top-1/2 left-3 z-10 flex -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-black/40 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:bg-black/70 active:scale-95 size-9"
             >
-              <LuChevronLeft className="h-5 w-5" />
+              <LuChevronLeft className="size-5" />
             </button>
             <button
               onClick={handleNextImage}
-              className="absolute top-1/2 right-3 z-10 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-black/40 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:bg-black/70 active:scale-95"
+              className="absolute top-1/2 right-3 z-10 flex -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-black/40 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:bg-black/70 active:scale-95 size-9"
             >
-              <LuChevronRight className="h-5 w-5" />
+              <LuChevronRight className="size-5" />
             </button>
 
             {/* Dots Position Indicator Bar */}
@@ -548,7 +548,7 @@ function GearCard({
                 key={idx}
                 className="inline-flex items-center rounded-lg border border-white/5 bg-white/2 px-2.5 py-1 text-[11px] font-bold text-gray-300 backdrop-blur-sm"
               >
-                <LuCheck className="mr-1.5 h-3.5 w-3.5 shrink-0 text-emerald-400" />
+                <LuCheck className="mr-1.5 shrink-0 text-emerald-400 size-3.5" />
                 {feature}
               </span>
             ))}
@@ -556,14 +556,14 @@ function GearCard({
         </div>
 
         {/* Redesigned Trust & Verification Card */}
-        <div className="group/trust relative mt-4 mb-6 overflow-hidden rounded-2xl border border-white/[0.04] bg-white/1 p-4">
+        <div className="group/trust relative mt-4 mb-6 overflow-hidden rounded-2xl border border-white/4 bg-white/1 p-4">
           {/* Interactive hover glow gradient */}
           <div className="pointer-events-none absolute -inset-px rounded-2xl bg-linear-to-r from-amber-500/10 via-transparent to-cyan-500/10 opacity-0 transition-opacity duration-700 group-hover/trust:opacity-100" />
 
           <div className="relative z-10 flex flex-col gap-3">
             {/* Subtitle / Header */}
             <div className="flex items-center gap-1.5 text-[10px] font-black tracking-widest text-gray-500 uppercase">
-              <LuSparkles className="h-3.5 w-3.5 animate-pulse text-amber-400" />
+              <LuSparkles className="animate-pulse text-amber-400 size-3.5" />
               <span>Instructor Recommendation</span>
             </div>
 
@@ -572,12 +572,12 @@ function GearCard({
               {item.highlights?.map((highlight: string, hIdx: number) => (
                 <div key={hIdx} className="flex items-start gap-2.5">
                   <div
-                    className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${hIdx === 0 ? 'bg-amber-500/10 text-amber-400' : 'bg-cyan-500/10 text-cyan-400'}`}
+                    className={`mt-0.5 flex shrink-0 items-center justify-center rounded-full ${hIdx === 0 ? 'bg-amber-500/10 text-amber-400' : 'bg-cyan-500/10 text-cyan-400'} size-5`}
                   >
                     {hIdx === 0 ? (
-                      <LuStar className="h-3 w-3 fill-amber-400/20" />
+                      <LuStar className="fill-amber-400/20 size-3" />
                     ) : (
-                      <LuTarget className="h-3 w-3 animate-pulse" />
+                      <LuTarget className="animate-pulse size-3" />
                     )}
                   </div>
                   <p
@@ -600,7 +600,7 @@ function GearCard({
               rel="noopener noreferrer"
               className="flex flex-1 cursor-pointer items-center justify-center rounded-xl bg-amber-500 py-3 text-xs font-black tracking-wider text-black shadow-md shadow-amber-500/10 transition-all duration-300 hover:bg-amber-400 active:scale-95"
             >
-              <FaAmazon className="mr-2 h-4 w-4" />
+              <FaAmazon className="mr-2 size-4" />
               Check Price on Amazon
             </a>
           )}
@@ -611,7 +611,7 @@ function GearCard({
               rel="noopener noreferrer"
               className="flex flex-1 cursor-pointer items-center justify-center rounded-xl border border-cyan-500/20 bg-cyan-950/20 py-3 text-xs font-black tracking-wider text-cyan-400 transition-all duration-300 hover:border-cyan-500/40 hover:bg-cyan-900/30 active:scale-95"
             >
-              <LuShoppingBag className="mr-2 h-4 w-4" />
+              <LuShoppingBag className="mr-2 size-4" />
               Get from Distributor
             </a>
           )}
@@ -622,7 +622,7 @@ function GearCard({
               rel="noopener noreferrer"
               className="flex flex-1 cursor-pointer items-center justify-center rounded-xl border border-white/10 bg-white/2 py-3 text-xs font-black tracking-wider text-white transition-all duration-300 hover:border-white/20 hover:bg-white/5 active:scale-95"
             >
-              <LuExternalLink className="mr-2 h-4 w-4" />
+              <LuExternalLink className="mr-2 size-4" />
               Explore Website
             </a>
           )}
@@ -638,7 +638,7 @@ function GearCard({
               className="inline-flex items-center text-[10px] font-bold tracking-widest text-gray-500 uppercase transition-colors duration-200 hover:text-white"
             >
               Visit Official Brand Site
-              <LuExternalLink className="ml-1.5 h-3 w-3" />
+              <LuExternalLink className="ml-1.5 size-3" />
             </a>
           </div>
         )}

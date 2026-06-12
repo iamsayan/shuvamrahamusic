@@ -94,7 +94,7 @@ export default function BiographyAudioPlayer({
   return (
     <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0f0f1b]/90 p-4 shadow-xl backdrop-blur-md sm:p-5">
       {/* Glow effect */}
-      <div className="pointer-events-none absolute -right-10 -bottom-10 h-24 w-24 rounded-full bg-cyan-500/10 blur-xl" />
+      <div className="pointer-events-none absolute -right-10 -bottom-10 rounded-full bg-cyan-500/10 blur-xl size-24" />
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
         {/* Album Art / Poster */}
@@ -102,7 +102,7 @@ export default function BiographyAudioPlayer({
         <img
           src={posterUrl}
           alt={`${title} artwork`}
-          className="mx-auto h-20 w-20 rounded-xl border border-white/5 object-cover shadow-lg sm:mx-0"
+          className="mx-auto rounded-xl border border-white/5 object-cover shadow-lg sm:mx-0 size-20"
         />
 
         <div className="flex-1 text-center sm:text-left">
@@ -117,17 +117,17 @@ export default function BiographyAudioPlayer({
           <div className="mt-3 flex items-center justify-center gap-4 sm:justify-start">
             <button
               onClick={togglePlay}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white shadow-md transition-all hover:scale-105 hover:bg-white/20 active:scale-95"
+              className="flex items-center justify-center rounded-full border border-white/20 bg-white/10 text-white shadow-md transition-all hover:scale-105 hover:bg-white/20 active:scale-95 size-10"
               aria-label={isPlaying ? 'Pause' : 'Play'}
             >
               {isPlaying ? (
-                <LuPause className="h-4 w-4 fill-white" />
+                <LuPause className="fill-white size-4" />
               ) : (
-                <LuPlay className="ml-0.5 h-4 w-4 fill-white" />
+                <LuPlay className="ml-0.5 fill-white size-4" />
               )}
             </button>
             <div className="flex items-center gap-1.5 text-gray-400">
-              <LuVolume2 className="h-4 w-4 text-cyan-400/80" />
+              <LuVolume2 className="text-cyan-400/80 size-4" />
               <span className="text-xs font-bold tracking-wide">
                 Audio Preview
               </span>

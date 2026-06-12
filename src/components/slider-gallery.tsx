@@ -117,16 +117,16 @@ export default function SliderGallery({
         {/* Nav Buttons (Visible all the time) */}
         <button
           onClick={scrollLeft}
-          className="absolute top-1/2 left-0 z-20 flex h-12 w-12 -translate-x-2 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#05050A]/90 text-white shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white/10 md:-translate-x-6"
+          className="absolute top-1/2 left-0 z-20 flex -translate-x-2 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#05050A]/90 text-white shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white/10 md:-translate-x-6 size-12"
         >
-          <LuChevronLeft className="h-6 w-6 pr-0.5" />
+          <LuChevronLeft className="pr-0.5 size-6" />
         </button>
 
         <button
           onClick={scrollRight}
-          className="absolute top-1/2 right-0 z-20 flex h-12 w-12 translate-x-2 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#05050A]/90 text-white shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white/10 md:translate-x-6"
+          className="absolute top-1/2 right-0 z-20 flex translate-x-2 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#05050A]/90 text-white shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white/10 md:translate-x-6 size-12"
         >
-          <LuChevronRight className="h-6 w-6 pl-0.5" />
+          <LuChevronRight className="pl-0.5 size-6" />
         </button>
       </div>
 
@@ -140,7 +140,7 @@ export default function SliderGallery({
             className={`rounded-full transition-all duration-300 ${
               activeIndex === i
                 ? 'h-2 w-8 bg-orange-500 shadow-[0_0_10px_rgba(245,158,11,0.5)]'
-                : 'h-2 w-2 bg-white/20'
+                : 'bg-white/20 size-2'
             }`}
             aria-label={`Go to slide ${i + 1}`}
           />

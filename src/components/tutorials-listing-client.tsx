@@ -118,7 +118,7 @@ export default function TutorialsListingClient({
       <div className="relative z-30 mb-12">
         <div className="relative w-full">
           <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-gray-500">
-            <LuSearch className="h-5 w-5 transition-colors duration-300" />
+            <LuSearch className="transition-colors duration-300 size-5" />
           </div>
           <input
             type="text"
@@ -134,7 +134,7 @@ export default function TutorialsListingClient({
               className="absolute inset-y-0 right-4 flex cursor-pointer items-center text-gray-500 transition-colors hover:text-white"
               aria-label="Clear search"
             >
-              <LuX className="h-4.5 w-4.5" />
+              <LuX className="size-4.5" />
             </button>
           )}
         </div>
@@ -143,7 +143,7 @@ export default function TutorialsListingClient({
       {/* Tutorials Inventory Grid */}
       {filteredTutorials.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-3xl border border-white/5 bg-[#080812]/30 py-24 text-center backdrop-blur-xl">
-          <LuSearch className="mb-4 h-10 w-10 animate-bounce text-gray-600" />
+          <LuSearch className="mb-4 animate-bounce text-gray-600 size-10" />
           <p className="max-w-md text-base text-gray-500 sm:text-lg">
             No materials match &quot;{searchQuery}&quot;. Try typing a different
             search term.
@@ -159,7 +159,7 @@ export default function TutorialsListingClient({
             return (
               <article
                 key={item._id}
-                className="group relative flex flex-col overflow-hidden rounded-[2.5rem] border border-white/[0.04] bg-white/1 transition-all duration-500 hover:border-white/10 hover:bg-white/2 hover:shadow-[0_30px_70px_rgba(0,0,0,0.6)]"
+                className="group relative flex flex-col overflow-hidden rounded-[2.5rem] border border-white/4 bg-white/1 transition-all duration-500 hover:border-white/10 hover:bg-white/2 hover:shadow-[0_30px_70px_rgba(0,0,0,0.6)]"
               >
                 {/* Glowing Top Accent Strip */}
                 <div
@@ -168,23 +168,23 @@ export default function TutorialsListingClient({
 
                 {/* Inner Corner Accent Glow */}
                 <div
-                  className={`pointer-events-none absolute -right-24 -bottom-24 h-60 w-60 rounded-full ${hoverGlowClass} z-0 opacity-0 blur-[70px] transition-opacity duration-700 group-hover:opacity-100`}
+                  className={`pointer-events-none absolute -right-24 -bottom-24 rounded-full ${hoverGlowClass} z-0 opacity-0 blur-[70px] transition-opacity duration-700 group-hover:opacity-100 size-60`}
                 />
 
                 {/* YouTube Video Section or Themed Placeholder */}
                 {item.youtube_video_id ? (
-                  <div className="relative aspect-video w-full overflow-hidden border-b border-white/[0.04] bg-black/50">
+                  <div className="relative aspect-video w-full overflow-hidden border-b border-white/4 bg-black/50">
                     <YouTubeFacade videoId={item.youtube_video_id} />
                   </div>
                 ) : (
                   <div
-                    className={`relative aspect-video w-full overflow-hidden border-b border-white/[0.04] bg-linear-to-br ${theme.gradient} flex items-center justify-center`}
+                    className={`relative aspect-video w-full overflow-hidden border-b border-white/4 bg-linear-to-br ${theme.gradient} flex items-center justify-center`}
                   >
                     <div className="absolute inset-0 bg-[#05050A]/70 backdrop-blur-[2px]" />
                     <div
-                      className={`relative flex h-16 w-16 items-center justify-center rounded-2xl border ${theme.border} ${theme.bg} ${theme.text} ${theme.glow} transition-transform duration-500 group-hover:scale-110`}
+                      className={`relative flex items-center justify-center rounded-2xl border ${theme.border} ${theme.bg} ${theme.text} ${theme.glow} transition-transform duration-500 group-hover:scale-110 size-16`}
                     >
-                      <LuFileText className="h-8 w-8" />
+                      <LuFileText className="size-8" />
                     </div>
                   </div>
                 )}
@@ -194,7 +194,7 @@ export default function TutorialsListingClient({
                   <div>
                     {/* Accent Header */}
                     <div className="mb-4 flex items-center gap-1.5 text-[10px] font-black tracking-widest text-gray-500 uppercase">
-                      <LuSparkles className={`h-3.5 w-3.5 ${theme.text}`} />
+                      <LuSparkles className={`${theme.text} size-3.5`} />
                       <span>Topic Resource</span>
                     </div>
 
@@ -219,11 +219,11 @@ export default function TutorialsListingClient({
                         return (
                           <div
                             key={linkIdx}
-                            className="flex flex-col justify-between gap-3 rounded-2xl border border-white/[0.03] bg-white/1 p-4 transition-all duration-300 hover:border-white/10 hover:bg-white/3 sm:flex-row sm:items-center"
+                            className="flex flex-col justify-between gap-3 rounded-2xl border border-white/3 bg-white/1 p-4 transition-all duration-300 hover:border-white/10 hover:bg-white/3 sm:flex-row sm:items-center"
                           >
                             <div className="flex min-w-0 items-center gap-3">
-                              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400">
-                                <LuFileText className="h-5 w-5" />
+                              <div className="flex shrink-0 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400 size-10">
+                                <LuFileText className="size-5" />
                               </div>
                               <div className="min-w-0">
                                 <p className="truncate text-sm font-bold text-gray-200">

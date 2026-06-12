@@ -215,7 +215,7 @@ export default function VideosGalleryPage() {
                   : 'border border-transparent text-gray-400 hover:text-white'
               }`}
             >
-              <LuVideo className="h-4 w-4" />
+              <LuVideo className="size-4" />
               Standard Videos
             </button>
             <button
@@ -226,7 +226,7 @@ export default function VideosGalleryPage() {
                   : 'border border-transparent text-gray-400 hover:text-white'
               }`}
             >
-              <LuPlay className="h-4 w-4" />
+              <LuPlay className="size-4" />
               Shorts / Reels
             </button>
           </div>
@@ -269,7 +269,7 @@ export default function VideosGalleryPage() {
                   <div className="p-5">
                     <div className="mb-2 flex items-center gap-2 text-[9px] font-bold text-gray-500 uppercase">
                       <span className="flex items-center gap-1">
-                        <LuCalendar className="h-3 w-3" />
+                        <LuCalendar className="size-3" />
                         {video.year}
                       </span>
                     </div>
@@ -283,8 +283,8 @@ export default function VideosGalleryPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 border-t border-white/[0.04] p-5 pt-3 text-[9px] font-bold text-gray-500 uppercase">
-                  <LuVideo className="h-3 w-3 text-cyan-400" />
+                <div className="flex items-center gap-2 border-t border-white/4 p-5 pt-3 text-[9px] font-bold text-gray-500 uppercase">
+                  <LuVideo className="text-cyan-400 size-3" />
                   <span>Standard Video</span>
                 </div>
               </div>
@@ -309,7 +309,7 @@ export default function VideosGalleryPage() {
                   <div className="p-4">
                     <div className="mb-1.5 flex items-center gap-2 text-[9px] font-bold text-gray-500 uppercase">
                       <span className="flex items-center gap-1">
-                        <LuCalendar className="h-3 w-3" />
+                        <LuCalendar className="size-3" />
                         {video.year}
                       </span>
                     </div>
@@ -323,8 +323,8 @@ export default function VideosGalleryPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1.5 border-t border-white/[0.04] p-4 pt-2.5 text-[8px] font-bold text-gray-500 uppercase">
-                  <LuPlay className="h-3 w-3 text-cyan-400" />
+                <div className="flex items-center gap-1.5 border-t border-white/4 p-4 pt-2.5 text-[8px] font-bold text-gray-500 uppercase">
+                  <LuPlay className="text-cyan-400 size-3" />
                   <span>YouTube Short</span>
                 </div>
               </div>
@@ -363,7 +363,7 @@ export default function VideosGalleryPage() {
                 rel="noopener noreferrer"
                 className="group/btn font-heading relative inline-flex items-center justify-center gap-2 rounded-full bg-red-600 px-7 py-3.5 text-xs font-bold text-white shadow-[0_0_20px_rgba(220,38,38,0.2)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(220,38,38,0.4)] active:scale-95 sm:text-sm"
               >
-                <LuSparkles className="h-4 w-4" />
+                <LuSparkles className="size-4" />
                 Subscribe on YouTube
               </a>
             </div>

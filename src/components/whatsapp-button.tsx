@@ -34,7 +34,7 @@ export default function WhatsappButton() {
       </span>
 
       {/* Icon */}
-      <FaWhatsapp className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:rotate-[12deg]" />
+      <FaWhatsapp className="shrink-0 transition-transform duration-300 group-hover:rotate-[12deg] size-5" />
     </a>
   );
 }
