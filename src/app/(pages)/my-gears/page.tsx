@@ -4,6 +4,7 @@ import GearsListingClient from '@/components/gears-listing-client';
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
 import cockpit from '@/lib/client';
+import { SCHEMA } from '@/lib/schema';
 import { GearItem } from '@/types';
 
 export const metadata: Metadata = {
@@ -53,53 +54,26 @@ export default async function MyGearsPage() {
         schema={{
           '@context': 'https://schema.org',
           '@graph': [
-            {
-              '@type': 'WebSite',
-              '@id': 'https://www.shuvamrahamusic.com/#website',
-              url: 'https://www.shuvamrahamusic.com/',
-              name: 'Shuvam Raha Music',
-              description: 'Easy To Learn & Easy To Play',
-              inLanguage: 'en-US',
-            },
-            {
-              '@type': 'BreadcrumbList',
-              name: 'Breadcrumbs',
-              '@id': 'https://www.shuvamrahamusic.com/my-gears/#breadcrumblist',
-              itemListElement: [
-                {
-                  '@type': 'ListItem',
-                  position: 1,
-                  name: 'Home',
-                  item: 'https://www.shuvamrahamusic.com/',
-                },
-                {
-                  '@type': 'ListItem',
-                  position: 2,
-                  name: 'My Gears',
-                },
-              ],
-            },
-            {
-              '@type': 'WebPage',
-              '@id': 'https://www.shuvamrahamusic.com/my-gears/#webpage',
-              url: 'https://www.shuvamrahamusic.com/my-gears/',
-              inLanguage: 'en-US',
+            SCHEMA.webSite(),
+            SCHEMA.breadcrumb('/my-gears'),
+            SCHEMA.webPage({
+              path: '/my-gears',
               name: 'My Gears - Shuvam Raha Music',
               description:
                 'Explore the professional guitars, strings, pickups, cables, recording gear, and accessories personally used and recommended by Shuvam Raha.',
-              isPartOf: {
-                '@id': 'https://www.shuvamrahamusic.com/#website',
-              },
-              breadcrumb: {
-                '@id':
-                  'https://www.shuvamrahamusic.com/my-gears/#breadcrumblist',
-              },
-              primaryImageOfPage: {
-                '@id': 'https://www.shuvamrahamusic.com/my-gears/#thumbnail',
-              },
-              image: {
-                '@id': 'https://www.shuvamrahamusic.com/my-gears/#thumbnail',
-              },
+            }),
+            {
+              '@type': 'ItemList',
+              name: "Shuvam Raha's Gear Collection",
+              description:
+                'Guitars, strings, pickups, cables, recording gear, and accessories used by Shuvam Raha.',
+              numberOfItems: gears.length,
+              itemListElement: gears.slice(0, 20).map((gear, index) => ({
+                '@type': 'ListItem',
+                position: index + 1,
+                name: gear.title,
+                url: `${SCHEMA.BASE_URL}/my-gears`,
+              })),
             },
             {
               '@type': 'ImageObject',

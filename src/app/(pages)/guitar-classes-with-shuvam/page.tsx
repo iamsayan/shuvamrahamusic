@@ -12,6 +12,7 @@ import YouTubeFacade from '@/components/youtube-facade';
 import cockpit from '@/lib/client';
 // Static Data
 import { notFor, perfectFor } from '@/lib/guitar-data';
+import { SCHEMA } from '@/lib/schema';
 import { GuitarClassesData, PricingPlan } from '@/types';
 
 import {
@@ -188,6 +189,7 @@ export default async function Page() {
       {/* JSON-LD Structured Data for SEO */}
       <JsonLd
         schema={[
+          SCHEMA.breadcrumb('/guitar-classes-with-shuvam'),
           {
             '@context': 'https://schema.org',
             '@type': 'Course',
@@ -345,7 +347,7 @@ export default async function Page() {
             <div className="flex flex-1 flex-col items-center pt-10 text-center lg:pt-0">
               {/* Trust Badge */}
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 shadow-[0_0_20px_rgba(6,182,212,0.15)] backdrop-blur-md">
-                <LuAward className="text-cyan-400 size-4" />
+                <LuAward className="size-4 text-cyan-400" />
                 <span className="text-xs font-bold tracking-wide text-cyan-100 uppercase sm:text-sm">
                   LCM Certified Music Instructor
                 </span>
@@ -376,14 +378,14 @@ export default async function Page() {
               {/* Key Benefits */}
               <ul className="mb-10 flex flex-col items-center gap-4 text-center">
                 <li className="max-w-md text-sm font-medium text-gray-300 sm:flex sm:max-w-none sm:items-center sm:justify-center sm:text-base">
-                  <LuCircleCheck className="-mt-0.5 mr-2 inline-block shrink-0 align-middle text-cyan-400 sm:mt-0 size-5" />
+                  <LuCircleCheck className="-mt-0.5 mr-2 inline-block size-5 shrink-0 align-middle text-cyan-400 sm:mt-0" />
                   <span>
                     Online & Offline Guitar Coaching for Students{' '}
                     <span className="text-cyan-400">Worldwide</span>.
                   </span>
                 </li>
                 <li className="max-w-md text-sm font-medium text-gray-300 sm:flex sm:max-w-none sm:items-center sm:justify-center sm:text-base">
-                  <LuCircleCheck className="-mt-0.5 mr-2 inline-block shrink-0 align-middle text-cyan-400 sm:mt-0 size-5" />
+                  <LuCircleCheck className="-mt-0.5 mr-2 inline-block size-5 shrink-0 align-middle text-cyan-400 sm:mt-0" />
                   <span>
                     Perfect for{' '}
                     <span className="text-cyan-400">
@@ -392,7 +394,7 @@ export default async function Page() {
                   </span>
                 </li>
                 <li className="max-w-md text-sm font-medium text-gray-300 sm:flex sm:max-w-none sm:items-center sm:justify-center sm:text-base">
-                  <LuCircleCheck className="-mt-0.5 mr-2 inline-block shrink-0 align-middle text-cyan-400 sm:mt-0 size-5" />
+                  <LuCircleCheck className="-mt-0.5 mr-2 inline-block size-5 shrink-0 align-middle text-cyan-400 sm:mt-0" />
                   <span>
                     Learn English songs with simple{' '}
                     <span className="text-cyan-400">
@@ -409,7 +411,7 @@ export default async function Page() {
                   href="https://calendly.com/shuvamraha10/intro-call"
                   className="group font-heading relative flex w-full items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-8 py-4 text-sm font-bold text-white shadow-[0_0_30px_rgba(6,182,212,0.3)] transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(6,182,212,0.5)] active:scale-95 sm:w-auto sm:text-base"
                 >
-                  <LuPhone className="transition-transform group-hover:translate-x-1 size-5" />
+                  <LuPhone className="size-5 transition-transform group-hover:translate-x-1" />
                   Book Free Intro Call
                 </Link>
                 <Link
@@ -417,7 +419,7 @@ export default async function Page() {
                   className="group font-heading flex w-full items-center justify-center gap-3 rounded-full border border-white/10 bg-white/3 px-8 py-4 text-sm font-semibold text-white backdrop-blur-xl transition-all hover:border-white/20 hover:bg-white/10 active:scale-95 sm:w-auto sm:text-base"
                 >
                   Explore Plans
-                  <LuArrowRight className="transition-transform group-hover:translate-x-1 size-5" />
+                  <LuArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
 
@@ -426,8 +428,8 @@ export default async function Page() {
                 <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5 lg:gap-0 lg:divide-x lg:divide-white/10">
                   {/* 1. 5.0 Rating */}
                   <div className="flex w-full items-center gap-4 p-2 lg:py-1 lg:pr-4 lg:pl-0">
-                    <div className="flex shrink-0 items-center justify-center rounded-2xl border border-amber-500/20 bg-amber-500/10 text-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.15)] size-12">
-                      <LuStar className="fill-amber-400 size-5" />
+                    <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl border border-amber-500/20 bg-amber-500/10 text-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.15)]">
+                      <LuStar className="size-5 fill-amber-400" />
                     </div>
                     <div className="flex min-h-[48px] flex-col justify-center text-left">
                       <div className="flex items-center gap-1.5">
@@ -438,7 +440,7 @@ export default async function Page() {
                           {[...Array(5)].map((_, i) => (
                             <LuStar
                               key={i}
-                              className="fill-amber-400 text-amber-400 drop-shadow-[0_0_4px_rgba(245,158,11,0.5)] size-2.5"
+                              className="size-2.5 fill-amber-400 text-amber-400 drop-shadow-[0_0_4px_rgba(245,158,11,0.5)]"
                             />
                           ))}
                         </div>
@@ -451,7 +453,7 @@ export default async function Page() {
 
                   {/* 2. 11+ Years Experience */}
                   <div className="flex w-full items-center gap-4 p-2 lg:px-4 lg:py-1">
-                    <div className="flex shrink-0 items-center justify-center rounded-2xl border border-violet-500/20 bg-violet-500/10 text-violet-400 shadow-[0_0_15px_rgba(139,92,246,0.15)] size-12">
+                    <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl border border-violet-500/20 bg-violet-500/10 text-violet-400 shadow-[0_0_15px_rgba(139,92,246,0.15)]">
                       <LuGraduationCap className="size-5" />
                     </div>
                     <div className="flex min-h-[48px] flex-col justify-center text-left">
@@ -466,7 +468,7 @@ export default async function Page() {
 
                   {/* 3. Global Reach */}
                   <div className="flex w-full items-center gap-4 p-2 lg:px-4 lg:py-1">
-                    <div className="flex shrink-0 items-center justify-center rounded-2xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.15)] size-12">
+                    <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
                       <LuGlobe className="size-5" />
                     </div>
                     <div className="flex min-h-[48px] flex-col justify-center text-left">
@@ -481,7 +483,7 @@ export default async function Page() {
 
                   {/* 4. 1:1 Sessions */}
                   <div className="flex w-full items-center gap-4 p-2 lg:px-4 lg:py-1">
-                    <div className="flex shrink-0 items-center justify-center rounded-2xl border border-rose-500/20 bg-rose-500/10 text-rose-400 shadow-[0_0_15px_rgba(244,63,94,0.15)] size-12">
+                    <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl border border-rose-500/20 bg-rose-500/10 text-rose-400 shadow-[0_0_15px_rgba(244,63,94,0.15)]">
                       <LuAward className="size-5" />
                     </div>
                     <div className="flex min-h-[48px] flex-col justify-center text-left">
@@ -496,7 +498,7 @@ export default async function Page() {
 
                   {/* 5. Flexible Timings */}
                   <div className="flex w-full items-center gap-4 p-2 lg:py-1 lg:pr-0 lg:pl-4">
-                    <div className="flex shrink-0 items-center justify-center rounded-2xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)] size-12">
+                    <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
                       <LuClock className="size-5" />
                     </div>
                     <div className="flex min-h-[48px] flex-col justify-center text-left">
@@ -526,9 +528,9 @@ export default async function Page() {
 
           {/* Ambient Glows */}
           <div className="pointer-events-none absolute inset-0 z-0 overflow-visible">
-            <div className="pointer-events-none absolute -top-[10%] -left-[10%] rounded-full bg-violet-600/10 mix-blend-screen blur-[120px] size-[600px]" />
+            <div className="pointer-events-none absolute -top-[10%] -left-[10%] size-[600px] rounded-full bg-violet-600/10 mix-blend-screen blur-[120px]" />
             <div className="pointer-events-none absolute top-[40%] right-[-10%] h-[600px] w-[500px] rounded-full bg-fuchsia-600/10 mix-blend-screen blur-[120px]" />
-            <div className="pointer-events-none absolute -bottom-[10%] left-[30%] rounded-full bg-indigo-600/10 mix-blend-screen blur-[120px] size-[600px]" />
+            <div className="pointer-events-none absolute -bottom-[10%] left-[30%] size-[600px] rounded-full bg-indigo-600/10 mix-blend-screen blur-[120px]" />
           </div>
 
           <div className="relative z-10 mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
@@ -549,7 +551,7 @@ export default async function Page() {
             <div className="relative w-full overflow-hidden rounded-3xl border border-white/5 bg-white/2 p-4 sm:p-6">
               <div className="pointer-events-none absolute top-0 right-0 h-full w-[400px] bg-blue-500/5 blur-[80px]" />
               <div className="relative z-10 mb-6 flex items-center gap-3">
-                <LuMonitorSmartphone className="text-blue-400 size-5" />
+                <LuMonitorSmartphone className="size-5 text-blue-400" />
                 <h3 className="font-heading text-lg font-bold text-white sm:text-xl">
                   Student Performance Videos
                 </h3>
@@ -568,7 +570,7 @@ export default async function Page() {
             <div className="relative mt-4 w-full overflow-hidden rounded-3xl border border-white/5 bg-white/2 p-4 sm:p-6">
               <div className="pointer-events-none absolute top-0 right-0 h-full w-[400px] bg-blue-500/5 blur-[80px]" />
               <div className="relative z-10 mb-6 flex items-center gap-3">
-                <LuMic className="text-rose-500 size-5" />
+                <LuMic className="size-5 text-rose-500" />
                 <h3 className="font-heading text-lg font-bold text-white sm:text-xl">
                   Performances by Shuvam Raha
                 </h3>
@@ -616,20 +618,20 @@ export default async function Page() {
           id="achieve"
         >
           <div className="pointer-events-none absolute inset-0 z-0 overflow-visible">
-            <div className="absolute top-[10%] right-[10%] rounded-full bg-orange-600/5 mix-blend-screen blur-[120px] size-[500px]" />
-            <div className="absolute bottom-[20%] left-[10%] rounded-full bg-blue-600/5 mix-blend-screen blur-[120px] size-[600px]" />
+            <div className="absolute top-[10%] right-[10%] size-[500px] rounded-full bg-orange-600/5 mix-blend-screen blur-[120px]" />
+            <div className="absolute bottom-[20%] left-[10%] size-[600px] rounded-full bg-blue-600/5 mix-blend-screen blur-[120px]" />
           </div>
 
           <div className="relative z-10 mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
             <div className="relative z-10 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
               {/* Left Pod: PERFECT FOR YOU */}
               <div className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-emerald-500/10 bg-linear-to-b from-white/3 to-white/1 px-5 py-6 backdrop-blur-3xl transition-all duration-500 hover:border-emerald-500/30 hover:shadow-[0_30px_80px_rgba(16,185,129,0.06)] sm:rounded-[2.5rem] sm:p-10">
-                <div className="pointer-events-none absolute top-0 right-0 rounded-full bg-emerald-500/5 opacity-50 blur-[50px] transition-opacity duration-700 group-hover:opacity-100 size-32" />
+                <div className="pointer-events-none absolute top-0 right-0 size-32 rounded-full bg-emerald-500/5 opacity-50 blur-[50px] transition-opacity duration-700 group-hover:opacity-100" />
 
                 <div>
                   <div className="mb-8 flex items-center justify-between">
                     <h3 className="font-heading flex items-center gap-3 text-lg font-extrabold text-white sm:text-xl">
-                      <div className="flex items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.2)] transition-transform group-hover:scale-105 size-10">
+                      <div className="flex size-10 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.2)] transition-transform group-hover:scale-105">
                         <LuCircleCheck className="size-5" />
                       </div>
                       Perfect For You If...
@@ -645,7 +647,7 @@ export default async function Page() {
                         key={i}
                         className="group/item flex items-start gap-4 rounded-2xl border border-white/4 bg-white/1 p-3.5 transition-all duration-300 hover:translate-x-1 hover:border-emerald-500/20 hover:bg-emerald-500/3"
                       >
-                        <div className="mt-0.5 flex shrink-0 items-center justify-center rounded border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 transition-transform group-hover/item:scale-110 size-5">
+                        <div className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 transition-transform group-hover/item:scale-110">
                           <LuCircleCheck className="size-3" />
                         </div>
                         <span className="text-xs leading-relaxed font-medium text-gray-300 transition-colors duration-300 group-hover/item:text-white sm:text-sm md:text-base">
@@ -659,12 +661,12 @@ export default async function Page() {
 
               {/* Right Pod: NOT FOR YOU */}
               <div className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-rose-500/10 bg-linear-to-b from-white/3 to-white/1 px-5 py-6 backdrop-blur-3xl transition-all duration-500 hover:border-rose-500/30 hover:shadow-[0_30px_80px_rgba(244,63,94,0.06)] sm:rounded-[2.5rem] sm:p-10">
-                <div className="pointer-events-none absolute top-0 right-0 rounded-full bg-rose-500/5 opacity-50 blur-[50px] transition-opacity duration-700 group-hover:opacity-100 size-32" />
+                <div className="pointer-events-none absolute top-0 right-0 size-32 rounded-full bg-rose-500/5 opacity-50 blur-[50px] transition-opacity duration-700 group-hover:opacity-100" />
 
                 <div>
                   <div className="mb-8 flex items-center justify-between">
                     <h3 className="font-heading flex items-center gap-3 text-lg font-extrabold text-white sm:text-xl">
-                      <div className="flex items-center justify-center rounded-xl border border-rose-500/20 bg-rose-500/10 text-rose-400 shadow-[0_0_20px_rgba(244,63,94,0.2)] transition-transform group-hover:scale-105 size-10">
+                      <div className="flex size-10 items-center justify-center rounded-xl border border-rose-500/20 bg-rose-500/10 text-rose-400 shadow-[0_0_20px_rgba(244,63,94,0.2)] transition-transform group-hover:scale-105">
                         <LuCircleX className="size-5" />
                       </div>
                       NOT For You If...
@@ -680,7 +682,7 @@ export default async function Page() {
                         key={i}
                         className="group/item flex items-start gap-4 rounded-2xl border border-white/4 bg-white/1 p-3.5 transition-all duration-300 hover:translate-x-1 hover:border-rose-500/20 hover:bg-rose-500/3"
                       >
-                        <div className="mt-0.5 flex shrink-0 items-center justify-center rounded border border-rose-500/20 bg-rose-500/10 text-rose-400 transition-transform group-hover/item:scale-110 size-5">
+                        <div className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded border border-rose-500/20 bg-rose-500/10 text-rose-400 transition-transform group-hover/item:scale-110">
                           <LuCircleX className="size-3" />
                         </div>
                         <span className="text-xs leading-relaxed font-medium text-gray-300 transition-colors duration-300 group-hover/item:text-white sm:text-sm md:text-base">
@@ -693,7 +695,7 @@ export default async function Page() {
               </div>
 
               {/* Center Floating VS Badge (Overlap on Large Screens) */}
-              <div className="group absolute top-1/2 left-1/2 z-20 hidden -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-[#05050A] text-xs font-black text-gray-400 shadow-2xl lg:flex size-14">
+              <div className="group absolute top-1/2 left-1/2 z-20 hidden size-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-[#05050A] text-xs font-black text-gray-400 shadow-2xl lg:flex">
                 <div className="absolute inset-0 bg-linear-to-tr from-rose-500/10 to-emerald-500/10 opacity-50 transition-transform duration-700 group-hover:scale-150" />
                 <span className="font-heading relative z-10 bg-linear-to-r from-emerald-400 to-rose-400 bg-clip-text pl-0.5 tracking-widest text-transparent">
                   VS
@@ -711,7 +713,7 @@ export default async function Page() {
                 <div className="flex flex-col gap-6">
                   <div>
                     <div className="mb-2 flex items-center gap-3">
-                      <div className="flex items-center justify-center rounded-lg border border-cyan-500/20 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)] size-8">
+                      <div className="flex size-8 items-center justify-center rounded-lg border border-cyan-500/20 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
                         <LuClock className="size-4" />
                       </div>
                       <h3 className="font-heading text-base font-extrabold text-white sm:text-lg">
@@ -773,9 +775,9 @@ export default async function Page() {
                           10:00 AM – 9:00 PM
                         </span>
                       </div>
-                      <span className="relative flex shrink-0 size-2">
-                        <span className="absolute inline-flex animate-ping rounded-full bg-cyan-400 opacity-75 size-full"></span>
-                        <span className="relative inline-flex rounded-full bg-cyan-500 size-2"></span>
+                      <span className="relative flex size-2 shrink-0">
+                        <span className="absolute inline-flex size-full animate-ping rounded-full bg-cyan-400 opacity-75"></span>
+                        <span className="relative inline-flex size-2 rounded-full bg-cyan-500"></span>
                       </span>
                     </div>
 
@@ -788,9 +790,9 @@ export default async function Page() {
                           10:00 AM – 4:00 PM
                         </span>
                       </div>
-                      <span className="relative flex shrink-0 size-2">
-                        <span className="absolute inline-flex animate-ping rounded-full bg-blue-400 opacity-75 size-full"></span>
-                        <span className="relative inline-flex rounded-full bg-blue-500 size-2"></span>
+                      <span className="relative flex size-2 shrink-0">
+                        <span className="absolute inline-flex size-full animate-ping rounded-full bg-blue-400 opacity-75"></span>
+                        <span className="relative inline-flex size-2 rounded-full bg-blue-500"></span>
                       </span>
                     </div>
                   </div>
@@ -801,7 +803,7 @@ export default async function Page() {
                   <div>
                     <div className="mb-2 flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3">
-                        <div className="flex items-center justify-center rounded-lg border border-blue-500/20 bg-blue-500/10 text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.15)] size-8">
+                        <div className="flex size-8 items-center justify-center rounded-lg border border-blue-500/20 bg-blue-500/10 text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.15)]">
                           <LuCalendarDays className="size-4" />
                         </div>
                         <h3 className="font-heading text-base font-extrabold text-white sm:text-lg">
@@ -811,7 +813,7 @@ export default async function Page() {
 
                       {/* Pulsing Live indicator */}
                       <div className="flex shrink-0 items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-black tracking-wider text-emerald-400 uppercase shadow-[0_0_15px_rgba(16,185,129,0.1)] sm:text-xs">
-                        <span className="animate-pulse rounded-full bg-emerald-400 size-1.5" />
+                        <span className="size-1.5 animate-pulse rounded-full bg-emerald-400" />
                         Slots Active
                       </div>
                     </div>
@@ -823,7 +825,7 @@ export default async function Page() {
                   <div className="flex flex-col gap-3">
                     <div className="group/booking rounded-2xl border border-white/4 bg-white/1 p-3.5 transition-all duration-300 hover:border-blue-500/20 hover:bg-blue-500/3">
                       <div className="mb-2 flex items-center gap-3">
-                        <div className="flex shrink-0 items-center justify-center rounded border border-blue-500/20 bg-blue-500/10 text-blue-400 size-6">
+                        <div className="flex size-6 shrink-0 items-center justify-center rounded border border-blue-500/20 bg-blue-500/10 text-blue-400">
                           <LuCircleCheck className="size-3.5" />
                         </div>
                         <span className="font-heading text-sm font-bold text-white sm:text-base">
@@ -838,7 +840,7 @@ export default async function Page() {
 
                     <div className="group/booking rounded-2xl border border-white/4 bg-white/1 p-3.5 transition-all duration-300 hover:border-blue-500/20 hover:bg-blue-500/3">
                       <div className="mb-2 flex items-center gap-3">
-                        <div className="flex shrink-0 items-center justify-center rounded border border-blue-500/20 bg-blue-500/10 text-blue-400 size-6">
+                        <div className="flex size-6 shrink-0 items-center justify-center rounded border border-blue-500/20 bg-blue-500/10 text-blue-400">
                           <LuCircleCheck className="size-3.5" />
                         </div>
                         <span className="font-heading text-sm font-bold text-white sm:text-base">
@@ -857,7 +859,7 @@ export default async function Page() {
                 <div className="flex flex-col gap-6">
                   <div>
                     <div className="mb-2 flex items-center gap-3">
-                      <div className="flex items-center justify-center rounded-lg border border-indigo-500/20 bg-indigo-500/10 text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.15)] size-8">
+                      <div className="flex size-8 items-center justify-center rounded-lg border border-indigo-500/20 bg-indigo-500/10 text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.15)]">
                         <LuCircleAlert className="size-4" />
                       </div>
                       <h3 className="font-heading text-base font-extrabold text-white sm:text-lg">
@@ -914,7 +916,7 @@ export default async function Page() {
             <div className="mb-12 flex w-full flex-col items-center gap-8 text-center">
               <div className="flex flex-col items-center">
                 <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-2 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
-                  <LuAward className="text-emerald-400 size-4" />
+                  <LuAward className="size-4 text-emerald-400" />
                   <span className="text-xs font-bold tracking-widest text-emerald-400 uppercase sm:text-sm">
                     Simple Pricing
                   </span>
@@ -945,13 +947,13 @@ export default async function Page() {
           id="reviews"
         >
           <div className="pointer-events-none absolute inset-0 z-0">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-600/5 mix-blend-screen blur-[150px] size-[800px]" />
+            <div className="absolute top-1/2 left-1/2 size-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-600/5 mix-blend-screen blur-[150px]" />
           </div>
 
           <div className="relative z-10 mx-auto mb-12 w-full max-w-350 px-5 text-center sm:mb-16 md:px-12 lg:px-20">
             <div className="flex flex-col items-center">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-500/10 px-4 py-2 shadow-[0_0_15px_rgba(245,158,11,0.15)]">
-                <LuBadgeCheck className="text-amber-400 size-4" />
+                <LuBadgeCheck className="size-4 text-amber-400" />
                 <span className="text-xs font-bold tracking-widest text-amber-400 uppercase sm:text-sm">
                   Student Success Stories
                 </span>
@@ -980,7 +982,7 @@ export default async function Page() {
                       className="group relative flex w-[290px] shrink-0 flex-col justify-between overflow-hidden rounded-[2rem] border border-white/6 bg-linear-to-b from-white/3 to-white/1 p-6 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:scale-[1.01] hover:border-amber-500/30 hover:bg-white/5 hover:shadow-[0_0_40px_rgba(245,158,11,0.06)] active:scale-[0.99] sm:w-[420px] sm:p-7"
                     >
                       {/* Ambient Background Accent Glow */}
-                      <div className="pointer-events-none absolute top-0 right-0 rounded-full bg-amber-500/5 opacity-0 blur-[30px] transition-opacity duration-700 group-hover:opacity-100 size-24" />
+                      <div className="pointer-events-none absolute top-0 right-0 size-24 rounded-full bg-amber-500/5 opacity-0 blur-[30px] transition-opacity duration-700 group-hover:opacity-100" />
 
                       {/* Quotation Icon Decorator */}
                       <span className="pointer-events-none absolute top-4 right-6 font-serif text-6xl text-white/3 transition-colors duration-500 select-none group-hover:text-amber-500/6">
@@ -994,12 +996,12 @@ export default async function Page() {
                             {[...Array(5)].map((_, i) => (
                               <LuStar
                                 key={i}
-                                className="fill-amber-400 text-amber-400 drop-shadow-[0_0_6px_rgba(245,158,11,0.4)] sm:h-4 sm:w-4 size-3.5"
+                                className="size-3.5 fill-amber-400 text-amber-400 drop-shadow-[0_0_6px_rgba(245,158,11,0.4)] sm:h-4 sm:w-4"
                               />
                             ))}
                           </div>
                           <div className="flex items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-wider text-emerald-400 uppercase sm:text-[10px]">
-                            <span className="animate-duration-1000 animate-pulse rounded-full bg-emerald-400 size-1.5" />
+                            <span className="animate-duration-1000 size-1.5 animate-pulse rounded-full bg-emerald-400" />
                             Verified Student
                           </div>
                         </div>
@@ -1024,12 +1026,12 @@ export default async function Page() {
                         {/* Animated Avatar Ring */}
                         <div className="relative">
                           <div className="absolute inset-0 rounded-full bg-linear-to-tr from-amber-500 to-orange-500 opacity-20 blur-[3px] transition-opacity duration-500 group-hover:opacity-60" />
-                          <div className="relative z-10 flex shrink-0 items-center justify-center overflow-hidden rounded-full ring-2 ring-white/8 transition-all duration-500 group-hover:ring-amber-500/40 size-10">
+                          <div className="relative z-10 flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full ring-2 ring-white/8 transition-all duration-500 group-hover:ring-amber-500/40">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                               src={review.profileImage}
                               alt={review.author}
-                              className="rounded-full object-cover transition-transform duration-500 group-hover:scale-105 size-full"
+                              className="size-full rounded-full object-cover transition-transform duration-500 group-hover:scale-105"
                               loading="lazy"
                             />
                           </div>
@@ -1048,7 +1050,7 @@ export default async function Page() {
                         className="group relative flex w-[290px] shrink-0 flex-col justify-between overflow-hidden rounded-[2rem] border border-white/6 bg-linear-to-b from-white/3 to-white/1 p-6 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:scale-[1.01] hover:border-amber-500/30 hover:bg-white/5 hover:shadow-[0_0_40px_rgba(245,158,11,0.06)] active:scale-[0.99] sm:w-[420px] sm:p-7"
                       >
                         {/* Ambient Background Accent Glow */}
-                        <div className="pointer-events-none absolute top-0 right-0 rounded-full bg-amber-500/5 opacity-0 blur-[30px] transition-opacity duration-700 group-hover:opacity-100 size-24" />
+                        <div className="pointer-events-none absolute top-0 right-0 size-24 rounded-full bg-amber-500/5 opacity-0 blur-[30px] transition-opacity duration-700 group-hover:opacity-100" />
 
                         {/* Quotation Icon Decorator */}
                         <span className="pointer-events-none absolute top-4 right-6 font-serif text-6xl text-white/3 transition-colors duration-500 select-none group-hover:text-amber-500/6">
@@ -1062,12 +1064,12 @@ export default async function Page() {
                               {[...Array(5)].map((_, i) => (
                                 <LuStar
                                   key={i}
-                                  className="fill-amber-400 text-amber-400 drop-shadow-[0_0_6px_rgba(245,158,11,0.4)] sm:h-4 sm:w-4 size-3.5"
+                                  className="size-3.5 fill-amber-400 text-amber-400 drop-shadow-[0_0_6px_rgba(245,158,11,0.4)] sm:h-4 sm:w-4"
                                 />
                               ))}
                             </div>
                             <div className="flex items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-wider text-emerald-400 uppercase sm:text-[10px]">
-                              <span className="animate-duration-1000 animate-pulse rounded-full bg-emerald-400 size-1.5" />
+                              <span className="animate-duration-1000 size-1.5 animate-pulse rounded-full bg-emerald-400" />
                               Verified Student
                             </div>
                           </div>
@@ -1092,12 +1094,12 @@ export default async function Page() {
                           {/* Animated Avatar Ring */}
                           <div className="relative">
                             <div className="absolute inset-0 rounded-full bg-linear-to-tr from-amber-500 to-orange-500 opacity-20 blur-[3px] transition-opacity duration-500 group-hover:opacity-60" />
-                            <div className="relative z-10 flex shrink-0 items-center justify-center overflow-hidden rounded-full ring-2 ring-white/8 transition-all duration-500 group-hover:ring-amber-500/40 size-10">
+                            <div className="relative z-10 flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full ring-2 ring-white/8 transition-all duration-500 group-hover:ring-amber-500/40">
                               {/* eslint-disable-next-line @next/next/no-img-element */}
                               <img
                                 src={review.profileImage}
                                 alt={review.author}
-                                className="rounded-full object-cover transition-transform duration-500 group-hover:scale-105 size-full"
+                                className="size-full rounded-full object-cover transition-transform duration-500 group-hover:scale-105"
                                 loading="lazy"
                               />
                             </div>
@@ -1130,12 +1132,12 @@ export default async function Page() {
             <div className="relative z-10 mx-auto mt-8 flex w-full max-w-350 justify-center px-5 md:px-12 lg:px-20">
               <div className="relative w-full max-w-xl overflow-hidden rounded-3xl border border-white/8 bg-linear-to-b from-white/3 to-transparent p-6 text-center shadow-2xl backdrop-blur-xl sm:rounded-[2.5rem] sm:p-10">
                 {/* Glowing Ambient light */}
-                <div className="pointer-events-none absolute top-0 right-0 rounded-full bg-amber-500/5 blur-[40px] size-32" />
+                <div className="pointer-events-none absolute top-0 right-0 size-32 rounded-full bg-amber-500/5 blur-[40px]" />
 
                 <div className="relative z-10 flex flex-col items-center gap-6">
                   {/* Google Icon Facade */}
-                  <div className="flex items-center justify-center rounded-3xl border border-white/10 bg-white/5 shadow-xl size-16">
-                    <LuMapPin className="animate-slow-bounce fill-amber-400/10 text-amber-400 size-8" />
+                  <div className="flex size-16 items-center justify-center rounded-3xl border border-white/10 bg-white/5 shadow-xl">
+                    <LuMapPin className="animate-slow-bounce size-8 fill-amber-400/10 text-amber-400" />
                   </div>
 
                   {/* CTA Text */}
@@ -1156,7 +1158,7 @@ export default async function Page() {
                       {[...Array(5)].map((_, i) => (
                         <LuStar
                           key={i}
-                          className="fill-amber-400 text-amber-400 size-4"
+                          className="size-4 fill-amber-400 text-amber-400"
                         />
                       ))}
                     </div>
@@ -1189,8 +1191,8 @@ export default async function Page() {
           id="faq"
         >
           <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-            <div className="absolute top-[10%] left-[10%] rounded-full bg-indigo-600/5 mix-blend-screen blur-[120px] size-[600px]" />
-            <div className="absolute right-[10%] bottom-[10%] rounded-full bg-purple-600/5 mix-blend-screen blur-[120px] size-[600px]" />
+            <div className="absolute top-[10%] left-[10%] size-[600px] rounded-full bg-indigo-600/5 mix-blend-screen blur-[120px]" />
+            <div className="absolute right-[10%] bottom-[10%] size-[600px] rounded-full bg-purple-600/5 mix-blend-screen blur-[120px]" />
           </div>
 
           <div className="relative z-10 mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">

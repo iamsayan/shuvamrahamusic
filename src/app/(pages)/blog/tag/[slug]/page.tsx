@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import BlogArchiveClient from '@/components/blog-archive-client';
 import JsonLd from '@/components/json-ld';
 import { getBlogPosts, getBlogPostsByTag } from '@/lib/blog-data';
+import { SCHEMA } from '@/lib/schema';
 
 interface PageProps {
   params: Promise<{
@@ -110,30 +111,40 @@ export default async function TagArchivePage({
   return (
     <>
       <JsonLd
-        schema={{
-          '@context': 'https://schema.org',
-          '@type': 'Blog',
-          name: `#${tagName} Guitar Articles - Shuvam Raha Music`,
-          description: `All articles and learning resources tagged with #${tagName}.`,
-          url: `https://www.shuvamrahamusic.com/blog/tag/${slug}`,
-          publisher: {
-            '@type': 'Person',
-            name: 'Shuvam Raha',
-            sameAs: 'https://www.shuvamrahamusic.com',
+        schema={[
+          SCHEMA.breadcrumb(`/blog/tag/${slug}`, `#${tagName}`),
+          {
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            name: `#${tagName} Guitar Articles - Shuvam Raha Music`,
+            description: `All articles and learning resources tagged with #${tagName}.`,
+            url: `https://www.shuvamrahamusic.com/blog/tag/${slug}`,
           },
-          blogPost: posts.map((post) => ({
-            '@type': 'BlogPosting',
-            headline: post.title,
-            description: post.excerpt,
-            url: `https://www.shuvamrahamusic.com/blog/${post.slug}`,
-            datePublished: post.date,
-            keywords: post.tags.map((t) => t.title).join(', '),
-            author: {
+          {
+            '@context': 'https://schema.org',
+            '@type': 'Blog',
+            name: `#${tagName} Guitar Articles`,
+            description: `All articles and learning resources tagged with #${tagName}.`,
+            url: `https://www.shuvamrahamusic.com/blog/tag/${slug}`,
+            publisher: {
               '@type': 'Person',
-              name: post.author.name,
+              name: 'Shuvam Raha',
+              sameAs: 'https://www.shuvamrahamusic.com',
             },
-          })),
-        }}
+            blogPost: posts.map((post) => ({
+              '@type': 'BlogPosting',
+              headline: post.title,
+              description: post.excerpt,
+              url: `https://www.shuvamrahamusic.com/blog/${post.slug}`,
+              datePublished: post.date,
+              keywords: post.tags.map((t) => t.title).join(', '),
+              author: {
+                '@type': 'Person',
+                name: post.author.name,
+              },
+            })),
+          },
+        ]}
       />
       <Suspense fallback={<div className="min-h-screen bg-[#05050A]" />}>
         <BlogArchiveClient

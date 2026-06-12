@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
+import { SCHEMA } from '@/lib/schema';
 
 export const metadata: Metadata = {
   title: 'Refund Policy',
@@ -13,14 +14,17 @@ export default function RefundPolicyPage() {
   return (
     <>
       <JsonLd
-        schema={{
-          '@context': 'https://schema.org',
-          '@type': 'WebPage',
-          name: 'Refund Policy',
-          description:
-            'Refund, return, cancellation, and class rescheduling policies for Shuvam Raha Music programs.',
-          url: 'https://www.shuvamrahamusic.com/refund-policy',
-        }}
+        schema={[
+          SCHEMA.breadcrumb('/refund-policy'),
+          {
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            name: 'Refund Policy',
+            description:
+              'Refund, return, cancellation, and class rescheduling policies for Shuvam Raha Music programs.',
+            url: 'https://www.shuvamrahamusic.com/refund-policy',
+          },
+        ]}
       />
       <PageLayout title="Refund Policy" subtitle="Effective Date: June 1, 2026">
         <div className="space-y-8 text-xs leading-relaxed sm:text-sm md:text-base">

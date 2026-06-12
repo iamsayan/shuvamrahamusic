@@ -5,6 +5,7 @@ import Link from 'next/link';
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
 import YouTubeFacade from '@/components/youtube-facade';
+import { SCHEMA } from '@/lib/schema';
 
 import {
   FaApple,
@@ -161,55 +162,15 @@ export default function BiographyPage() {
         schema={{
           '@context': 'https://schema.org',
           '@graph': [
-            {
-              '@type': 'WebSite',
-              '@id': 'https://www.shuvamrahamusic.com/#website',
-              url: 'https://www.shuvamrahamusic.com/',
-              name: 'Shuvam Raha Music',
-              description: 'Easy To Learn & Easy To Play',
-              inLanguage: 'en-US',
-            },
-            {
-              '@type': 'BreadcrumbList',
-              name: 'Breadcrumbs',
-              '@id':
-                'https://www.shuvamrahamusic.com/biography/#breadcrumblist',
-              itemListElement: [
-                {
-                  '@type': 'ListItem',
-                  position: 1,
-                  name: 'Home',
-                  item: 'https://www.shuvamrahamusic.com/',
-                },
-                {
-                  '@type': 'ListItem',
-                  position: 2,
-                  name: 'Biography',
-                },
-              ],
-            },
-            {
-              '@type': 'WebPage',
-              '@id': 'https://www.shuvamrahamusic.com/biography/#webpage',
-              url: 'https://www.shuvamrahamusic.com/biography/',
-              inLanguage: 'en-US',
+            SCHEMA.webSite(),
+            SCHEMA.person(),
+            SCHEMA.breadcrumb('/biography'),
+            SCHEMA.webPage({
+              path: '/biography',
               name: 'Biography - Shuvam Raha Music',
               description:
                 'A multifaceted musician from Kolkata, India, Shuvam Raha has established himself as a skilled guitarist, instructor, composer, and music producer. LCM certified with distinction.',
-              isPartOf: {
-                '@id': 'https://www.shuvamrahamusic.com/#website',
-              },
-              breadcrumb: {
-                '@id':
-                  'https://www.shuvamrahamusic.com/biography/#breadcrumblist',
-              },
-              primaryImageOfPage: {
-                '@id': 'https://www.shuvamrahamusic.com/biography/#thumbnail',
-              },
-              image: {
-                '@id': 'https://www.shuvamrahamusic.com/biography/#thumbnail',
-              },
-            },
+            }),
             {
               '@type': 'ImageObject',
               '@id': 'https://www.shuvamrahamusic.com/biography/#thumbnail',
@@ -235,7 +196,7 @@ export default function BiographyPage() {
                   height={600}
                   src="/hero-guitarist.jpg"
                   alt="Shuvam Raha"
-                  className="object-cover opacity-90 transition-transform duration-[1500ms] group-hover:scale-105 size-full"
+                  className="size-full object-cover opacity-90 transition-transform duration-[1500ms] group-hover:scale-105"
                   loading="eager"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-[#020205]/80 via-transparent to-transparent opacity-60" />
@@ -246,7 +207,7 @@ export default function BiographyPage() {
             <div className="flex-1 space-y-6">
               <div className="flex flex-col gap-3">
                 <div className="inline-flex items-center gap-2 self-start rounded-full border border-cyan-500/20 bg-cyan-500/10 px-4 py-1.5 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
-                  <LuAward className="text-cyan-400 size-4.5" />
+                  <LuAward className="size-4.5 text-cyan-400" />
                   <span className="text-[10px] font-black tracking-widest text-cyan-200 uppercase">
                     LCM Certified Music Instructor
                   </span>
@@ -256,15 +217,15 @@ export default function BiographyPage() {
                 </h2>
                 <div className="flex flex-wrap gap-2 text-xs font-semibold text-gray-400">
                   <span className="inline-flex items-center gap-1.5 rounded-md border border-white/5 bg-white/2 px-2.5 py-1">
-                    <LuMapPin className="text-cyan-400 size-3.5" />
+                    <LuMapPin className="size-3.5 text-cyan-400" />
                     <span>Based in Kolkata</span>
                   </span>
                   <span className="inline-flex items-center gap-1.5 rounded-md border border-white/5 bg-white/2 px-2.5 py-1">
-                    <LuGuitar className="text-cyan-400 size-3.5" />
+                    <LuGuitar className="size-3.5 text-cyan-400" />
                     <span>11+ Years of Experience</span>
                   </span>
                   <span className="inline-flex items-center gap-1.5 rounded-md border border-white/5 bg-white/2 px-2.5 py-1">
-                    <LuGlobe className="text-cyan-400 size-3.5" />
+                    <LuGlobe className="size-3.5 text-cyan-400" />
                     <span>Online &amp; International Classes Available</span>
                   </span>
                 </div>
@@ -321,8 +282,8 @@ export default function BiographyPage() {
             </div>
             <div className="relative grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {/* Decorative subtle ambient glows behind the grid */}
-              <div className="pointer-events-none absolute -top-12 -left-12 rounded-full bg-cyan-500/5 blur-[80px] size-64" />
-              <div className="pointer-events-none absolute -right-12 -bottom-12 rounded-full bg-violet-500/5 blur-[80px] size-64" />
+              <div className="pointer-events-none absolute -top-12 -left-12 size-64 rounded-full bg-cyan-500/5 blur-[80px]" />
+              <div className="pointer-events-none absolute -right-12 -bottom-12 size-64 rounded-full bg-violet-500/5 blur-[80px]" />
 
               {highlights.map((item, idx) => {
                 const Icon = item.icon;
@@ -337,13 +298,13 @@ export default function BiographyPage() {
                     </span>
 
                     {/* Inner card subtle hover glow overlay */}
-                    <div className="pointer-events-none absolute -top-20 -left-20 rounded-full bg-cyan-500/0 blur-2xl transition-all duration-500 group-hover:bg-cyan-500/5 size-40" />
+                    <div className="pointer-events-none absolute -top-20 -left-20 size-40 rounded-full bg-cyan-500/0 blur-2xl transition-all duration-500 group-hover:bg-cyan-500/5" />
 
                     <div className="flex flex-col gap-4">
                       <div
                         className={`flex items-center justify-center rounded-xl border shadow-[0_0_15px_rgba(0,0,0,0.2)] transition-all duration-500 group-hover:scale-105 ${item.color} size-12`}
                       >
-                        <Icon className="transition-transform duration-500 group-hover:rotate-6 size-5.5" />
+                        <Icon className="size-5.5 transition-transform duration-500 group-hover:rotate-6" />
                       </div>
                       <div className="space-y-1">
                         <h4 className="font-heading text-sm leading-snug font-bold text-white transition-colors duration-300 group-hover:text-cyan-300 sm:text-base">
@@ -418,7 +379,7 @@ export default function BiographyPage() {
                     key={idx}
                     className={`group relative flex gap-4 rounded-2xl border p-5 transition-all duration-300 ${item.color} hover:shadow-[0_15px_30px_rgba(0,0,0,0.4)]`}
                   >
-                    <div className="flex shrink-0 items-center justify-center rounded-xl border border-white/5 bg-white/2 shadow-sm size-11">
+                    <div className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-white/5 bg-white/2 shadow-sm">
                       <Icon className="size-5" />
                     </div>
                     <div className="space-y-1">
@@ -458,7 +419,7 @@ export default function BiographyPage() {
 
             <div className="relative grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {/* Subtle background glow */}
-              <div className="pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2 rounded-full bg-cyan-500/5 blur-[100px] size-80" />
+              <div className="pointer-events-none absolute -top-12 left-1/2 size-80 -translate-x-1/2 rounded-full bg-cyan-500/5 blur-[100px]" />
 
               {videos.map((vid) => (
                 <div
@@ -466,7 +427,7 @@ export default function BiographyPage() {
                   className="group relative overflow-hidden rounded-3xl border border-white/6 bg-[#0A0A15]/60 shadow-[0_10px_30px_rgba(0,0,0,0.3)] backdrop-blur-md transition-all duration-500 hover:-translate-y-1.5 hover:border-cyan-500/30 hover:bg-[#0E0E22]/80 hover:shadow-[0_20px_40px_rgba(6,182,212,0.12)]"
                 >
                   {/* Glow overlay inside card */}
-                  <div className="pointer-events-none absolute -right-20 -bottom-20 rounded-full bg-cyan-500/0 blur-2xl transition-all duration-500 group-hover:bg-cyan-500/5 size-40" />
+                  <div className="pointer-events-none absolute -right-20 -bottom-20 size-40 rounded-full bg-cyan-500/0 blur-2xl transition-all duration-500 group-hover:bg-cyan-500/5" />
 
                   <div className="relative aspect-video w-full overflow-hidden border-b border-white/5 bg-black/40">
                     <YouTubeFacade videoId={vid.id} />
@@ -502,8 +463,8 @@ export default function BiographyPage() {
             </div>
 
             <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#0A0A15]/60 p-6 shadow-xl backdrop-blur-md transition-all duration-500 hover:border-cyan-500/20 sm:p-8">
-              <div className="pointer-events-none absolute -top-10 -left-10 rounded-full bg-cyan-500/5 blur-2xl size-32" />
-              <div className="pointer-events-none absolute -right-10 -bottom-10 rounded-full bg-violet-500/5 blur-2xl size-32" />
+              <div className="pointer-events-none absolute -top-10 -left-10 size-32 rounded-full bg-cyan-500/5 blur-2xl" />
+              <div className="pointer-events-none absolute -right-10 -bottom-10 size-32 rounded-full bg-violet-500/5 blur-2xl" />
 
               <div className="space-y-6">
                 {/* Text info */}
@@ -516,21 +477,21 @@ export default function BiographyPage() {
 
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/1 p-4 text-sm text-gray-300 transition-all duration-300 hover:border-white/10 hover:bg-white/2">
-                    <LuFlame className="text-rose-400 size-5" />
+                    <LuFlame className="size-5 text-rose-400" />
                     <span>Laney Amplification India Endorsed Artist</span>
                   </div>
                   <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/1 p-4 text-sm text-gray-300 transition-all duration-300 hover:border-white/10 hover:bg-white/2">
-                    <LuGuitar className="text-cyan-400 size-5" />
+                    <LuGuitar className="size-5 text-cyan-400" />
                     <span>Collaborating Artist with Furtados</span>
                   </div>
                   <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/1 p-4 text-sm text-gray-300 transition-all duration-300 hover:border-white/10 hover:bg-white/2">
-                    <LuSparkles className="text-amber-400 size-5" />
+                    <LuSparkles className="size-5 text-amber-400" />
                     <span>
                       Feature Artist – Tone Connoisseur (The Stockist)
                     </span>
                   </div>
                   <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/1 p-4 text-sm text-gray-300 transition-all duration-300 hover:border-white/10 hover:bg-white/2">
-                    <LuHeadphones className="text-violet-400 size-5" />
+                    <LuHeadphones className="size-5 text-violet-400" />
                     <span>Representing DiMarzio Guitar Cables</span>
                   </div>
                 </div>
@@ -571,7 +532,7 @@ export default function BiographyPage() {
                     key={idx}
                     className="flex items-start gap-3 text-xs text-gray-300 sm:text-sm"
                   >
-                    <LuCheck className="mt-0.5 shrink-0 text-emerald-400 size-4" />
+                    <LuCheck className="mt-0.5 size-4 shrink-0 text-emerald-400" />
                     <span>{item}</span>
                   </div>
                 ))}
@@ -605,7 +566,7 @@ export default function BiographyPage() {
                     key={idx}
                     className="flex items-start gap-3 text-xs text-gray-300 sm:text-sm"
                   >
-                    <LuTarget className="mt-0.5 shrink-0 text-cyan-400 size-4" />
+                    <LuTarget className="mt-0.5 size-4 shrink-0 text-cyan-400" />
                     <span>{item}</span>
                   </div>
                 ))}
@@ -639,8 +600,8 @@ export default function BiographyPage() {
               SECTION 10: CTA & FOOTPRINT
              ========================================== */}
           <div className="group relative overflow-hidden rounded-[2.5rem] border border-white/4 bg-[#0A0A15]/60 p-8 text-center shadow-2xl backdrop-blur-2xl transition-all duration-500 hover:border-cyan-500/20 sm:p-10">
-            <div className="pointer-events-none absolute -top-20 -left-20 rounded-full bg-cyan-500/10 blur-[80px] size-48" />
-            <div className="pointer-events-none absolute -right-20 -bottom-20 rounded-full bg-violet-500/10 blur-[80px] size-48" />
+            <div className="pointer-events-none absolute -top-20 -left-20 size-48 rounded-full bg-cyan-500/10 blur-[80px]" />
+            <div className="pointer-events-none absolute -right-20 -bottom-20 size-48 rounded-full bg-violet-500/10 blur-[80px]" />
 
             <div className="relative z-10 flex flex-col items-center gap-6">
               <h4 className="font-heading text-2xl leading-tight font-black text-white sm:text-3xl">

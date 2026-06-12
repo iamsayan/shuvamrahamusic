@@ -6,6 +6,7 @@ import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
 import SecurePayPortal from '@/components/secure-pay-portal';
 import cockpit from '@/lib/client';
+import { SCHEMA } from '@/lib/schema';
 import { PricingPlan } from '@/types';
 
 export const metadata: Metadata = {
@@ -32,14 +33,17 @@ export default async function SecurePayPage() {
   return (
     <>
       <JsonLd
-        schema={{
-          '@context': 'https://schema.org',
-          '@type': 'CheckoutPage',
-          name: 'Secure Checkout',
-          description:
-            'Complete your enrollment securely. Choose from starter online classes, global coaching program, or Kolkata offline studio sessions.',
-          url: 'https://www.shuvamrahamusic.com/guitar-classes-with-shuvam/pay',
-        }}
+        schema={[
+          SCHEMA.breadcrumb('/guitar-classes-with-shuvam/pay'),
+          {
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            name: 'Secure Checkout',
+            description:
+              'Complete your enrollment securely. Choose from starter online classes, global coaching program, or Kolkata offline studio sessions.',
+            url: 'https://www.shuvamrahamusic.com/guitar-classes-with-shuvam/pay',
+          },
+        ]}
       />
       <PageLayout
         title="Secure Checkout"
@@ -50,7 +54,7 @@ export default async function SecurePayPage() {
         <Suspense
           fallback={
             <div className="flex min-h-75 flex-col items-center justify-center gap-4">
-              <div className="animate-spin rounded-full border-4 border-cyan-500/20 border-t-cyan-500 size-12" />
+              <div className="size-12 animate-spin rounded-full border-4 border-cyan-500/20 border-t-cyan-500" />
               <p className="text-sm text-gray-400">Loading secure portal...</p>
             </div>
           }

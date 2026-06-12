@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
+import { SCHEMA } from '@/lib/schema';
 
 import { LuArrowRight, LuImage, LuMusic, LuVideo } from 'react-icons/lu';
 
@@ -78,47 +79,33 @@ export default function GalleryHubPage() {
         schema={{
           '@context': 'https://schema.org',
           '@graph': [
+            SCHEMA.webSite(),
+            SCHEMA.breadcrumb('/gallery'),
             {
-              '@type': 'WebSite',
-              '@id': 'https://www.shuvamrahamusic.com/#website',
-              url: 'https://www.shuvamrahamusic.com/',
-              name: 'Shuvam Raha Music',
-              description: 'Easy To Learn & Easy To Play',
-              inLanguage: 'en-US',
-            },
-            {
-              '@type': 'BreadcrumbList',
-              name: 'Breadcrumbs',
-              '@id': 'https://www.shuvamrahamusic.com/gallery/#breadcrumblist',
-              itemListElement: [
+              ...SCHEMA.webPage({
+                path: '/gallery',
+                name: 'Media Gallery - Shuvam Raha Music',
+                description:
+                  'Explore Shuvam Raha\u2019s media gallery featuring live concert photos, official audio releases, unboxing videos, and guitar lesson clips.',
+              }),
+              '@type': 'CollectionPage',
+              hasPart: [
                 {
-                  '@type': 'ListItem',
-                  position: 1,
-                  name: 'Home',
-                  item: 'https://www.shuvamrahamusic.com/',
+                  '@type': 'WebPage',
+                  name: 'Photo Gallery',
+                  url: `${SCHEMA.BASE_URL}/gallery/photos`,
                 },
                 {
-                  '@type': 'ListItem',
-                  position: 2,
-                  name: 'Gallery',
+                  '@type': 'WebPage',
+                  name: 'Audio Gallery',
+                  url: `${SCHEMA.BASE_URL}/gallery/audios`,
+                },
+                {
+                  '@type': 'WebPage',
+                  name: 'Video Gallery',
+                  url: `${SCHEMA.BASE_URL}/gallery/videos`,
                 },
               ],
-            },
-            {
-              '@type': 'WebPage',
-              '@id': 'https://www.shuvamrahamusic.com/gallery/#webpage',
-              url: 'https://www.shuvamrahamusic.com/gallery/',
-              inLanguage: 'en-US',
-              name: 'Media Gallery - Shuvam Raha Music',
-              description:
-                'Explore Shuvam Raha’s media gallery featuring live concert photos, official audio releases, unboxing videos, and guitar lesson clips.',
-              isPartOf: {
-                '@id': 'https://www.shuvamrahamusic.com/#website',
-              },
-              breadcrumb: {
-                '@id':
-                  'https://www.shuvamrahamusic.com/gallery/#breadcrumblist',
-              },
             },
           ],
         }}
@@ -139,7 +126,7 @@ export default function GalleryHubPage() {
                 className={`group relative flex min-h-[460px] flex-col justify-end overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#07070F]/55 p-8 transition-all duration-500 hover:border-white/20 ${hub.glowColor}`}
               >
                 {/* Background Image */}
-                <div className="absolute inset-0 z-0 overflow-hidden size-full">
+                <div className="absolute inset-0 z-0 size-full overflow-hidden">
                   <Image
                     src={hub.bgImage}
                     alt={hub.title}
@@ -160,7 +147,7 @@ export default function GalleryHubPage() {
                 <div className="relative z-10 space-y-4 text-left">
                   {/* Circular Icon badge */}
                   <div
-                    className={`inline-flex items-center justify-center rounded-2xl border ${hub.iconColor} transition-transform duration-500 group-hover:scale-110 size-12`}
+                    className={`inline-flex items-center justify-center rounded-2xl border ${hub.iconColor} size-12 transition-transform duration-500 group-hover:scale-110`}
                   >
                     <Icon className="size-6" />
                   </div>

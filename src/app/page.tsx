@@ -2,10 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import BlogPostCard from '@/components/blog-post-card';
+import JsonLd from '@/components/json-ld';
 import SliderGallery from '@/components/slider-gallery';
 import YouTubeFacade from '@/components/youtube-facade';
 import { getBlogPosts } from '@/lib/blog-data';
 import { authorityPoints, curriculum } from '@/lib/guitar-data';
+import { SCHEMA } from '@/lib/schema';
 
 import { LuArrowRight, LuAward, LuMusic } from 'react-icons/lu';
 
@@ -32,6 +34,79 @@ export default async function Home() {
   const latestPosts = await getBlogPosts({ limit: 3 });
 
   return (
+    <>
+      <JsonLd
+        schema={{
+          '@context': 'https://schema.org',
+          '@graph': [
+            {
+              ...SCHEMA.webSite(),
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: `${SCHEMA.BASE_URL}/blog?search={search_term_string}`,
+                },
+                'query-input': 'required name=search_term_string',
+              },
+            },
+            SCHEMA.person(),
+            SCHEMA.organization(),
+            {
+              '@type': 'Course',
+              name: '1-on-1 Personalized Guitar Coaching with Shuvam Raha',
+              description:
+                'Learn guitar online or offline in 30 days. Structured 1-on-1 classes covering chords, strumming, lead playing, and music theory.',
+              provider: { '@id': `${SCHEMA.BASE_URL}/#organization` },
+              instructor: { '@id': `${SCHEMA.BASE_URL}/#person` },
+              educationalLevel: 'Beginner to Advanced',
+              inLanguage: ['en', 'hi', 'bn'],
+              url: `${SCHEMA.BASE_URL}/guitar-classes-with-shuvam`,
+              offers: [
+                {
+                  '@type': 'Offer',
+                  category: 'Subscription',
+                  priceCurrency: 'INR',
+                  price: '1500.00',
+                  name: 'Offline Coaching (Studio)',
+                },
+                {
+                  '@type': 'Offer',
+                  category: 'Subscription',
+                  priceCurrency: 'INR',
+                  price: '1800.00',
+                  name: 'Starter Online Plan',
+                },
+                {
+                  '@type': 'Offer',
+                  category: 'Subscription',
+                  priceCurrency: 'USD',
+                  price: '45.00',
+                  name: 'Global Guitar Program',
+                },
+              ],
+              hasCourseInstance: {
+                '@type': 'CourseInstance',
+                courseMode: ['online', 'offline'],
+                courseWorkload: 'PT40M',
+              },
+            },
+            {
+              '@type': 'SiteNavigationElement',
+              name: [
+                'Guitar Classes',
+                'Biography',
+                'Blog',
+                'Gallery',
+                'Performance Highlights',
+                'My Gears',
+                'Tutorials',
+                'Contact',
+              ],
+            },
+          ],
+        }}
+      />
     <main className="relative min-h-screen overflow-x-hidden bg-[#05050A] text-[#f0f0f5]">
       {/* Ambient background glows */}
       <div className="animate-blob-1 pointer-events-none absolute top-1/4 left-1/4 size-100 rounded-full bg-cyan-600/10 blur-[150px]" />
@@ -454,5 +529,6 @@ export default async function Home() {
         </div>
       </section>
     </main>
+    </>
   );
 }

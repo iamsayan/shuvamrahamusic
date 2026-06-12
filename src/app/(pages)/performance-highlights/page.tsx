@@ -5,6 +5,7 @@ import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
 import PerformanceHighlightsClient from '@/components/performance-highlights-client';
 import cockpit from '@/lib/client';
+import { SCHEMA } from '@/lib/schema';
 import { Performance } from '@/types';
 
 export const metadata: Metadata = {
@@ -49,49 +50,22 @@ export default async function PerformanceHighlightsPage() {
         schema={{
           '@context': 'https://schema.org',
           '@graph': [
-            {
-              '@type': 'WebSite',
-              '@id': 'https://www.shuvamrahamusic.com/#website',
-              url: 'https://www.shuvamrahamusic.com/',
-              name: 'Shuvam Raha Music',
-              description: 'Easy To Learn & Easy To Play',
-              inLanguage: 'en-US',
-            },
-            {
-              '@type': 'BreadcrumbList',
-              name: 'Breadcrumbs',
-              '@id':
-                'https://www.shuvamrahamusic.com/performance-highlights/#breadcrumblist',
-              itemListElement: [
-                {
-                  '@type': 'ListItem',
-                  position: 1,
-                  name: 'Home',
-                  item: 'https://www.shuvamrahamusic.com/',
-                },
-                {
-                  '@type': 'ListItem',
-                  position: 2,
-                  name: 'Performance Highlights',
-                },
-              ],
-            },
-            {
-              '@type': 'WebPage',
-              '@id':
-                'https://www.shuvamrahamusic.com/performance-highlights/#webpage',
-              url: 'https://www.shuvamrahamusic.com/performance-highlights/',
-              inLanguage: 'en-US',
+            SCHEMA.webSite(),
+            SCHEMA.breadcrumb('/performance-highlights'),
+            SCHEMA.webPage({
+              path: '/performance-highlights',
               name: 'Performance Highlights - Shuvam Raha Music',
               description:
                 'Explore the live performance portfolio, interstate touring history, and professional stage metrics of live guitarist and performing musician Shuvam Raha (2024-2026).',
-              isPartOf: {
-                '@id': 'https://www.shuvamrahamusic.com/#website',
-              },
-              breadcrumb: {
-                '@id':
-                  'https://www.shuvamrahamusic.com/performance-highlights/#breadcrumblist',
-              },
+            }),
+            {
+              '@type': 'PerformingGroup',
+              name: 'Shuvam Raha',
+              url: `${SCHEMA.BASE_URL}/performance-highlights`,
+              sameAs: SCHEMA.SAME_AS,
+              genre: ['Acoustic', 'Indie', 'Bengali Music', 'Bollywood'],
+              description:
+                'Live guitarist and performing musician based in Kolkata, India. Performs at concerts, festivals, and private events across states.',
             },
           ],
         }}

@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import ContactForm from '@/components/contact-form';
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
+import { SCHEMA } from '@/lib/schema';
 
 import {
   LuClock,
@@ -22,26 +23,21 @@ export default function ContactPage() {
   return (
     <>
       <JsonLd
-        schema={{
-          '@context': 'https://schema.org',
-          '@type': 'ContactPage',
-          name: 'Contact Us',
-          description:
-            'Get in touch with Shuvam Raha Music. Enroll in guitar coaching, ask questions, or request assistance.',
-          url: 'https://www.shuvamrahamusic.com/contact',
-          mainEntity: {
-            '@type': 'MusicInstructionBusiness',
-            name: 'Shuvam Raha Music',
-            telephone: '+918961369468',
-            email: 'contact@shuvamrahamusic.com',
-            address: {
-              '@type': 'PostalAddress',
-              addressLocality: 'Kolkata',
-              addressRegion: 'West Bengal',
-              addressCountry: 'IN',
+        schema={[
+          SCHEMA.breadcrumb('/contact'),
+          {
+            '@context': 'https://schema.org',
+            '@type': 'ContactPage',
+            name: 'Contact Us',
+            description:
+              'Get in touch with Shuvam Raha Music. Enroll in guitar coaching, ask questions, or request assistance.',
+            url: 'https://www.shuvamrahamusic.com/contact',
+            mainEntity: {
+              ...SCHEMA.organization(),
+              '@context': undefined,
             },
           },
-        }}
+        ]}
       />
       <PageLayout
         title="Contact Us"
@@ -69,7 +65,7 @@ export default function ContactPage() {
                 className="group flex flex-col justify-between rounded-2xl border border-white/4 bg-white/1 p-5 transition-all duration-300 hover:border-emerald-500/20 hover:bg-white/3 hover:shadow-[0_0_15px_rgba(16,185,129,0.06)]"
               >
                 <div>
-                  <div className="mb-4 inline-flex items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 transition-transform duration-300 group-hover:scale-110 size-10">
+                  <div className="mb-4 inline-flex size-10 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 transition-transform duration-300 group-hover:scale-110">
                     <LuMessageSquare className="size-5" />
                   </div>
                   <h4 className="font-heading text-sm font-bold text-white sm:text-base">
@@ -90,7 +86,7 @@ export default function ContactPage() {
                 className="group flex flex-col justify-between rounded-2xl border border-white/4 bg-white/1 p-5 transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/3 hover:shadow-[0_0_15px_rgba(6,182,212,0.06)]"
               >
                 <div>
-                  <div className="mb-4 inline-flex items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400 transition-transform duration-300 group-hover:scale-110 size-10">
+                  <div className="mb-4 inline-flex size-10 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400 transition-transform duration-300 group-hover:scale-110">
                     <LuMail className="size-5" />
                   </div>
                   <h4 className="font-heading text-sm font-bold text-white sm:text-base">
@@ -113,7 +109,7 @@ export default function ContactPage() {
               </h4>
 
               <div className="flex items-start gap-3.5">
-                <LuPhone className="mt-0.5 shrink-0 text-gray-400 size-4" />
+                <LuPhone className="mt-0.5 size-4 shrink-0 text-gray-400" />
                 <div>
                   <p className="text-xs font-semibold tracking-wider text-gray-500 uppercase">
                     Call / Support
@@ -128,7 +124,7 @@ export default function ContactPage() {
               </div>
 
               <div className="flex items-start gap-3.5 border-t border-white/5 pt-3.5">
-                <LuMapPin className="mt-0.5 shrink-0 text-gray-400 size-4" />
+                <LuMapPin className="mt-0.5 size-4 shrink-0 text-gray-400" />
                 <div>
                   <p className="text-xs font-semibold tracking-wider text-gray-500 uppercase">
                     Location
@@ -145,7 +141,7 @@ export default function ContactPage() {
               </div>
 
               <div className="flex items-start gap-3.5 border-t border-white/5 pt-3.5">
-                <LuClock className="mt-0.5 shrink-0 text-gray-400 size-4" />
+                <LuClock className="mt-0.5 size-4 shrink-0 text-gray-400" />
                 <div>
                   <p className="text-xs font-semibold tracking-wider text-gray-500 uppercase">
                     Working Hours
