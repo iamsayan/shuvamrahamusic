@@ -5,7 +5,6 @@ import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 
 import CockpitImage from '@/components/cockpit-image';
-import PageLayout from '@/components/page-layout';
 import { Artist, Performance } from '@/types';
 
 import {
@@ -379,463 +378,456 @@ export default function PerformanceHighlightsClient({
   }, [timeline, selectedYear, debouncedSearchQuery, selectedArtistFilter]);
 
   return (
-    <PageLayout
-      title="Performance Highlights"
-      subtitle="Live Performance Portfolio, Tour History & Professional Stage Metrics Across Events & Festivals."
-      variant="plain"
-    >
-      <div className="flex flex-col gap-16 text-left">
-        {/* ==========================================
+    <div className="flex flex-col gap-16 text-left">
+      {/* ==========================================
             SECTION 1: ARTIST PROFILE OVERVIEW
            ========================================== */}
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-center">
-          <div className="flex-1 space-y-6">
-            <div className="flex flex-col gap-3">
-              <div className="inline-flex items-center gap-2 self-start rounded-full border border-cyan-500/20 bg-cyan-500/10 px-4 py-1.5 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
-                <LuGuitar className="text-cyan-400 size-4.5" />
-                <span className="text-[10px] font-black tracking-widest text-cyan-200 uppercase">
-                  Performing Artist
-                </span>
-              </div>
-              <h2 className="font-heading text-3xl font-black text-white sm:text-4xl">
-                Artist Profile
-              </h2>
+      <div className="flex flex-col gap-8 lg:flex-row lg:items-center">
+        <div className="flex-1 space-y-6">
+          <div className="flex flex-col gap-3">
+            <div className="inline-flex items-center gap-2 self-start rounded-full border border-cyan-500/20 bg-cyan-500/10 px-4 py-1.5 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+              <LuGuitar className="size-4.5 text-cyan-400" />
+              <span className="text-[10px] font-black tracking-widest text-cyan-200 uppercase">
+                Performing Artist
+              </span>
             </div>
-            <p className="text-sm leading-relaxed text-gray-300 sm:text-base">
-              Shuvam Raha is a versatile live guitarist and performing musician
-              with extensive experience across premium hospitality venues,
-              cultural festivals, club circuits, corporate events, interstate
-              touring productions, and institutional concerts.
-            </p>
-            <p className="text-sm leading-relaxed text-gray-400 sm:text-base">
-              He has collaborated with multiple established artists and live
-              acts including Priyanka Das Raha, Antara Nandy &amp; Ankita Nandy
-              (Nandy Sisters), and Kanishk Arora across {totalShowsCount}+ live
-              performances during the {touringYearsRange} touring season.
-            </p>
+            <h2 className="font-heading text-3xl font-black text-white sm:text-4xl">
+              Artist Profile
+            </h2>
           </div>
-
-          {/* Quick Metrics Snapshots */}
-          <div className="grid w-full shrink-0 grid-cols-2 gap-4 lg:max-w-[420px]">
-            {[
-              {
-                label: 'Touring Years',
-                value: touringYearsRange,
-                icon: LuCalendarDays,
-                color: 'text-cyan-400 border-cyan-500/20 bg-cyan-500/5',
-              },
-              {
-                label: 'Shows Performed',
-                value: totalShowsCount + '+ Gigs',
-                icon: LuSparkles,
-                color: 'text-amber-400 border-amber-500/20 bg-amber-500/5',
-              },
-              {
-                label: 'Regional Hubs',
-                value: hubsCovered,
-                icon: LuGlobe,
-                color:
-                  'text-emerald-400 border-emerald-500/20 bg-emerald-500/5',
-              },
-              {
-                label: 'Circuits Covered',
-                value: categoriesCount,
-                icon: LuCompass,
-                color: 'text-violet-400 border-violet-500/20 bg-violet-500/5',
-              },
-            ].map((metric, idx) => {
-              const MetricIcon = metric.icon;
-              return (
-                <div
-                  key={idx}
-                  className="group relative overflow-hidden rounded-2xl border border-white/5 bg-white/1 p-4.5 backdrop-blur-md transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/3"
-                >
-                  <div
-                    className={`mb-3 inline-flex items-center justify-center rounded-xl border ${metric.color} shadow-sm transition-transform duration-300 group-hover:scale-105 size-9`}
-                  >
-                    <MetricIcon className="size-4.5" />
-                  </div>
-                  <h4 className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
-                    {metric.label}
-                  </h4>
-                  <p className="font-heading mt-1 text-sm font-black text-white sm:text-base">
-                    {metric.value}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
+          <p className="text-sm leading-relaxed text-gray-300 sm:text-base">
+            Shuvam Raha is a versatile live guitarist and performing musician
+            with extensive experience across premium hospitality venues,
+            cultural festivals, club circuits, corporate events, interstate
+            touring productions, and institutional concerts.
+          </p>
+          <p className="text-sm leading-relaxed text-gray-400 sm:text-base">
+            He has collaborated with multiple established artists and live acts
+            including Priyanka Das Raha, Antara Nandy &amp; Ankita Nandy (Nandy
+            Sisters), and Kanishk Arora across {totalShowsCount}+ live
+            performances during the {touringYearsRange} touring season.
+          </p>
         </div>
 
-        <hr className="border-white/5" />
+        {/* Quick Metrics Snapshots */}
+        <div className="grid w-full shrink-0 grid-cols-2 gap-4 lg:max-w-[420px]">
+          {[
+            {
+              label: 'Touring Years',
+              value: touringYearsRange,
+              icon: LuCalendarDays,
+              color: 'text-cyan-400 border-cyan-500/20 bg-cyan-500/5',
+            },
+            {
+              label: 'Shows Performed',
+              value: totalShowsCount + '+ Gigs',
+              icon: LuSparkles,
+              color: 'text-amber-400 border-amber-500/20 bg-amber-500/5',
+            },
+            {
+              label: 'Regional Hubs',
+              value: hubsCovered,
+              icon: LuGlobe,
+              color: 'text-emerald-400 border-emerald-500/20 bg-emerald-500/5',
+            },
+            {
+              label: 'Circuits Covered',
+              value: categoriesCount,
+              icon: LuCompass,
+              color: 'text-violet-400 border-violet-500/20 bg-violet-500/5',
+            },
+          ].map((metric, idx) => {
+            const MetricIcon = metric.icon;
+            return (
+              <div
+                key={idx}
+                className="group relative overflow-hidden rounded-2xl border border-white/5 bg-white/1 p-4.5 backdrop-blur-md transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/3"
+              >
+                <div
+                  className={`mb-3 inline-flex items-center justify-center rounded-xl border ${metric.color} size-9 shadow-sm transition-transform duration-300 group-hover:scale-105`}
+                >
+                  <MetricIcon className="size-4.5" />
+                </div>
+                <h4 className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
+                  {metric.label}
+                </h4>
+                <p className="font-heading mt-1 text-sm font-black text-white sm:text-base">
+                  {metric.value}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
 
-        {/* ==========================================
+      <hr className="border-white/5" />
+
+      {/* ==========================================
             SECTION 2: GEOGRAPHIC REACH
            ========================================== */}
-        <div className="space-y-6">
-          <div className="flex flex-col gap-2">
-            <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
-              Touring History
-            </span>
-            <h3 className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
-              Geographic Performance Reach
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <div className="space-y-2.5 rounded-2xl border border-white/4 bg-[#0A0A15]/60 p-5">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-widest text-cyan-400 uppercase">
-                Strong Regional Hubs
-              </span>
-              <div>
-                <p className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
-                  Primary Locations
-                </p>
-                <p className="mt-1 text-xs leading-relaxed text-gray-300 sm:text-sm">
-                  {primaryLocations || 'Kolkata, Siliguri, Guwahati'}
-                </p>
-              </div>
-            </div>
-
-            <div className="space-y-2.5 rounded-2xl border border-white/4 bg-[#0A0A15]/60 p-5">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/20 bg-violet-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-widest text-violet-400 uppercase">
-                Interstate Touring
-              </span>
-              <div>
-                <p className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
-                  {statesData.count} States Covered
-                </p>
-                <p className="mt-1 text-xs leading-relaxed text-gray-300 sm:text-sm">
-                  {statesData.list || 'No interstate tours listed'}
-                </p>
-              </div>
-            </div>
-
-            <div className="space-y-2.5 rounded-2xl border border-white/4 bg-[#0A0A15]/60 p-5">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-widest text-emerald-400 uppercase">
-                International Tours
-              </span>
-              <div>
-                <p className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
-                  Global Concerts
-                </p>
-                <p className="mt-1 text-xs leading-relaxed text-gray-300 sm:text-sm">
-                  {internationalTours || 'No international tours listed'}
-                </p>
-              </div>
-            </div>
-          </div>
+      <div className="space-y-6">
+        <div className="flex flex-col gap-2">
+          <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
+            Touring History
+          </span>
+          <h3 className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
+            Geographic Performance Reach
+          </h3>
         </div>
 
-        <hr className="border-white/5" />
-
-        {/* ==========================================
-            SECTION 3: COLLABORATION MATRIX
-           ========================================== */}
-        <div className="space-y-8">
-          <div className="flex flex-col gap-2">
-            <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
-              On Stage Partnering
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="space-y-2.5 rounded-2xl border border-white/4 bg-[#0A0A15]/60 p-5">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-widest text-cyan-400 uppercase">
+              Strong Regional Hubs
             </span>
-            <h3 className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
-              Artist Collaboration Matrix
-            </h3>
-          </div>
-
-          {artists.length === 0 ? (
-            <p className="text-sm text-gray-500">
-              No collaborators loaded from CMS.
-            </p>
-          ) : (
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {artists.map((collab, idx) => {
-                const theme = getArtistTheme(collab.name);
-                return (
-                  <div
-                    key={idx}
-                    className={`group relative overflow-hidden rounded-2xl border p-5 transition-all duration-300 ${theme.border} ${theme.bg} ${theme.hoverBorder} ${theme.hoverBg}`}
-                  >
-                    {/* Render Artist image from Cockpit if available */}
-                    {collab.image && (
-                      <div className="relative mb-5 aspect-video w-full overflow-hidden rounded-xl border border-white/10 bg-white/5">
-                        <CockpitImage
-                          asset={collab.image}
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
-                          fill
-                          sizes="(max-width: 768px) 100vw, 33vw"
-                        />
-                      </div>
-                    )}
-
-                    <div className="space-y-4">
-                      <h4 className="font-heading text-lg leading-snug font-black text-white transition-colors duration-300 group-hover:text-cyan-300">
-                        {collab.name}
-                      </h4>
-
-                      {collab.description && (
-                        <p className="line-clamp-3 text-xs leading-relaxed text-gray-400">
-                          {collab.description}
-                        </p>
-                      )}
-
-                      <div className="space-y-3 border-t border-white/5 pt-3">
-                        <div>
-                          <p className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
-                            Performance Formats
-                          </p>
-                          <p className="mt-1 text-xs leading-relaxed text-gray-300 sm:text-sm">
-                            {collab.formats}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-
-        <hr className="border-white/5" />
-
-        {/* ==========================================
-            SECTION 4: VENUE CATEGORIES
-           ========================================== */}
-        <div className="space-y-8">
-          <div className="flex flex-col gap-2">
-            <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
-              Venues Database
-            </span>
-            <h3 className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
-              Venue &amp; Performance Categories
-            </h3>
-          </div>
-
-          {categories.length === 0 ? (
-            <p className="text-sm text-gray-500">
-              No venue categories loaded from CMS.
-            </p>
-          ) : (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              {categories.map((cat, idx) => {
-                const theme = getCategoryTheme(cat.title);
-                const Icon = theme.icon;
-                return (
-                  <div
-                    key={idx}
-                    className="group relative overflow-hidden rounded-2xl border border-white/5 bg-[#0A0A15]/40 p-6 backdrop-blur-md transition-all duration-300 hover:border-cyan-500/20 hover:bg-[#0E0E22]/60"
-                  >
-                    <div className="flex items-start gap-4">
-                      <div
-                        className={`flex shrink-0 items-center justify-center rounded-lg border ${theme.themeColor} shadow-sm transition-transform duration-300 group-hover:scale-105 size-10`}
-                      >
-                        <Icon className="size-5" />
-                      </div>
-                      <div className="flex-1 space-y-4">
-                        <div>
-                          <h4 className="font-heading text-base font-bold text-white transition-colors duration-300 group-hover:text-cyan-300">
-                            {cat.title}
-                          </h4>
-                          {/* <span className="mt-1 block text-[10px] leading-relaxed font-bold tracking-wide text-gray-500">
-                            {cat.subtitle}
-                          </span> */}
-                        </div>
-
-                        <ul className="grid grid-cols-1 gap-1.5 border-t border-white/5 pt-4 sm:grid-cols-2">
-                          {cat.places &&
-                            cat.places.map((place, itemIdx) => (
-                              <li
-                                key={itemIdx}
-                                className="flex items-center gap-1.5 text-[11px] leading-relaxed text-gray-400 sm:text-xs"
-                              >
-                                <span className="shrink-0 rounded-full bg-cyan-400/60 size-1" />
-                                <span className="line-clamp-1">{place}</span>
-                              </li>
-                            ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-
-        <hr className="border-white/5" />
-
-        {/* ==========================================
-            SECTION 5: LIVE SHOWS TIMELINE
-           ========================================== */}
-        <div className="space-y-8">
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div className="space-y-2">
-              <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
-                Gigs Archive
-              </span>
-              <h3 className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
-                Showcase Gigs Timeline
-              </h3>
-            </div>
-
-            {/* Filter Pills for Gigs Years */}
-            <div className="flex flex-wrap gap-1.5">
-              {years.map((year) => (
-                <button
-                  key={year}
-                  onClick={() => setSelectedYear(year)}
-                  className={`rounded-full px-4.5 py-1.5 text-[11px] font-black tracking-wider uppercase transition-all duration-300 ${
-                    selectedYear === year
-                      ? 'border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.15)]'
-                      : 'border border-white/5 bg-white/1 text-gray-400 hover:border-white/15 hover:bg-white/3 hover:text-white'
-                  }`}
-                >
-                  {year}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Filters Bar: Search & Artist Select Filters */}
-          <div className="grid grid-cols-1 gap-4 rounded-full border border-white/5 bg-[#080812]/50 p-4.5 backdrop-blur-3xl md:grid-cols-3">
-            {/* Search Input */}
-            <div className="relative md:col-span-2">
-              <div className="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-gray-500">
-                <LuSearch className="size-4" />
-              </div>
-              <input
-                type="text"
-                placeholder="Search by city, venue, or detail..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-full border border-white/10 bg-white/2 py-2.5 pr-10 pl-10 text-xs text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4"
-              />
-              {searchQuery && (
-                <button
-                  type="button"
-                  onClick={() => setSearchQuery('')}
-                  className="absolute inset-y-0 right-4 flex cursor-pointer items-center text-gray-500 transition-colors hover:text-white"
-                  aria-label="Clear search"
-                >
-                  <LuX className="size-4" />
-                </button>
-              )}
-            </div>
-
-            {/* Artist Filter Dropdown */}
-            <div className="relative">
-              <select
-                value={selectedArtistFilter}
-                onChange={(e) => setSelectedArtistFilter(e.target.value)}
-                className="w-full appearance-none rounded-full border border-white/10 bg-white/2 px-4 py-2.5 text-xs text-white transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4"
-              >
-                <option value="All" className="bg-[#05050A] text-gray-300">
-                  Filter by Collaborator: All
-                </option>
-                {timelineArtists.map((artistName) => (
-                  <option
-                    key={artistName}
-                    value={artistName}
-                    className="bg-[#05050A] text-gray-300"
-                  >
-                    {artistName}
-                  </option>
-                ))}
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-[9px] font-black tracking-widest text-gray-400 uppercase">
-                ▼
-              </div>
-            </div>
-          </div>
-
-          {/* Vertical Timeline Lists */}
-          {filteredShows.length === 0 ? (
-            <div className="flex flex-col items-center justify-center rounded-2xl border border-white/5 bg-[#080812]/30 py-16 text-center">
-              <LuSearch className="mb-3 animate-pulse text-gray-600 size-8" />
-              <p className="text-sm text-gray-500">
-                No performances match your current search options.
+            <div>
+              <p className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
+                Primary Locations
+              </p>
+              <p className="mt-1 text-xs leading-relaxed text-gray-300 sm:text-sm">
+                {primaryLocations || 'Kolkata, Siliguri, Guwahati'}
               </p>
             </div>
-          ) : (
-            <div className="relative ml-2 space-y-6 border-l border-white/10 pl-6">
-              {filteredShows.map((show, idx) => {
-                const artistTheme = getArtistTheme(show.artist);
-                return (
-                  <div
-                    key={idx}
-                    className="group relative flex flex-col gap-2 rounded-2xl border border-white/3 bg-white/1 p-4.5 transition-all duration-300 hover:border-cyan-500/15 hover:bg-[#0E0E22]/30"
-                  >
-                    {/* Timeline Dot */}
-                    <div className="absolute top-[22px] -left-[31px] flex items-center justify-center rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.7)] transition-transform duration-300 group-hover:scale-125 size-2" />
+          </div>
 
-                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-2">
-                      <span className="font-heading text-xs font-bold text-gray-400">
-                        {show.date}, {show.year}
-                      </span>
-                      <span
-                        className={`rounded-full px-2 py-0.5 text-[9px] font-bold uppercase ${artistTheme.badge}`}
-                      >
-                        {show.artist}
-                      </span>
-                    </div>
-
-                    <div className="flex items-start gap-2 pt-1 text-sm leading-snug font-bold text-white sm:text-base">
-                      <LuMapPin className="mt-0.5 shrink-0 text-cyan-400 size-4" />
-                      <div>
-                        <span>
-                          {show.venue ? `${show.venue}, ` : ''}
-                          {show.location}
-                        </span>
-                        {show.details && (
-                          <span className="mt-1 block text-xs leading-relaxed font-medium text-gray-400 italic sm:text-sm">
-                            ({show.details})
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+          <div className="space-y-2.5 rounded-2xl border border-white/4 bg-[#0A0A15]/60 p-5">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/20 bg-violet-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-widest text-violet-400 uppercase">
+              Interstate Touring
+            </span>
+            <div>
+              <p className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
+                {statesData.count} States Covered
+              </p>
+              <p className="mt-1 text-xs leading-relaxed text-gray-300 sm:text-sm">
+                {statesData.list || 'No interstate tours listed'}
+              </p>
             </div>
-          )}
-        </div>
+          </div>
 
-        {/* ==========================================
-            SECTION 6: CTA CALL
-           ========================================== */}
-        <div className="group relative overflow-hidden rounded-[2.5rem] border border-white/4 bg-[#0A0A15]/60 p-8 text-center shadow-2xl backdrop-blur-2xl transition-all duration-500 hover:border-cyan-500/20 sm:p-10">
-          <div className="pointer-events-none absolute -top-20 -left-20 rounded-full bg-cyan-500/10 blur-[80px] size-48" />
-          <div className="pointer-events-none absolute -right-20 -bottom-20 rounded-full bg-violet-500/10 blur-[80px] size-48" />
-
-          <div className="relative z-10 flex flex-col items-center gap-6">
-            <h4 className="font-heading text-2xl leading-tight font-black text-white sm:text-3xl">
-              Book Shuvam Raha for Live Gigs
-            </h4>
-            <p className="max-w-xl text-xs leading-relaxed text-gray-400 sm:text-sm">
-              Inquire about booking Shuvam Raha as a session guitarist,
-              performer for corporate events, destination weddings, cultural
-              festivals, or lounge gig bookings.
-            </p>
-
-            <div className="mt-4 flex flex-col flex-wrap justify-center gap-3 sm:flex-row">
-              <a
-                href="https://wa.me/918961369468?text=Hi%20Shuvam,%20I%27m%20interested%20in%20booking%20you%20for%20a%20live%20show!"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group font-heading flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-6 py-3 text-xs font-bold text-white shadow-md transition-all hover:scale-105 active:scale-95 sm:text-sm"
-              >
-                Inquire via WhatsApp
-              </a>
-              <Link
-                href="/contact"
-                className="group font-heading flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/3 px-6 py-3 text-xs font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95 sm:text-sm"
-              >
-                Get In Touch
-              </Link>
+          <div className="space-y-2.5 rounded-2xl border border-white/4 bg-[#0A0A15]/60 p-5">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-widest text-emerald-400 uppercase">
+              International Tours
+            </span>
+            <div>
+              <p className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
+                Global Concerts
+              </p>
+              <p className="mt-1 text-xs leading-relaxed text-gray-300 sm:text-sm">
+                {internationalTours || 'No international tours listed'}
+              </p>
             </div>
           </div>
         </div>
       </div>
-    </PageLayout>
+
+      <hr className="border-white/5" />
+
+      {/* ==========================================
+            SECTION 3: COLLABORATION MATRIX
+           ========================================== */}
+      <div className="space-y-8">
+        <div className="flex flex-col gap-2">
+          <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
+            On Stage Partnering
+          </span>
+          <h3 className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
+            Artist Collaboration Matrix
+          </h3>
+        </div>
+
+        {artists.length === 0 ? (
+          <p className="text-sm text-gray-500">
+            No collaborators loaded from CMS.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {artists.map((collab, idx) => {
+              const theme = getArtistTheme(collab.name);
+              return (
+                <div
+                  key={idx}
+                  className={`group relative overflow-hidden rounded-2xl border p-5 transition-all duration-300 ${theme.border} ${theme.bg} ${theme.hoverBorder} ${theme.hoverBg}`}
+                >
+                  {/* Render Artist image from Cockpit if available */}
+                  {collab.image && (
+                    <div className="relative mb-5 aspect-video w-full overflow-hidden rounded-xl border border-white/10 bg-white/5">
+                      <CockpitImage
+                        asset={collab.image}
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    </div>
+                  )}
+
+                  <div className="space-y-4">
+                    <h4 className="font-heading text-lg leading-snug font-black text-white transition-colors duration-300 group-hover:text-cyan-300">
+                      {collab.name}
+                    </h4>
+
+                    {collab.description && (
+                      <p className="line-clamp-3 text-xs leading-relaxed text-gray-400">
+                        {collab.description}
+                      </p>
+                    )}
+
+                    <div className="space-y-3 border-t border-white/5 pt-3">
+                      <div>
+                        <p className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
+                          Performance Formats
+                        </p>
+                        <p className="mt-1 text-xs leading-relaxed text-gray-300 sm:text-sm">
+                          {collab.formats}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      <hr className="border-white/5" />
+
+      {/* ==========================================
+            SECTION 4: VENUE CATEGORIES
+           ========================================== */}
+      <div className="space-y-8">
+        <div className="flex flex-col gap-2">
+          <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
+            Venues Database
+          </span>
+          <h3 className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
+            Venue &amp; Performance Categories
+          </h3>
+        </div>
+
+        {categories.length === 0 ? (
+          <p className="text-sm text-gray-500">
+            No venue categories loaded from CMS.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            {categories.map((cat, idx) => {
+              const theme = getCategoryTheme(cat.title);
+              const Icon = theme.icon;
+              return (
+                <div
+                  key={idx}
+                  className="group relative overflow-hidden rounded-2xl border border-white/5 bg-[#0A0A15]/40 p-6 backdrop-blur-md transition-all duration-300 hover:border-cyan-500/20 hover:bg-[#0E0E22]/60"
+                >
+                  <div className="flex items-start gap-4">
+                    <div
+                      className={`flex shrink-0 items-center justify-center rounded-lg border ${theme.themeColor} size-10 shadow-sm transition-transform duration-300 group-hover:scale-105`}
+                    >
+                      <Icon className="size-5" />
+                    </div>
+                    <div className="flex-1 space-y-4">
+                      <div>
+                        <h4 className="font-heading text-base font-bold text-white transition-colors duration-300 group-hover:text-cyan-300">
+                          {cat.title}
+                        </h4>
+                        {/* <span className="mt-1 block text-[10px] leading-relaxed font-bold tracking-wide text-gray-500">
+                            {cat.subtitle}
+                          </span> */}
+                      </div>
+
+                      <ul className="grid grid-cols-1 gap-1.5 border-t border-white/5 pt-4 sm:grid-cols-2">
+                        {cat.places &&
+                          cat.places.map((place, itemIdx) => (
+                            <li
+                              key={itemIdx}
+                              className="flex items-center gap-1.5 text-[11px] leading-relaxed text-gray-400 sm:text-xs"
+                            >
+                              <span className="size-1 shrink-0 rounded-full bg-cyan-400/60" />
+                              <span className="line-clamp-1">{place}</span>
+                            </li>
+                          ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      <hr className="border-white/5" />
+
+      {/* ==========================================
+            SECTION 5: LIVE SHOWS TIMELINE
+           ========================================== */}
+      <div className="space-y-8">
+        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div className="space-y-2">
+            <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
+              Gigs Archive
+            </span>
+            <h3 className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
+              Showcase Gigs Timeline
+            </h3>
+          </div>
+
+          {/* Filter Pills for Gigs Years */}
+          <div className="flex flex-wrap gap-1.5">
+            {years.map((year) => (
+              <button
+                key={year}
+                onClick={() => setSelectedYear(year)}
+                className={`rounded-full px-4.5 py-1.5 text-[11px] font-black tracking-wider uppercase transition-all duration-300 ${
+                  selectedYear === year
+                    ? 'border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.15)]'
+                    : 'border border-white/5 bg-white/1 text-gray-400 hover:border-white/15 hover:bg-white/3 hover:text-white'
+                }`}
+              >
+                {year}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Filters Bar: Search & Artist Select Filters */}
+        <div className="grid grid-cols-1 gap-4 rounded-full border border-white/5 bg-[#080812]/50 p-4.5 backdrop-blur-3xl md:grid-cols-3">
+          {/* Search Input */}
+          <div className="relative md:col-span-2">
+            <div className="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-gray-500">
+              <LuSearch className="size-4" />
+            </div>
+            <input
+              type="text"
+              placeholder="Search by city, venue, or detail..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full rounded-full border border-white/10 bg-white/2 py-2.5 pr-10 pl-10 text-xs text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                className="absolute inset-y-0 right-4 flex cursor-pointer items-center text-gray-500 transition-colors hover:text-white"
+                aria-label="Clear search"
+              >
+                <LuX className="size-4" />
+              </button>
+            )}
+          </div>
+
+          {/* Artist Filter Dropdown */}
+          <div className="relative">
+            <select
+              value={selectedArtistFilter}
+              onChange={(e) => setSelectedArtistFilter(e.target.value)}
+              className="w-full appearance-none rounded-full border border-white/10 bg-white/2 px-4 py-2.5 text-xs text-white transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4"
+            >
+              <option value="All" className="bg-[#05050A] text-gray-300">
+                Filter by Collaborator: All
+              </option>
+              {timelineArtists.map((artistName) => (
+                <option
+                  key={artistName}
+                  value={artistName}
+                  className="bg-[#05050A] text-gray-300"
+                >
+                  {artistName}
+                </option>
+              ))}
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-[9px] font-black tracking-widest text-gray-400 uppercase">
+              ▼
+            </div>
+          </div>
+        </div>
+
+        {/* Vertical Timeline Lists */}
+        {filteredShows.length === 0 ? (
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-white/5 bg-[#080812]/30 py-16 text-center">
+            <LuSearch className="mb-3 size-8 animate-pulse text-gray-600" />
+            <p className="text-sm text-gray-500">
+              No performances match your current search options.
+            </p>
+          </div>
+        ) : (
+          <div className="relative ml-2 space-y-6 border-l border-white/10 pl-6">
+            {filteredShows.map((show, idx) => {
+              const artistTheme = getArtistTheme(show.artist);
+              return (
+                <div
+                  key={idx}
+                  className="group relative flex flex-col gap-2 rounded-2xl border border-white/3 bg-white/1 p-4.5 transition-all duration-300 hover:border-cyan-500/15 hover:bg-[#0E0E22]/30"
+                >
+                  {/* Timeline Dot */}
+                  <div className="absolute top-[22px] -left-[31px] flex size-2 items-center justify-center rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.7)] transition-transform duration-300 group-hover:scale-125" />
+
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-2">
+                    <span className="font-heading text-xs font-bold text-gray-400">
+                      {show.date}, {show.year}
+                    </span>
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-[9px] font-bold uppercase ${artistTheme.badge}`}
+                    >
+                      {show.artist}
+                    </span>
+                  </div>
+
+                  <div className="flex items-start gap-2 pt-1 text-sm leading-snug font-bold text-white sm:text-base">
+                    <LuMapPin className="mt-0.5 size-4 shrink-0 text-cyan-400" />
+                    <div>
+                      <span>
+                        {show.venue ? `${show.venue}, ` : ''}
+                        {show.location}
+                      </span>
+                      {show.details && (
+                        <span className="mt-1 block text-xs leading-relaxed font-medium text-gray-400 italic sm:text-sm">
+                          ({show.details})
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* ==========================================
+            SECTION 6: CTA CALL
+           ========================================== */}
+      <div className="group relative overflow-hidden rounded-[2.5rem] border border-white/4 bg-[#0A0A15]/60 p-8 text-center shadow-2xl backdrop-blur-2xl transition-all duration-500 hover:border-cyan-500/20 sm:p-10">
+        <div className="pointer-events-none absolute -top-20 -left-20 size-48 rounded-full bg-cyan-500/10 blur-[80px]" />
+        <div className="pointer-events-none absolute -right-20 -bottom-20 size-48 rounded-full bg-violet-500/10 blur-[80px]" />
+
+        <div className="relative z-10 flex flex-col items-center gap-6">
+          <h4 className="font-heading text-2xl leading-tight font-black text-white sm:text-3xl">
+            Book Shuvam Raha for Live Gigs
+          </h4>
+          <p className="max-w-xl text-xs leading-relaxed text-gray-400 sm:text-sm">
+            Inquire about booking Shuvam Raha as a session guitarist, performer
+            for corporate events, destination weddings, cultural festivals, or
+            lounge gig bookings.
+          </p>
+
+          <div className="mt-4 flex flex-col flex-wrap justify-center gap-3 sm:flex-row">
+            <a
+              href="https://wa.me/918961369468?text=Hi%20Shuvam,%20I%27m%20interested%20in%20booking%20you%20for%20a%20live%20show!"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group font-heading flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-6 py-3 text-xs font-bold text-white shadow-md transition-all hover:scale-105 active:scale-95 sm:text-sm"
+            >
+              Inquire via WhatsApp
+            </a>
+            <Link
+              href="/contact"
+              className="group font-heading flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/3 px-6 py-3 text-xs font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95 sm:text-sm"
+            >
+              Get In Touch
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
