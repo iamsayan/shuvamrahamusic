@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import GearsListingClient from '@/components/gears-listing-client';
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
-import cockpit from '@/lib/client';
+import cockpit, { Asset } from '@/lib/client';
 import { SCHEMA } from '@/lib/schema';
 import { GearItem } from '@/types';
 
@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   });
 
-  const images = new Map();
+  const images = new Map<Asset['_id'], Asset['altText']>();
   gears.forEach((gear) => {
     gear.images.forEach((image) => {
       images.set(image._id, image.altText);
@@ -34,14 +34,12 @@ export async function generateMetadata(): Promise<Metadata> {
         'Explore the professional guitars, strings, pickups, cables, recording gear, and accessories personally used and recommended by Shuvam Raha.',
       url: '/my-gears',
       type: 'website',
-      images: Array.from(images.entries()).map(
-        ([img_id, altText]: [string, string]) => ({
-          url: cockpit.getImagePresetUrl(img_id, 'medium'),
-          width: 819,
-          height: 1024,
-          alt: altText,
-        })
-      ),
+      images: Array.from(images.entries()).map(([img_id, altText]) => ({
+        url: cockpit.getImagePresetUrl(img_id, 'medium'),
+        width: 819,
+        height: 1024,
+        alt: altText,
+      })),
     },
     twitter: {
       card: 'summary_large_image',
