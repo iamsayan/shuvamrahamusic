@@ -7,65 +7,56 @@ import Link from 'next/link';
 
 import { LuArrowRight, LuChevronDown, LuPhone } from 'react-icons/lu';
 
-type SubItem = { name: string; href: string; raw?: boolean };
+type SubItem = { name: string; href: string };
 type NavLink = {
   name: string;
   href: string;
-  raw?: boolean;
   subItems?: SubItem[];
 };
 
 const navLinks: NavLink[] = [
-  { name: 'Home', href: '/', raw: true },
+  { name: 'Home', href: '/' },
   {
     name: 'Biography',
     href: '/biography',
-    raw: true,
   },
   {
     name: 'Guiter Classes',
     href: '/guitar-classes-with-shuvam',
-    raw: true,
     subItems: [
       {
         name: 'Make Payment',
         href: '/guitar-classes-with-shuvam/pay',
-        raw: true,
       },
     ],
   },
   {
     name: 'Performance Highlights',
     href: '/performance-highlights',
-    raw: true,
   },
   {
     name: 'Gallery',
     href: '/gallery',
-    raw: process.env.NODE_ENV !== 'production',
     subItems: [
       {
         name: 'Photos',
         href: '/gallery/photos',
-        raw: process.env.NODE_ENV !== 'production',
       },
       {
         name: 'Audios',
         href: '/gallery/audios',
-        raw: process.env.NODE_ENV !== 'production',
       },
       {
         name: 'Videos',
         href: '/gallery/videos',
-        raw: process.env.NODE_ENV !== 'production',
       },
     ],
   },
-  { name: 'Gears', href: '/my-gears', raw: true },
-  { name: 'Tutorials', href: '/tutorials', raw: true },
-  //{ name: 'Guitar Jam Studio', href: '/fretboard-trainer', raw: true },
-  // { name: 'Rhythm Workshop', href: '/rhythm-workshop', raw: true },
-  { name: 'Blog', href: '/blog', raw: true },
+  { name: 'Gears', href: '/my-gears' },
+  { name: 'Tutorials', href: '/tutorials' },
+  //{ name: 'Guitar Jam Studio', href: '/fretboard-trainer' },
+  // { name: 'Rhythm Workshop', href: '/rhythm-workshop },
+  { name: 'Blog', href: '/blog' },
   // {
   //   name: 'Links',
   //   href: '#',
@@ -73,16 +64,14 @@ const navLinks: NavLink[] = [
   //     {
   //       name: 'Tutorials',
   //       href: '/tutorials',
-  //       raw: true,
   //     },
   //     {
   //       name: 'Blog',
   //       href: '/blog',
-  //       raw: process.env.NODE_ENV !== 'production',
   //     },
   //   ],
   // },
-  { name: 'Contact', href: '/contact', raw: true },
+  { name: 'Contact', href: '/contact' },
 ];
 
 export default function Header() {
@@ -123,7 +112,7 @@ export default function Header() {
     >
       <div className="mx-auto flex min-h-0 w-full max-w-350 flex-1 flex-col justify-start px-5 md:px-12 lg:px-20">
         {/* Top Header Bar */}
-        <div className="flex h-[60px] w-full shrink-0 items-center justify-between md:h-[70px]">
+        <div className="flex h-15 w-full shrink-0 items-center justify-between md:h-17.5">
           {/* Logo */}
           <Link
             href="/"
@@ -152,7 +141,7 @@ export default function Header() {
                     className="group/item relative flex items-center gap-1 rounded-full py-1.5 pr-2.5 pl-3.5 transition-colors"
                   >
                     <Link
-                      href={`${link.raw ? link.href : `https://shuvamrahamusic.com${link.href}`}`}
+                      href={link.href}
                       className="relative z-10 text-sm font-bold whitespace-nowrap text-gray-300 transition-colors duration-300 group-hover/item:text-white hover:text-white"
                     >
                       {link.name}
@@ -162,11 +151,11 @@ export default function Header() {
 
                       {/* Dropdown triggered only by Chevron hover */}
                       <div className="invisible absolute top-full left-1/2 z-50 -translate-x-1/2 translate-y-3 pt-3 opacity-0 transition-all duration-300 ease-out group-hover/chevron:visible group-hover/chevron:opacity-100">
-                        <div className="flex min-w-[150px] flex-col rounded-2xl border border-white/10 bg-[#0a0a0f]/95 p-1.5 shadow-[0_20px_40px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
+                        <div className="flex min-w-37.5 flex-col rounded-2xl border border-white/10 bg-[#0a0a0f]/95 p-1.5 shadow-[0_20px_40px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
                           {link.subItems.map((sub, sIdx) => (
                             <Link
                               key={sIdx}
-                              href={`${sub.raw ? sub.href : `https://shuvamrahamusic.com${sub.href}`}`}
+                              href={sub.href}
                               className="rounded-xl px-3.5 py-2 text-sm font-bold text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
                             >
                               {sub.name}
@@ -184,7 +173,7 @@ export default function Header() {
               return (
                 <div key={idx} className="group relative">
                   <Link
-                    href={`${link.raw ? link.href : `https://shuvamrahamusic.com${link.href}`}`}
+                    href={link.href}
                     className="relative flex items-center gap-1 overflow-hidden rounded-full px-3.5 py-1.5 transition-colors"
                   >
                     <span className="relative z-10 text-sm font-bold whitespace-nowrap text-gray-300 transition-colors duration-300 group-hover:text-white">
@@ -200,11 +189,11 @@ export default function Header() {
                   {/* Dropdown for Desktop */}
                   {link.subItems && (
                     <div className="invisible absolute top-full left-1/2 z-50 -translate-x-1/2 translate-y-3 pt-3 opacity-0 transition-all duration-300 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                      <div className="flex min-w-[150px] flex-col rounded-2xl border border-white/10 bg-[#0a0a0f]/95 p-1.5 shadow-[0_20px_40px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
+                      <div className="flex min-w-37.5 flex-col rounded-2xl border border-white/10 bg-[#0a0a0f]/95 p-1.5 shadow-[0_20px_40px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
                         {link.subItems.map((sub, sIdx) => (
                           <Link
                             key={sIdx}
-                            href={`${sub.raw ? sub.href : `https://shuvamrahamusic.com${sub.href}`}`}
+                            href={sub.href}
                             className="rounded-xl px-3.5 py-2 text-sm font-bold text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
                           >
                             {sub.name}
@@ -269,7 +258,7 @@ export default function Header() {
                     style={{ animationDelay: `${idx * 40}ms` }}
                   >
                     <Link
-                      href={`${link.raw ? link.href : `https://shuvamrahamusic.com${link.href}`}`}
+                      href={link.href}
                       className="group flex items-center justify-between py-2 text-base font-bold text-gray-300 transition-all duration-300 hover:text-white"
                       onClick={() =>
                         (!link.subItems || isRealLink) &&
@@ -288,7 +277,7 @@ export default function Header() {
                         {link.subItems.map((sub, sIdx) => (
                           <Link
                             key={sIdx}
-                            href={`${sub.raw ? sub.href : `https://shuvamrahamusic.com${sub.href}`}`}
+                            href={sub.href}
                             className="py-1 text-sm font-semibold text-gray-400 transition-colors hover:text-cyan-400"
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
@@ -303,7 +292,7 @@ export default function Header() {
             </nav>
 
             {/* Ambient Background glow in Mobile Menu */}
-            <div className="pointer-events-none absolute bottom-0 left-1/2 size-[250px] -translate-x-1/2 rounded-full bg-cyan-600/10 blur-[90px]" />
+            <div className="pointer-events-none absolute bottom-0 left-1/2 size-62.5 -translate-x-1/2 rounded-full bg-cyan-600/10 blur-[90px]" />
           </div>
         )}
       </div>

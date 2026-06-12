@@ -18,6 +18,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/terms-of-service',
     '/tutorials',
     '/gallery/audios',
+    '/gallery/videos',
+    '/gallery/photos',
     //'/fretboard-trainer',
     // '/rhythm-workshop',
     '/blog',

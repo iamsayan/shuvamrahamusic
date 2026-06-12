@@ -1,4 +1,4 @@
-import type { Asset, Entity, TreeEntity } from '@/lib/cockpit';
+import type { Asset, Entity, TreeEntity, SingletonEntity } from '@/lib/cockpit';
 
 export interface Member extends Entity {
   name: string;
@@ -136,6 +136,29 @@ export interface GuitarClassesData extends Entity {
   performance_videos: string[];
   hero_image: Asset;
   coach_images: Asset[];
+}
+
+export interface GalleryImage {
+  image: Asset;
+  title: string;
+  description: string;
+  group: string;
+  date?: string;
+  location?: string;
+}
+
+export interface GalleryVideo {
+  video_id: string;
+  title: string;
+  description: string;
+  date: string;
+  type: 'Video' | 'Short';
+  category: string;
+}
+
+export interface GalleryData extends SingletonEntity {
+  images: GalleryImage[];
+  videos: GalleryVideo[];
 }
 
 declare global {
