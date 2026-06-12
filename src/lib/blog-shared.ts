@@ -1,5 +1,5 @@
 import type { Asset } from '@/lib/cockpit';
-import type { Category, Tag } from '@/types';
+import type { Category, Post, Tag } from '@/types';
 
 export interface Author {
   name: string;
@@ -19,8 +19,10 @@ export interface BlogPost {
   categories: Category[];
   tags: Tag[];
   date: string;
+  modifiedDate: string;
   readTime: string;
   author: Author;
+  raw: Post;
 }
 
 export interface CategoryTheme {

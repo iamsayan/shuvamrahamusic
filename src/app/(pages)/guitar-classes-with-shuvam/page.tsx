@@ -59,14 +59,6 @@ export const metadata: Metadata = {
       '1-on-1 personalized guitar lessons globally. Online classes or offline studio in Kolkata. Start playing your favorite songs in 30 days!',
     url: '/guitar-classes-with-shuvam',
     type: 'website',
-    images: [
-      {
-        url: '/hero-guitarist.jpg',
-        width: 800,
-        height: 600,
-        alt: 'Shuvam Raha Guitar Classes',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -74,7 +66,6 @@ export const metadata: Metadata = {
       'Learn Guitar Online & Offline with Shuvam Raha | Play Songs in 30 Days',
     description:
       '1-on-1 personalized guitar lessons globally. Start playing your favorite songs in 30 days!',
-    images: ['/hero-guitarist.jpg'],
   },
 };
 
@@ -210,7 +201,7 @@ export default async function Page() {
               price: plan.amount.toFixed(2),
               name: plan.name,
               description: plan.description,
-              url: `${SCHEMA.BASE_URL}/guitar-classes-with-shuvam/pay?h=${plan._id}`,
+              url: `${SCHEMA.BASE_URL}/guitar-classes-with-shuvam/pay?h=${btoa(JSON.stringify({ plan: plan._id, region: plan.region === 'India' ? 'INR' : 'GLOBAL' }))}`,
             })),
             hasCourseInstance: {
               '@type': 'CourseInstance',
@@ -401,14 +392,14 @@ export default async function Page() {
               </div>
 
               {/* Trust Metrics Bar */}
-              <div className="relative z-10 mx-auto mt-16 w-full max-w-7xl rounded-[2rem] border border-white/10 bg-white/2 px-4 py-5 shadow-2xl backdrop-blur-3xl md:px-6 lg:px-8">
+              <div className="relative z-10 mx-auto mt-16 w-full max-w-7xl rounded-4xl border border-white/10 bg-white/2 px-4 py-5 shadow-2xl backdrop-blur-3xl md:px-6 lg:px-8">
                 <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5 lg:gap-0 lg:divide-x lg:divide-white/10">
                   {/* 1. 5.0 Rating */}
                   <div className="flex w-full items-center gap-4 p-2 lg:py-1 lg:pr-4 lg:pl-0">
                     <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl border border-amber-500/20 bg-amber-500/10 text-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.15)]">
                       <LuStar className="size-5 fill-amber-400" />
                     </div>
-                    <div className="flex min-h-[48px] flex-col justify-center text-left">
+                    <div className="flex min-h-12 flex-col justify-center text-left">
                       <div className="flex items-center gap-1.5">
                         <span className="font-heading text-sm leading-none font-extrabold text-white sm:text-base">
                           5.0 Rating
@@ -422,7 +413,7 @@ export default async function Page() {
                           ))}
                         </div>
                       </div>
-                      <span className="mt-1 max-w-[180px] text-xs leading-tight text-gray-400">
+                      <span className="mt-1 max-w-45 text-xs leading-tight text-gray-400">
                         Trusted by 150+ students worldwide
                       </span>
                     </div>
@@ -433,11 +424,11 @@ export default async function Page() {
                     <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl border border-violet-500/20 bg-violet-500/10 text-violet-400 shadow-[0_0_15px_rgba(139,92,246,0.15)]">
                       <LuGraduationCap className="size-5" />
                     </div>
-                    <div className="flex min-h-[48px] flex-col justify-center text-left">
+                    <div className="flex min-h-12 flex-col justify-center text-left">
                       <span className="font-heading text-sm leading-none font-extrabold text-white sm:text-base">
                         {new Date().getFullYear() - 2015}+ Years Experience
                       </span>
-                      <span className="mt-1 max-w-[180px] text-xs leading-tight text-gray-400">
+                      <span className="mt-1 max-w-45 text-xs leading-tight text-gray-400">
                         LCM Certified Instructor
                       </span>
                     </div>
@@ -448,11 +439,11 @@ export default async function Page() {
                     <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
                       <LuGlobe className="size-5" />
                     </div>
-                    <div className="flex min-h-[48px] flex-col justify-center text-left">
+                    <div className="flex min-h-12 flex-col justify-center text-left">
                       <span className="font-heading text-sm leading-none font-extrabold text-white sm:text-base">
                         Global Reach
                       </span>
-                      <span className="mt-1 max-w-[180px] text-xs leading-tight text-gray-400">
+                      <span className="mt-1 max-w-45 text-xs leading-tight text-gray-400">
                         India, USA, UK, Canada
                       </span>
                     </div>
@@ -463,11 +454,11 @@ export default async function Page() {
                     <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl border border-rose-500/20 bg-rose-500/10 text-rose-400 shadow-[0_0_15px_rgba(244,63,94,0.15)]">
                       <LuAward className="size-5" />
                     </div>
-                    <div className="flex min-h-[48px] flex-col justify-center text-left">
+                    <div className="flex min-h-12 flex-col justify-center text-left">
                       <span className="font-heading text-sm leading-none font-extrabold text-white sm:text-base">
                         1:1 Sessions
                       </span>
-                      <span className="mt-1 max-w-[180px] text-xs leading-tight text-gray-400">
+                      <span className="mt-1 max-w-45 text-xs leading-tight text-gray-400">
                         Online & Offline (Personalized Learning)
                       </span>
                     </div>
@@ -478,11 +469,11 @@ export default async function Page() {
                     <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
                       <LuClock className="size-5" />
                     </div>
-                    <div className="flex min-h-[48px] flex-col justify-center text-left">
+                    <div className="flex min-h-12 flex-col justify-center text-left">
                       <span className="font-heading text-sm leading-none font-extrabold text-white sm:text-base">
                         Flexible Timings
                       </span>
-                      <span className="mt-1 max-w-[180px] text-xs leading-tight text-gray-400">
+                      <span className="mt-1 max-w-45 text-xs leading-tight text-gray-400">
                         Learn at your convenience
                       </span>
                     </div>
@@ -501,13 +492,13 @@ export default async function Page() {
           id="results"
         >
           <div className="absolute top-0 left-1/2 z-20 h-px w-full max-w-[80%] -translate-x-1/2 bg-linear-to-r from-transparent via-white/10 to-transparent md:max-w-4xl" />
-          <div className="absolute top-0 left-1/2 z-20 h-[1px] w-full max-w-[50%] -translate-x-1/2 bg-linear-to-r from-transparent via-violet-500/40 to-transparent blur-[2px] md:max-w-2xl" />
+          <div className="absolute top-0 left-1/2 z-20 h-px w-full max-w-[50%] -translate-x-1/2 bg-linear-to-r from-transparent via-violet-500/40 to-transparent blur-[2px] md:max-w-2xl" />
 
           {/* Ambient Glows */}
           <div className="pointer-events-none absolute inset-0 z-0 overflow-visible">
-            <div className="pointer-events-none absolute -top-[10%] -left-[10%] size-[600px] rounded-full bg-violet-600/10 mix-blend-screen blur-[120px]" />
-            <div className="pointer-events-none absolute top-[40%] right-[-10%] h-[600px] w-[500px] rounded-full bg-fuchsia-600/10 mix-blend-screen blur-[120px]" />
-            <div className="pointer-events-none absolute -bottom-[10%] left-[30%] size-[600px] rounded-full bg-indigo-600/10 mix-blend-screen blur-[120px]" />
+            <div className="pointer-events-none absolute -top-[10%] -left-[10%] size-150 rounded-full bg-violet-600/10 mix-blend-screen blur-[120px]" />
+            <div className="pointer-events-none absolute top-[40%] right-[-10%] h-150 w-125 rounded-full bg-fuchsia-600/10 mix-blend-screen blur-[120px]" />
+            <div className="pointer-events-none absolute -bottom-[10%] left-[30%] size-150 rounded-full bg-indigo-600/10 mix-blend-screen blur-[120px]" />
           </div>
 
           <div className="relative z-10 mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
@@ -526,7 +517,7 @@ export default async function Page() {
 
             {/* Student Performance Videos Row */}
             <div className="relative w-full overflow-hidden rounded-3xl border border-white/5 bg-white/2 p-4 sm:p-6">
-              <div className="pointer-events-none absolute top-0 right-0 h-full w-[400px] bg-blue-500/5 blur-[80px]" />
+              <div className="pointer-events-none absolute top-0 right-0 h-full w-100 bg-blue-500/5 blur-[80px]" />
               <div className="relative z-10 mb-6 flex items-center gap-3">
                 <LuMonitorSmartphone className="size-5 text-blue-400" />
                 <h3 className="font-heading text-lg font-bold text-white sm:text-xl">
@@ -536,7 +527,7 @@ export default async function Page() {
               <div className="relative z-10 w-full">
                 <SliderGallery itemWidth={220} autoScroll={true}>
                   {classesData.student_performance_videos.map((item) => (
-                    <div key={item} className="w-[220px] shrink-0 snap-center">
+                    <div key={item} className="w-55 shrink-0 snap-center">
                       <VideoCard videoId={item} isShort />
                     </div>
                   ))}
@@ -545,7 +536,7 @@ export default async function Page() {
             </div>
 
             <div className="relative mt-4 w-full overflow-hidden rounded-3xl border border-white/5 bg-white/2 p-4 sm:p-6">
-              <div className="pointer-events-none absolute top-0 right-0 h-full w-[400px] bg-blue-500/5 blur-[80px]" />
+              <div className="pointer-events-none absolute top-0 right-0 h-full w-100 bg-blue-500/5 blur-[80px]" />
               <div className="relative z-10 mb-6 flex items-center gap-3">
                 <LuMic className="size-5 text-rose-500" />
                 <h3 className="font-heading text-lg font-bold text-white sm:text-xl">
@@ -555,7 +546,7 @@ export default async function Page() {
               <div className="relative z-10 w-full">
                 <SliderGallery itemWidth={220} autoScroll={true}>
                   {classesData.performance_videos.map((item) => (
-                    <div key={item} className="w-[220px] shrink-0 snap-center">
+                    <div key={item} className="w-55 shrink-0 snap-center">
                       <VideoCard videoId={item} isShort />
                     </div>
                   ))}
@@ -595,8 +586,8 @@ export default async function Page() {
           id="achieve"
         >
           <div className="pointer-events-none absolute inset-0 z-0 overflow-visible">
-            <div className="absolute top-[10%] right-[10%] size-[500px] rounded-full bg-orange-600/5 mix-blend-screen blur-[120px]" />
-            <div className="absolute bottom-[20%] left-[10%] size-[600px] rounded-full bg-blue-600/5 mix-blend-screen blur-[120px]" />
+            <div className="absolute top-[10%] right-[10%] size-125 rounded-full bg-orange-600/5 mix-blend-screen blur-[120px]" />
+            <div className="absolute bottom-[20%] left-[10%] size-150 rounded-full bg-blue-600/5 mix-blend-screen blur-[120px]" />
           </div>
 
           <div className="relative z-10 mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
@@ -924,7 +915,7 @@ export default async function Page() {
           id="reviews"
         >
           <div className="pointer-events-none absolute inset-0 z-0">
-            <div className="absolute top-1/2 left-1/2 size-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-600/5 mix-blend-screen blur-[150px]" />
+            <div className="absolute top-1/2 left-1/2 size-200 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-600/5 mix-blend-screen blur-[150px]" />
           </div>
 
           <div className="relative z-10 mx-auto mb-12 w-full max-w-350 px-5 text-center sm:mb-16 md:px-12 lg:px-20">
@@ -956,7 +947,7 @@ export default async function Page() {
                   {[...topRowReviews, ...topRowReviews].map((review, idx) => (
                     <div
                       key={`top-${idx}`}
-                      className="group relative flex w-[290px] shrink-0 flex-col justify-between overflow-hidden rounded-[2rem] border border-white/6 bg-linear-to-b from-white/3 to-white/1 p-6 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:scale-[1.01] hover:border-amber-500/30 hover:bg-white/5 hover:shadow-[0_0_40px_rgba(245,158,11,0.06)] active:scale-[0.99] sm:w-[420px] sm:p-7"
+                      className="group relative flex w-72.5 shrink-0 flex-col justify-between overflow-hidden rounded-4xl border border-white/6 bg-linear-to-b from-white/3 to-white/1 p-6 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:scale-[1.01] hover:border-amber-500/30 hover:bg-white/5 hover:shadow-[0_0_40px_rgba(245,158,11,0.06)] active:scale-[0.99] sm:w-105 sm:p-7"
                     >
                       {/* Ambient Background Accent Glow */}
                       <div className="pointer-events-none absolute top-0 right-0 size-24 rounded-full bg-amber-500/5 opacity-0 blur-[30px] transition-opacity duration-700 group-hover:opacity-100" />
@@ -1024,7 +1015,7 @@ export default async function Page() {
                     (review, idx) => (
                       <div
                         key={`bottom-${idx}`}
-                        className="group relative flex w-[290px] shrink-0 flex-col justify-between overflow-hidden rounded-[2rem] border border-white/6 bg-linear-to-b from-white/3 to-white/1 p-6 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:scale-[1.01] hover:border-amber-500/30 hover:bg-white/5 hover:shadow-[0_0_40px_rgba(245,158,11,0.06)] active:scale-[0.99] sm:w-[420px] sm:p-7"
+                        className="group relative flex w-72.5 shrink-0 flex-col justify-between overflow-hidden rounded-4xl border border-white/6 bg-linear-to-b from-white/3 to-white/1 p-6 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:scale-[1.01] hover:border-amber-500/30 hover:bg-white/5 hover:shadow-[0_0_40px_rgba(245,158,11,0.06)] active:scale-[0.99] sm:w-105 sm:p-7"
                       >
                         {/* Ambient Background Accent Glow */}
                         <div className="pointer-events-none absolute top-0 right-0 size-24 rounded-full bg-amber-500/5 opacity-0 blur-[30px] transition-opacity duration-700 group-hover:opacity-100" />
@@ -1109,7 +1100,7 @@ export default async function Page() {
             <div className="relative z-10 mx-auto mt-8 flex w-full max-w-350 justify-center px-5 md:px-12 lg:px-20">
               <div className="relative w-full max-w-xl overflow-hidden rounded-3xl border border-white/8 bg-linear-to-b from-white/3 to-transparent p-6 text-center shadow-2xl backdrop-blur-xl sm:rounded-[2.5rem] sm:p-10">
                 {/* Glowing Ambient light */}
-                <div className="pointer-events-none absolute top-0 right-0 size-32 rounded-full bg-amber-500/5 blur-[40px]" />
+                <div className="pointer-events-none absolute top-0 right-0 size-32 rounded-full bg-amber-500/5 blur-2xl" />
 
                 <div className="relative z-10 flex flex-col items-center gap-6">
                   {/* Google Icon Facade */}
@@ -1168,8 +1159,8 @@ export default async function Page() {
           id="faq"
         >
           <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-            <div className="absolute top-[10%] left-[10%] size-[600px] rounded-full bg-indigo-600/5 mix-blend-screen blur-[120px]" />
-            <div className="absolute right-[10%] bottom-[10%] size-[600px] rounded-full bg-purple-600/5 mix-blend-screen blur-[120px]" />
+            <div className="absolute top-[10%] left-[10%] size-150 rounded-full bg-indigo-600/5 mix-blend-screen blur-[120px]" />
+            <div className="absolute right-[10%] bottom-[10%] size-150 rounded-full bg-purple-600/5 mix-blend-screen blur-[120px]" />
           </div>
 
           <div className="relative z-10 mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">

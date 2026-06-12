@@ -5,8 +5,10 @@ import { notFound } from 'next/navigation';
 
 import BlogArchiveClient from '@/components/blog-archive-client';
 import JsonLd from '@/components/json-ld';
-import { getBlogPosts, getBlogPostsByCategory } from '@/lib/blog-data';
+import { getBlogPostsByCategory } from '@/lib/blog-data';
+import cockpit from '@/lib/client';
 import { SCHEMA } from '@/lib/schema';
+import { Category } from '@/types';
 
 interface PageProps {
   params: Promise<{
@@ -19,59 +21,57 @@ interface PageProps {
 
 // Generate static params for categories dynamically at build time (SSG)
 export async function generateStaticParams() {
-  const posts = await getBlogPosts();
-  const slugs = new Set<string>();
-
-  posts.forEach((post) => {
-    post.categories.forEach((cat) => {
-      if (cat?.slug) {
-        slugs.add(cat.slug);
-      }
-    });
+  const categories = await cockpit.listContentItems('categories', {
+    limit: -1,
+    fields: {
+      slug: true,
+    },
   });
 
-  return Array.from(slugs).map((slug) => ({
-    slug,
+  return categories.map((category) => ({
+    slug: category.slug,
   }));
 }
 
 // Generate dynamic SEO metadata
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ page?: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const posts = await getBlogPostsByCategory(slug);
+  const { page } = await searchParams;
+  const pageNum = Number(page) || 1;
+  const pageSuffix = pageNum > 1 ? ` - Page ${pageNum}` : '';
 
-  if (posts.length === 0) {
-    return {
-      title: 'Category Not Found | Shuvam Raha Music Blog',
-      description: 'The requested blog category could not be found.',
-    };
-  }
-
-  // Find exact category title casing from the post categories list
-  let categoryName = slug;
-  for (const post of posts) {
-    const matched = post.categories.find((cat) => cat.slug === slug);
-    if (matched) {
-      categoryName = matched.title;
-      break;
+  const category = await cockpit.getContentItemByFilter<Category>(
+    'categories',
+    {
+      filter: { slug },
+      fields: {
+        title: true,
+      },
     }
-  }
+  );
 
   return {
-    title: `${categoryName} Archives - Blog`,
-    description: `Read all guitar articles, roadmaps, and guides categorized under ${categoryName} by instructor Shuvam Raha.`,
+    title: `${category.title} Articles${pageSuffix}`,
+    description: `Read all guitar articles, roadmaps, and guides categorized under ${category.title} by instructor Shuvam Raha.`,
     alternates: {
-      canonical: `/blog/category/${slug}`,
+      canonical: `/blog/category/${slug}${pageNum > 1 ? `?page=${pageNum}` : ''}`,
     },
     openGraph: {
-      title: `${categoryName} Guitar Articles - Shuvam Raha Music`,
-      description: `Read all articles, exercises, and guides categorized under ${categoryName} from Shuvam Raha.`,
-      url: `/blog/category/${slug}`,
+      title: `${category.title} Guitar Articles${pageSuffix}`,
+      description: `Read all articles, exercises, and guides categorized under ${category.title} from Shuvam Raha.`,
+      url: `/blog/category/${slug}${pageNum > 1 ? `?page=${pageNum}` : ''}`,
       type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${category.title} Guitar Articles${pageSuffix}`,
+      description: `Read all articles, exercises, and guides categorized under ${category.title} from Shuvam Raha.`,
     },
   };
 }
@@ -84,29 +84,17 @@ export default async function CategoryArchivePage({
   const { page } = await searchParams;
   const pageNum = Number(page) || 1;
 
-  // Fetch all posts with minimal fields projection to count total and get category casing
-  const allPosts = await getBlogPostsByCategory(slug, {
-    fields: { _id: 1, categories: 1 },
-  });
-
-  if (allPosts.length === 0) {
-    notFound();
-  }
-
-  // Find exact category title casing
-  let categoryName = slug;
-  for (const post of allPosts) {
-    const matched = post.categories.find((cat) => cat.slug === slug);
-    if (matched) {
-      categoryName = matched.title;
-      break;
-    }
-  }
-
   // Fetch only the paginated slice
   const limit = 6;
   const skip = (pageNum - 1) * limit;
-  const posts = await getBlogPostsByCategory(slug, { limit, skip });
+  const { posts, total } = await getBlogPostsByCategory(slug, { limit, skip });
+
+  if (posts.length === 0) {
+    notFound();
+  }
+
+  const categoryName =
+    posts[0].categories.find((cat) => cat.slug === slug)?.title || slug;
 
   return (
     <>
@@ -137,6 +125,7 @@ export default async function CategoryArchivePage({
               description: post.excerpt,
               url: `${SCHEMA.BASE_URL}/blog/${post.slug}`,
               datePublished: post.date,
+              dateModified: post.modifiedDate,
               keywords: post.tags.map((t) => t.title).join(', '),
               author: {
                 '@type': 'Person',
@@ -153,7 +142,7 @@ export default async function CategoryArchivePage({
           type="category"
           term={categoryName}
           posts={posts}
-          totalPostsCount={allPosts.length}
+          totalPostsCount={total}
         />
       </Suspense>
     </>

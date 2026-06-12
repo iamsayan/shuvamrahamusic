@@ -86,7 +86,7 @@ export default async function BlogListingPage({
             name: 'Shuvam Raha Music Blog',
             description:
               'Practical guides, finger exercises, gear reviews, and roadmaps from Shuvam Raha to help you learn guitar and master your favorite songs.',
-            url: SCHEMA.BASE_URL + '/blog',
+            url: `${SCHEMA.BASE_URL}/blog`,
             publisher: {
               '@type': 'Person',
               name: 'Shuvam Raha',
@@ -98,6 +98,7 @@ export default async function BlogListingPage({
               description: post.excerpt,
               url: `${SCHEMA.BASE_URL}/blog/${post.slug}`,
               datePublished: post.date,
+              dateModified: post.modifiedDate,
               keywords: post.tags.map((t) => t.title).join(', '),
               author: {
                 '@type': 'Person',

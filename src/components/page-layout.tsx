@@ -6,12 +6,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 interface PageLayoutProps {
-  title: string;
-  subtitle?: string;
+  title: React.ReactNode;
+  subtitle?: React.ReactNode;
   children: React.ReactNode;
   maxWidth?: string; // Supports standard keys like '5xl' or custom classes like 'max-w-350'
   textAlign?: 'left' | 'center';
   variant?: 'card' | 'plain';
+  headerRight?: React.ReactNode;
 }
 
 const segmentNames: Record<string, string> = {
@@ -33,6 +34,7 @@ export default function PageLayout({
   maxWidth = 'max-w-350',
   textAlign = 'left',
   variant = 'card',
+  headerRight,
 }: PageLayoutProps) {
   const pathname = usePathname();
   const pathSegments = pathname ? pathname.split('/').filter(Boolean) : [];
@@ -41,6 +43,7 @@ export default function PageLayout({
     const items: { name: string; href?: string }[] = [
       { name: 'Home', href: '/' },
     ];
+    const excludedSegments = ['category', 'tag', 'gallery'];
     let currentPath = '';
 
     pathSegments.forEach((segment, idx) => {
@@ -50,9 +53,12 @@ export default function PageLayout({
         ? name
         : name.charAt(0).toUpperCase() + name.slice(1);
 
+      const isUnlinked =
+        idx === pathSegments.length - 1 || excludedSegments.includes(segment);
+
       items.push({
         name: formattedName,
-        href: idx === pathSegments.length - 1 ? undefined : currentPath,
+        href: isUnlinked ? undefined : currentPath,
       });
     });
 
@@ -97,46 +103,77 @@ export default function PageLayout({
       >
         {/* Top Page Header (Matching Landing Hero) */}
         <div
-          className={`flex w-full flex-col pt-8 pb-6 ${textAlign === 'center' ? 'items-center text-center' : 'items-start text-left'}`}
+          className={`flex w-full flex-col gap-6 pt-8 pb-6 ${
+            headerRight
+              ? 'md:flex-row md:items-end md:justify-between'
+              : textAlign === 'center'
+                ? 'items-center text-center'
+                : 'items-start text-left'
+          }`}
         >
-          {/* Breadcrumbs trail */}
-          <nav
-            className={`font-heading mb-6 flex flex-wrap items-center gap-1.5 text-[11px] font-bold text-gray-500 uppercase sm:text-xs ${textAlign === 'center' ? 'justify-center' : 'justify-start'}`}
+          <div
+            className={`flex max-w-2xl flex-col ${
+              headerRight
+                ? 'items-start text-left'
+                : textAlign === 'center'
+                  ? 'items-center text-center'
+                  : 'items-start text-left'
+            }`}
           >
-            {breadcrumbs.map((crumb, idx) => {
-              const isLast = idx === breadcrumbs.length - 1;
-              return (
-                <React.Fragment key={idx}>
-                  {idx > 0 && (
-                    <span className="text-[10px] font-normal text-gray-700 sm:text-xs">
-                      /
-                    </span>
-                  )}
-                  {isLast ? (
-                    <span className="font-black tracking-wide text-cyan-400">
-                      {crumb.name}
-                    </span>
-                  ) : (
-                    <Link
-                      href={crumb.href || '#'}
-                      className="transition-colors duration-200 hover:text-white"
-                    >
-                      {crumb.name}
-                    </Link>
-                  )}
-                </React.Fragment>
-              );
-            })}
-          </nav>
+            {/* Breadcrumbs trail */}
+            <nav
+              className={`font-heading mb-6 flex flex-wrap items-center gap-1.5 text-[11px] font-bold text-gray-500 uppercase sm:text-xs ${
+                !headerRight && textAlign === 'center'
+                  ? 'justify-center'
+                  : 'justify-start'
+              }`}
+            >
+              {breadcrumbs.map((crumb, idx) => {
+                const isLast = idx === breadcrumbs.length - 1;
+                return (
+                  <React.Fragment key={idx}>
+                    {idx > 0 && (
+                      <span className="text-[10px] font-normal text-gray-700 sm:text-xs">
+                        /
+                      </span>
+                    )}
+                    {isLast ? (
+                      <span className="font-black tracking-wide text-cyan-400">
+                        {crumb.name}
+                      </span>
+                    ) : (
+                      <>
+                        {crumb.href ? (
+                          <Link
+                            href={crumb.href}
+                            className="transition-colors duration-200 hover:text-white"
+                          >
+                            {crumb.name}
+                          </Link>
+                        ) : (
+                          <span>{crumb.name}</span>
+                        )}
+                      </>
+                    )}
+                  </React.Fragment>
+                );
+              })}
+            </nav>
 
-          <h1 className="font-heading mb-4 bg-linear-to-r from-white via-white to-gray-400 bg-clip-text text-3xl font-black tracking-tight text-transparent sm:text-4xl lg:text-5xl">
-            {title}
-          </h1>
+            <h1 className="font-heading mb-4 bg-linear-to-r from-white via-white to-gray-400 bg-clip-text text-3xl font-black tracking-tight text-transparent sm:text-4xl lg:text-5xl">
+              {title}
+            </h1>
 
-          {subtitle && (
-            <p className="max-w-2xl text-xs leading-relaxed text-gray-400 sm:text-sm md:text-base">
-              {subtitle}
-            </p>
+            {subtitle && (
+              <p className="text-xs leading-relaxed text-gray-400 sm:text-sm md:text-base">
+                {subtitle}
+              </p>
+            )}
+          </div>
+          {headerRight && (
+            <div className="relative w-full max-w-sm shrink-0">
+              {headerRight}
+            </div>
           )}
         </div>
 

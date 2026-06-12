@@ -173,7 +173,11 @@ function slugToTitle(slug: string): string {
  * @example SCHEMA.breadcrumb('/blog/my-first-post', 'My First Post')
  */
 function breadcrumb(path: string, lastSegmentName?: string) {
+  const restrictedRoutes = ['category', 'tag', 'gallery'];
+
   const segments = path.split('/').filter(Boolean);
+
+  let position = 2;
 
   const itemListElement = [
     {
@@ -182,22 +186,31 @@ function breadcrumb(path: string, lastSegmentName?: string) {
       name: 'Home',
       item: `${BASE_URL}/`,
     },
-    ...segments.map((segment, index) => {
-      const isLast = index === segments.length - 1;
-      const segPath = '/' + segments.slice(0, index + 1).join('/');
-      const name =
-        isLast && lastSegmentName
-          ? lastSegmentName
-          : ROUTE_NAMES[segment] || slugToTitle(segment);
+    ...segments
+      .filter((segment, index) => {
+        // Keep last segment even if restricted
+        const isLast = index === segments.length - 1;
 
-      return {
-        '@type': 'ListItem',
-        position: index + 2,
-        name,
-        // Last item omits `item` URL per Google's structured data spec
-        ...(isLast ? {} : { item: `${BASE_URL}${segPath}/` }),
-      };
-    }),
+        return isLast || !restrictedRoutes.includes(segment);
+      })
+      .map((segment, index, filteredSegments) => {
+        const isLast = index === filteredSegments.length - 1;
+
+        const originalIndex = segments.indexOf(segment);
+        const segPath = '/' + segments.slice(0, originalIndex + 1).join('/');
+
+        const name =
+          isLast && lastSegmentName
+            ? lastSegmentName
+            : ROUTE_NAMES[segment] || slugToTitle(segment);
+
+        return {
+          '@type': 'ListItem',
+          position: position++,
+          name,
+          ...(isLast ? {} : { item: `${BASE_URL}${segPath}/` }),
+        };
+      }),
   ];
 
   return {

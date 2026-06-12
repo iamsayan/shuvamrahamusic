@@ -71,11 +71,11 @@ export default function AudiosGalleryPage() {
           <div className="flex flex-col gap-4 lg:col-span-7">
             <div className="relative overflow-hidden rounded-3xl border border-white/6 bg-[#0A0A15]/60 p-6 shadow-2xl backdrop-blur-2xl">
               {/* Decorative Glow */}
-              <div className="pointer-events-none absolute -top-24 -left-24 rounded-full bg-cyan-500/10 blur-[90px] size-60" />
+              <div className="pointer-events-none absolute -top-24 -left-24 size-60 rounded-full bg-cyan-500/10 blur-[90px]" />
 
               <div className="relative z-10 mb-6 flex flex-wrap items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
-                  <LuRadio className="animate-pulse text-cyan-400 size-5" />
+                  <LuRadio className="size-5 animate-pulse text-cyan-400" />
                   <span className="text-xs font-black tracking-widest text-cyan-400 uppercase">
                     Interactive Music Widget
                   </span>
@@ -108,7 +108,7 @@ export default function AudiosGalleryPage() {
               </div>
 
               {/* IFrame player */}
-              <div className="relative aspect-video min-h-[352px] w-full overflow-hidden rounded-2xl bg-black/40 shadow-inner">
+              <div className="relative aspect-video min-h-88 w-full overflow-hidden rounded-2xl bg-black/40 shadow-inner">
                 <iframe
                   src={activeEmbedUrl}
                   width="100%"
@@ -118,7 +118,7 @@ export default function AudiosGalleryPage() {
                   allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                   loading="lazy"
                   title={activeTrack.title}
-                  className="absolute inset-0 border-0 size-full"
+                  className="absolute inset-0 size-full border-0"
                 />
               </div>
 
@@ -150,7 +150,7 @@ export default function AudiosGalleryPage() {
           <div className="flex flex-col gap-6 lg:col-span-5">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <LuMusic className="text-cyan-400 size-4.5" />
+                <LuMusic className="size-4.5 text-cyan-400" />
                 <h3 className="font-heading text-base font-black text-white">
                   Select a Release
                 </h3>
@@ -177,8 +177,8 @@ export default function AudiosGalleryPage() {
                         </span>
                         {isSelected && (
                           <span className="relative flex size-2">
-                            <span className="absolute inline-flex animate-ping rounded-full bg-green-400 opacity-75 size-full"></span>
-                            <span className="relative inline-flex rounded-full bg-green-500 size-2"></span>
+                            <span className="absolute inline-flex size-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+                            <span className="relative inline-flex size-2 rounded-full bg-green-500"></span>
                           </span>
                         )}
                       </div>
@@ -198,7 +198,7 @@ export default function AudiosGalleryPage() {
             {/* Portal links to major streaming networks */}
             <div className="space-y-4 rounded-3xl border border-white/4 bg-[#0A0A15]/40 p-6">
               <div className="flex items-center gap-2">
-                <LuSparkles className="text-cyan-400 size-4.5" />
+                <LuSparkles className="size-4.5 text-cyan-400" />
                 <h3 className="font-heading text-sm font-bold text-white">
                   Stream Anywhere
                 </h3>

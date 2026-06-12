@@ -212,18 +212,18 @@ export default function PhotosGalleryPage() {
                 {/* Close Button */}
                 <button
                   onClick={() => setLightboxIndex(null)}
-                  className="absolute top-4 right-4 z-50 flex items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition-colors hover:bg-white/10 size-10"
+                  className="absolute top-4 right-4 z-50 flex size-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition-colors hover:bg-white/10"
                   aria-label="Close lightbox"
                 >
                   <LuX className="size-5" />
                 </button>
 
                 {/* Lightbox Content Container */}
-                <div className="relative flex max-h-[85vh] w-full max-w-[1000px] flex-col items-center justify-center gap-4">
+                <div className="relative flex max-h-[85vh] w-full max-w-250 flex-col items-center justify-center gap-4">
                   {/* Navigation: Prev */}
                   <button
                     onClick={handlePrev}
-                    className="absolute left-2 z-50 flex items-center justify-center rounded-full border border-white/10 bg-black/60 text-white transition-colors hover:bg-white/10 sm:left-4 size-10"
+                    className="absolute left-2 z-50 flex size-10 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white transition-colors hover:bg-white/10 sm:left-4"
                     aria-label="Previous photo"
                   >
                     <LuChevronLeft className="size-5" />
@@ -243,7 +243,7 @@ export default function PhotosGalleryPage() {
                   {/* Navigation: Next */}
                   <button
                     onClick={handleNext}
-                    className="absolute right-2 z-50 flex items-center justify-center rounded-full border border-white/10 bg-black/60 text-white transition-colors hover:bg-white/10 sm:right-4 size-10"
+                    className="absolute right-2 z-50 flex size-10 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white transition-colors hover:bg-white/10 sm:right-4"
                     aria-label="Next photo"
                   >
                     <LuChevronRight className="size-5" />
@@ -251,7 +251,7 @@ export default function PhotosGalleryPage() {
 
                   {/* Photo Description overlay/bottom text */}
                   <div
-                    className="w-full max-w-[800px] space-y-1 pt-2 text-center"
+                    className="w-full max-w-200 space-y-1 pt-2 text-center"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <span className="text-[9px] font-black tracking-widest text-cyan-400 uppercase">

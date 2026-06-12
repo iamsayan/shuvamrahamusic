@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import PageLayout from '@/components/page-layout';
 import CockpitImage from '@/components/cockpit-image';
 import JsonLd from '@/components/json-ld';
 import ShareButtons from '@/components/share-buttons';
@@ -220,7 +221,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             description: post.excerpt,
             image: cockpit.getImageUrl(post.featured_image._id),
             datePublished: post.date,
-            dateModified: post.date,
+            dateModified: post.modifiedDate,
             wordCount: post.content
               ? post.content.replace(/<[^>]*>/g, '').split(/\s+/).length
               : undefined,
@@ -255,70 +256,40 @@ export default async function BlogPostPage({ params }: PageProps) {
         ]}
       />
 
-      <article className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
-        <div className="relative z-10 mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
-          <div className="flex w-full flex-col pt-8 pb-6">
-            {/* Breadcrumbs & Back Link */}
-            <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-              <nav className="font-heading flex items-center gap-1.5 text-[11px] font-bold text-gray-500 uppercase sm:text-xs">
-                <Link
-                  href="/"
-                  className="transition-colors duration-200 hover:text-white"
-                >
-                  Home
-                </Link>
-                <span className="text-[10px] font-normal text-gray-700 sm:text-xs">
-                  /
-                </span>
-                <Link
-                  href="/blog"
-                  className="transition-colors duration-200 hover:text-white"
-                >
-                  Blog
-                </Link>
-                <span className="text-[10px] font-normal text-gray-700 sm:text-xs">
-                  /
-                </span>
-                <span
-                  className={`font-black tracking-wide ${primaryTheme.text}`}
-                >
-                  Article
-                </span>
-              </nav>
-
-              <Link
-                href="/blog"
-                className="inline-flex items-center gap-2 text-xs font-bold text-gray-400 transition-colors hover:text-white"
-              >
-                <LuArrowLeft className="size-4" />
-                Back to Blog
-              </Link>
+      <PageLayout
+        title={post.title}
+        variant="plain"
+        headerRight={
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 text-xs font-bold text-gray-400 transition-colors hover:text-white"
+          >
+            <LuArrowLeft className="size-4" />
+            Back to Blog
+          </Link>
+        }
+      >
+        <div className="flex flex-col">
+          {/* Categories & Meta Info */}
+          <div className="-mt-4 mb-8 flex flex-col gap-6">
+            <div className="flex flex-wrap items-center gap-2">
+              {post.categories.map((cat, idx) => {
+                const catThemeKey = getThemeKey(cat.title);
+                const catTheme =
+                  CATEGORY_THEMES[catThemeKey] || CATEGORY_THEMES['default'];
+                return (
+                  <Link
+                    key={idx}
+                    href={`/blog/category/${cat.slug}`}
+                    className={`rounded-full border ${catTheme.border} ${catTheme.bg} px-3 py-1 text-[10px] font-black tracking-widest ${catTheme.text} uppercase transition-colors duration-300 hover:bg-white/8`}
+                  >
+                    {cat.title}
+                  </Link>
+                );
+              })}
             </div>
 
-            {/* Article Header */}
-            <div className="max-w-4xl">
-              <div className="mb-4 flex flex-wrap items-center gap-2">
-                {post.categories.map((cat, idx) => {
-                  const catThemeKey = getThemeKey(cat.title);
-                  const catTheme =
-                    CATEGORY_THEMES[catThemeKey] || CATEGORY_THEMES['default'];
-                  return (
-                    <Link
-                      key={idx}
-                      href={`/blog/category/${cat.slug}`}
-                      className={`rounded-full border ${catTheme.border} ${catTheme.bg} px-3 py-1 text-[10px] font-black tracking-widest ${catTheme.text} uppercase transition-colors duration-300 hover:bg-white/8`}
-                    >
-                      {cat.title}
-                    </Link>
-                  );
-                })}
-              </div>
-
-              <h1 className="font-heading mb-6 text-3xl leading-[1.15] font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
-                {post.title}
-              </h1>
-
-              <div className="flex flex-wrap items-center gap-6 text-xs text-gray-400">
+            <div className="flex flex-wrap items-center gap-6 text-xs text-gray-400">
                 {/* Author metadata */}
                 <div className="flex items-center gap-3">
                   <div className="relative size-9 overflow-hidden rounded-full border border-white/10 bg-white/5">
@@ -350,20 +321,19 @@ export default async function BlogPostPage({ params }: PageProps) {
                     {post.readTime}
                   </span>
                 </div>
-              </div>
             </div>
           </div>
 
           {/* Featured Image Banner */}
-          <div className="group relative mb-12 overflow-hidden rounded-[2rem] border border-white/10 bg-white/2 shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
+          <div className="group relative mb-12 overflow-hidden rounded-4xl border border-white/10 bg-white/2 shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
             <div
-              className={`absolute top-0 left-0 h-[3px] w-full bg-linear-to-r ${BRIGHT_GRADIENTS[themeKey] || BRIGHT_GRADIENTS['default']} z-20 opacity-50`}
+              className={`absolute top-0 left-0 h-0.75 w-full bg-linear-to-r ${BRIGHT_GRADIENTS[themeKey] || BRIGHT_GRADIENTS['default']} z-20 opacity-50`}
             />
             <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-[#020205]/60 via-transparent to-transparent" />
-            <div className="relative aspect-video max-h-[500px] w-full">
+            <div className="relative aspect-video max-h-125 w-full">
               <CockpitImage
                 asset={post.coverImage}
-                className="object-cover transition-transform duration-[2000ms] group-hover:scale-[1.01]"
+                className="object-cover transition-transform duration-2000 group-hover:scale-[1.01]"
                 fill
                 preload
               />
@@ -541,12 +511,12 @@ export default async function BlogPostPage({ params }: PageProps) {
                     >
                       {/* Glowing Top Accent Strip */}
                       <div
-                        className={`absolute top-0 left-0 h-[3px] w-full bg-linear-to-r ${BRIGHT_GRADIENTS[rThemeKey] || BRIGHT_GRADIENTS['default']} z-20 opacity-20 transition-opacity duration-500 group-hover:opacity-90`}
+                        className={`absolute top-0 left-0 h-0.75 w-full bg-linear-to-r ${BRIGHT_GRADIENTS[rThemeKey] || BRIGHT_GRADIENTS['default']} z-20 opacity-20 transition-opacity duration-500 group-hover:opacity-90`}
                       />
 
                       {/* Inner accent glow on hover */}
                       <div
-                        className={`pointer-events-none absolute -right-16 -bottom-16 rounded-full ${GLOW_COLORS[rThemeKey] || GLOW_COLORS['default']} z-0 size-36 opacity-0 blur-[40px] transition-opacity duration-700 group-hover:opacity-100`}
+                        className={`pointer-events-none absolute -right-16 -bottom-16 rounded-full ${GLOW_COLORS[rThemeKey] || GLOW_COLORS['default']} z-0 size-36 opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-100`}
                       />
 
                       <div>
@@ -626,7 +596,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             </div>
           )}
         </div>
-      </article>
+      </PageLayout>
     </>
   );
 }

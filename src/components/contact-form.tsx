@@ -38,8 +38,8 @@ export default function ContactForm() {
   if (state.success) {
     return (
       <div className="flex flex-col items-center justify-center px-4 py-10 text-center">
-        <div className="mb-6 inline-flex items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400 shadow-[0_0_30px_rgba(52,211,153,0.2)] size-16">
-          <LuShieldCheck className="animate-bounce size-10" />
+        <div className="mb-6 inline-flex size-16 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400 shadow-[0_0_30px_rgba(52,211,153,0.2)]">
+          <LuShieldCheck className="size-10 animate-bounce" />
         </div>
         <h3 className="font-heading text-xl font-black text-white sm:text-2xl">
           Message Sent!
@@ -68,12 +68,12 @@ export default function ContactForm() {
 
       {state.message && !state.success && (
         <div className="flex items-start gap-2.5 rounded-xl border border-red-500/10 bg-red-500/4 p-3.5 text-xs text-red-400">
-          <LuTriangleAlert className="mt-0.5 shrink-0 text-red-500 size-4" />
+          <LuTriangleAlert className="mt-0.5 size-4 shrink-0 text-red-500" />
           <p className="leading-snug">{state.message}</p>
         </div>
       )}
 
-      {/* Cockpit CMS Honeypot field */}
+      {/* database Honeypot field */}
       <div className="hidden" aria-hidden="true">
         <label htmlFor="_honeypot">Website</label>
         <input
@@ -256,7 +256,7 @@ export default function ContactForm() {
         {isPending ? (
           <>
             <svg
-              className="mr-2 -ml-1 animate-spin text-white size-4"
+              className="mr-2 -ml-1 size-4 animate-spin text-white"
               fill="none"
               viewBox="0 0 24 24"
             >
