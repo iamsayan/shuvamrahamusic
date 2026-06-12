@@ -1,0 +1,387 @@
+@import 'tailwindcss';
+@plugin 'fluid-tailwindcss';
+@plugin 'tailwind-scrollbar';
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --surface: #ffffff;
+  --surface-hover: #f1f5f9;
+  --surface-card: #ffffff;
+  --border: rgba(15, 23, 42, 0.08);
+  --muted: #64748b;
+  --secondary: #334155;
+}
+
+.dark {
+  --background: #05050a;
+  --foreground: #f0f0f5;
+  --surface: #0a0a16;
+  --surface-hover: #131320;
+  --surface-card: #07070f;
+  --border: rgba(255, 255, 255, 0.08);
+  --muted: #9ca3af;
+  --secondary: #d1d5db;
+}
+
+/* ==========================================================================
+   1. Design Tokens (Tailwind v4 Theme)
+   ========================================================================== */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: #f59e0b;
+  --color-accent-hover: #fbbf24;
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-card: var(--surface-card);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-secondary: var(--secondary);
+
+  --font-heading: var(--font-outfit), 'Outfit', sans-serif;
+  --font-body: var(--font-outfit), 'Outfit', sans-serif;
+
+  /* Staggered entrance animations */
+  --animate-in-1: fade-in-up 0.6s ease-out 0s both;
+  --animate-in-2: fade-in-up 0.6s ease-out 0.1s both;
+  --animate-in-3: fade-in-up 0.6s ease-out 0.2s both;
+  --animate-in-4: fade-in-up 0.6s ease-out 0.3s both;
+  --animate-in-5: fade-in-up 0.6s ease-out 0.4s both;
+  --animate-in-6: fade-in-up 0.6s ease-out 0.5s both;
+  --animate-slide-in: fade-in-right 0.8s ease-out 0.3s both;
+
+  /* Ambient & decorative animations */
+  --animate-float-1: float-note 4s ease-in-out infinite;
+  --animate-float-2: float-note 4s ease-in-out 1.5s infinite;
+  --animate-float-3: float-note 4s ease-in-out 3s infinite;
+
+  --animate-blob-1: blob-bounce 20s infinite ease-in-out;
+  --animate-blob-2: blob-bounce 25s infinite ease-in-out 2s reverse;
+  --animate-blob-3: blob-bounce 22s infinite ease-in-out 4s;
+}
+
+/* ==========================================================================
+   2. Keyframe Animations
+   ========================================================================== */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float-note {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(5deg);
+  }
+}
+
+@keyframes blob-bounce {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(50px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-40px, 40px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes scroll-text {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ==========================================================================
+   3. Base Styles
+   ========================================================================== */
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-outfit), 'Outfit', sans-serif;
+}
+
+/* Global scrollbar setup */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-hover);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-background);
+}
+
+/* ==========================================================================
+   4. Custom Utilities & Classes
+   ========================================================================== */
+@utility gradient-text {
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom Scrollbar Hide Utilities */
+.scrollbar-hide,
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar,
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Infinite Marquee Animations */
+.animate-marquee-left {
+  animation: scroll-left 40s linear infinite;
+}
+
+.animate-marquee-right {
+  animation: scroll-right 40s linear infinite;
+}
+
+.animate-scroll-text {
+  animation: scroll-text 40s linear infinite;
+}
+
+.marquee-container:hover .animate-marquee-left,
+.marquee-container:hover .animate-marquee-right {
+  animation-play-state: paused;
+}
+
+/* Custom Slow Bounce Animation */
+.animate-slow-bounce {
+  animation: bounce 3s infinite;
+}
+
+/* Mobile Menu Transitions & Delays */
+.mobile-menu-item {
+  transform: translateY(20px);
+  opacity: 0;
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mobile-menu-item:nth-child(1) {
+  transition-delay: 0ms;
+}
+.mobile-menu-item:nth-child(2) {
+  transition-delay: 40ms;
+}
+.mobile-menu-item:nth-child(3) {
+  transition-delay: 80ms;
+}
+.mobile-menu-item:nth-child(4) {
+  transition-delay: 120ms;
+}
+.mobile-menu-item:nth-child(5) {
+  transition-delay: 160ms;
+}
+.mobile-menu-item:nth-child(6) {
+  transition-delay: 200ms;
+}
+.mobile-menu-item:nth-child(7) {
+  transition-delay: 240ms;
+}
+.mobile-menu-item:nth-child(8) {
+  transition-delay: 280ms;
+}
+.mobile-menu-item:nth-child(9) {
+  transition-delay: 320ms;
+}
+.mobile-menu-item:nth-child(10) {
+  transition-delay: 360ms;
+}
+
+.mobile-menu-btn {
+  transform: translateY(20px);
+  opacity: 0;
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 450ms;
+}
+
+/* Trigger states when menu is open */
+.mobile-menu-open .mobile-menu-item {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.mobile-menu-open .mobile-menu-btn {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   5. Dynamic Theme Variable Overrides (Light Mode Compatibility)
+   ========================================================================== */
+html:not(.dark) {
+  /* Dynamic Background Hex Overrides */
+  [class*='bg-[#05050A]'],
+  [class*='bg-[#0a0a0f]'],
+  [class*='bg-[#07070F]'],
+  [class*='bg-[#0A0A16]'],
+  [class*='bg-[#0A0A15]'] {
+    background-color: var(--background) !important;
+  }
+
+  /* Opacity Background Overrides */
+  [class*='bg-[#05050A]/90'] {
+    background-color: rgba(248, 250, 252, 0.9) !important;
+  }
+  [class*='bg-[#020205]/98'] {
+    background-color: rgba(248, 250, 252, 0.98) !important;
+  }
+  [class*='bg-[#020205]/75'] {
+    background-color: rgba(248, 250, 252, 0.75) !important;
+  }
+  [class*='bg-[#07070F]/85'] {
+    background-color: rgba(255, 255, 255, 0.85) !important;
+  }
+  [class*='bg-[#07070F]/55'] {
+    background-color: rgba(255, 255, 255, 0.55) !important;
+  }
+  [class*='bg-[#07070F]/65'] {
+    background-color: rgba(255, 255, 255, 0.65) !important;
+  }
+  [class*='bg-[#080812]/30'] {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+  }
+  [class*='bg-[#080812]/40'] {
+    background-color: rgba(255, 255, 255, 0.4) !important;
+  }
+  [class*='bg-[#080812]/50'] {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+  }
+  [class*='bg-[#0A0A15]/60'] {
+    background-color: rgba(255, 255, 255, 0.6) !important;
+  }
+  [class*='bg-white/[0.01]'],
+  [class*='bg-white/[0.02]'],
+  [class*='bg-white/[0.03]'],
+  [class*='bg-white/[0.04]'],
+  [class*='bg-white/[0.05]'] {
+    background-color: var(--surface-hover) !important;
+  }
+
+  /* Shadow Overrides */
+  [class*='shadow-[0_40px_100px_rgba(0,0,0,0.6)]'],
+  [class*='shadow-[0_20px_50px_rgba(0,0,0,0.5)]'] {
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.05) !important;
+  }
+
+  /* Border Hex & Opacity Overrides */
+  [class*='border-white/10'],
+  [class*='border-white/[0.06]'],
+  [class*='border-white/[0.05]'],
+  [class*='border-white/[0.04]'],
+  [class*='border-white/[0.03]'] {
+    border-color: var(--border) !important;
+  }
+
+  /* Text Color Hex & Gray Class Overrides */
+  [class*='text-[#f0f0f5]'] {
+    color: var(--foreground) !important;
+  }
+  [class*='text-gray-300'] {
+    color: var(--foreground) !important;
+  }
+  [class*='text-gray-400'],
+  [class*='text-gray-500'] {
+    color: var(--muted) !important;
+  }
+
+  /* Hardcoded white text elements mapped to foreground */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  li,
+  strong,
+  b {
+    &.text-white {
+      color: var(--foreground) !important;
+    }
+  }
+
+  /* Overlay Gradients Overrides */
+  div[class*='bg-gradient-to-b'][class*='from-[#05050A]'] {
+    background-image: linear-gradient(
+      to bottom,
+      rgba(248, 250, 252, 0.9) 0%,
+      rgba(248, 250, 252, 0.7) 50%,
+      rgba(248, 250, 252, 1) 100%
+    ) !important;
+  }
+}
