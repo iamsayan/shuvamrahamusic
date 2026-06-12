@@ -35,7 +35,7 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
               : 'border border-transparent text-gray-400 hover:bg-white/5 hover:text-white'
           }`}
         >
-          <LuStar className="h-4 w-4" /> Meet Your Coach
+          <LuStar className="size-4" /> Meet Your Coach
         </button>
         <button
           onClick={() => setActiveTab('curriculum')}
@@ -45,7 +45,7 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
               : 'border border-transparent text-gray-400 hover:bg-white/5 hover:text-white'
           }`}
         >
-          <LuGraduationCap className="h-4 w-4" /> Curriculum
+          <LuGraduationCap className="size-4" /> Curriculum
         </button>
         <button
           onClick={() => setActiveTab('system')}
@@ -55,20 +55,20 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
               : 'border border-transparent text-gray-400 hover:bg-white/5 hover:text-white'
           }`}
         >
-          <LuShieldCheck className="h-4 w-4" /> Learning System
+          <LuShieldCheck className="size-4" /> Learning System
         </button>
       </div>
 
       {/* Dynamic Background Glow based on Active Tab */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden transition-colors duration-1000">
         {activeTab === 'instructor' && (
-          <div className="absolute top-1/2 left-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-600/5 mix-blend-screen blur-[150px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-600/5 mix-blend-screen blur-[150px] size-[800px]" />
         )}
         {activeTab === 'curriculum' && (
-          <div className="absolute top-1/2 left-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-600/5 mix-blend-screen blur-[150px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-600/5 mix-blend-screen blur-[150px] size-[800px]" />
         )}
         {activeTab === 'system' && (
-          <div className="absolute top-1/2 left-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-600/5 mix-blend-screen blur-[150px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-600/5 mix-blend-screen blur-[150px] size-[800px]" />
         )}
       </div>
 
@@ -80,12 +80,12 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
             <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-16">
               <div className="flex w-full justify-center lg:w-5/12">
                 <div className="group relative aspect-4/5 w-full max-w-[480px] rounded-[2rem] border border-white/10 bg-white/2 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.5)] backdrop-blur-3xl lg:max-w-full">
-                  <div className="relative h-full w-full overflow-hidden rounded-2xl bg-[#0a0a0f]">
+                  <div className="relative overflow-hidden rounded-2xl bg-[#0a0a0f] size-full">
                     <CoachImageSlider images={classesData.coach_images} />
                     <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-[#05050A] via-[#05050A]/20 to-transparent" />
                     <div className="absolute right-6 bottom-6 left-6">
                       <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1.5 backdrop-blur-md">
-                        <LuBadgeCheck className="h-4 w-4 text-blue-400" />
+                        <LuBadgeCheck className="text-blue-400 size-4" />
                         <span className="text-xs font-bold tracking-wide text-white uppercase sm:text-sm">
                           Verified Instructor
                         </span>
@@ -112,9 +112,9 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
                       className="flex items-start gap-4 rounded-2xl border border-white/5 bg-white/2 p-5 backdrop-blur-md transition-colors hover:border-white/10 hover:bg-white/5"
                     >
                       <div
-                        className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${point.bg} border ${point.border} ${point.color}`}
+                        className={`flex shrink-0 items-center justify-center rounded-xl ${point.bg} border ${point.border} ${point.color} size-12`}
                       >
-                        <point.icon className="h-6 w-6" />
+                        <point.icon className="size-6" />
                       </div>
                       <div>
                         <h4 className="font-heading mb-1 text-lg font-bold text-white sm:text-xl">
@@ -142,14 +142,14 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
                   className={`group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/2 p-6 backdrop-blur-3xl transition-colors hover:bg-white/4 sm:p-8 ${item.colSpan}`}
                 >
                   <div
-                    className={`absolute top-0 right-0 h-40 w-40 ${item.styles.ambientGlow} rounded-full opacity-0 blur-[60px] transition-transform duration-700 group-hover:scale-150 group-hover:opacity-100`}
+                    className={`absolute top-0 right-0 ${item.styles.ambientGlow} rounded-full opacity-0 blur-[60px] transition-transform duration-700 group-hover:scale-150 group-hover:opacity-100 size-40`}
                   />
                   <div className="relative z-10 flex h-full flex-col">
                     <div className="mb-6 flex items-center gap-4">
                       <div
-                        className={`flex h-14 w-14 items-center justify-center rounded-2xl ${item.styles.iconBg} border ${item.styles.iconBorder} ${item.styles.iconText} shrink-0`}
+                        className={`flex items-center justify-center rounded-2xl ${item.styles.iconBg} border ${item.styles.iconBorder} ${item.styles.iconText} shrink-0 size-14`}
                       >
-                        <item.icon className="h-7 w-7" />
+                        <item.icon className="size-7" />
                       </div>
                       <div>
                         <h3 className="font-heading text-lg leading-tight font-bold text-white sm:text-xl">
@@ -166,7 +166,7 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
                       {item.points.map((point, idx) => (
                         <li key={idx} className="flex items-start gap-3">
                           <LuCircleCheck
-                            className={`h-5 w-5 ${item.styles.iconText} mt-0.5 shrink-0 opacity-60 transition-opacity group-hover:opacity-100`}
+                            className={`${item.styles.iconText} mt-0.5 shrink-0 opacity-60 transition-opacity group-hover:opacity-100 size-5`}
                           />
                           <span className="text-xs text-gray-300 transition-colors group-hover:text-white sm:text-sm">
                             {point}
@@ -198,8 +198,8 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
                   className="flex flex-col rounded-[2rem] border border-white/10 bg-white/2 p-6 backdrop-blur-3xl transition-colors hover:bg-white/4 sm:p-8"
                 >
                   <div className="mb-6 flex items-center gap-4 border-b border-white/10 pb-6">
-                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400">
-                      <feature.icon className="h-7 w-7" />
+                    <div className="flex shrink-0 items-center justify-center rounded-2xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400 size-14">
+                      <feature.icon className="size-7" />
                     </div>
                     <div>
                       <h3 className="font-heading mb-1 text-lg font-bold text-white sm:text-xl">
@@ -216,7 +216,7 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
                         key={pIdx}
                         className="flex items-start gap-3 text-xs sm:text-sm"
                       >
-                        <LuCircleCheck className="mt-0.5 h-5 w-5 shrink-0 text-cyan-500" />
+                        <LuCircleCheck className="mt-0.5 shrink-0 text-cyan-500 size-5" />
                         <div>
                           <strong className="block text-gray-200 sm:inline">
                             {point.t} —{' '}

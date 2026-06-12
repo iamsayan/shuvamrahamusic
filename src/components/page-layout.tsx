@@ -85,10 +85,10 @@ export default function PageLayout({
     <main className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
       {/* Floating Instrument Accents */}
       {/* <div className="animate-float-1 pointer-events-none absolute top-1/3 left-8 hidden opacity-20 xl:block">
-        <LuMusic className="h-8 w-8 text-cyan-400" />
+        <LuMusic className="text-cyan-400 size-8" />
       </div>
       <div className="animate-float-2 pointer-events-none absolute top-1/2 right-12 hidden opacity-15 xl:block">
-        <LuMusic className="h-6 w-6 text-violet-400" />
+        <LuMusic className="text-violet-400 size-6" />
       </div> */}
 
       {/* Unified Width Container - keeps Header and Card perfectly aligned */}

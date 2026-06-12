@@ -39,18 +39,18 @@ export default function CoachImageSlider({ images }: CoachImageSliderProps) {
   }
 
   return (
-    <div className="relative h-full w-full overflow-hidden">
+    <div className="relative overflow-hidden size-full">
       {images.map((img, imgIdx) => (
         <div
           key={img._id}
-          className="absolute inset-0 h-full w-full transition-all duration-1000 ease-in-out"
+          className="absolute inset-0 transition-all duration-1000 ease-in-out size-full"
           style={{
             transform: `translateX(${(imgIdx - activeImgIdx) * 100}%)`,
           }}
         >
           <CockpitImage
             asset={img}
-            className="h-full w-full object-cover object-top opacity-90 transition-transform duration-[2000ms] hover:scale-105"
+            className="object-cover object-top opacity-90 transition-transform duration-[2000ms] hover:scale-105 size-full"
             fill
             mode="resize"
             quality={85}

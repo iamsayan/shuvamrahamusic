@@ -40,7 +40,7 @@ interface ContentTheme {
 const CONTENT_THEMES: Record<string, ContentTheme> = {
   emerald: {
     blockquoteBorder: 'border-emerald-500',
-    blockquoteBg: 'bg-emerald-500/[0.03]',
+    blockquoteBg: 'bg-emerald-500/3',
     blockquoteStrong: 'text-emerald-400',
     codeText: 'text-emerald-400',
     codeBg: 'bg-emerald-950/30',
@@ -51,7 +51,7 @@ const CONTENT_THEMES: Record<string, ContentTheme> = {
   },
   violet: {
     blockquoteBorder: 'border-violet-500',
-    blockquoteBg: 'bg-violet-500/[0.03]',
+    blockquoteBg: 'bg-violet-500/3',
     blockquoteStrong: 'text-violet-400',
     codeText: 'text-violet-400',
     codeBg: 'bg-violet-950/30',
@@ -62,7 +62,7 @@ const CONTENT_THEMES: Record<string, ContentTheme> = {
   },
   amber: {
     blockquoteBorder: 'border-amber-500',
-    blockquoteBg: 'bg-amber-500/[0.03]',
+    blockquoteBg: 'bg-amber-500/3',
     blockquoteStrong: 'text-amber-400',
     codeText: 'text-amber-400',
     codeBg: 'bg-amber-950/30',
@@ -73,7 +73,7 @@ const CONTENT_THEMES: Record<string, ContentTheme> = {
   },
   rose: {
     blockquoteBorder: 'border-rose-500',
-    blockquoteBg: 'bg-rose-500/[0.03]',
+    blockquoteBg: 'bg-rose-500/3',
     blockquoteStrong: 'text-rose-400',
     codeText: 'text-rose-400',
     codeBg: 'bg-rose-950/30',
@@ -84,7 +84,7 @@ const CONTENT_THEMES: Record<string, ContentTheme> = {
   },
   cyan: {
     blockquoteBorder: 'border-cyan-500',
-    blockquoteBg: 'bg-cyan-500/[0.03]',
+    blockquoteBg: 'bg-cyan-500/3',
     blockquoteStrong: 'text-cyan-400',
     codeText: 'text-cyan-400',
     codeBg: 'bg-cyan-950/30',
@@ -95,7 +95,7 @@ const CONTENT_THEMES: Record<string, ContentTheme> = {
   },
   default: {
     blockquoteBorder: 'border-cyan-500',
-    blockquoteBg: 'bg-cyan-500/[0.03]',
+    blockquoteBg: 'bg-cyan-500/3',
     blockquoteStrong: 'text-cyan-400',
     codeText: 'text-cyan-400',
     codeBg: 'bg-cyan-950/30',
@@ -270,7 +270,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 href="/blog"
                 className="inline-flex items-center gap-2 text-xs font-bold text-gray-400 transition-colors hover:text-white"
               >
-                <LuArrowLeft className="h-4 w-4" />
+                <LuArrowLeft className="size-4" />
                 Back to Blog
               </Link>
             </div>
@@ -301,7 +301,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               <div className="flex flex-wrap items-center gap-6 text-xs text-gray-400">
                 {/* Author metadata */}
                 <div className="flex items-center gap-3">
-                  <div className="relative h-9 w-9 overflow-hidden rounded-full border border-white/10 bg-white/5">
+                  <div className="relative overflow-hidden rounded-full border border-white/10 bg-white/5 size-9">
                     <Image
                       src={post.author.avatar}
                       alt={post.author.name}
@@ -322,11 +322,11 @@ export default async function BlogPostPage({ params }: PageProps) {
 
                 <div className="flex items-center gap-4">
                   <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase">
-                    <LuCalendar className="h-3.5 w-3.5 text-gray-500" />
+                    <LuCalendar className="text-gray-500 size-3.5" />
                     {post.date}
                   </span>
                   <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase">
-                    <LuClock className="h-3.5 w-3.5 text-gray-500" />
+                    <LuClock className="text-gray-500 size-3.5" />
                     {post.readTime}
                   </span>
                 </div>
@@ -392,12 +392,12 @@ export default async function BlogPostPage({ params }: PageProps) {
             <div className="lg:sticky lg:top-28 lg:col-span-1">
               <div className="space-y-6">
                 {/* Author Info Widget */}
-                <div className="rounded-2xl border border-white/[0.04] bg-white/1 p-6 backdrop-blur-md">
+                <div className="rounded-2xl border border-white/4 bg-white/1 p-6 backdrop-blur-md">
                   <h3 className="font-heading mb-4 text-xs font-black tracking-widest text-gray-500 uppercase">
                     About The Author
                   </h3>
                   <div className="mb-4 flex items-center gap-3.5">
-                    <div className="relative h-12 w-12 overflow-hidden rounded-full border border-white/10 bg-white/5">
+                    <div className="relative overflow-hidden rounded-full border border-white/10 bg-white/5 size-12">
                       <Image
                         src={post.author.avatar}
                         alt={post.author.name}
@@ -441,7 +441,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                       href="https://calendly.com/shuvamraha10/intro-call"
                       className="group/btn font-heading relative flex w-full items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 py-3 text-xs font-bold text-white shadow-[0_0_15px_rgba(6,182,212,0.2)] transition-all hover:scale-102 active:scale-98"
                     >
-                      <LuPhone className="h-4 w-4" />
+                      <LuPhone className="size-4" />
                       Book Free Intro Call
                     </Link>
                     <Link
@@ -449,13 +449,13 @@ export default async function BlogPostPage({ params }: PageProps) {
                       className="font-heading flex w-full items-center justify-center gap-1.5 rounded-full border border-white/10 bg-white/2 py-3 text-xs font-bold text-white transition-all hover:bg-white/5 active:scale-98"
                     >
                       Explore Programs
-                      <LuArrowRight className="h-3.5 w-3.5" />
+                      <LuArrowRight className="size-3.5" />
                     </Link>
                   </div>
                 </div>
 
                 {/* Recent Articles Widget */}
-                <div className="rounded-2xl border border-white/[0.04] bg-white/1 p-6 backdrop-blur-md">
+                <div className="rounded-2xl border border-white/4 bg-white/1 p-6 backdrop-blur-md">
                   <h3 className="font-heading mb-4 text-xs font-black tracking-widest text-gray-500 uppercase">
                     Other Articles
                   </h3>
@@ -517,7 +517,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                   return (
                     <div
                       key={rPost.id}
-                      className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.04] bg-white/1 transition-all duration-500 hover:${rTheme.border} hover:bg-white/3 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]`}
+                      className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/4 bg-white/1 transition-all duration-500 hover:${rTheme.border} hover:bg-white/3 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]`}
                     >
                       {/* Glowing Top Accent Strip */}
                       <div
@@ -526,7 +526,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
                       {/* Inner accent glow on hover */}
                       <div
-                        className={`pointer-events-none absolute -right-16 -bottom-16 h-36 w-36 rounded-full ${GLOW_COLORS[rThemeKey] || GLOW_COLORS['default']} z-0 opacity-0 blur-[40px] transition-opacity duration-700 group-hover:opacity-100`}
+                        className={`pointer-events-none absolute -right-16 -bottom-16 rounded-full ${GLOW_COLORS[rThemeKey] || GLOW_COLORS['default']} z-0 opacity-0 blur-[40px] transition-opacity duration-700 group-hover:opacity-100 size-36`}
                       />
 
                       <div>
@@ -542,12 +542,12 @@ export default async function BlogPostPage({ params }: PageProps) {
                           {/* Date & Read Time metadata */}
                           <div className="mb-2.5 flex items-center gap-3 text-[10px] font-bold text-gray-500 uppercase">
                             <span className="flex items-center gap-1">
-                              <LuCalendar className="h-3 w-3" />
+                              <LuCalendar className="size-3" />
                               {rPost.date}
                             </span>
                             <span>•</span>
                             <span className="flex items-center gap-1">
-                              <LuClock className="h-3 w-3" />
+                              <LuClock className="size-3" />
                               {rPost.readTime}
                             </span>
                           </div>
@@ -588,7 +588,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between border-t border-white/[0.04] p-5 pt-3">
+                      <div className="flex items-center justify-between border-t border-white/4 p-5 pt-3">
                         <span className="text-[10px] font-bold tracking-wider text-gray-400 uppercase transition-colors duration-300 group-hover:text-white">
                           Read Article
                         </span>
@@ -596,7 +596,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                           href={`/blog/${rPost.slug}`}
                           className={`relative z-10 ${rTheme.text} transition-transform duration-300 hover:translate-x-1`}
                         >
-                          <LuChevronRight className="h-4 w-4" />
+                          <LuChevronRight className="size-4" />
                         </Link>
                       </div>
                     </div>

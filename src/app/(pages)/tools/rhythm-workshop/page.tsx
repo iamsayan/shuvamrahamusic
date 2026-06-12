@@ -300,9 +300,9 @@ export default function RhythmWorkshopPage() {
               }`}
             >
               {isPlaying ? (
-                <LuSquare className="h-5 w-5" />
+                <LuSquare className="size-5" />
               ) : (
-                <LuPlay className="h-5 w-5 pl-0.5" />
+                <LuPlay className="pl-0.5 size-5" />
               )}
             </button>
 
@@ -335,42 +335,42 @@ export default function RhythmWorkshopPage() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsMuted(!isMuted)}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/2 text-gray-300 hover:bg-white/5 hover:text-white"
+              className="flex items-center justify-center rounded-full border border-white/10 bg-white/2 text-gray-300 hover:bg-white/5 hover:text-white size-10"
             >
               {isMuted ? (
-                <LuVolumeX className="h-5 w-5 text-rose-400" />
+                <LuVolumeX className="text-rose-400 size-5" />
               ) : (
-                <LuVolume2 className="h-5 w-5 text-cyan-400" />
+                <LuVolume2 className="text-cyan-400 size-5" />
               )}
             </button>
             <button
               onClick={clearPattern}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/2 text-gray-300 hover:bg-white/5 hover:text-white"
+              className="flex items-center justify-center rounded-full border border-white/10 bg-white/2 text-gray-300 hover:bg-white/5 hover:text-white size-10"
               title="Clear sequencer pattern"
             >
-              <LuRotateCcw className="h-5 w-5" />
+              <LuRotateCcw className="size-5" />
             </button>
           </div>
         </div>
 
         {/* Step Sequencer Grid */}
-        <div className="rounded-3xl border border-white/[0.06] bg-[#080812]/50 p-6 backdrop-blur-2xl md:p-8">
+        <div className="rounded-3xl border border-white/6 bg-[#080812]/50 p-6 backdrop-blur-2xl md:p-8">
           <div className="mb-6 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <LuLayoutGrid className="h-4.5 w-4.5 text-cyan-400" />
+              <LuLayoutGrid className="text-cyan-400 size-4.5" />
               <span className="text-xs font-black tracking-widest text-cyan-400 uppercase">
                 Interactive Strum Sequencer (8th Note Grid)
               </span>
             </div>
             <div className="hidden items-center gap-4 text-[10px] text-gray-500 sm:flex">
               <span className="flex items-center gap-1">
-                <span className="h-2 w-2 rounded bg-cyan-400" /> Down (D)
+                <span className="rounded bg-cyan-400 size-2" /> Down (D)
               </span>
               <span className="flex items-center gap-1">
-                <span className="h-2 w-2 rounded bg-amber-400" /> Up (U)
+                <span className="rounded bg-amber-400 size-2" /> Up (U)
               </span>
               <span className="flex items-center gap-1">
-                <span className="h-2 w-2 rounded bg-rose-400" /> Mute (X)
+                <span className="rounded bg-rose-400 size-2" /> Mute (X)
               </span>
             </div>
           </div>
@@ -423,9 +423,9 @@ export default function RhythmWorkshopPage() {
         {/* Preset & Chord Progression Grid */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Preset Strumming Library */}
-          <div className="space-y-4 rounded-3xl border border-white/[0.04] bg-[#0A0A15]/60 p-6 md:p-8">
+          <div className="space-y-4 rounded-3xl border border-white/4 bg-[#0A0A15]/60 p-6 md:p-8">
             <div className="flex items-center gap-2">
-              <LuListMusic className="h-4.5 w-4.5 text-cyan-400" />
+              <LuListMusic className="text-cyan-400 size-4.5" />
               <h3 className="font-heading text-base font-black text-white">
                 Preset Strumming Library
               </h3>
@@ -470,9 +470,9 @@ export default function RhythmWorkshopPage() {
           </div>
 
           {/* Chord Progression Chooser */}
-          <div className="space-y-4 rounded-3xl border border-white/[0.04] bg-[#0A0A15]/60 p-6 md:p-8">
+          <div className="space-y-4 rounded-3xl border border-white/4 bg-[#0A0A15]/60 p-6 md:p-8">
             <div className="flex items-center gap-2">
-              <LuMusic className="h-4.5 w-4.5 text-cyan-400" />
+              <LuMusic className="text-cyan-400 size-4.5" />
               <h3 className="font-heading text-base font-black text-white">
                 Chord Progression Harmony
               </h3>
@@ -524,9 +524,9 @@ export default function RhythmWorkshopPage() {
         </div>
 
         {/* Educational Tutorial Card */}
-        <div className="flex flex-col gap-6 rounded-3xl border border-white/[0.04] bg-[#0A0A15]/30 p-6 md:p-8 lg:flex-row lg:items-center">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-400">
-            <LuCircleHelp className="h-6 w-6" />
+        <div className="flex flex-col gap-6 rounded-3xl border border-white/4 bg-[#0A0A15]/30 p-6 md:p-8 lg:flex-row lg:items-center">
+          <div className="flex shrink-0 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-400 size-12">
+            <LuCircleHelp className="size-6" />
           </div>
           <div className="space-y-2">
             <h4 className="font-heading text-sm font-bold text-white">

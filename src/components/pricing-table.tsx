@@ -100,7 +100,7 @@ export default function PricingTable({ plans }: PricingTableProps) {
                 : 'text-gray-400 hover:text-gray-200'
             }`}
           >
-            <LuMapPin className="h-4 w-4 sm:h-5 sm:w-5" />
+            <LuMapPin className="sm:h-5 sm:w-5 size-4" />
             India (INR)
           </button>
 
@@ -112,7 +112,7 @@ export default function PricingTable({ plans }: PricingTableProps) {
                 : 'text-gray-400 hover:text-gray-200'
             }`}
           >
-            <LuGlobe className="h-4 w-4 sm:h-5 sm:w-5" />
+            <LuGlobe className="sm:h-5 sm:w-5 size-4" />
             Global (USD)
           </button>
         </div>
@@ -123,12 +123,12 @@ export default function PricingTable({ plans }: PricingTableProps) {
         {/* Ambient Corner Glows (Dynamic based on selected plans) */}
         {currentPlans[0] && (
           <div
-            className={`pointer-events-none absolute top-0 left-0 h-64 w-64 rounded-full opacity-30 blur-[100px] transition-colors duration-700 ${themeMap[getPlanTheme(currentPlans[0].region, 0)].glow}`}
+            className={`pointer-events-none absolute top-0 left-0 rounded-full opacity-30 blur-[100px] transition-colors duration-700 ${themeMap[getPlanTheme(currentPlans[0].region, 0)].glow} size-64`}
           />
         )}
         {currentPlans[1] && (
           <div
-            className={`pointer-events-none absolute right-0 bottom-0 h-64 w-64 rounded-full opacity-30 blur-[100px] transition-colors duration-700 ${themeMap[getPlanTheme(currentPlans[1].region, 1)].glow}`}
+            className={`pointer-events-none absolute right-0 bottom-0 rounded-full opacity-30 blur-[100px] transition-colors duration-700 ${themeMap[getPlanTheme(currentPlans[1].region, 1)].glow} size-64`}
           />
         )}
 
@@ -153,7 +153,7 @@ export default function PricingTable({ plans }: PricingTableProps) {
                 {popular && (
                   <div className="absolute top-3 right-3 z-20 sm:top-6 sm:right-10">
                     <div className="flex items-center gap-1.5 rounded-full bg-linear-to-r from-amber-500 to-orange-400 px-3 py-1 shadow-[0_0_15px_rgba(245,158,11,0.4)]">
-                      <LuSparkles className="h-3 w-3 text-white" />
+                      <LuSparkles className="text-white size-3" />
                       <span className="text-[9px] font-bold tracking-widest whitespace-nowrap text-white uppercase sm:text-xs">
                         Most Popular
                       </span>
@@ -197,9 +197,9 @@ export default function PricingTable({ plans }: PricingTableProps) {
                           className="group/li flex items-start gap-3 text-gray-300"
                         >
                           <div
-                            className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${styles.icon} transition-transform duration-300 group-hover/li:scale-110`}
+                            className={`flex shrink-0 items-center justify-center rounded-full ${styles.icon} transition-transform duration-300 group-hover/li:scale-110 size-5`}
                           >
-                            <LuCheck className="h-3 w-3 stroke-[3]" />
+                            <LuCheck className="stroke-[3] size-3" />
                           </div>
                           <span className="text-sm sm:text-base">
                             {feature}
@@ -237,10 +237,10 @@ export default function PricingTable({ plans }: PricingTableProps) {
       {/* Global Geographic & Availability Notices Deck */}
       <div className="z-10 mx-auto mt-12 grid w-full max-w-4xl grid-cols-1 gap-4 px-4 md:grid-cols-2">
         {/* Card 1: Residence Policy */}
-        <div className="group/note relative flex gap-4 rounded-2xl border border-white/[0.04] bg-white/1 p-5 backdrop-blur-xl transition-all duration-300 hover:border-white/[0.08] hover:bg-white/2">
-          <div className="pointer-events-none absolute inset-0 rounded-2xl bg-cyan-500/[0.01] opacity-0 blur-xl transition-all duration-500 group-hover/note:bg-cyan-500/[0.02] group-hover/note:opacity-100" />
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400 transition-transform duration-300 group-hover/note:scale-105">
-            <LuGlobe className="h-5 w-5" />
+        <div className="group/note relative flex gap-4 rounded-2xl border border-white/4 bg-white/1 p-5 backdrop-blur-xl transition-all duration-300 hover:border-white/8 hover:bg-white/2">
+          <div className="pointer-events-none absolute inset-0 rounded-2xl bg-cyan-500/1 opacity-0 blur-xl transition-all duration-500 group-hover/note:bg-cyan-500/2 group-hover/note:opacity-100" />
+          <div className="flex shrink-0 items-center justify-center rounded-xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400 transition-transform duration-300 group-hover/note:scale-105 size-10">
+            <LuGlobe className="size-5" />
           </div>
           <div className="flex flex-col justify-center">
             <span className="font-heading mb-1 block text-[10px] font-black tracking-widest text-gray-500 uppercase">
@@ -254,10 +254,10 @@ export default function PricingTable({ plans }: PricingTableProps) {
         </div>
 
         {/* Card 2: Slots Notice */}
-        <div className="group/note relative flex gap-4 rounded-2xl border border-amber-500/10 bg-amber-500/[0.02] p-5 backdrop-blur-xl transition-all duration-300 hover:border-amber-500/20 hover:bg-amber-500/[0.04]">
-          <div className="pointer-events-none absolute inset-0 rounded-2xl bg-amber-500/[0.01] opacity-0 blur-xl transition-all duration-500 group-hover/note:bg-amber-500/[0.02] group-hover/note:opacity-100" />
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-amber-500/20 bg-amber-500/10 text-amber-400 transition-transform duration-300 group-hover/note:scale-105">
-            <LuTriangleAlert className="h-5 w-5" />
+        <div className="group/note relative flex gap-4 rounded-2xl border border-amber-500/10 bg-amber-500/2 p-5 backdrop-blur-xl transition-all duration-300 hover:border-amber-500/20 hover:bg-amber-500/4">
+          <div className="pointer-events-none absolute inset-0 rounded-2xl bg-amber-500/1 opacity-0 blur-xl transition-all duration-500 group-hover/note:bg-amber-500/2 group-hover/note:opacity-100" />
+          <div className="flex shrink-0 items-center justify-center rounded-xl border border-amber-500/20 bg-amber-500/10 text-amber-400 transition-transform duration-300 group-hover/note:scale-105 size-10">
+            <LuTriangleAlert className="size-5" />
           </div>
           <div className="flex flex-col justify-center">
             <span className="font-heading mb-1 block text-[10px] font-black tracking-widest text-gray-500 uppercase">

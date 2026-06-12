@@ -69,13 +69,13 @@ export default function AudiosGalleryPage() {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
           {/* Left Column: Interactive Embed Widget */}
           <div className="flex flex-col gap-4 lg:col-span-7">
-            <div className="relative overflow-hidden rounded-3xl border border-white/[0.06] bg-[#0A0A15]/60 p-6 shadow-2xl backdrop-blur-2xl">
+            <div className="relative overflow-hidden rounded-3xl border border-white/6 bg-[#0A0A15]/60 p-6 shadow-2xl backdrop-blur-2xl">
               {/* Decorative Glow */}
-              <div className="pointer-events-none absolute -top-24 -left-24 h-60 w-60 rounded-full bg-cyan-500/10 blur-[90px]" />
+              <div className="pointer-events-none absolute -top-24 -left-24 rounded-full bg-cyan-500/10 blur-[90px] size-60" />
 
               <div className="relative z-10 mb-6 flex flex-wrap items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
-                  <LuRadio className="h-5 w-5 animate-pulse text-cyan-400" />
+                  <LuRadio className="animate-pulse text-cyan-400 size-5" />
                   <span className="text-xs font-black tracking-widest text-cyan-400 uppercase">
                     Interactive Music Widget
                   </span>
@@ -90,7 +90,7 @@ export default function AudiosGalleryPage() {
                         : 'border border-transparent text-gray-400 hover:text-white'
                     }`}
                   >
-                    <FaSpotify className="h-3.5 w-3.5" />
+                    <FaSpotify className="size-3.5" />
                     Spotify
                   </button>
                   <button
@@ -101,7 +101,7 @@ export default function AudiosGalleryPage() {
                         : 'border border-transparent text-gray-400 hover:text-white'
                     }`}
                   >
-                    <FaApple className="h-3.5 w-3.5" />
+                    <FaApple className="size-3.5" />
                     Apple Music
                   </button>
                 </div>
@@ -118,7 +118,7 @@ export default function AudiosGalleryPage() {
                   allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                   loading="lazy"
                   title={activeTrack.title}
-                  className="absolute inset-0 h-full w-full border-0"
+                  className="absolute inset-0 border-0 size-full"
                 />
               </div>
 
@@ -150,7 +150,7 @@ export default function AudiosGalleryPage() {
           <div className="flex flex-col gap-6 lg:col-span-5">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <LuMusic className="h-4.5 w-4.5 text-cyan-400" />
+                <LuMusic className="text-cyan-400 size-4.5" />
                 <h3 className="font-heading text-base font-black text-white">
                   Select a Release
                 </h3>
@@ -165,7 +165,7 @@ export default function AudiosGalleryPage() {
                       onClick={() => setActiveTrack(track)}
                       className={`relative flex flex-col items-start rounded-2xl border p-5 text-left transition-all duration-300 ${
                         isSelected
-                          ? 'border-green-500/40 bg-green-500/[0.05] shadow-[0_0_20px_rgba(34,197,94,0.1)]'
+                          ? 'border-green-500/40 bg-green-500/5 shadow-[0_0_20px_rgba(34,197,94,0.1)]'
                           : 'border-white/5 bg-white/1 hover:border-white/10 hover:bg-white/3'
                       }`}
                     >
@@ -176,9 +176,9 @@ export default function AudiosGalleryPage() {
                           {track.type}
                         </span>
                         {isSelected && (
-                          <span className="relative flex h-2 w-2">
-                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-                            <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
+                          <span className="relative flex size-2">
+                            <span className="absolute inline-flex animate-ping rounded-full bg-green-400 opacity-75 size-full"></span>
+                            <span className="relative inline-flex rounded-full bg-green-500 size-2"></span>
                           </span>
                         )}
                       </div>
@@ -196,9 +196,9 @@ export default function AudiosGalleryPage() {
             </div>
 
             {/* Portal links to major streaming networks */}
-            <div className="space-y-4 rounded-3xl border border-white/[0.04] bg-[#0A0A15]/40 p-6">
+            <div className="space-y-4 rounded-3xl border border-white/4 bg-[#0A0A15]/40 p-6">
               <div className="flex items-center gap-2">
-                <LuSparkles className="h-4.5 w-4.5 text-cyan-400" />
+                <LuSparkles className="text-cyan-400 size-4.5" />
                 <h3 className="font-heading text-sm font-bold text-white">
                   Stream Anywhere
                 </h3>
@@ -210,7 +210,7 @@ export default function AudiosGalleryPage() {
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 rounded-xl border border-green-500/20 bg-green-500/10 py-3 text-xs font-bold text-green-400 transition-all hover:bg-green-500/20 active:scale-95"
                 >
-                  <FaSpotify className="h-4 w-4" />
+                  <FaSpotify className="size-4" />
                   Spotify
                 </a>
                 <a
@@ -219,7 +219,7 @@ export default function AudiosGalleryPage() {
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 rounded-xl border border-pink-500/20 bg-pink-500/10 py-3 text-xs font-bold text-pink-400 transition-all hover:bg-pink-500/20 active:scale-95"
                 >
-                  <FaApple className="h-4 w-4" />
+                  <FaApple className="size-4" />
                   Apple
                 </a>
                 <a
@@ -228,7 +228,7 @@ export default function AudiosGalleryPage() {
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 rounded-xl border border-amber-500/20 bg-amber-500/10 py-3 text-xs font-bold text-amber-400 transition-all hover:bg-amber-500/20 active:scale-95"
                 >
-                  <FaAmazon className="h-4 w-4" />
+                  <FaAmazon className="size-4" />
                   Amazon
                 </a>
                 <a
@@ -237,7 +237,7 @@ export default function AudiosGalleryPage() {
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 rounded-xl border border-red-500/20 bg-red-500/10 py-3 text-xs font-bold text-red-400 transition-all hover:bg-red-500/20 active:scale-95"
                 >
-                  <FaYoutube className="h-4 w-4" />
+                  <FaYoutube className="size-4" />
                   YouTube
                 </a>
               </div>

@@ -139,7 +139,7 @@ export default function GalleryHubPage() {
                 className={`group relative flex min-h-[460px] flex-col justify-end overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#07070F]/55 p-8 transition-all duration-500 hover:border-white/20 ${hub.glowColor}`}
               >
                 {/* Background Image */}
-                <div className="absolute inset-0 z-0 h-full w-full overflow-hidden">
+                <div className="absolute inset-0 z-0 overflow-hidden size-full">
                   <Image
                     src={hub.bgImage}
                     alt={hub.title}
@@ -160,9 +160,9 @@ export default function GalleryHubPage() {
                 <div className="relative z-10 space-y-4 text-left">
                   {/* Circular Icon badge */}
                   <div
-                    className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl border ${hub.iconColor} transition-transform duration-500 group-hover:scale-110`}
+                    className={`inline-flex items-center justify-center rounded-2xl border ${hub.iconColor} transition-transform duration-500 group-hover:scale-110 size-12`}
                   >
-                    <Icon className="h-6 w-6" />
+                    <Icon className="size-6" />
                   </div>
 
                   {/* Title & Description */}
@@ -178,7 +178,7 @@ export default function GalleryHubPage() {
                   {/* Button Action Trigger */}
                   <div className="inline-flex items-center gap-2 pt-2 text-xs font-black tracking-widest text-cyan-400 uppercase transition-all duration-300 group-hover:translate-x-1">
                     <span>{hub.btnText}</span>
-                    <LuArrowRight className="h-4 w-4" />
+                    <LuArrowRight className="size-4" />
                   </div>
                 </div>
               </Link>

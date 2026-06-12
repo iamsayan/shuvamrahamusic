@@ -124,7 +124,7 @@ export default function TermsOfServicePage() {
               </li>
             </ul>
 
-            <div className="mt-4 rounded-xl border border-amber-500/20 bg-amber-500/[0.04] p-4 text-amber-200/90">
+            <div className="mt-4 rounded-xl border border-amber-500/20 bg-amber-500/4 p-4 text-amber-200/90">
               <p className="text-xs font-bold sm:text-sm">Important Notice:</p>
               <p className="mt-1 text-xs leading-normal">
                 Payments accepted through this website are only for guitar

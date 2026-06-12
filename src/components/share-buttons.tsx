@@ -95,7 +95,7 @@ export default function ShareButtons({
           className="group relative flex h-9 items-center gap-2 rounded-full border border-white/5 bg-white/2 px-4 py-2 text-xs font-bold text-gray-400 transition-all duration-300 hover:border-cyan-500/20 hover:bg-cyan-500/10 hover:text-cyan-400"
           aria-label="Share article using native sharing panel"
         >
-          <LuShare2 className="h-3.5 w-3.5 transition-transform group-hover:scale-110" />
+          <LuShare2 className="transition-transform group-hover:scale-110 size-3.5" />
           <span>Share</span>
         </button>
       )}
@@ -112,12 +112,12 @@ export default function ShareButtons({
       >
         {copied ? (
           <>
-            <LuCheck className="h-3.5 w-3.5" />
+            <LuCheck className="size-3.5" />
             <span>Copied!</span>
           </>
         ) : (
           <>
-            <LuLink className="h-3.5 w-3.5 transition-transform group-hover:rotate-45" />
+            <LuLink className="transition-transform group-hover:rotate-45 size-3.5" />
             <span>Copy Link</span>
           </>
         )}
@@ -128,10 +128,10 @@ export default function ShareButtons({
         href={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="group flex h-9 w-9 items-center justify-center rounded-full border border-white/5 bg-white/2 text-gray-400 transition-all duration-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
+        className="group flex items-center justify-center rounded-full border border-white/5 bg-white/2 text-gray-400 transition-all duration-300 hover:border-white/20 hover:bg-white/10 hover:text-white size-9"
         aria-label="Share on X (Twitter)"
       >
-        <FaXTwitter className="h-3.5 w-3.5" />
+        <FaXTwitter className="size-3.5" />
       </a>
 
       {/* Facebook */}
@@ -139,10 +139,10 @@ export default function ShareButtons({
         href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="group flex h-9 w-9 items-center justify-center rounded-full border border-white/5 bg-white/2 text-gray-400 transition-all duration-300 hover:border-blue-500/20 hover:bg-blue-500/10 hover:text-blue-400"
+        className="group flex items-center justify-center rounded-full border border-white/5 bg-white/2 text-gray-400 transition-all duration-300 hover:border-blue-500/20 hover:bg-blue-500/10 hover:text-blue-400 size-9"
         aria-label="Share on Facebook"
       >
-        <FaFacebookF className="h-3.5 w-3.5" />
+        <FaFacebookF className="size-3.5" />
       </a>
 
       {/* WhatsApp */}
@@ -150,10 +150,10 @@ export default function ShareButtons({
         href={`https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="group flex h-9 w-9 items-center justify-center rounded-full border border-white/5 bg-white/2 text-gray-400 transition-all duration-300 hover:border-emerald-500/20 hover:bg-emerald-500/10 hover:text-emerald-400"
+        className="group flex items-center justify-center rounded-full border border-white/5 bg-white/2 text-gray-400 transition-all duration-300 hover:border-emerald-500/20 hover:bg-emerald-500/10 hover:text-emerald-400 size-9"
         aria-label="Share on WhatsApp"
       >
-        <FaWhatsapp className="h-4 w-4" />
+        <FaWhatsapp className="size-4" />
       </a>
     </div>
   );

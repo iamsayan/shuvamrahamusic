@@ -22,7 +22,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
 
   return (
     <div
-      className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.04] bg-white/1 transition-all duration-500 hover:${theme.border} hover:bg-white/3 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]`}
+      className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/4 bg-white/1 transition-all duration-500 hover:${theme.border} hover:bg-white/3 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]`}
     >
       {/* Glowing Top Accent Strip */}
       <div
@@ -31,7 +31,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
 
       {/* Inner accent glow on hover */}
       <div
-        className={`pointer-events-none absolute -right-16 -bottom-16 h-36 w-36 rounded-full ${GLOW_COLORS[themeKey] || GLOW_COLORS['default']} z-0 opacity-0 blur-[40px] transition-opacity duration-700 group-hover:opacity-100`}
+        className={`pointer-events-none absolute -right-16 -bottom-16 rounded-full ${GLOW_COLORS[themeKey] || GLOW_COLORS['default']} z-0 opacity-0 blur-[40px] transition-opacity duration-700 group-hover:opacity-100 size-36`}
       />
 
       <div>
@@ -52,12 +52,12 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
           {/* Date & Read Time metadata */}
           <div className="mb-2.5 flex items-center gap-3 text-[10px] font-bold text-gray-500 uppercase">
             <span className="flex items-center gap-1">
-              <LuCalendar className="h-3 w-3" />
+              <LuCalendar className="size-3" />
               {post.date}
             </span>
             <span>•</span>
             <span className="flex items-center gap-1">
-              <LuClock className="h-3 w-3" />
+              <LuClock className="size-3" />
               {post.readTime}
             </span>
           </div>
@@ -113,7 +113,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
       </div>
 
       {/* Read More link strip */}
-      <div className="flex items-center justify-between border-t border-white/[0.04] p-5.5 pt-4">
+      <div className="flex items-center justify-between border-t border-white/4 p-5.5 pt-4">
         <span className="text-[11px] font-bold tracking-wider text-gray-400 uppercase transition-colors duration-300 group-hover:text-white">
           Read Article
         </span>
@@ -121,7 +121,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
           href={`/blog/${post.slug}`}
           className={`relative z-10 ${theme.text} transition-transform duration-300 hover:translate-x-1.5`}
         >
-          <LuChevronRight className="h-4.5 w-4.5" />
+          <LuChevronRight className="size-4.5" />
         </Link>
       </div>
     </div>

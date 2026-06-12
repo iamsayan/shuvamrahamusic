@@ -156,7 +156,7 @@ export default function BlogListingClient({
                 onChange={(e) => handleSearchChange(e.target.value)}
                 className="w-full rounded-full border border-white/10 bg-white/2 py-3 pr-12 pl-12 text-sm text-white placeholder-gray-500 backdrop-blur-md transition-all duration-300 outline-none focus:border-cyan-500/30 focus:bg-white/4 focus:shadow-[0_0_15px_rgba(6,182,212,0.15)]"
               />
-              <LuSearch className="absolute top-1/2 left-4.5 h-4.5 w-4.5 -translate-y-1/2 text-gray-500" />
+              <LuSearch className="absolute top-1/2 left-4.5 -translate-y-1/2 text-gray-500 size-4.5" />
               {localSearch && (
                 <button
                   type="button"
@@ -164,7 +164,7 @@ export default function BlogListingClient({
                   className="absolute inset-y-0 right-4 flex cursor-pointer items-center text-gray-500 transition-colors hover:text-white"
                   aria-label="Clear search"
                 >
-                  <LuX className="h-4.5 w-4.5" />
+                  <LuX className="size-4.5" />
                 </button>
               )}
             </div>
@@ -174,7 +174,7 @@ export default function BlogListingClient({
         {/* If no articles found */}
         {posts.length === 0 && (
           <div className="flex flex-col items-center justify-center rounded-[2.5rem] border border-white/10 bg-[#07070F]/85 p-12 text-center backdrop-blur-3xl md:p-20">
-            <LuBookOpen className="mb-6 h-12 w-12 animate-pulse text-gray-600" />
+            <LuBookOpen className="mb-6 animate-pulse text-gray-600 size-12" />
             <h3 className="font-heading text-lg font-bold text-white sm:text-xl">
               No Articles Found
             </h3>
@@ -228,7 +228,7 @@ export default function BlogListingClient({
                   <div className="relative flex flex-col justify-between p-6 sm:p-10 lg:w-[45%]">
                     {/* Accent glow on hover */}
                     <div
-                      className={`pointer-events-none absolute -right-20 -bottom-20 h-56 w-56 rounded-full ${GLOW_COLORS[themeKey] || GLOW_COLORS['default']} opacity-0 blur-[60px] transition-opacity duration-700 group-hover:opacity-100`}
+                      className={`pointer-events-none absolute -right-20 -bottom-20 rounded-full ${GLOW_COLORS[themeKey] || GLOW_COLORS['default']} opacity-0 blur-[60px] transition-opacity duration-700 group-hover:opacity-100 size-56`}
                     />
 
                     <div>
@@ -260,7 +260,7 @@ export default function BlogListingClient({
                             </Link>
                           ))}
                         <span className="ml-1 flex items-center gap-1 text-[11px] font-bold text-gray-500 uppercase">
-                          <LuCalendar className="h-3 w-3" />
+                          <LuCalendar className="size-3" />
                           {featuredPost.date}
                         </span>
                       </div>
@@ -284,7 +284,7 @@ export default function BlogListingClient({
                     <div className="flex items-center justify-between border-t border-white/5 pt-6">
                       {/* Author avatar */}
                       <div className="flex items-center gap-3">
-                        <div className="relative h-10 w-10 overflow-hidden rounded-full border border-white/10 bg-white/5">
+                        <div className="relative overflow-hidden rounded-full border border-white/10 bg-white/5 size-10">
                           <Image
                             src={featuredPost.author.avatar}
                             alt={featuredPost.author.name}
@@ -306,9 +306,9 @@ export default function BlogListingClient({
                       {/* Read Link */}
                       <Link
                         href={`/blog/${featuredPost.slug}`}
-                        className={`relative z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 ${primaryTheme.text} transition-all duration-300 hover:scale-110 hover:border-cyan-500/20 hover:bg-cyan-500/10`}
+                        className={`relative z-10 inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 ${primaryTheme.text} transition-all duration-300 hover:scale-110 hover:border-cyan-500/20 hover:bg-cyan-500/10 size-9`}
                       >
-                        <LuArrowRight className="h-4.5 w-4.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                        <LuArrowRight className="transition-transform duration-300 group-hover:translate-x-0.5 size-4.5" />
                       </Link>
                     </div>
                   </div>
@@ -333,18 +333,18 @@ export default function BlogListingClient({
               <div className="mt-12 flex items-center justify-center gap-2">
                 {currentPage === 1 ? (
                   <span
-                    className="inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 opacity-30"
+                    className="inline-flex cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 opacity-30 size-9"
                     aria-label="Previous Page (disabled)"
                   >
-                    <LuChevronLeft className="h-4 w-4" />
+                    <LuChevronLeft className="size-4" />
                   </span>
                 ) : (
                   <Link
                     href={getPageLink(currentPage - 1)}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white"
+                    className="inline-flex items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white size-9"
                     aria-label="Previous Page"
                   >
-                    <LuChevronLeft className="h-4 w-4" />
+                    <LuChevronLeft className="size-4" />
                   </Link>
                 )}
 
@@ -369,18 +369,18 @@ export default function BlogListingClient({
 
                 {currentPage === totalPages ? (
                   <span
-                    className="inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 opacity-30"
+                    className="inline-flex cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 opacity-30 size-9"
                     aria-label="Next Page (disabled)"
                   >
-                    <LuChevronRight className="h-4 w-4" />
+                    <LuChevronRight className="size-4" />
                   </span>
                 ) : (
                   <Link
                     href={getPageLink(currentPage + 1)}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white"
+                    className="inline-flex items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white size-9"
                     aria-label="Next Page"
                   >
-                    <LuChevronRight className="h-4 w-4" />
+                    <LuChevronRight className="size-4" />
                   </Link>
                 )}
               </div>
@@ -417,9 +417,9 @@ export default function BlogListingClient({
                 href="https://calendly.com/shuvamraha10/intro-call"
                 className="group/btn font-heading relative inline-flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-7 py-3.5 text-xs font-bold text-white shadow-[0_0_20px_rgba(6,182,212,0.2)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] active:scale-95 sm:text-sm"
               >
-                <LuPhone className="h-4 w-4" />
+                <LuPhone className="size-4" />
                 Book Free Call
-                <LuArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                <LuArrowRight className="transition-transform group-hover/btn:translate-x-1 size-4" />
               </Link>
             </div>
           </div>

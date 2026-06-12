@@ -56,7 +56,7 @@ export default async function Home() {
         <div className="relative z-10 mx-auto grid w-full max-w-350 grid-cols-1 items-center gap-12 px-5 md:px-12 lg:grid-cols-12 lg:gap-8 lg:px-20">
           <div className="animate-in-1 space-y-6 text-center lg:col-span-7 lg:text-left">
             <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3.5 py-1.5 shadow-[0_0_15px_rgba(6,182,212,0.15)] backdrop-blur-md">
-              <LuAward className="h-4 w-4 text-cyan-400" />
+              <LuAward className="text-cyan-400 size-4" />
               <span className="text-[10px] font-black tracking-widest text-cyan-200 uppercase">
                 LCM Certified Music Instructor
               </span>
@@ -85,7 +85,7 @@ export default async function Home() {
                 className="group font-heading relative flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-8 py-4 text-sm font-bold text-white shadow-[0_0_20px_rgba(6,182,212,0.2)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] active:scale-95"
               >
                 Join Guitar Classes
-                <LuArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <LuArrowRight className="transition-transform group-hover:translate-x-1 size-4" />
               </Link>
               <Link
                 href="/biography"
@@ -183,7 +183,7 @@ export default async function Home() {
                 className="group font-heading inline-flex items-center gap-2 text-sm font-bold text-white transition-colors hover:text-cyan-400"
               >
                 Learn More About Shuvam
-                <LuArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <LuArrowRight className="transition-transform group-hover:translate-x-1 size-4" />
               </Link>
             </div>
           </div>
@@ -197,9 +197,9 @@ export default async function Home() {
                   className={`group relative rounded-2xl border ${point.border} ${point.bg} p-6 transition-all duration-300 hover:border-white/10 hover:bg-white/2`}
                 >
                   <div
-                    className={`mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl border ${point.border} ${point.bg} ${point.color} transition-transform group-hover:scale-105`}
+                    className={`mb-4 inline-flex items-center justify-center rounded-xl border ${point.border} ${point.bg} ${point.color} transition-transform group-hover:scale-105 size-11`}
                   >
-                    <Icon className="h-5 w-5" />
+                    <Icon className="size-5" />
                   </div>
                   <h4 className="font-heading text-base font-extrabold text-white">
                     {point.title}
@@ -222,7 +222,7 @@ export default async function Home() {
           {/* Section Header */}
           <div className="mx-auto mb-16 max-w-3xl space-y-4 text-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3.5 py-1.5 shadow-[0_0_15px_rgba(6,182,212,0.15)] backdrop-blur-md">
-              <LuMusic className="h-4 w-4 text-cyan-400" />
+              <LuMusic className="text-cyan-400 size-4" />
               <span className="text-[10px] font-black tracking-widest text-cyan-200 uppercase">
                 Guitar Learning Program
               </span>
@@ -252,7 +252,7 @@ export default async function Home() {
                 >
                   {/* Ambient hover glow inside card */}
                   <div
-                    className={`absolute -right-12 -bottom-12 h-32 w-32 rounded-full ${item.styles.ambientGlow || 'bg-cyan-500/10'} pointer-events-none -z-10 opacity-0 blur-3xl transition-all duration-700 group-hover:scale-150 group-hover:opacity-100`}
+                    className={`absolute -right-12 -bottom-12 rounded-full ${item.styles.ambientGlow || 'bg-cyan-500/10'} pointer-events-none -z-10 opacity-0 blur-3xl transition-all duration-700 group-hover:scale-150 group-hover:opacity-100 size-32`}
                   />
 
                   {/* Giant floating step numbers */}
@@ -262,9 +262,9 @@ export default async function Home() {
 
                   <div className="relative z-10 space-y-5">
                     <div
-                      className={`flex h-12 w-12 items-center justify-center rounded-xl border ${item.styles.iconBorder} ${item.styles.iconBg} ${item.styles.iconText} ${item.styles.iconShadow} transition-transform duration-500 group-hover:scale-110`}
+                      className={`flex items-center justify-center rounded-xl border ${item.styles.iconBorder} ${item.styles.iconBg} ${item.styles.iconText} ${item.styles.iconShadow} transition-transform duration-500 group-hover:scale-110 size-12`}
                     >
-                      <Icon className="h-5 w-5" />
+                      <Icon className="size-5" />
                     </div>
                     <div>
                       <h3 className="font-heading text-base font-black text-white sm:text-lg">
@@ -282,7 +282,7 @@ export default async function Home() {
                           className="flex items-start gap-2 text-xs leading-relaxed text-gray-400 transition-colors duration-300 group-hover:text-gray-300 sm:text-sm"
                         >
                           <span
-                            className={`h-1.5 w-1.5 rounded-full ${item.styles.iconBg} ${item.styles.iconText} mt-1.5 shrink-0 opacity-80`}
+                            className={`rounded-full ${item.styles.iconBg} ${item.styles.iconText} mt-1.5 shrink-0 opacity-80 size-1.5`}
                           />
                           <span>{pt}</span>
                         </li>
@@ -300,7 +300,7 @@ export default async function Home() {
               className="group font-heading inline-flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-8 py-4 text-xs font-bold text-white shadow-lg shadow-cyan-500/10 transition-all hover:scale-105 hover:shadow-cyan-500/20 active:scale-95 sm:text-sm"
             >
               Explore Course Packages &amp; Pricing
-              <LuArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <LuArrowRight className="transition-transform group-hover:translate-x-1 size-4" />
             </Link>
           </div>
         </div>
@@ -406,7 +406,7 @@ export default async function Home() {
                   className="group font-heading inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/3 px-6 py-3.5 text-xs font-bold text-white hover:bg-white/10 active:scale-95 sm:text-sm"
                 >
                   Read All Articles
-                  <LuArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <LuArrowRight className="transition-transform group-hover:translate-x-1 size-4" />
                 </Link>
               </div>
             </div>
@@ -442,7 +442,7 @@ export default async function Home() {
               className="group font-heading relative flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-8 py-4 text-sm font-bold text-white shadow-lg transition-all hover:scale-105 active:scale-95"
             >
               Book Class Details
-              <LuArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <LuArrowRight className="transition-transform group-hover:translate-x-1 size-4" />
             </Link>
             <Link
               href="/contact"

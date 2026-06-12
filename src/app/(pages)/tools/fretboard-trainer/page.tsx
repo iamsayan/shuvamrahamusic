@@ -436,7 +436,7 @@ export default function FretboardJamStudioPage() {
                   : 'border border-white/5 bg-white/1 text-gray-400 hover:text-white'
               }`}
             >
-              <LuCompass className="h-4.5 w-4.5" />
+              <LuCompass className="size-4.5" />
               Explore Chords & Scales
             </button>
             <button
@@ -450,7 +450,7 @@ export default function FretboardJamStudioPage() {
                   : 'border border-white/5 bg-white/1 text-gray-400 hover:text-white'
               }`}
             >
-              <LuSparkles className="h-4.5 w-4.5" />
+              <LuSparkles className="size-4.5" />
               Improv Jam Station
             </button>
             <button
@@ -461,20 +461,20 @@ export default function FretboardJamStudioPage() {
                   : 'border border-white/5 bg-white/1 text-gray-400 hover:text-white'
               }`}
             >
-              <LuCircleHelp className="h-4.5 w-4.5" />
+              <LuCircleHelp className="size-4.5" />
               Fretboard Quiz Game
             </button>
           </div>
 
           <button
             onClick={() => setIsMuted(!isMuted)}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/2 text-gray-300 hover:bg-white/5 hover:text-white active:scale-95"
+            className="flex items-center justify-center rounded-full border border-white/10 bg-white/2 text-gray-300 hover:bg-white/5 hover:text-white active:scale-95 size-9"
             title={isMuted ? 'Unmute sounds' : 'Mute sounds'}
           >
             {isMuted ? (
-              <LuVolumeX className="h-4.5 w-4.5 text-rose-400" />
+              <LuVolumeX className="text-rose-400 size-4.5" />
             ) : (
-              <LuVolume2 className="h-4.5 w-4.5 text-cyan-400" />
+              <LuVolume2 className="text-cyan-400 size-4.5" />
             )}
           </button>
         </div>
@@ -628,14 +628,14 @@ export default function FretboardJamStudioPage() {
                     onClick={() => setIsJamActive(false)}
                     className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl bg-rose-600 py-3 text-xs font-black tracking-wider text-white uppercase shadow-md shadow-rose-500/10 transition-all hover:bg-rose-500 active:scale-95"
                   >
-                    <LuSquare className="h-4.5 w-4.5" /> Stop Loop
+                    <LuSquare className="size-4.5" /> Stop Loop
                   </button>
                 ) : (
                   <button
                     onClick={startJam}
                     className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl bg-cyan-500 py-3 text-xs font-black tracking-wider text-white uppercase shadow-md shadow-cyan-500/10 transition-all hover:bg-cyan-400 active:scale-95"
                   >
-                    <LuPlay className="h-4.5 w-4.5" /> Play Jam Loop
+                    <LuPlay className="size-4.5" /> Play Jam Loop
                   </button>
                 )}
               </div>
@@ -713,10 +713,10 @@ export default function FretboardJamStudioPage() {
 
               <button
                 onClick={generateQuizPrompt}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/2 text-gray-300 hover:bg-white/5 hover:text-white"
+                className="flex items-center justify-center rounded-full border border-white/10 bg-white/2 text-gray-300 hover:bg-white/5 hover:text-white size-9"
                 title="Skip to next target"
               >
-                <LuShuffle className="h-4.5 w-4.5" />
+                <LuShuffle className="size-4.5" />
               </button>
             </div>
 
@@ -736,7 +736,7 @@ export default function FretboardJamStudioPage() {
                 </span>
                 <p className="font-heading text-2xl font-black text-amber-400">
                   {quizStreak}{' '}
-                  <LuAward className="-mt-1 ml-0.5 inline h-5 w-5 text-amber-400" />
+                  <LuAward className="-mt-1 ml-0.5 inline text-amber-400 size-5" />
                 </p>
               </div>
             </div>
@@ -760,7 +760,7 @@ export default function FretboardJamStudioPage() {
                 }`}
               >
                 <LuVolume2
-                  className={`h-6 w-6 ${isMetronomeActive ? 'animate-bounce' : ''}`}
+                  className={`${isMetronomeActive ? 'animate-bounce' : ''} size-6`}
                 />
               </button>
               <div>
@@ -784,7 +784,7 @@ export default function FretboardJamStudioPage() {
                     : 'border-white/10 bg-white/1'
                 }`}
               >
-                <div className="h-2 w-2 rounded-full bg-white/40" />
+                <div className="rounded-full bg-white/40 size-2" />
               </div>
             </div>
 
@@ -820,7 +820,7 @@ export default function FretboardJamStudioPage() {
             </div>
             {activeTab !== 'quiz' && (
               <div className="flex items-center gap-3 text-xs text-gray-400">
-                <span className="inline-block h-3.5 w-3.5 rounded-full border border-cyan-500/20 bg-cyan-500/20" />
+                <span className="inline-block rounded-full border border-cyan-500/20 bg-cyan-500/20 size-3.5" />
                 Active Chord/Scale Notes
               </div>
             )}
@@ -832,7 +832,7 @@ export default function FretboardJamStudioPage() {
                 {STRINGS.map((str, idx) => (
                   <div
                     key={idx}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/5 bg-white/1 text-xs font-black text-cyan-400 shadow-sm"
+                    className="flex items-center justify-center rounded-xl border border-white/5 bg-white/1 text-xs font-black text-cyan-400 shadow-sm size-10"
                   >
                     {str.note}
                   </div>
@@ -885,12 +885,12 @@ export default function FretboardJamStudioPage() {
                           className="flex w-10 flex-col items-center justify-center gap-1"
                         >
                           {hasSingleMarker && (
-                            <div className="h-2.5 w-2.5 rounded-full bg-white/20" />
+                            <div className="rounded-full bg-white/20 size-2.5" />
                           )}
                           {hasDoubleMarker && (
                             <>
-                              <div className="h-2.5 w-2.5 rounded-full bg-white/20" />
-                              <div className="h-2.5 w-2.5 rounded-full bg-white/20" />
+                              <div className="rounded-full bg-white/20 size-2.5" />
+                              <div className="rounded-full bg-white/20 size-2.5" />
                             </>
                           )}
                         </div>
@@ -958,7 +958,7 @@ export default function FretboardJamStudioPage() {
                     : 'border-cyan-500/20 bg-cyan-500/10 text-cyan-400'
               }`}
             >
-              <LuSparkles className="h-6 w-6" />
+              <LuSparkles className="size-6" />
             </div>
             <div>
               <h4 className="font-heading mb-1 text-sm font-extrabold text-white sm:text-base">

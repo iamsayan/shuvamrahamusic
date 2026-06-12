@@ -116,7 +116,7 @@ export default function BlogArchiveClient({
         {/* If no articles found */}
         {posts.length === 0 ? (
           <div className="flex flex-col items-center justify-center rounded-[2.5rem] border border-white/10 bg-[#07070F]/85 p-12 text-center backdrop-blur-3xl md:p-20">
-            <LuBookOpen className="mb-6 h-12 w-12 animate-pulse text-gray-600" />
+            <LuBookOpen className="mb-6 animate-pulse text-gray-600 size-12" />
             <h3 className="font-heading text-lg font-bold text-white sm:text-xl">
               No Articles Found
             </h3>
@@ -143,18 +143,18 @@ export default function BlogArchiveClient({
               <div className="mt-12 flex items-center justify-center gap-2">
                 {currentPage === 1 ? (
                   <span
-                    className="inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 opacity-30"
+                    className="inline-flex cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 opacity-30 size-9"
                     aria-label="Previous Page (disabled)"
                   >
-                    <LuChevronLeft className="h-4 w-4" />
+                    <LuChevronLeft className="size-4" />
                   </span>
                 ) : (
                   <Link
                     href={getPageLink(currentPage - 1)}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white"
+                    className="inline-flex items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white size-9"
                     aria-label="Previous Page"
                   >
-                    <LuChevronLeft className="h-4 w-4" />
+                    <LuChevronLeft className="size-4" />
                   </Link>
                 )}
 
@@ -179,18 +179,18 @@ export default function BlogArchiveClient({
 
                 {currentPage === totalPages ? (
                   <span
-                    className="inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 opacity-30"
+                    className="inline-flex cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 opacity-30 size-9"
                     aria-label="Next Page (disabled)"
                   >
-                    <LuChevronRight className="h-4 w-4" />
+                    <LuChevronRight className="size-4" />
                   </span>
                 ) : (
                   <Link
                     href={getPageLink(currentPage + 1)}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white"
+                    className="inline-flex items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white size-9"
                     aria-label="Next Page"
                   >
-                    <LuChevronRight className="h-4 w-4" />
+                    <LuChevronRight className="size-4" />
                   </Link>
                 )}
               </div>
@@ -227,9 +227,9 @@ export default function BlogArchiveClient({
                 href="https://calendly.com/shuvamraha10/intro-call"
                 className="group/btn font-heading relative inline-flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-7 py-3.5 text-xs font-bold text-white shadow-[0_0_20px_rgba(6,182,212,0.2)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] active:scale-95 sm:text-sm"
               >
-                <LuPhone className="h-4 w-4" />
+                <LuPhone className="size-4" />
                 Book Free Call
-                <LuArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                <LuArrowRight className="transition-transform group-hover/btn:translate-x-1 size-4" />
               </Link>
             </div>
           </div>
