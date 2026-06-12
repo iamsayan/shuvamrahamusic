@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import PageLayout from '@/components/page-layout';
 
-import { FaAmazon, FaApple, FaSpotify, FaYoutube } from 'react-icons/fa6';
+import { FaAmazon, FaApple, FaSpotify } from 'react-icons/fa6';
 import { LuMusic, LuRadio, LuSparkles } from 'react-icons/lu';
 import { SiYoutubemusic } from 'react-icons/si';
 
@@ -245,19 +245,10 @@ export default function AudiosGalleryPage() {
                   href="https://music.amazon.com/albums/B0C6289PXW"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 rounded-xl border border-amber-500/20 bg-amber-500/10 py-3 text-xs font-bold text-amber-400 transition-all hover:bg-amber-500/20 active:scale-95"
+                  className="col-span-2 flex items-center justify-center gap-2 rounded-xl border border-amber-500/20 bg-amber-500/10 py-3 text-xs font-bold text-amber-400 transition-all hover:bg-amber-500/20 active:scale-95"
                 >
                   <FaAmazon className="size-4" />
                   Amazon
-                </a>
-                <a
-                  href="https://www.youtube.com/channel/UC-N2u9tH94W9h0MebX9zQ7A"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 rounded-xl border border-red-500/20 bg-red-500/10 py-3 text-xs font-bold text-red-400 transition-all hover:bg-red-500/20 active:scale-95"
-                >
-                  <FaYoutube className="size-4" />
-                  YouTube
                 </a>
               </div>
             </div>
