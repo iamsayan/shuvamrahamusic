@@ -6,8 +6,10 @@ import JsonLd from '@/components/json-ld';
 import SliderGallery from '@/components/slider-gallery';
 import YouTubeFacade from '@/components/youtube-facade';
 import { getBlogPosts } from '@/lib/blog-data';
+import cockpit from '@/lib/client';
 import { authorityPoints, curriculum } from '@/lib/guitar-data';
 import { SCHEMA } from '@/lib/schema';
+import { PricingPlan } from '@/types';
 
 import { LuArrowRight, LuAward, LuMusic } from 'react-icons/lu';
 
@@ -31,7 +33,10 @@ const studentVideos = [
 
 export default async function Home() {
   // Fetch latest posts dynamically (returns static posts when database is not configured)
-  const latestPosts = await getBlogPosts({ limit: 3 });
+  const [latestPosts, pricingPlans] = await Promise.all([
+    getBlogPosts({ limit: 3 }),
+    cockpit.listContentItems<PricingPlan[]>('pricingplans'),
+  ]);
 
   return (
     <>
@@ -62,29 +67,15 @@ export default async function Home() {
               educationalLevel: 'Beginner to Advanced',
               inLanguage: ['en', 'hi', 'bn'],
               url: `${SCHEMA.BASE_URL}/guitar-classes-with-shuvam`,
-              offers: [
-                {
-                  '@type': 'Offer',
-                  category: 'Subscription',
-                  priceCurrency: 'INR',
-                  price: '1500.00',
-                  name: 'Offline Coaching (Studio)',
-                },
-                {
-                  '@type': 'Offer',
-                  category: 'Subscription',
-                  priceCurrency: 'INR',
-                  price: '1800.00',
-                  name: 'Starter Online Plan',
-                },
-                {
-                  '@type': 'Offer',
-                  category: 'Subscription',
-                  priceCurrency: 'USD',
-                  price: '45.00',
-                  name: 'Global Guitar Program',
-                },
-              ],
+              offers: (pricingPlans || []).map((plan) => ({
+                '@type': 'Offer',
+                category: 'Subscription',
+                priceCurrency: plan.region === 'India' ? 'INR' : 'USD',
+                price: plan.amount.toFixed(2),
+                name: plan.name,
+                description: plan.description,
+                url: `${SCHEMA.BASE_URL}/guitar-classes-with-shuvam/pay?h=${btoa(JSON.stringify({ plan: plan._id, region: plan.region === 'India' ? 'INR' : 'GLOBAL' }))}`,
+              })),
               hasCourseInstance: {
                 '@type': 'CourseInstance',
                 courseMode: ['online', 'offline'],

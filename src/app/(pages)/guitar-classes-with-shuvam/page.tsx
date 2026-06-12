@@ -12,6 +12,7 @@ import YouTubeFacade from '@/components/youtube-facade';
 import cockpit from '@/lib/client';
 // Static Data
 import { notFor, perfectFor } from '@/lib/guitar-data';
+import { allFaqs } from '@/lib/guitar-data';
 import { SCHEMA } from '@/lib/schema';
 import { GuitarClassesData, PricingPlan } from '@/types';
 
@@ -214,86 +215,18 @@ export default async function Page() {
               },
             },
           },
-          {
-            '@context': 'https://schema.org',
-            '@type': 'MusicInstructionBusiness',
-            name: 'Shuvam Raha Music',
-            description:
-              'LCM certified professional guitar instruction, offering online classes globally and offline classes at the studio in Kolkata.',
-            url: SCHEMA.BASE_URL,
-            telephone: '+918961369468',
-            address: {
-              '@type': 'PostalAddress',
-              addressLocality: 'Kolkata',
-              addressRegion: 'West Bengal',
-              addressCountry: 'IN',
-            },
-            geo: {
-              '@type': 'GeoCoordinates',
-              latitude: '22.5726',
-              longitude: '88.3639',
-            },
-            priceRange: '$$ / ₹₹',
-            openingHoursSpecification: [
-              {
-                '@type': 'OpeningHoursSpecification',
-                dayOfWeek: ['Monday', 'Tuesday', 'Wednesday'],
-                opens: '10:00',
-                closes: '21:00',
-              },
-              {
-                '@type': 'OpeningHoursSpecification',
-                dayOfWeek: ['Saturday', 'Sunday'],
-                opens: '10:00',
-                closes: '16:00',
-              },
-            ],
-          },
+          SCHEMA.organization(),
           {
             '@context': 'https://schema.org',
             '@type': 'FAQPage',
-            mainEntity: [
-              {
-                '@type': 'Question',
-                name: "Do I need any prior music experience to join Shuvam Raha's guitar classes?",
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Not at all! The program is designed for complete beginners and starts from absolute zero with step-by-step guidance.',
-                },
+            mainEntity: allFaqs.map((faq) => ({
+              '@type': 'Question',
+              name: faq.q,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: faq.a,
               },
-              {
-                '@type': 'Question',
-                name: 'How long does it take to learn guitar and play favorite songs?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Most students start playing basic songs within 30–60 days with regular practice, and build solid confidence within 3–6 months.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'Are the guitar classes online or offline?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Both options are available — online classes worldwide (with flexible scheduling across time zones) and offline sessions at the studio in Kolkata.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'What happens if I miss a scheduled guitar class?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Missed classes can be rescheduled based on availability within the same month.',
-                },
-              },
-              {
-                '@type': 'Question',
-                name: 'How can I enroll in the guitar classes?',
-                acceptedAnswer: {
-                  '@type': 'Answer',
-                  text: 'Simply book a free introductory call to discuss your goals, choose a suitable plan, confirm your slot, and start learning.',
-                },
-              },
-            ],
+            })),
           },
         ]}
       />
