@@ -152,7 +152,7 @@ export default function Header() {
                     className="group/item relative flex items-center gap-1 rounded-full py-1.5 pr-2.5 pl-3.5 transition-colors"
                   >
                     <Link
-                      href={`${link.raw ? link.href : `https://www.shuvamrahamusic.com${link.href}`}`}
+                      href={`${link.raw ? link.href : `https://shuvamrahamusic.com${link.href}`}`}
                       className="relative z-10 text-sm font-bold whitespace-nowrap text-gray-300 transition-colors duration-300 group-hover/item:text-white hover:text-white"
                     >
                       {link.name}

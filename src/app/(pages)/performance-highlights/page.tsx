@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import JsonLd from '@/components/json-ld';
+import PageLayout from '@/components/page-layout';
 import PerformanceHighlightsClient from '@/components/performance-highlights-client';
 import cockpit from '@/lib/client';
 import { Performance } from '@/types';
@@ -95,7 +96,12 @@ export default async function PerformanceHighlightsPage() {
           ],
         }}
       />
-      <PerformanceHighlightsClient performances={performances} />
+      <PageLayout
+        title="Performance Highlights"
+        subtitle="Live Performance Portfolio, Tour History & Professional Stage Metrics Across Events & Festivals."
+      >
+        <PerformanceHighlightsClient performances={performances} />
+      </PageLayout>
     </>
   );
 }
