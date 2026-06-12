@@ -66,7 +66,7 @@ export default function BlogArchiveClient({
 
   return (
     <div className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
-      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
+      <div className="relative z-10 mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
         <div className="flex w-full flex-col pt-8 pb-6">
           {/* Breadcrumbs */}
           <nav className="font-heading mb-6 flex items-center gap-1.5 text-[11px] font-bold text-gray-500 uppercase sm:text-xs">
@@ -99,10 +99,10 @@ export default function BlogArchiveClient({
 
           {/* Header Title */}
           <div className="max-w-2xl">
-            <h1 className="font-heading mb-4 bg-gradient-to-r from-white via-white to-gray-400 bg-clip-text text-3xl leading-[1.15] font-black tracking-tight text-transparent sm:text-4xl lg:text-5xl">
+            <h1 className="font-heading mb-4 bg-linear-to-r from-white via-white to-gray-400 bg-clip-text text-3xl leading-[1.15] font-black tracking-tight text-transparent sm:text-4xl lg:text-5xl">
               {title}{' '}
               <span
-                className={`bg-gradient-to-r ${BRIGHT_GRADIENTS[themeKey]} bg-clip-text text-transparent`}
+                className={`bg-linear-to-r ${BRIGHT_GRADIENTS[themeKey]} bg-clip-text text-transparent`}
               >
                 {term}
               </span>
@@ -143,7 +143,7 @@ export default function BlogArchiveClient({
               <div className="mt-12 flex items-center justify-center gap-2">
                 {currentPage === 1 ? (
                   <span
-                    className="inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 opacity-30"
+                    className="inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 opacity-30"
                     aria-label="Previous Page (disabled)"
                   >
                     <LuChevronLeft className="h-4 w-4" />
@@ -151,7 +151,7 @@ export default function BlogArchiveClient({
                 ) : (
                   <Link
                     href={getPageLink(currentPage - 1)}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white"
                     aria-label="Previous Page"
                   >
                     <LuChevronLeft className="h-4 w-4" />
@@ -168,7 +168,7 @@ export default function BlogArchiveClient({
                         className={`inline-flex h-9 w-9 items-center justify-center rounded-xl text-xs font-bold transition-all ${
                           isActive
                             ? 'border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.15)]'
-                            : 'border border-white/5 bg-white/[0.01] text-gray-400 hover:border-white/10 hover:bg-white/5 hover:text-white'
+                            : 'border border-white/5 bg-white/1 text-gray-400 hover:border-white/10 hover:bg-white/5 hover:text-white'
                         }`}
                       >
                         {pageNum}
@@ -179,7 +179,7 @@ export default function BlogArchiveClient({
 
                 {currentPage === totalPages ? (
                   <span
-                    className="inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 opacity-30"
+                    className="inline-flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 opacity-30"
                     aria-label="Next Page (disabled)"
                   >
                     <LuChevronRight className="h-4 w-4" />
@@ -187,7 +187,7 @@ export default function BlogArchiveClient({
                 ) : (
                   <Link
                     href={getPageLink(currentPage + 1)}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-white/5 bg-white/1 text-gray-400 transition-all hover:border-white/10 hover:bg-white/5 hover:text-white"
                     aria-label="Next Page"
                   >
                     <LuChevronRight className="h-4 w-4" />
@@ -201,8 +201,8 @@ export default function BlogArchiveClient({
         {/* CTA Section Card (Matching design cards of the site) */}
         <div className="group/card relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#07070F]/85 p-8 shadow-[0_40px_100px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-500 hover:border-cyan-500/20 sm:p-12">
           {/* Glowing Top Accent Strip */}
-          <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />
-          <div className="pointer-events-none absolute -top-[40%] -right-[10%] h-[300px] w-[300px] rounded-full bg-cyan-600/10 blur-[100px]" />
+          <div className="absolute top-0 left-0 h-1 w-full bg-linear-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />
+          <div className="pointer-events-none absolute -top-[40%] -right-[10%] size-75 rounded-full bg-cyan-600/10 blur-[100px]" />
 
           <div className="relative z-10 flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
             <div className="max-w-2xl">
@@ -211,7 +211,7 @@ export default function BlogArchiveClient({
               </span>
               <h2 className="font-heading mb-3 text-2xl font-black tracking-tight text-white sm:text-3xl lg:text-4xl">
                 Ready to Accelerate Your{' '}
-                <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
                   Guitar Journey?
                 </span>
               </h2>
@@ -225,7 +225,7 @@ export default function BlogArchiveClient({
             <div className="shrink-0">
               <Link
                 href="https://calendly.com/shuvamraha10/intro-call"
-                className="group/btn font-heading relative inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-7 py-3.5 text-xs font-bold text-white shadow-[0_0_20px_rgba(6,182,212,0.2)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] active:scale-95 sm:text-sm"
+                className="group/btn font-heading relative inline-flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-7 py-3.5 text-xs font-bold text-white shadow-[0_0_20px_rgba(6,182,212,0.2)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] active:scale-95 sm:text-sm"
               >
                 <LuPhone className="h-4 w-4" />
                 Book Free Call

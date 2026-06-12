@@ -9,7 +9,7 @@ interface PageLayoutProps {
   title: string;
   subtitle?: string;
   children: React.ReactNode;
-  maxWidth?: string; // Supports standard keys like '5xl' or custom classes like 'max-w-[1400px]'
+  maxWidth?: string; // Supports standard keys like '5xl' or custom classes like 'max-w-350'
   textAlign?: 'left' | 'center';
   variant?: 'card' | 'plain';
 }
@@ -30,7 +30,7 @@ export default function PageLayout({
   title,
   subtitle,
   children,
-  maxWidth = 'max-w-[1400px]',
+  maxWidth = 'max-w-350',
   textAlign = 'left',
   variant = 'card',
 }: PageLayoutProps) {
@@ -75,7 +75,7 @@ export default function PageLayout({
 
   const maxWidthClass = maxWidth.startsWith('max-w-')
     ? maxWidth
-    : maxWMap[maxWidth as keyof typeof maxWMap] || 'max-w-[1400px]';
+    : maxWMap[maxWidth as keyof typeof maxWMap] || 'max-w-350';
   const textAlignmentClass =
     textAlign === 'center'
       ? 'items-center text-center'
@@ -129,7 +129,7 @@ export default function PageLayout({
             })}
           </nav>
 
-          <h1 className="font-heading mb-4 bg-gradient-to-r from-white via-white to-gray-400 bg-clip-text text-3xl font-black tracking-tight text-transparent sm:text-4xl lg:text-5xl">
+          <h1 className="font-heading mb-4 bg-linear-to-r from-white via-white to-gray-400 bg-clip-text text-3xl font-black tracking-tight text-transparent sm:text-4xl lg:text-5xl">
             {title}
           </h1>
 
@@ -146,7 +146,7 @@ export default function PageLayout({
             className={`group/card relative flex w-full flex-col ${textAlignmentClass} overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#07070F]/85 p-6 shadow-[0_40px_100px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-500 hover:border-cyan-500/20 sm:p-10 md:p-12`}
           >
             {/* Glowing Top Accent Strip */}
-            <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />
+            <div className="absolute top-0 left-0 h-1 w-full bg-linear-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />
 
             {/* Children content slots */}
             <div className="w-full text-xs leading-relaxed text-gray-300 sm:text-sm md:text-base">

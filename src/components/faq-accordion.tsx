@@ -1,8 +1,10 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
+
+import { allFaqs, categories } from '@/lib/guitar-data';
+
 import { LuChevronDown, LuCircleHelp, LuMessageCircle } from 'react-icons/lu';
-import { categories, allFaqs } from '@/lib/guitar-data';
 
 export default function FaqAccordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -31,7 +33,7 @@ export default function FaqAccordion() {
           </div>
           <h2 className="font-heading mb-4 text-3xl leading-tight font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
             Got{' '}
-            <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
               Questions?
             </span>
           </h2>
@@ -53,7 +55,7 @@ export default function FaqAccordion() {
               className={`group flex items-center justify-between gap-3 rounded-2xl border px-5 py-3.5 text-left text-xs font-bold whitespace-nowrap transition-all duration-300 sm:text-sm md:text-base ${
                 activeCategory === cat
                   ? 'border-indigo-500/40 bg-indigo-500/20 text-indigo-300 shadow-[0_0_20px_rgba(99,102,241,0.15)]'
-                  : 'border-white/5 bg-white/[0.02] text-gray-400 hover:border-white/10 hover:bg-white/[0.05] hover:text-gray-200'
+                  : 'border-white/5 bg-white/2 text-gray-400 hover:border-white/10 hover:bg-white/5 hover:text-gray-200'
               }`}
             >
               {cat}
@@ -65,7 +67,7 @@ export default function FaqAccordion() {
         </div>
 
         {/* Contact Card */}
-        <div className="group relative hidden flex-col gap-4 overflow-hidden rounded-[2rem] border border-indigo-500/10 bg-gradient-to-br from-indigo-900/10 to-purple-900/10 p-6 shadow-2xl transition-colors hover:border-indigo-500/20 lg:flex">
+        <div className="group relative hidden flex-col gap-4 overflow-hidden rounded-[2rem] border border-indigo-500/10 bg-linear-to-br from-indigo-900/10 to-purple-900/10 p-6 shadow-2xl transition-colors hover:border-indigo-500/20 lg:flex">
           <div className="absolute top-0 right-0 h-32 w-32 rounded-full bg-indigo-500/10 blur-[40px] transition-colors duration-500 group-hover:bg-indigo-500/20" />
           <div className="relative z-10">
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-indigo-500/20 bg-indigo-500/10 text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.15)]">
@@ -97,8 +99,8 @@ export default function FaqAccordion() {
               key={idx}
               className={`overflow-hidden rounded-2xl border transition-all duration-500 ${
                 isOpen
-                  ? 'border-indigo-500/30 bg-white/[0.03] shadow-[0_0_20px_rgba(99,102,241,0.05)]'
-                  : 'border-white/5 bg-white/[0.01] hover:border-white/10 hover:bg-white/[0.02]'
+                  ? 'border-indigo-500/30 bg-white/3 shadow-[0_0_20px_rgba(99,102,241,0.05)]'
+                  : 'border-white/5 bg-white/1 hover:border-white/10 hover:bg-white/2'
               }`}
             >
               <button

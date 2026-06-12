@@ -256,7 +256,7 @@ export default function VideosGalleryPage() {
             {finalFiltered.map((video) => (
               <div
                 key={video.id}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.05] bg-white/[0.01] transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/[0.02]"
+                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/5 bg-white/1 transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/2"
               >
                 <div>
                   <div className="relative aspect-video w-full overflow-hidden bg-gray-900">
@@ -296,10 +296,10 @@ export default function VideosGalleryPage() {
             {finalFiltered.map((video) => (
               <div
                 key={video.id}
-                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.05] bg-white/[0.01] transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/[0.02]"
+                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/5 bg-white/1 transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/2"
               >
                 <div>
-                  <div className="relative aspect-[9/16] w-full overflow-hidden bg-gray-900">
+                  <div className="relative aspect-9/16 w-full overflow-hidden bg-gray-900">
                     <YouTubeFacade videoId={video.youtubeId} />
                     <span className="absolute top-3 right-3 z-20 rounded-full border border-white/10 bg-black/60 px-2 py-1 text-[8px] font-bold tracking-widest text-cyan-400 uppercase backdrop-blur-md">
                       {video.category}
@@ -335,8 +335,8 @@ export default function VideosGalleryPage() {
         {/* Channel Promotion CTA Box */}
         <div className="group/card relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#07070F]/85 p-8 shadow-2xl backdrop-blur-3xl transition-all duration-500 hover:border-cyan-500/20 sm:p-12">
           {/* Glowing Top Accent Strip */}
-          <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />
-          <div className="pointer-events-none absolute -top-[40%] -right-[10%] h-[300px] w-[300px] rounded-full bg-cyan-600/10 blur-[100px]" />
+          <div className="absolute top-0 left-0 h-1 w-full bg-linear-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />
+          <div className="pointer-events-none absolute -top-[40%] -right-[10%] size-75 rounded-full bg-cyan-600/10 blur-[100px]" />
 
           <div className="relative z-10 flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
             <div className="max-w-2xl">
@@ -345,7 +345,7 @@ export default function VideosGalleryPage() {
               </span>
               <h2 className="font-heading mb-3 text-2xl font-black tracking-tight text-white sm:text-3xl lg:text-4xl">
                 Subscribe for Weekly Guitar{' '}
-                <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
                   Guides &amp; Covers
                 </span>
               </h2>

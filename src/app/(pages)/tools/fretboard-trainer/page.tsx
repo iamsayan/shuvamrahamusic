@@ -433,7 +433,7 @@ export default function FretboardJamStudioPage() {
               className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-black tracking-wider uppercase transition-all duration-300 ${
                 activeTab === 'explore'
                   ? 'border border-cyan-500/30 bg-cyan-500/10 text-cyan-400'
-                  : 'border border-white/5 bg-white/[0.01] text-gray-400 hover:text-white'
+                  : 'border border-white/5 bg-white/1 text-gray-400 hover:text-white'
               }`}
             >
               <LuCompass className="h-4.5 w-4.5" />
@@ -447,7 +447,7 @@ export default function FretboardJamStudioPage() {
               className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-black tracking-wider uppercase transition-all duration-300 ${
                 activeTab === 'jam'
                   ? 'border border-cyan-500/30 bg-cyan-500/10 text-cyan-400'
-                  : 'border border-white/5 bg-white/[0.01] text-gray-400 hover:text-white'
+                  : 'border border-white/5 bg-white/1 text-gray-400 hover:text-white'
               }`}
             >
               <LuSparkles className="h-4.5 w-4.5" />
@@ -458,7 +458,7 @@ export default function FretboardJamStudioPage() {
               className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-black tracking-wider uppercase transition-all duration-300 ${
                 activeTab === 'quiz'
                   ? 'border border-amber-500/30 bg-amber-500/10 text-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.15)]'
-                  : 'border border-white/5 bg-white/[0.01] text-gray-400 hover:text-white'
+                  : 'border border-white/5 bg-white/1 text-gray-400 hover:text-white'
               }`}
             >
               <LuCircleHelp className="h-4.5 w-4.5" />
@@ -468,7 +468,7 @@ export default function FretboardJamStudioPage() {
 
           <button
             onClick={() => setIsMuted(!isMuted)}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.02] text-gray-300 hover:bg-white/5 hover:text-white active:scale-95"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/2 text-gray-300 hover:bg-white/5 hover:text-white active:scale-95"
             title={isMuted ? 'Unmute sounds' : 'Mute sounds'}
           >
             {isMuted ? (
@@ -482,7 +482,7 @@ export default function FretboardJamStudioPage() {
         {/* Tab 1: Explore Controls */}
         {activeTab === 'explore' && (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            <div className="space-y-2.5 rounded-2xl border border-white/[0.04] bg-[#0A0A15]/60 p-5">
+            <div className="space-y-2.5 rounded-2xl border border-white/4 bg-[#0A0A15]/60 p-5">
               <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
                 Step 1: Root Tone
               </span>
@@ -503,7 +503,7 @@ export default function FretboardJamStudioPage() {
               </div>
             </div>
 
-            <div className="space-y-2.5 rounded-2xl border border-white/[0.04] bg-[#0A0A15]/60 p-5">
+            <div className="space-y-2.5 rounded-2xl border border-white/4 bg-[#0A0A15]/60 p-5">
               <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
                 Step 2: Mode selection
               </span>
@@ -531,7 +531,7 @@ export default function FretboardJamStudioPage() {
               </div>
             </div>
 
-            <div className="space-y-2.5 rounded-2xl border border-white/[0.04] bg-[#0A0A15]/60 p-5">
+            <div className="space-y-2.5 rounded-2xl border border-white/4 bg-[#0A0A15]/60 p-5">
               <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
                 Step 3: Variation details
               </span>
@@ -578,7 +578,7 @@ export default function FretboardJamStudioPage() {
         {activeTab === 'jam' && (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {/* Backing track selection card */}
-            <div className="space-y-3 rounded-2xl border border-white/[0.04] bg-[#0A0A15]/60 p-5">
+            <div className="space-y-3 rounded-2xl border border-white/4 bg-[#0A0A15]/60 p-5">
               <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
                 Backing Loops
               </span>
@@ -593,7 +593,7 @@ export default function FretboardJamStudioPage() {
                     className={`cursor-pointer rounded-xl border p-3 text-left transition-all ${
                       selectedTrackIdx === idx
                         ? 'border-cyan-500/40 bg-cyan-500/10 text-white'
-                        : 'border-white/5 bg-white/[0.005] text-gray-400 hover:bg-white/[0.02] hover:text-white'
+                        : 'border-white/5 bg-white/0.5 text-gray-400 hover:bg-white/2 hover:text-white'
                     }`}
                   >
                     <p className="text-xs font-bold">{track.name}</p>
@@ -606,7 +606,7 @@ export default function FretboardJamStudioPage() {
             </div>
 
             {/* Backing loop controller */}
-            <div className="flex flex-col justify-between rounded-2xl border border-cyan-500/10 bg-cyan-500/[0.02] p-5">
+            <div className="flex flex-col justify-between rounded-2xl border border-cyan-500/10 bg-cyan-500/2 p-5">
               <div className="space-y-1">
                 <span className="inline-flex items-center gap-1 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-widest text-cyan-400 uppercase">
                   Improv Backing Track
@@ -642,7 +642,7 @@ export default function FretboardJamStudioPage() {
             </div>
 
             {/* Active Chord monitor */}
-            <div className="flex flex-col justify-between rounded-2xl border border-white/[0.04] bg-[#0A0A15]/60 p-5">
+            <div className="flex flex-col justify-between rounded-2xl border border-white/4 bg-[#0A0A15]/60 p-5">
               <div className="text-center md:text-left">
                 <span className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
                   Current Chord Harmony
@@ -691,7 +691,7 @@ export default function FretboardJamStudioPage() {
         {/* Tab 3: Quiz Game Controls */}
         {activeTab === 'quiz' && (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            <div className="col-span-2 flex items-center justify-between rounded-2xl border border-amber-500/10 bg-amber-500/[0.02] p-5">
+            <div className="col-span-2 flex items-center justify-between rounded-2xl border border-amber-500/10 bg-amber-500/2 p-5">
               <div className="space-y-1">
                 <span className="inline-flex items-center gap-1 rounded-full border border-amber-500/20 bg-amber-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-widest text-amber-400 uppercase">
                   ACTIVE CHALLENGE
@@ -713,14 +713,14 @@ export default function FretboardJamStudioPage() {
 
               <button
                 onClick={generateQuizPrompt}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.02] text-gray-300 hover:bg-white/5 hover:text-white"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/2 text-gray-300 hover:bg-white/5 hover:text-white"
                 title="Skip to next target"
               >
                 <LuShuffle className="h-4.5 w-4.5" />
               </button>
             </div>
 
-            <div className="flex items-center justify-around rounded-2xl border border-white/[0.04] bg-[#0A0A15]/60 p-5">
+            <div className="flex items-center justify-around rounded-2xl border border-white/4 bg-[#0A0A15]/60 p-5">
               <div className="text-center">
                 <span className="text-[9px] font-black tracking-widest text-gray-500 uppercase">
                   Score
@@ -745,7 +745,7 @@ export default function FretboardJamStudioPage() {
 
         {/* Global Speed Metronome Section */}
         {activeTab !== 'quiz' && (
-          <div className="grid grid-cols-1 gap-6 rounded-2xl border border-white/[0.04] bg-[#0A0A15]/30 p-5 md:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 rounded-2xl border border-white/4 bg-[#0A0A15]/30 p-5 md:grid-cols-4">
             {/* Metronome status & controls */}
             <div className="flex items-center gap-4">
               <button
@@ -756,7 +756,7 @@ export default function FretboardJamStudioPage() {
                 className={`flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-full border transition-all duration-300 ${
                   isMetronomeActive
                     ? 'scale-105 border-rose-500 bg-rose-500/20 text-rose-400 shadow-[0_0_15px_rgba(244,63,94,0.4)]'
-                    : 'border-white/10 bg-white/[0.02] text-gray-400 hover:text-white'
+                    : 'border-white/10 bg-white/2 text-gray-400 hover:text-white'
                 }`}
               >
                 <LuVolume2
@@ -781,7 +781,7 @@ export default function FretboardJamStudioPage() {
                 className={`flex h-10 w-10 items-center justify-center rounded-full border-2 transition-all duration-700 ${
                   pulse
                     ? 'scale-110 border-cyan-400 bg-cyan-400/25 shadow-[0_0_15px_rgba(34,211,238,0.5)]'
-                    : 'border-white/10 bg-white/[0.01]'
+                    : 'border-white/10 bg-white/1'
                 }`}
               >
                 <div className="h-2 w-2 rounded-full bg-white/40" />
@@ -826,13 +826,13 @@ export default function FretboardJamStudioPage() {
             )}
           </div>
 
-          <div className="scrollbar-hide relative overflow-x-auto rounded-3xl border border-white/[0.06] bg-[#080812]/50 p-8 backdrop-blur-2xl">
+          <div className="scrollbar-hide relative overflow-x-auto rounded-3xl border border-white/6 bg-[#080812]/50 p-8 backdrop-blur-2xl">
             <div className="relative min-w-[850px] pt-4 pb-6">
               <div className="absolute top-0 bottom-0 left-0 flex flex-col justify-between border-r border-white/5 py-6 pr-6">
                 {STRINGS.map((str, idx) => (
                   <div
                     key={idx}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/5 bg-white/[0.01] text-xs font-black text-cyan-400 shadow-sm"
+                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/5 bg-white/1 text-xs font-black text-cyan-400 shadow-sm"
                   >
                     {str.note}
                   </div>

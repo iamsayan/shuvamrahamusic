@@ -236,7 +236,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       />
 
       <article className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
-        <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
+        <div className="relative z-10 mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
           <div className="flex w-full flex-col pt-8 pb-6">
             {/* Breadcrumbs & Back Link */}
             <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
@@ -286,7 +286,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                     <Link
                       key={idx}
                       href={`/blog/category/${cat.slug}`}
-                      className={`rounded-full border ${catTheme.border} ${catTheme.bg} px-3 py-1 text-[10px] font-black tracking-widest ${catTheme.text} uppercase transition-colors duration-300 hover:bg-white/[0.08]`}
+                      className={`rounded-full border ${catTheme.border} ${catTheme.bg} px-3 py-1 text-[10px] font-black tracking-widest ${catTheme.text} uppercase transition-colors duration-300 hover:bg-white/8`}
                     >
                       {cat.title}
                     </Link>
@@ -335,11 +335,11 @@ export default async function BlogPostPage({ params }: PageProps) {
           </div>
 
           {/* Featured Image Banner */}
-          <div className="group relative mb-12 overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.02] shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
+          <div className="group relative mb-12 overflow-hidden rounded-[2rem] border border-white/10 bg-white/2 shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
             <div
-              className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${BRIGHT_GRADIENTS[themeKey] || BRIGHT_GRADIENTS['default']} z-20 opacity-50`}
+              className={`absolute top-0 left-0 h-[3px] w-full bg-linear-to-r ${BRIGHT_GRADIENTS[themeKey] || BRIGHT_GRADIENTS['default']} z-20 opacity-50`}
             />
-            <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-[#020205]/60 via-transparent to-transparent" />
+            <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-[#020205]/60 via-transparent to-transparent" />
             <div className="relative aspect-video max-h-[500px] w-full">
               <CockpitImage
                 asset={post.coverImage}
@@ -370,7 +370,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                       <Link
                         key={idx}
                         href={`/blog/tag/${tag.slug}`}
-                        className={`rounded-full border ${primaryTheme.border} ${primaryTheme.bg} px-3 py-1 text-xs font-bold ${primaryTheme.text} transition-colors duration-300 hover:bg-white/[0.08]`}
+                        className={`rounded-full border ${primaryTheme.border} ${primaryTheme.bg} px-3 py-1 text-xs font-bold ${primaryTheme.text} transition-colors duration-300 hover:bg-white/8`}
                       >
                         #{tag.title}
                       </Link>
@@ -392,7 +392,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             <div className="lg:sticky lg:top-28 lg:col-span-1">
               <div className="space-y-6">
                 {/* Author Info Widget */}
-                <div className="rounded-2xl border border-white/[0.04] bg-white/[0.01] p-6 backdrop-blur-md">
+                <div className="rounded-2xl border border-white/[0.04] bg-white/1 p-6 backdrop-blur-md">
                   <h3 className="font-heading mb-4 text-xs font-black tracking-widest text-gray-500 uppercase">
                     About The Author
                   </h3>
@@ -425,7 +425,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 {/* Promotional CTA Box */}
                 <div className="group/card relative overflow-hidden rounded-2xl border border-white/10 bg-[#07070F]/90 p-6 shadow-xl backdrop-blur-xl">
                   {/* Glowing Top Strip */}
-                  <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />
+                  <div className="absolute top-0 left-0 h-1 w-full bg-linear-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />
 
                   <h3 className="font-heading mb-2 text-base font-extrabold text-white">
                     Master the Guitar
@@ -439,14 +439,14 @@ export default async function BlogPostPage({ params }: PageProps) {
                   <div className="space-y-3">
                     <Link
                       href="https://calendly.com/shuvamraha10/intro-call"
-                      className="group/btn font-heading relative flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 py-3 text-xs font-bold text-white shadow-[0_0_15px_rgba(6,182,212,0.2)] transition-all hover:scale-102 active:scale-98"
+                      className="group/btn font-heading relative flex w-full items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 py-3 text-xs font-bold text-white shadow-[0_0_15px_rgba(6,182,212,0.2)] transition-all hover:scale-102 active:scale-98"
                     >
                       <LuPhone className="h-4 w-4" />
                       Book Free Intro Call
                     </Link>
                     <Link
                       href="/guitar-classes-with-shuvam"
-                      className="font-heading flex w-full items-center justify-center gap-1.5 rounded-full border border-white/10 bg-white/[0.02] py-3 text-xs font-bold text-white transition-all hover:bg-white/5 active:scale-98"
+                      className="font-heading flex w-full items-center justify-center gap-1.5 rounded-full border border-white/10 bg-white/2 py-3 text-xs font-bold text-white transition-all hover:bg-white/5 active:scale-98"
                     >
                       Explore Programs
                       <LuArrowRight className="h-3.5 w-3.5" />
@@ -455,7 +455,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 </div>
 
                 {/* Recent Articles Widget */}
-                <div className="rounded-2xl border border-white/[0.04] bg-white/[0.01] p-6 backdrop-blur-md">
+                <div className="rounded-2xl border border-white/[0.04] bg-white/1 p-6 backdrop-blur-md">
                   <h3 className="font-heading mb-4 text-xs font-black tracking-widest text-gray-500 uppercase">
                     Other Articles
                   </h3>
@@ -503,7 +503,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             <div className="mt-20 border-t border-white/5 pt-16">
               <h2 className="font-heading mb-8 text-xl font-black tracking-tight text-white sm:text-2xl lg:text-3xl">
                 Keep{' '}
-                <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
                   Reading
                 </span>
               </h2>
@@ -517,11 +517,11 @@ export default async function BlogPostPage({ params }: PageProps) {
                   return (
                     <div
                       key={rPost.id}
-                      className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.04] bg-white/[0.01] transition-all duration-500 hover:${rTheme.border} hover:bg-white/[0.03] hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]`}
+                      className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.04] bg-white/1 transition-all duration-500 hover:${rTheme.border} hover:bg-white/3 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]`}
                     >
                       {/* Glowing Top Accent Strip */}
                       <div
-                        className={`absolute top-0 left-0 h-[3px] w-full bg-gradient-to-r ${BRIGHT_GRADIENTS[rThemeKey] || BRIGHT_GRADIENTS['default']} z-20 opacity-20 transition-opacity duration-500 group-hover:opacity-90`}
+                        className={`absolute top-0 left-0 h-[3px] w-full bg-linear-to-r ${BRIGHT_GRADIENTS[rThemeKey] || BRIGHT_GRADIENTS['default']} z-20 opacity-20 transition-opacity duration-500 group-hover:opacity-90`}
                       />
 
                       {/* Inner accent glow on hover */}
@@ -578,7 +578,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                                 <Link
                                   key={idx}
                                   href={`/blog/category/${cat.slug}`}
-                                  className={`rounded-full border ${catTheme.border} bg-white/[0.02] px-2.5 py-0.5 text-[9px] font-black tracking-widest ${catTheme.text} uppercase transition-colors duration-300 hover:bg-white/[0.08]`}
+                                  className={`rounded-full border ${catTheme.border} bg-white/2 px-2.5 py-0.5 text-[9px] font-black tracking-widest ${catTheme.text} uppercase transition-colors duration-300 hover:bg-white/8`}
                                 >
                                   {cat.title}
                                 </Link>

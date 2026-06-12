@@ -52,7 +52,7 @@ export default function ContactForm() {
           onClick={() => {
             window.location.reload();
           }}
-          className="group font-heading mt-8 flex cursor-pointer items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 text-xs font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95 sm:text-sm"
+          className="group font-heading mt-8 flex cursor-pointer items-center justify-center gap-2 rounded-full border border-white/10 bg-white/3 px-6 py-3 text-xs font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95 sm:text-sm"
         >
           Send Another Message
         </button>
@@ -67,7 +67,7 @@ export default function ContactForm() {
       </h3>
 
       {state.message && !state.success && (
-        <div className="flex items-start gap-2.5 rounded-xl border border-red-500/10 bg-red-500/[0.04] p-3.5 text-xs text-red-400">
+        <div className="flex items-start gap-2.5 rounded-xl border border-red-500/10 bg-red-500/4 p-3.5 text-xs text-red-400">
           <LuTriangleAlert className="mt-0.5 h-4 w-4 shrink-0 text-red-500" />
           <p className="leading-snug">{state.message}</p>
         </div>
@@ -104,7 +104,7 @@ export default function ContactForm() {
             required
             disabled={isPending}
             placeholder="John Doe"
-            className="w-full rounded-xl border border-white/10 bg-white/[0.02] py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04] focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50"
+            className="w-full rounded-xl border border-white/10 bg-white/2 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50"
           />
         </div>
         {state.errors?.name && (
@@ -133,7 +133,7 @@ export default function ContactForm() {
               required
               disabled={isPending}
               placeholder="john@example.com"
-              className="w-full rounded-xl border border-white/10 bg-white/[0.02] py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04] focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50"
+              className="w-full rounded-xl border border-white/10 bg-white/2 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50"
             />
           </div>
           {state.errors?.email && (
@@ -159,7 +159,7 @@ export default function ContactForm() {
               name="phone"
               disabled={isPending}
               placeholder="+91 98765 43210"
-              className="w-full rounded-xl border border-white/10 bg-white/[0.02] py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04] focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50"
+              className="w-full rounded-xl border border-white/10 bg-white/2 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50"
             />
           </div>
         </div>
@@ -181,7 +181,7 @@ export default function ContactForm() {
             id="subject"
             name="subject"
             disabled={isPending}
-            className="w-full appearance-none rounded-xl border border-white/10 bg-white/[0.02] py-2.5 pr-10 pl-10 text-sm text-white transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04] focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50"
+            className="w-full appearance-none rounded-xl border border-white/10 bg-white/2 py-2.5 pr-10 pl-10 text-sm text-white transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50"
           >
             <option
               value="Guitar Classes Enrollment"
@@ -239,7 +239,7 @@ export default function ContactForm() {
             disabled={isPending}
             rows={4}
             placeholder="Tell us about your requirements, learning goals, or event specifications..."
-            className="min-h-[100px] w-full resize-y rounded-xl border border-white/10 bg-white/[0.02] py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04] focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50"
+            className="min-h-[100px] w-full resize-y rounded-xl border border-white/10 bg-white/2 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50"
           />
         </div>
         {state.errors?.message && (
@@ -251,7 +251,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={isPending}
-        className="font-heading flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 py-3 text-xs font-bold text-white shadow-md transition-all hover:scale-[1.01] hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] active:scale-95 disabled:pointer-events-none disabled:opacity-50 sm:text-sm"
+        className="font-heading flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-linear-to-r from-cyan-500 to-blue-600 py-3 text-xs font-bold text-white shadow-md transition-all hover:scale-[1.01] hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] active:scale-95 disabled:pointer-events-none disabled:opacity-50 sm:text-sm"
       >
         {isPending ? (
           <>

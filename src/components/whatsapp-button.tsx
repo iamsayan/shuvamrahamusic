@@ -1,7 +1,9 @@
 'use client';
 
 import React from 'react';
+
 import { usePathname } from 'next/navigation';
+
 import { FaWhatsapp } from 'react-icons/fa';
 
 export default function WhatsappButton() {
@@ -24,7 +26,7 @@ export default function WhatsappButton() {
       <span className="pointer-events-none absolute inset-0 scale-75 animate-ping rounded-full border border-emerald-400 opacity-25 transition-all duration-700 group-hover:scale-100 group-hover:opacity-0" />
 
       {/* Light shimmer swipe effect */}
-      <span className="absolute inset-0 w-[200%] -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-1000 ease-out group-hover:translate-x-1/2" />
+      <span className="absolute inset-0 w-[200%] -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent transition-transform duration-1000 ease-out group-hover:translate-x-1/2" />
 
       {/* Tooltip that slides out on hover */}
       <span className="max-w-0 overflow-hidden pr-0 text-xs font-black tracking-wider whitespace-nowrap transition-all duration-500 ease-out select-none group-hover:max-w-[100px] group-hover:pr-2">
