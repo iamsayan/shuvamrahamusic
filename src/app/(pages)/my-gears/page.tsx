@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import GearsListingClient from '@/components/gears-listing-client';
 import JsonLd from '@/components/json-ld';
+import PageLayout from '@/components/page-layout';
 import cockpit from '@/lib/client';
 import { GearItem } from '@/types';
 
@@ -108,7 +109,13 @@ export default async function MyGearsPage() {
           ],
         }}
       />
-      <GearsListingClient initialItems={gears} />
+      <PageLayout
+        title="My Gears"
+        subtitle="I’ve listed all the gear I personally use for my video reels, live performances, studio recordings, and teaching."
+        variant="plain"
+      >
+        <GearsListingClient initialItems={gears} />
+      </PageLayout>
     </>
   );
 }

@@ -43,13 +43,13 @@ const navLinks: NavLink[] = [
     name: 'Gallery',
     href: '/gallery',
     subItems: [
-      { name: 'Photos', href: '/gallery/photos' },
+      { name: 'Photos', href: '/gallery/photos', raw: true },
       {
         name: 'Audios',
         href: '/gallery/audios',
         raw: process.env.NODE_ENV !== 'production',
       },
-      { name: 'Videos', href: '/gallery/videos' },
+      { name: 'Videos', href: '/gallery/videos', raw: true },
     ],
   },
   { name: 'Gears', href: '/my-gears', raw: true },
