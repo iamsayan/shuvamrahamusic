@@ -2,10 +2,10 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import BrandEndorsements from '@/components/brand-endorsements';
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
 import YouTubeFacade from '@/components/youtube-facade';
-import BrandEndorsements from '@/components/brand-endorsements';
 import { SCHEMA } from '@/lib/schema';
 
 import {
@@ -31,6 +31,7 @@ import {
   LuTarget,
   LuUsers,
 } from 'react-icons/lu';
+import { SiYoutubemusic } from 'react-icons/si';
 
 export const metadata: Metadata = {
   title: 'Biography',
@@ -402,6 +403,16 @@ export default function BiographyPage() {
           <hr className="border-white/5" />
 
           {/* ==========================================
+              SECTION 7: ENDORSEMENTS & PARTNERSHIPS
+             ========================================== */}
+          <BrandEndorsements
+            layout="grid"
+            title="Endorsements & Partnerships"
+          />
+
+          <hr className="border-white/5" />
+
+          {/* ==========================================
               SECTION 5: MUSIC & CREATIVE WORK
              ========================================== */}
           <div className="space-y-8">
@@ -449,13 +460,6 @@ export default function BiographyPage() {
               ))}
             </div>
           </div>
-
-          <hr className="border-white/5" />
-
-          {/* ==========================================
-              SECTION 7: ENDORSEMENTS & PARTNERSHIPS
-             ========================================== */}
-          <BrandEndorsements layout="grid" title="Endorsements & Partnerships" />
 
           <hr className="border-white/5" />
 
@@ -582,7 +586,7 @@ export default function BiographyPage() {
                   Book a Consultation Call
                 </a>
                 <Link
-                  href="/guitar-classes-with-shuvam"
+                  href="/guitar-classes-with-shuvam#pricing"
                   className="group font-heading flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/3 px-6 py-3 text-xs font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95 sm:text-sm"
                 >
                   Explore the Plans
@@ -611,9 +615,23 @@ export default function BiographyPage() {
                     {
                       name: 'Apple Music',
                       icon: FaApple,
-                      url: 'https://music.apple.com/us/artist/shuvam-raha/1541472783',
+                      url: 'https://music.apple.com/in/artist/shuvam-raha/1541472783',
                       color:
                         'hover:text-pink-500 hover:border-pink-500/30 hover:bg-pink-500/5',
+                    },
+                    {
+                      name: 'JioSaavn',
+                      icon: LuMusic,
+                      url: 'https://www.jiosaavn.com/artist/shuvam-raha-songs/OgEpPI53TvE_',
+                      color:
+                        'hover:text-teal-400 hover:border-teal-500/30 hover:bg-teal-500/5',
+                    },
+                    {
+                      name: 'YouTube Music',
+                      icon: SiYoutubemusic,
+                      url: 'https://music.youtube.com/@shuvamrahamusic?si=EZrZdMBobweAKLrd',
+                      color:
+                        'hover:text-red-500 hover:border-red-500/30 hover:bg-red-500/5',
                     },
                     {
                       name: 'YouTube',

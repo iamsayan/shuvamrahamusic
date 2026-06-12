@@ -25,7 +25,8 @@ const BRANDS: Brand[] = [
     width: 160,
     height: 50,
     // Turn Furtados into a flat white logo by default, showing its red brand color on hover
-    filterClass: 'opacity-60 brightness-0 invert transition-all duration-300 hover:opacity-100 hover:brightness-100 hover:invert-0',
+    filterClass:
+      'opacity-60 brightness-0 invert transition-all duration-300 hover:opacity-100 hover:brightness-100 hover:invert-0',
   },
 ];
 
@@ -72,7 +73,7 @@ export default function BrandEndorsements({
               education.
             </p>
 
-            <div className="grid grid-cols-2 items-center gap-4 w-full">
+            <div className="grid w-full grid-cols-2 items-center gap-4">
               {BRANDS.map((brand, idx) => (
                 <div
                   key={idx}
@@ -129,7 +130,7 @@ export default function BrandEndorsements({
   // Default layout: marquee
   return (
     <div className={`w-full overflow-hidden py-6 ${className}`}>
-      <div className="mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
+      <div className="mx-auto w-full max-w-350">
         {title !== '' && (
           <div className="mb-4 text-center">
             <span className="text-[10px] font-black tracking-[0.2em] text-gray-500 uppercase">

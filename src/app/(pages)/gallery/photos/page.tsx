@@ -11,6 +11,9 @@ export const metadata = {
 
 export default async function PhotosGalleryPage() {
   const gallery = await cockpit.getContentItemByFilter<GalleryData>('gallery', {
+    fields: {
+      images: true,
+    },
     populate: 1,
   }).catch((err) => {
     console.error('Failed to fetch gallery photos:', err);

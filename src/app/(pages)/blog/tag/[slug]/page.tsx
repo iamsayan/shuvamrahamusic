@@ -120,8 +120,12 @@ export default async function TagArchivePage({
               headline: post.title,
               description: post.excerpt,
               url: `${SCHEMA.BASE_URL}/blog/${post.slug}`,
-              datePublished: post.date,
-              dateModified: post.modifiedDate,
+              datePublished: post.raw?._created
+                ? new Date(post.raw._created * 1000).toISOString()
+                : undefined,
+              dateModified: post.raw?._modified
+                ? new Date(post.raw._modified * 1000).toISOString()
+                : undefined,
               keywords: post.tags.map((t) => t.title).join(', '),
               author: {
                 '@type': 'Person',

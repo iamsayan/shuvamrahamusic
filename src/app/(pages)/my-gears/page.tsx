@@ -103,6 +103,7 @@ export default async function MyGearsPage() {
         title="My Gears"
         subtitle="I’ve listed all the gear I personally use for my video reels, live performances, studio recordings, and teaching."
         variant="plain"
+        endorsementsPosition="top"
       >
         <GearsListingClient initialItems={gears} />
       </PageLayout>

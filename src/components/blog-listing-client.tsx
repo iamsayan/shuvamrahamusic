@@ -213,12 +213,13 @@ export default function BlogListingClient({
                       CATEGORY_THEMES[getThemeKey(cat.title)] ||
                       CATEGORY_THEMES['default'];
                     return (
-                      <span
+                      <Link
+                        href={`/blog/category/${cat.slug}`}
                         key={cat._id}
                         className={`inline-block rounded-full border ${catTheme.border} ${catTheme.bg} px-3 py-1 text-[9px] font-black tracking-widest ${catTheme.text} uppercase`}
                       >
                         {cat.title}
-                      </span>
+                      </Link>
                     );
                   })}
                 </div>

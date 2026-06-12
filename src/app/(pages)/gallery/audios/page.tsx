@@ -6,6 +6,7 @@ import PageLayout from '@/components/page-layout';
 
 import { FaAmazon, FaApple, FaSpotify, FaYoutube } from 'react-icons/fa6';
 import { LuMusic, LuRadio, LuSparkles } from 'react-icons/lu';
+import { SiYoutubemusic } from 'react-icons/si';
 
 interface AudioTrack {
   id: string;
@@ -26,7 +27,7 @@ const SHUVAM_TRACKS: AudioTrack[] = [
     embedUrl:
       'https://open.spotify.com/embed/artist/4AmYXw6BaXjFN4urc6SyrG?utm_source=generator&theme=0',
     appleEmbedUrl:
-      'https://embed.music.apple.com/us/album/phirti-pothe/1689193396?theme=dark',
+      'https://embed.music.apple.com/in/artist/shuvam-raha/1541472783?theme=dark',
     description:
       'Listen to Shuvam Raha’s complete discography, popular releases, and latest singles.',
     releaseYear: 'Continuous',
@@ -39,7 +40,7 @@ const SHUVAM_TRACKS: AudioTrack[] = [
     embedUrl:
       'https://open.spotify.com/embed/album/1ElJ94vEFe17G6kKbhuH2r?utm_source=generator&theme=0',
     appleEmbedUrl:
-      'https://embed.music.apple.com/us/album/phirti-pothe/1689193396?theme=dark',
+      'https://embed.music.apple.com/in/album/phirti-pothe/1689193396?theme=dark',
     description:
       'A soulful acoustic Bengali ballad composed, produced, and sung by Shuvam Raha, capturing the bittersweet emotions of acceptance.',
     releaseYear: '2023',
@@ -214,13 +215,31 @@ export default function AudiosGalleryPage() {
                   Spotify
                 </a>
                 <a
-                  href="https://music.apple.com/us/album/phirti-pothe/1689193396"
+                  href="https://music.apple.com/in/artist/shuvam-raha/1541472783"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 rounded-xl border border-pink-500/20 bg-pink-500/10 py-3 text-xs font-bold text-pink-400 transition-all hover:bg-pink-500/20 active:scale-95"
                 >
                   <FaApple className="size-4" />
-                  Apple
+                  Apple Music
+                </a>
+                <a
+                  href="https://music.youtube.com/@shuvamrahamusic?si=EZrZdMBobweAKLrd"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 rounded-xl border border-red-500/20 bg-red-500/10 py-3 text-xs font-bold text-red-400 transition-all hover:bg-red-500/20 active:scale-95"
+                >
+                  <SiYoutubemusic className="size-4 text-red-500" />
+                  YT Music
+                </a>
+                <a
+                  href="https://www.jiosaavn.com/artist/shuvam-raha-songs/OgEpPI53TvE_"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 rounded-xl border border-teal-500/20 bg-teal-500/10 py-3 text-xs font-bold text-teal-400 transition-all hover:bg-teal-500/20 active:scale-95"
+                >
+                  <LuMusic className="size-4" />
+                  JioSaavn
                 </a>
                 <a
                   href="https://music.amazon.com/albums/B0C6289PXW"

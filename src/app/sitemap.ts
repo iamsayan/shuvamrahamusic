@@ -20,8 +20,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/gallery/audios',
     '/gallery/videos',
     '/gallery/photos',
-    //'/fretboard-trainer',
-    // '/rhythm-workshop',
+    //'/tools/fretboard-trainer',
+    // '/tools/rhythm-workshop',
     '/blog',
   ];
 

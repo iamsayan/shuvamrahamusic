@@ -2,10 +2,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import BlogPostCard from '@/components/blog-post-card';
+import BrandEndorsements from '@/components/brand-endorsements';
 import JsonLd from '@/components/json-ld';
 import SliderGallery from '@/components/slider-gallery';
 import YouTubeFacade from '@/components/youtube-facade';
-import BrandEndorsements from '@/components/brand-endorsements';
 import { getBlogPosts } from '@/lib/blog-data';
 import cockpit from '@/lib/client';
 import { authorityPoints, curriculum } from '@/lib/guitar-data';
@@ -195,7 +195,7 @@ export default async function Home() {
               </div>
               <div className="space-y-1">
                 <div className="font-heading text-3xl font-black text-violet-400 sm:text-4xl">
-                  150+
+                  600+
                 </div>
                 <div className="text-xs font-semibold tracking-widest text-gray-500 uppercase">
                   Students Mentored
@@ -222,7 +222,10 @@ export default async function Home() {
         </section>
 
         {/* Brand Endorsements */}
-        <BrandEndorsements layout="marquee" className="relative z-10 border-b border-white/5 py-4" />
+        <BrandEndorsements
+          layout="marquee"
+          className="relative z-10 mx-auto max-w-6xl border-b border-white/5 py-4"
+        />
 
         {/* ==========================================================
           3. BIO INTRO SECTION

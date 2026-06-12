@@ -10,7 +10,13 @@ import {
   FaSpotify,
   FaYoutube,
 } from 'react-icons/fa6';
-import { LuChevronRight, LuMail, LuMapPin, LuPhone } from 'react-icons/lu';
+import {
+  LuChevronRight,
+  LuMail,
+  LuMapPin,
+  LuMusic,
+  LuPhone,
+} from 'react-icons/lu';
 
 const socialLinks = [
   {
@@ -44,9 +50,16 @@ const socialLinks = [
   {
     name: 'Apple Music',
     icon: FaApple,
-    href: 'https://music.apple.com/us/artist/shuvam-raha/1541472783',
+    href: 'https://music.apple.com/in/artist/shuvam-raha/1541472783',
     hoverColor: 'group-hover:text-pink-500',
     hoverBg: 'group-hover:border-pink-500/50 group-hover:bg-pink-500/10',
+  },
+  {
+    name: 'JioSaavn',
+    icon: LuMusic,
+    href: 'https://www.jiosaavn.com/artist/shuvam-raha-songs/OgEpPI53TvE_',
+    hoverColor: 'group-hover:text-teal-400',
+    hoverBg: 'group-hover:border-teal-500/50 group-hover:bg-teal-500/10',
   },
   {
     name: 'YouTube (Educational Hub)',
@@ -128,7 +141,7 @@ export default function Footer() {
                       href={link.href}
                       className="group flex items-center gap-1.5 text-xs font-bold text-gray-400 transition-colors duration-200 hover:text-white sm:text-sm"
                     >
-                      <LuChevronRight className="text-cyan-400/80 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-cyan-300 size-3.5" />
+                      <LuChevronRight className="size-3.5 text-cyan-400/80 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-cyan-300" />
                       <span>{link.name}</span>
                     </Link>
                   </li>
@@ -147,7 +160,7 @@ export default function Footer() {
                   href="mailto:contact@shuvamrahamusic.com"
                   className="group flex w-fit items-center gap-2.5 rounded-xl border border-white/4 bg-white/1 px-4 py-2 text-xs text-gray-400 transition-all duration-300 hover:border-cyan-500/20 hover:bg-white/3 hover:text-white hover:shadow-[0_0_12px_rgba(6,182,212,0.08)] sm:text-sm"
                 >
-                  <LuMail className="text-cyan-400 transition-transform group-hover:scale-110 size-3.5" />
+                  <LuMail className="size-3.5 text-cyan-400 transition-transform group-hover:scale-110" />
                   <span className="font-semibold">
                     contact@shuvamrahamusic.com
                   </span>
@@ -160,7 +173,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="group flex w-fit items-center gap-2.5 rounded-xl border border-white/4 bg-white/1 px-4 py-2 text-xs text-gray-400 transition-all duration-300 hover:border-emerald-500/20 hover:bg-white/3 hover:text-white hover:shadow-[0_0_12px_rgba(16,185,129,0.08)] sm:text-sm"
                 >
-                  <LuPhone className="text-emerald-400 transition-transform group-hover:scale-110 size-3.5" />
+                  <LuPhone className="size-3.5 text-emerald-400 transition-transform group-hover:scale-110" />
                   <span className="font-semibold">+91 8961369468</span>
                 </a>
 
@@ -171,7 +184,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="group flex w-fit items-center gap-2.5 rounded-xl border border-white/4 bg-white/1 px-4 py-2 text-xs text-gray-400 transition-all duration-300 hover:border-rose-500/20 hover:bg-white/3 hover:text-white hover:shadow-[0_0_12px_rgba(244,63,94,0.08)] sm:text-sm"
                 >
-                  <LuMapPin className="text-rose-400 transition-transform group-hover:scale-110 size-3.5" />
+                  <LuMapPin className="size-3.5 text-rose-400 transition-transform group-hover:scale-110" />
                   <span className="font-semibold">
                     South Dumdum, Kolkata, India
                   </span>

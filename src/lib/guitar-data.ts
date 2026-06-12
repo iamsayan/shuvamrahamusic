@@ -11,15 +11,10 @@ import {
   LuMic,
   LuMusic,
   LuShieldCheck,
-  LuUsers,
   LuZap,
 } from 'react-icons/lu';
 
 export type Region = 'IN' | 'GLOBAL';
-
-
-
-
 
 export const authorityPoints = [
   {
@@ -42,33 +37,17 @@ export const authorityPoints = [
     title: 'Music Producer',
     desc: 'Deep understanding of sound, tone & modern music.',
     icon: LuHeadphones,
-    color: 'text-violet-400',
-    bg: 'bg-violet-500/10',
-    border: 'border-violet-500/20',
-  },
-  {
-    title: 'LCM Certified',
-    desc: 'Strong academic + practical foundation.',
-    icon: LuAward,
     color: 'text-emerald-400',
     bg: 'bg-emerald-500/10',
     border: 'border-emerald-500/20',
   },
   {
-    title: 'Glonbal Student Base',
-    desc: 'Students from India, USA, UK & Canada.',
-    icon: LuUsers,
-    color: 'text-blue-400',
-    bg: 'bg-blue-500/10',
-    border: 'border-blue-500/20',
-  },
-  {
     title: 'Multi-Genre Expertise',
     desc: 'Bollywood, English, Pop, Rock, Fingerstyle, Acoustic & more.',
     icon: LuMusic,
-    color: 'text-orange-400',
-    bg: 'bg-orange-500/10',
-    border: 'border-orange-500/20',
+    color: 'text-violet-400',
+    bg: 'bg-violet-500/10',
+    border: 'border-violet-500/20',
   },
 ];
 
