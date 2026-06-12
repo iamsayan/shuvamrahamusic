@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
+import { SCHEMA } from '@/lib/schema';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -13,14 +14,17 @@ export default function PrivacyPolicyPage() {
   return (
     <>
       <JsonLd
-        schema={{
-          '@context': 'https://schema.org',
-          '@type': 'WebPage',
-          name: 'Privacy Policy',
-          description:
-            'Privacy policy and data protection practices for Shuvam Raha Music classes and programs.',
-          url: 'https://www.shuvamrahamusic.com/privacy-policy',
-        }}
+        schema={[
+          SCHEMA.breadcrumb('/privacy-policy'),
+          {
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            name: 'Privacy Policy',
+            description:
+              'Privacy policy and data protection practices for Shuvam Raha Music classes and programs.',
+            url: 'https://www.shuvamrahamusic.com/privacy-policy',
+          },
+        ]}
       />
       <PageLayout
         title="Privacy Policy"

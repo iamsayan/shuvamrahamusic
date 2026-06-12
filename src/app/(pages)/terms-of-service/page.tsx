@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
+import { SCHEMA } from '@/lib/schema';
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
@@ -13,14 +14,17 @@ export default function TermsOfServicePage() {
   return (
     <>
       <JsonLd
-        schema={{
-          '@context': 'https://schema.org',
-          '@type': 'WebPage',
-          name: 'Terms of Service',
-          description:
-            'Terms of service and enrollment agreements for Shuvam Raha Music coaching programs.',
-          url: 'https://www.shuvamrahamusic.com/terms-of-service',
-        }}
+        schema={[
+          SCHEMA.breadcrumb('/terms-of-service'),
+          {
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            name: 'Terms of Service',
+            description:
+              'Terms of service and enrollment agreements for Shuvam Raha Music coaching programs.',
+            url: 'https://www.shuvamrahamusic.com/terms-of-service',
+          },
+        ]}
       />
       <PageLayout
         title="Terms of Service"

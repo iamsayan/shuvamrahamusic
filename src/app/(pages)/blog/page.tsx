@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import BlogListingClient from '@/components/blog-listing-client';
 import JsonLd from '@/components/json-ld';
 import { getPaginatedBlogPosts } from '@/lib/blog-data';
+import { SCHEMA } from '@/lib/schema';
 
 export async function generateMetadata({
   searchParams,
@@ -64,6 +65,7 @@ export default async function BlogListingPage({
     <>
       <JsonLd
         schema={[
+          SCHEMA.breadcrumb('/blog'),
           {
             '@context': 'https://schema.org',
             '@type': 'WebSite',

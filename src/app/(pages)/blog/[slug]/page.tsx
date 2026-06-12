@@ -15,6 +15,7 @@ import {
   getThemeKey,
 } from '@/lib/blog-data';
 import cockpit from '@/lib/client';
+import { SCHEMA } from '@/lib/schema';
 
 import {
   LuArrowLeft,
@@ -210,29 +211,48 @@ export default async function BlogPostPage({ params }: PageProps) {
   return (
     <>
       <JsonLd
-        schema={{
-          '@context': 'https://schema.org',
-          '@type': 'BlogPosting',
-          headline: post.title,
-          description: post.excerpt,
-          image: cockpit.getImageUrl(post.featured_image._id),
-          datePublished: post.date,
-          author: {
-            '@type': 'Person',
-            name: post.author.name,
-            jobTitle: post.author.role,
-            image: `https://www.shuvamrahamusic.com${post.author.avatar}`,
+        schema={[
+          SCHEMA.breadcrumb(`/blog/${post.slug}`, post.title),
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: post.title,
+            description: post.excerpt,
+            image: cockpit.getImageUrl(post.featured_image._id),
+            datePublished: post.date,
+            dateModified: post.date,
+            wordCount: post.content
+              ? post.content.replace(/<[^>]*>/g, '').split(/\s+/).length
+              : undefined,
+            articleSection: post.categories.map((c) => c.title).join(', '),
+            keywords: post.tags.map((t) => t.title).join(', '),
+            inLanguage: 'en-US',
+            author: {
+              '@type': 'Person',
+              name: post.author.name,
+              jobTitle: post.author.role,
+              image: `https://www.shuvamrahamusic.com${post.author.avatar}`,
+            },
+            publisher: {
+              '@type': 'Organization',
+              name: 'Shuvam Raha Music',
+              url: 'https://www.shuvamrahamusic.com',
+              logo: {
+                '@type': 'ImageObject',
+                url: 'https://www.shuvamrahamusic.com/logo.png',
+              },
+            },
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': `https://www.shuvamrahamusic.com/blog/${post.slug}`,
+            },
+            isPartOf: {
+              '@type': 'Blog',
+              '@id': 'https://www.shuvamrahamusic.com/blog',
+              name: 'Shuvam Raha Music Blog',
+            },
           },
-          publisher: {
-            '@type': 'Organization',
-            name: 'Shuvam Raha Music',
-            url: 'https://www.shuvamrahamusic.com',
-          },
-          mainEntityOfPage: {
-            '@type': 'WebPage',
-            '@id': `https://www.shuvamrahamusic.com/blog/${post.slug}`,
-          },
-        }}
+        ]}
       />
 
       <article className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">

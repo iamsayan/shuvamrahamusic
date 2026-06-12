@@ -4,6 +4,7 @@ import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
 import TutorialsListingClient from '@/components/tutorials-listing-client';
 import cockpit from '@/lib/client';
+import { SCHEMA } from '@/lib/schema';
 import { TutorialItem } from '@/types';
 
 export const metadata: Metadata = {
@@ -47,49 +48,14 @@ export default async function TutorialsPage() {
         schema={{
           '@context': 'https://schema.org',
           '@graph': [
-            {
-              '@type': 'WebSite',
-              '@id': 'https://www.shuvamrahamusic.com/#website',
-              url: 'https://www.shuvamrahamusic.com/',
-              name: 'Shuvam Raha Music',
-              description: 'Easy To Learn & Easy To Play',
-              inLanguage: 'en-US',
-            },
-            {
-              '@type': 'BreadcrumbList',
-              name: 'Breadcrumbs',
-              '@id':
-                'https://www.shuvamrahamusic.com/tutorials/#breadcrumblist',
-              itemListElement: [
-                {
-                  '@type': 'ListItem',
-                  position: 1,
-                  name: 'Home',
-                  item: 'https://www.shuvamrahamusic.com/',
-                },
-                {
-                  '@type': 'ListItem',
-                  position: 2,
-                  name: 'Tutorials',
-                },
-              ],
-            },
-            {
-              '@type': 'WebPage',
-              '@id': 'https://www.shuvamrahamusic.com/tutorials/#webpage',
-              url: 'https://www.shuvamrahamusic.com/tutorials/',
-              inLanguage: 'en-US',
+            SCHEMA.webSite(),
+            SCHEMA.breadcrumb('/tutorials'),
+            SCHEMA.webPage({
+              path: '/tutorials',
               name: 'Tutorials & Practice Sheets - Shuvam Raha Music',
               description:
                 'Download professional guitar fingering exercises, right-hand plectrum practices, manuscript staves, and jazz chord voicings curated by Shuvam Raha.',
-              isPartOf: {
-                '@id': 'https://www.shuvamrahamusic.com/#website',
-              },
-              breadcrumb: {
-                '@id':
-                  'https://www.shuvamrahamusic.com/tutorials/#breadcrumblist',
-              },
-            },
+            }),
           ],
         }}
       />
