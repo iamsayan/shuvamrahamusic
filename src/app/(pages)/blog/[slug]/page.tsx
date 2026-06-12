@@ -3,9 +3,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import PageLayout from '@/components/page-layout';
 import CockpitImage from '@/components/cockpit-image';
 import JsonLd from '@/components/json-ld';
+import PageLayout from '@/components/page-layout';
 import ShareButtons from '@/components/share-buttons';
 import {
   BRIGHT_GRADIENTS,
@@ -24,6 +24,7 @@ import {
   LuCalendar,
   LuChevronRight,
   LuClock,
+  LuHistory,
   LuPhone,
 } from 'react-icons/lu';
 
@@ -116,7 +117,11 @@ interface PageProps {
 
 // Generate static params for all dynamic blog routes
 export async function generateStaticParams() {
-  const posts = await getBlogPosts();
+  const posts = await getBlogPosts({
+    fields: {
+      slug: true,
+    },
+  });
 
   return posts.map((post) => ({
     slug: post.slug,
@@ -137,11 +142,30 @@ export async function generateMetadata({
     };
   }
 
+  const nextPosts = await getBlogPosts({
+    filter: { _created: { $gt: post.raw._created } },
+    sort: { _created: 1 },
+    limit: 1,
+  });
+  const prevPosts = await getBlogPosts({
+    filter: { _created: { $lt: post.raw._created } },
+    sort: { _created: -1 },
+    limit: 1,
+  });
+  const nextPost = nextPosts[0] || null;
+  const prevPost = prevPosts[0] || null;
+
   return {
     title: `${post.title} - Blog`,
     description: post.excerpt,
     alternates: {
       canonical: `/blog/${post.slug}`,
+    },
+    pagination: {
+      ...(prevPost
+        ? { previous: `${SCHEMA.BASE_URL}/blog/${prevPost.slug}` }
+        : {}),
+      ...(nextPost ? { next: `${SCHEMA.BASE_URL}/blog/${nextPost.slug}` } : {}),
     },
     openGraph: {
       title: post.title,
@@ -184,6 +208,19 @@ export default async function BlogPostPage({ params }: PageProps) {
   // Get related and other posts from API (limit to 15 to optimize performance)
   const allPosts = await getBlogPosts({ limit: 15 });
 
+  const nextPosts = await getBlogPosts({
+    filter: { _created: { $gt: post.raw._created } },
+    sort: { _created: 1 },
+    limit: 1,
+  });
+  const prevPosts = await getBlogPosts({
+    filter: { _created: { $lt: post.raw._created } },
+    sort: { _created: -1 },
+    limit: 1,
+  });
+  const nextPost = nextPosts[0] || null;
+  const prevPost = prevPosts[0] || null;
+
   // Find posts sharing at least one category with the current post
   const sameCategoryPosts = allPosts.filter(
     (p) =>
@@ -220,8 +257,12 @@ export default async function BlogPostPage({ params }: PageProps) {
             headline: post.title,
             description: post.excerpt,
             image: cockpit.getImageUrl(post.featured_image._id),
-            datePublished: post.date,
-            dateModified: post.modifiedDate,
+            datePublished: post.raw?._created
+              ? new Date(post.raw._created * 1000).toISOString()
+              : undefined,
+            dateModified: post.raw?._modified
+              ? new Date(post.raw._modified * 1000).toISOString()
+              : undefined,
             wordCount: post.content
               ? post.content.replace(/<[^>]*>/g, '').split(/\s+/).length
               : undefined,
@@ -257,21 +298,8 @@ export default async function BlogPostPage({ params }: PageProps) {
       />
 
       <PageLayout
-        title={post.title}
-        variant="plain"
-        headerRight={
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 text-xs font-bold text-gray-400 transition-colors hover:text-white"
-          >
-            <LuArrowLeft className="size-4" />
-            Back to Blog
-          </Link>
-        }
-      >
-        <div className="flex flex-col">
-          {/* Categories & Meta Info */}
-          <div className="-mt-4 mb-8 flex flex-col gap-6">
+        title={
+          <div className="flex flex-col gap-4">
             <div className="flex flex-wrap items-center gap-2">
               {post.categories.map((cat, idx) => {
                 const catThemeKey = getThemeKey(cat.title);
@@ -288,39 +316,53 @@ export default async function BlogPostPage({ params }: PageProps) {
                 );
               })}
             </div>
-
+            <span>{post.title}</span>
+          </div>
+        }
+        variant="plain"
+      >
+        <div className="flex flex-col">
+          {/* Meta Info */}
+          <div className="-mt-4 mb-8 flex flex-col gap-6">
             <div className="flex flex-wrap items-center gap-6 text-xs text-gray-400">
-                {/* Author metadata */}
-                <div className="flex items-center gap-3">
-                  <div className="relative size-9 overflow-hidden rounded-full border border-white/10 bg-white/5">
-                    <Image
-                      src={post.author.avatar}
-                      alt={post.author.name}
-                      fill
-                      sizes="36px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <p className="font-bold text-white">{post.author.name}</p>
-                    <p className="text-[10px] text-gray-500">
-                      {post.author.role}
-                    </p>
-                  </div>
+              {/* Author metadata */}
+              <div className="flex items-center gap-3">
+                <div className="relative size-9 overflow-hidden rounded-full border border-white/10 bg-white/5">
+                  <Image
+                    src={post.author.avatar}
+                    alt={post.author.name}
+                    fill
+                    sizes="36px"
+                    className="object-cover"
+                  />
                 </div>
-
-                <div className="hidden h-4 w-px bg-white/10 sm:block" />
-
-                <div className="flex items-center gap-4">
-                  <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase">
-                    <LuCalendar className="size-3.5 text-gray-500" />
-                    {post.date}
-                  </span>
-                  <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase">
-                    <LuClock className="size-3.5 text-gray-500" />
-                    {post.readTime}
-                  </span>
+                <div>
+                  <p className="font-bold text-white">{post.author.name}</p>
+                  <p className="text-[10px] text-gray-500">
+                    {post.author.role}
+                  </p>
                 </div>
+              </div>
+
+              <div className="hidden h-4 w-px bg-white/10 sm:block" />
+
+              <div className="flex items-center gap-4">
+                <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase">
+                  <LuCalendar className="size-3.5 text-gray-500" />
+                  {post.date}
+                </span>
+                {post.modifiedDate &&
+                  post.raw._created !== post.raw._modified && (
+                    <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-gray-400 uppercase">
+                      <LuHistory className="size-3.5 text-gray-500" />
+                      Updated: {post.modifiedDate}
+                    </span>
+                  )}
+                <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase">
+                  <LuClock className="size-3.5 text-gray-500" />
+                  {post.readTime}
+                </span>
+              </div>
             </div>
           </div>
 
@@ -376,6 +418,44 @@ export default async function BlogPostPage({ params }: PageProps) {
                   />
                 </div>
               </div>
+
+              {/* Previous & Next Article Navigation */}
+              {(prevPost || nextPost) && (
+                <div className="mt-12 grid grid-cols-1 gap-4 border-t border-white/5 pt-8 sm:grid-cols-2">
+                  {prevPost ? (
+                    <Link
+                      href={`/blog/${prevPost.slug}`}
+                      className="group flex flex-col items-start rounded-2xl border border-white/5 bg-white/2 p-5 backdrop-blur-md transition-all duration-300 hover:border-cyan-500/30 hover:bg-white/4 hover:shadow-[0_8px_30px_rgb(0,0,0,0.3)]"
+                    >
+                      <span className="flex items-center gap-1.5 text-[10px] font-black tracking-widest text-gray-500 uppercase transition-colors group-hover:text-cyan-400">
+                        <LuArrowLeft className="size-3 transition-transform group-hover:-translate-x-0.5" />
+                        Previous Article
+                      </span>
+                      <span className="mt-1.5 line-clamp-1 text-sm font-bold text-white transition-colors group-hover:text-cyan-400">
+                        {prevPost.title}
+                      </span>
+                    </Link>
+                  ) : (
+                    <div />
+                  )}
+                  {nextPost ? (
+                    <Link
+                      href={`/blog/${nextPost.slug}`}
+                      className="group flex flex-col items-end rounded-2xl border border-white/5 bg-white/2 p-5 text-right backdrop-blur-md transition-all duration-300 hover:border-cyan-500/30 hover:bg-white/4 hover:shadow-[0_8px_30px_rgb(0,0,0,0.3)]"
+                    >
+                      <span className="flex items-center gap-1.5 text-[10px] font-black tracking-widest text-gray-500 uppercase transition-colors group-hover:text-cyan-400">
+                        Next Article
+                        <LuArrowRight className="size-3 transition-transform group-hover:translate-x-0.5" />
+                      </span>
+                      <span className="mt-1.5 line-clamp-1 text-sm font-bold text-white transition-colors group-hover:text-cyan-400">
+                        {nextPost.title}
+                      </span>
+                    </Link>
+                  ) : (
+                    <div />
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Sidebar Column */}
@@ -421,7 +501,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                     Master the Guitar
                   </h3>
                   <p className="mb-6 text-xs leading-relaxed text-gray-400">
-                    Join 150+ students globally. Learn in 30 days with
+                    Join 600+ students globally. Learn in 30 days with
                     personalized 1-on-1 coaching online or in the Kolkata
                     studio.
                   </p>

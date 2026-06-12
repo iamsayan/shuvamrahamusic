@@ -56,11 +56,38 @@ export async function generateMetadata({
     }
   );
 
+  // Retrieve total count for this category to compute pagination limits
+  let total = 0;
+  try {
+    const res = await getBlogPostsByCategory(slug, { limit: 1, skip: 0 });
+    total = res.total;
+  } catch (err) {
+    console.error(
+      'Failed to get total posts in category generateMetadata:',
+      err
+    );
+  }
+
+  const limit = 6;
+  const hasPrev = pageNum > 1;
+  const hasNext = pageNum * limit < total;
+
+  const prevUrl = hasPrev
+    ? `${SCHEMA.BASE_URL}/blog/category/${slug}${pageNum - 1 > 1 ? `?page=${pageNum - 1}` : ''}`
+    : null;
+  const nextUrl = hasNext
+    ? `${SCHEMA.BASE_URL}/blog/category/${slug}?page=${pageNum + 1}`
+    : null;
+
   return {
     title: `${category.title} Articles${pageSuffix}`,
     description: `Read all guitar articles, roadmaps, and guides categorized under ${category.title} by instructor Shuvam Raha.`,
     alternates: {
       canonical: `/blog/category/${slug}${pageNum > 1 ? `?page=${pageNum}` : ''}`,
+    },
+    pagination: {
+      ...(prevUrl ? { previous: prevUrl } : {}),
+      ...(nextUrl ? { next: nextUrl } : {}),
     },
     openGraph: {
       title: `${category.title} Guitar Articles${pageSuffix}`,
@@ -96,24 +123,27 @@ export default async function CategoryArchivePage({
   const categoryName =
     posts[0].categories.find((cat) => cat.slug === slug)?.title || slug;
 
+  const lastSegName =
+    pageNum > 1 ? `${categoryName} (Page ${pageNum})` : categoryName;
+
   return (
     <>
       <JsonLd
         schema={[
-          SCHEMA.breadcrumb(`/blog/category/${slug}`, categoryName),
+          SCHEMA.breadcrumb(`/blog/category/${slug}`, lastSegName),
           {
             '@context': 'https://schema.org',
             '@type': 'CollectionPage',
             name: `${categoryName} Guitar Articles - Shuvam Raha Music`,
             description: `All articles and learning resources categorized under ${categoryName}.`,
-            url: `${SCHEMA.BASE_URL}/blog/category/${slug}`,
+            url: `${SCHEMA.BASE_URL}/blog/category/${slug}${pageNum > 1 ? `?page=${pageNum}` : ''}`,
           },
           {
             '@context': 'https://schema.org',
             '@type': 'Blog',
             name: `${categoryName} Guitar Articles`,
             description: `All articles and learning resources categorized under ${categoryName}.`,
-            url: `${SCHEMA.BASE_URL}/blog/category/${slug}`,
+            url: `${SCHEMA.BASE_URL}/blog/category/${slug}${pageNum > 1 ? `?page=${pageNum}` : ''}`,
             publisher: {
               '@type': 'Person',
               name: 'Shuvam Raha',
@@ -124,8 +154,8 @@ export default async function CategoryArchivePage({
               headline: post.title,
               description: post.excerpt,
               url: `${SCHEMA.BASE_URL}/blog/${post.slug}`,
-              datePublished: post.date,
-              dateModified: post.modifiedDate,
+              datePublished: post.raw?._created ? new Date(post.raw._created * 1000).toISOString() : undefined,
+              dateModified: post.raw?._modified ? new Date(post.raw._modified * 1000).toISOString() : undefined,
               keywords: post.tags.map((t) => t.title).join(', '),
               author: {
                 '@type': 'Person',

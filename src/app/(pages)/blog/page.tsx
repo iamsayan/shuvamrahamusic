@@ -16,11 +16,37 @@ export async function generateMetadata({
   const pageNum = Number(page) || 1;
   const pageSuffix = pageNum > 1 ? ` - Page ${pageNum}` : '';
 
+  // Retrieve the total post count to check if a next page exists
+  let total = 0;
+  try {
+    const res = await getPaginatedBlogPosts({
+      limit: 1,
+      skip: 0,
+    });
+    total = res.total;
+  } catch (err) {
+    console.error('Failed to get total count in generateMetadata:', err);
+  }
+
+  const hasPrev = pageNum > 1;
+  const hasNext = pageNum === 1 ? total > 10 : 10 + (pageNum - 1) * 9 < total;
+
+  const prevUrl = hasPrev
+    ? `${SCHEMA.BASE_URL}/blog${pageNum - 1 > 1 ? `?page=${pageNum - 1}` : ''}`
+    : null;
+  const nextUrl = hasNext
+    ? `${SCHEMA.BASE_URL}/blog?page=${pageNum + 1}`
+    : null;
+
   return {
     title: `Learn Guitar, Play Your Favorite Songs${pageSuffix}`,
     description: `Explore guitar learning guides, hand exercises, strumming patterns, and gear reviews from LCM-certified instructor Shuvam Raha.${pageSuffix}`,
     alternates: {
       canonical: `/blog${pageNum > 1 ? `?page=${pageNum}` : ''}`,
+    },
+    pagination: {
+      ...(prevUrl ? { previous: prevUrl } : {}),
+      ...(nextUrl ? { next: nextUrl } : {}),
     },
     openGraph: {
       title: `Guitar Learning Blog${pageSuffix}`,
@@ -61,11 +87,13 @@ export default async function BlogListingPage({
     skip,
   });
 
+  const lastSegName = pageNum > 1 ? `Blog (Page ${pageNum})` : 'Blog';
+
   return (
     <>
       <JsonLd
         schema={[
-          SCHEMA.breadcrumb('/blog'),
+          SCHEMA.breadcrumb('/blog', lastSegName),
           {
             '@context': 'https://schema.org',
             '@type': 'WebSite',
@@ -86,7 +114,7 @@ export default async function BlogListingPage({
             name: 'Shuvam Raha Music Blog',
             description:
               'Practical guides, finger exercises, gear reviews, and roadmaps from Shuvam Raha to help you learn guitar and master your favorite songs.',
-            url: `${SCHEMA.BASE_URL}/blog`,
+            url: `${SCHEMA.BASE_URL}/blog${pageNum > 1 ? `?page=${pageNum}` : ''}`,
             publisher: {
               '@type': 'Person',
               name: 'Shuvam Raha',
@@ -97,8 +125,8 @@ export default async function BlogListingPage({
               headline: post.title,
               description: post.excerpt,
               url: `${SCHEMA.BASE_URL}/blog/${post.slug}`,
-              datePublished: post.date,
-              dateModified: post.modifiedDate,
+              datePublished: post.raw?._created ? new Date(post.raw._created * 1000).toISOString() : undefined,
+              dateModified: post.raw?._modified ? new Date(post.raw._modified * 1000).toISOString() : undefined,
               keywords: post.tags.map((t) => t.title).join(', '),
               author: {
                 '@type': 'Person',

@@ -12,7 +12,7 @@ const AUTHOR_SHUVAM: Author = {
   name: 'Shuvam Raha',
   avatar: '/hero-guitarist.jpg',
   role: 'LCM Certified Music Instructor',
-  bio: `Professional guitarist, music producer, and educator with over ${new Date().getFullYear() - 2015} years of coaching experience, helping 150+ students globally master the guitar.`,
+  bio: `Professional guitarist, music producer, and educator with over ${new Date().getFullYear() - 2015} years of coaching experience, helping 600+ students globally master the guitar.`,
 };
 
 // Helper to format date from unix timestamp (seconds) or string

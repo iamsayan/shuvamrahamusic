@@ -4,6 +4,7 @@ import React from 'react';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+
 import BrandEndorsements from '@/components/brand-endorsements';
 
 interface PageLayoutProps {
@@ -117,9 +118,9 @@ export default function PageLayout({
           }`}
         >
           <div
-            className={`flex max-w-2xl flex-col ${
+            className={`flex flex-col ${
               headerRight
-                ? 'items-start text-left'
+                ? 'max-w-3xl items-start text-left'
                 : textAlign === 'center'
                   ? 'items-center text-center'
                   : 'items-start text-left'
@@ -143,7 +144,10 @@ export default function PageLayout({
                       </span>
                     )}
                     {isLast ? (
-                      <span className="font-black tracking-wide text-cyan-400">
+                      <span
+                        className="inline-block max-w-[150px] truncate align-bottom font-black tracking-wide text-cyan-400 sm:max-w-[240px] md:max-w-[340px] lg:max-w-[440px]"
+                        title={crumb.name}
+                      >
                         {crumb.name}
                       </span>
                     ) : (
@@ -176,7 +180,7 @@ export default function PageLayout({
             )}
           </div>
           {headerRight && (
-            <div className="relative w-full max-w-sm shrink-0">
+            <div className="relative flex w-full shrink-0 justify-start md:max-w-sm md:justify-end">
               {headerRight}
             </div>
           )}
@@ -211,7 +215,7 @@ export default function PageLayout({
         ) : (
           <div className="w-full text-xs leading-relaxed text-gray-300 sm:text-sm md:text-base">
             {children}
-            
+
             {/* Endorsements Section - Inside Position for Plain Variant */}
             {showEndorsements && endorsementsPosition === 'inside' && (
               <BrandEndorsements
