@@ -11,6 +11,7 @@ interface PageLayoutProps {
   children: React.ReactNode;
   maxWidth?: string; // Supports standard keys like '5xl' or custom classes like 'max-w-[1400px]'
   textAlign?: 'left' | 'center';
+  variant?: 'card' | 'plain';
 }
 
 const segmentNames: Record<string, string> = {
@@ -31,6 +32,7 @@ export default function PageLayout({
   children,
   maxWidth = 'max-w-[1400px]',
   textAlign = 'left',
+  variant = 'card',
 }: PageLayoutProps) {
   const pathname = usePathname();
   const pathSegments = pathname ? pathname.split('/').filter(Boolean) : [];
@@ -138,18 +140,24 @@ export default function PageLayout({
           )}
         </div>
 
-        {/* Main Content Card (Matching the Logistics Dashboard Card) */}
-        <div
-          className={`group/card relative flex w-full flex-col ${textAlignmentClass} overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#07070F]/85 p-6 shadow-[0_40px_100px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-500 hover:border-cyan-500/20 sm:p-10 md:p-12`}
-        >
-          {/* Glowing Top Accent Strip */}
-          <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />
+        {/* Main Content Card or Plain Wrapper */}
+        {variant === 'card' ? (
+          <div
+            className={`group/card relative flex w-full flex-col ${textAlignmentClass} overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#07070F]/85 p-6 shadow-[0_40px_100px_rgba(0,0,0,0.6)] backdrop-blur-3xl transition-all duration-500 hover:border-cyan-500/20 sm:p-10 md:p-12`}
+          >
+            {/* Glowing Top Accent Strip */}
+            <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />
 
-          {/* Children content slots */}
+            {/* Children content slots */}
+            <div className="w-full text-xs leading-relaxed text-gray-300 sm:text-sm md:text-base">
+              {children}
+            </div>
+          </div>
+        ) : (
           <div className="w-full text-xs leading-relaxed text-gray-300 sm:text-sm md:text-base">
             {children}
           </div>
-        </div>
+        )}
       </div>
     </main>
   );

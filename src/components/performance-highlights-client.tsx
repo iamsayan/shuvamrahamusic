@@ -382,6 +382,7 @@ export default function PerformanceHighlightsClient({
     <PageLayout
       title="Performance Highlights"
       subtitle="Live Performance Portfolio, Tour History & Professional Stage Metrics Across Events & Festivals."
+      variant="plain"
     >
       <div className="flex flex-col gap-16 text-left">
         {/* ==========================================

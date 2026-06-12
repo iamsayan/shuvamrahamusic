@@ -49,14 +49,21 @@ const SHUVAM_TRACKS: AudioTrack[] = [
 
 export default function AudiosGalleryPage() {
   const [activeTrack, setActiveTrack] = useState<AudioTrack>(SHUVAM_TRACKS[0]);
-  const [activePlayer, setActivePlayer] = useState<'spotify' | 'apple'>('spotify');
+  const [activePlayer, setActivePlayer] = useState<'spotify' | 'apple'>(
+    'spotify'
+  );
 
-  const activeEmbedUrl = activePlayer === 'spotify' ? activeTrack.embedUrl : activeTrack.appleEmbedUrl;
+  const activeEmbedUrl =
+    activePlayer === 'spotify'
+      ? activeTrack.embedUrl
+      : activeTrack.appleEmbedUrl;
 
   return (
     <PageLayout
       title="Audio Gallery"
       subtitle="Explore Shuvam Raha’s official releases, covers, and compositions. Stream full tracks via the interactive players."
+      variant="plain"
+      textAlign="center"
     >
       <div className="flex flex-col gap-10">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
@@ -73,7 +80,7 @@ export default function AudiosGalleryPage() {
                     Interactive Music Widget
                   </span>
                 </div>
-                
+
                 <div className="flex gap-2 rounded-full border border-white/10 bg-white/[0.02] p-1">
                   <button
                     onClick={() => setActivePlayer('spotify')}

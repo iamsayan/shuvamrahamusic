@@ -231,169 +231,127 @@ export default function GearsListingClient({
   const activeTheme = categoryThemes[selectedCategory] || DEFAULT_THEME;
 
   return (
-    <div className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
-      {/* Background ambient glows wrapper (prevents horizontal scroll without breaking sticky positioning) */}
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <div className="absolute top-0 left-1/4 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-cyan-500/10 to-transparent opacity-40 blur-[130px]" />
-        <div className="absolute right-0 bottom-0 h-[600px] w-[600px] rounded-full bg-gradient-to-tl from-violet-500/10 to-transparent opacity-40 blur-[130px]" />
+    <div className="w-full">
+      {/* Filters Bar: Search & Category Dropdown */}
+      <div className="relative z-30 mb-12">
+        <div className="flex w-full flex-col gap-4 md:flex-row md:items-center">
+          {/* Search input capsule */}
+          <div className="relative flex-1">
+            <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-gray-500">
+              <LuSearch className="h-5 w-5 transition-colors duration-300" />
+            </div>
+            <input
+              type="text"
+              placeholder="Search gears, brands, or features..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full rounded-full border border-white/10 bg-white/[0.02] py-3.5 pr-12 pl-12 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04] focus:ring-1 focus:ring-cyan-500/30"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-white transition-colors cursor-pointer"
+                aria-label="Clear search"
+              >
+                <LuX className="h-4.5 w-4.5" />
+              </button>
+            )}
+          </div>
+
+          {/* Custom Category Dropdown selector */}
+          <div ref={dropdownRef} className="relative w-full md:w-60 shrink-0">
+            <button
+              type="button"
+              onClick={() => setIsDropdownOpen((prev) => !prev)}
+              className="flex w-full items-center justify-between rounded-full border border-white/10 bg-white/[0.02] px-5 py-3.5 text-sm text-white transition-all duration-300 hover:border-white/20 hover:bg-white/[0.04] focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/30 outline-none cursor-pointer"
+            >
+              <div className="flex items-center gap-2.5">
+                <span className={`h-2.5 w-2.5 rounded-full bg-gradient-to-r ${activeTheme.gradient} ${activeTheme.glow}`} />
+                <span className="font-semibold tracking-wide">{selectedCategory}</span>
+              </div>
+              <svg
+                className={`h-4 w-4 text-gray-500 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            {isDropdownOpen && (
+              <div className="absolute right-0 left-0 z-50 mt-2 max-h-60 overflow-y-auto rounded-2xl border border-white/10 bg-[#0A0A16] p-2 shadow-2xl backdrop-blur-md animate-in fade-in slide-in-from-top-2 duration-200">
+                {activeCategories.map((cat) => {
+                  const theme = categoryThemes[cat] || DEFAULT_THEME;
+                  const isSelected = selectedCategory === cat;
+                  return (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => {
+                        setSelectedCategory(cat);
+                        setIsDropdownOpen(false);
+                      }}
+                      className={`flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-xs font-semibold transition-all duration-200 hover:bg-white/[0.04] cursor-pointer ${
+                        isSelected ? `${theme.text} bg-white/[0.03]` : 'text-gray-400'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className={`h-1.5 w-1.5 rounded-full bg-gradient-to-r ${theme.gradient}`} />
+                        <span>{cat}</span>
+                      </div>
+                      {isSelected && <span className={`h-1 w-1 rounded-full bg-gradient-to-r ${theme.gradient} ${theme.glow}`} />}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 md:px-12 lg:px-20">
-        <div className="flex w-full flex-col pt-8 pb-6">
-          {/* Breadcrumbs */}
-          <nav className="font-heading mb-6 flex items-center gap-1.5 text-[11px] font-bold text-gray-500 uppercase sm:text-xs">
-            <Link
-              href="/"
-              className="transition-colors duration-200 hover:text-white"
-            >
-              Home
-            </Link>
-            <span className="text-[10px] font-normal text-gray-700 sm:text-xs">
-              /
-            </span>
-            <span className="font-black tracking-wide text-cyan-400">
-              My Gears
-            </span>
-          </nav>
+      {/* Gears Inventory Listing Grid */}
+      {filteredGears.length === 0 ? (
+        <div className="flex flex-col items-center justify-center rounded-3xl border border-white/5 bg-[#080812]/30 py-24 text-center backdrop-blur-xl">
+          <LuSearch className="mb-4 h-10 w-10 animate-bounce text-gray-600" />
+          <p className="max-w-md text-base text-gray-500 sm:text-lg">
+            No gear matches &quot;{searchQuery}&quot;. Try exploring other
+            categories or type a different search term.
+          </p>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-8 lg:gap-12">
+          {filteredGears.map((item, idx) => (
+            <GearCard
+              key={item._id}
+              item={item}
+              idx={idx}
+              categoryThemes={categoryThemes}
+            />
+          ))}
+        </div>
+      )}
 
-          {/* Page Title & Tagline */}
-          <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div className="relative">
-              <h1 className="font-heading mb-4 bg-gradient-to-r from-white via-white to-gray-400 bg-clip-text text-3xl leading-[1.15] font-black tracking-tight text-transparent sm:text-4xl lg:text-5xl">
-                My{' '}
-                <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
-                  Gears
-                </span>
-              </h1>
-              <p className="text-xs leading-relaxed text-gray-400 sm:text-sm md:text-base">
-                I’ve listed all the gear I personally use for my video reels,
-                live performances, studio recordings, and teaching.
-              </p>
-            </div>
+      {/* Affiliate support and support text footer section */}
+      <div className="mt-20 rounded-3xl border border-white/5 bg-[#080812]/40 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-3xl sm:p-8 md:p-10">
+        <div className="flex flex-col gap-6 md:flex-row md:items-center">
+          <div className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-400">
+            <LuInfo className="h-6 w-6" />
           </div>
-
-          {/* Filters Bar: Search & Category Dropdown */}
-          <div className="relative z-30 mb-12">
-            <div className="flex w-full flex-col gap-4 md:flex-row md:items-center">
-              {/* Search input capsule */}
-              <div className="relative flex-1">
-                <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-gray-500">
-                  <LuSearch className="h-5 w-5 transition-colors duration-300" />
-                </div>
-                <input
-                  type="text"
-                  placeholder="Search gears, brands, or features..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full rounded-full border border-white/10 bg-white/[0.02] py-3.5 pr-12 pl-12 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/[0.04] focus:ring-1 focus:ring-cyan-500/30"
-                />
-                {searchQuery && (
-                  <button
-                    type="button"
-                    onClick={() => setSearchQuery('')}
-                    className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-white transition-colors cursor-pointer"
-                    aria-label="Clear search"
-                  >
-                    <LuX className="h-4.5 w-4.5" />
-                  </button>
-                )}
-              </div>
-
-              {/* Custom Category Dropdown selector */}
-              <div ref={dropdownRef} className="relative w-full md:w-60 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => setIsDropdownOpen((prev) => !prev)}
-                  className="flex w-full items-center justify-between rounded-full border border-white/10 bg-white/[0.02] px-5 py-3.5 text-sm text-white transition-all duration-300 hover:border-white/20 hover:bg-white/[0.04] focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/30 outline-none cursor-pointer"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <span className={`h-2.5 w-2.5 rounded-full bg-gradient-to-r ${activeTheme.gradient} ${activeTheme.glow}`} />
-                    <span className="font-semibold tracking-wide">{selectedCategory}</span>
-                  </div>
-                  <svg
-                    className={`h-4 w-4 text-gray-500 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-
-                {isDropdownOpen && (
-                  <div className="absolute right-0 left-0 z-50 mt-2 max-h-60 overflow-y-auto rounded-2xl border border-white/10 bg-[#0A0A16] p-2 shadow-2xl backdrop-blur-md animate-in fade-in slide-in-from-top-2 duration-200">
-                    {activeCategories.map((cat) => {
-                      const theme = categoryThemes[cat] || DEFAULT_THEME;
-                      const isSelected = selectedCategory === cat;
-                      return (
-                        <button
-                          key={cat}
-                          type="button"
-                          onClick={() => {
-                            setSelectedCategory(cat);
-                            setIsDropdownOpen(false);
-                          }}
-                          className={`flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-xs font-semibold transition-all duration-200 hover:bg-white/[0.04] cursor-pointer ${
-                            isSelected ? `${theme.text} bg-white/[0.03]` : 'text-gray-400'
-                          }`}
-                        >
-                          <div className="flex items-center gap-2">
-                            <span className={`h-1.5 w-1.5 rounded-full bg-gradient-to-r ${theme.gradient}`} />
-                            <span>{cat}</span>
-                          </div>
-                          {isSelected && <span className={`h-1 w-1 rounded-full bg-gradient-to-r ${theme.gradient} ${theme.glow}`} />}
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Gears Inventory Listing Grid */}
-          {filteredGears.length === 0 ? (
-            <div className="flex flex-col items-center justify-center rounded-3xl border border-white/5 bg-[#080812]/30 py-24 text-center backdrop-blur-xl">
-              <LuSearch className="mb-4 h-10 w-10 animate-bounce text-gray-600" />
-              <p className="max-w-md text-base text-gray-500 sm:text-lg">
-                No gear matches &quot;{searchQuery}&quot;. Try exploring other
-                categories or type a different search term.
-              </p>
-            </div>
-          ) : (
-            <div className="flex flex-col gap-8 lg:gap-12">
-              {filteredGears.map((item, idx) => (
-                <GearCard
-                  key={item._id}
-                  item={item}
-                  idx={idx}
-                  categoryThemes={categoryThemes}
-                />
-              ))}
-            </div>
-          )}
-
-          {/* Affiliate support and support text footer section */}
-          <div className="mt-20 rounded-3xl border border-white/5 bg-[#080812]/40 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-3xl sm:p-8 md:p-10">
-            <div className="flex flex-col gap-6 md:flex-row md:items-center">
-              <div className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-400">
-                <LuInfo className="h-6 w-6" />
-              </div>
-              <div>
-                <h3 className="mb-2 text-lg font-bold text-white sm:text-xl">
-                  Affiliate Disclosure & Support
-                </h3>
-                <p className="text-xs leading-relaxed text-gray-400 sm:text-sm">
-                  Some of the purchase links provided above are affiliate links
-                  (such as Amazon Store links). Using these links to make a
-                  purchase quietly supports my music training work and
-                  high-quality tutorial development — at absolutely{' '}
-                  <strong>no extra cost to you</strong>. I only recommend gear
-                  items that I have personally played, verified, and trusted in
-                  my studio or on stage. Thank you for supporting the music!
-                </p>
-              </div>
-            </div>
+          <div>
+            <h3 className="mb-2 text-lg font-bold text-white sm:text-xl">
+              Affiliate Disclosure & Support
+            </h3>
+            <p className="text-xs leading-relaxed text-gray-400 sm:text-sm">
+              Some of the purchase links provided above are affiliate links
+              (such as Amazon Store links). Using these links to make a
+              purchase quietly supports my music training work and
+              high-quality tutorial development — at absolutely{' '}
+              <strong>no extra cost to you</strong>. I only recommend gear
+              items that I have personally played, verified, and trusted in
+              my studio or on stage. Thank you for supporting the music!
+            </p>
           </div>
         </div>
       </div>

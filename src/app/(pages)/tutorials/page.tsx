@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import JsonLd from '@/components/json-ld';
+import PageLayout from '@/components/page-layout';
 import TutorialsListingClient from '@/components/tutorials-listing-client';
 import cockpit from '@/lib/client';
 import { TutorialItem } from '@/types';
@@ -92,7 +93,13 @@ export default async function TutorialsPage() {
           ],
         }}
       />
-      <TutorialsListingClient initialItems={tutorials} />
+      <PageLayout
+        title="Learning Materials"
+        subtitle="Download high-quality practice sheets, finger exercises, chord charts, and manuscript layouts to support your guitar lessons."
+        variant="plain"
+      >
+        <TutorialsListingClient initialItems={tutorials} />
+      </PageLayout>
     </>
   );
 }
