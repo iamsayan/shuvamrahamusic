@@ -4,15 +4,24 @@ import Link from 'next/link';
 import BlogPostCard from '@/components/blog-post-card';
 import BrandEndorsements from '@/components/brand-endorsements';
 import JsonLd from '@/components/json-ld';
+import ReviewCard from '@/components/review-card';
 import SliderGallery from '@/components/slider-gallery';
 import YouTubeFacade from '@/components/youtube-facade';
 import { getBlogPosts } from '@/lib/blog-data';
 import cockpit from '@/lib/client';
 import { authorityPoints, curriculum } from '@/lib/guitar-data';
+import { getReviews } from '@/lib/reviews';
 import { SCHEMA } from '@/lib/schema';
 import { PricingPlan } from '@/types';
 
-import { LuArrowRight, LuAward, LuMusic } from 'react-icons/lu';
+import {
+  LuArrowRight,
+  LuAward,
+  LuBadgeCheck,
+  LuMapPin,
+  LuMusic,
+  LuStar,
+} from 'react-icons/lu';
 
 const videos = [
   { title: 'Purano Sei Diner Kotha', year: '2024', id: 'Mldyf1c3uxc' },
@@ -33,11 +42,17 @@ const studentVideos = [
 ];
 
 export default async function Home() {
-  // Fetch latest posts dynamically (returns static posts when database is not configured)
-  const [latestPosts, pricingPlans] = await Promise.all([
+  // Fetch latest posts and GMB reviews dynamically
+  const [latestPosts, pricingPlans, reviews] = await Promise.all([
     getBlogPosts({ limit: 3 }),
     cockpit.listContentItems<PricingPlan[]>('pricingplans'),
+    getReviews(),
   ]);
+
+  const hasReviews = reviews && reviews.length > 0;
+  const half = Math.ceil(reviews.length / 2);
+  const topRowReviews = reviews.slice(0, half);
+  const bottomRowReviews = reviews.slice(half);
 
   return (
     <>
@@ -377,6 +392,130 @@ export default async function Home() {
               </Link>
             </div>
           </div>
+        </section>
+
+        {/* =======================================================================
+          Google Reviews Infinite CSS Marquee Section
+        ======================================================================= */}
+        <section
+          className="relative w-full overflow-hidden border-t border-amber-500/10 bg-[#05050A] py-16 md:py-24"
+          id="reviews"
+        >
+          <div className="pointer-events-none absolute inset-0 z-0">
+            <div className="absolute top-1/2 left-1/2 size-200 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-600/5 mix-blend-screen blur-[150px]" />
+          </div>
+
+          <div className="relative z-10 mx-auto mb-12 w-full max-w-350 px-5 text-center sm:mb-16 md:px-12 lg:px-20">
+            <div className="flex flex-col items-center">
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-500/10 px-4 py-2 shadow-[0_0_15px_rgba(245,158,11,0.15)]">
+                <LuBadgeCheck className="size-4 text-amber-400" />
+                <span className="text-xs font-bold tracking-widest text-amber-400 uppercase sm:text-sm">
+                  Student Success Stories
+                </span>
+              </div>
+              <h2 className="font-heading mb-4 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+                Trusted By{' '}
+                <span className="bg-linear-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
+                  600+ Students
+                </span>
+              </h2>
+              <p className="mx-auto max-w-xl text-sm text-gray-400 sm:text-base lg:text-lg">
+                Don&apos;t just take our word for it. Here is what actual
+                students have to say about their learning experience.
+              </p>
+            </div>
+          </div>
+
+          {hasReviews ? (
+            <>
+              <div className="marquee-container relative z-10 flex w-full flex-col gap-6">
+                {/* Top Row (Scrolls Left) */}
+                <div className="animate-marquee-left flex w-max gap-6 px-4">
+                  {[...topRowReviews, ...topRowReviews].map((review, idx) => (
+                    <ReviewCard key={`top-${idx}`} review={review} />
+                  ))}
+                </div>
+
+                {/* Bottom Row (Scrolls Right) */}
+                <div className="animate-marquee-right flex w-max gap-4 px-4 sm:gap-6">
+                  {[...bottomRowReviews, ...bottomRowReviews].map(
+                    (review, idx) => (
+                      <ReviewCard key={`bottom-${idx}`} review={review} />
+                    )
+                  )}
+                </div>
+
+                {/* Gradient Fades for Smooth Edges */}
+                <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-linear-to-r from-[#05050A] to-transparent sm:w-40" />
+                <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-linear-to-l from-[#05050A] to-transparent sm:w-40" />
+              </div>
+
+              {/* View GMB Reviews Button */}
+              <div className="relative z-10 mx-auto mt-12 flex w-full max-w-350 justify-center px-5 md:px-12 lg:px-20">
+                <a
+                  href="https://maps.app.goo.gl/sYFmaYbfmikB9MRb7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 rounded-full border border-amber-500/20 bg-linear-to-r from-amber-500/10 to-orange-500/10 px-8 py-3.5 text-sm font-bold tracking-wide text-amber-300 shadow-[0_0_30px_rgba(245,158,11,0.05)] transition-all hover:scale-105 hover:border-amber-500/40 hover:from-amber-500/20 hover:to-orange-500/20 hover:shadow-[0_0_30px_rgba(245,158,11,0.15)] active:scale-95"
+                >
+                  <span>View All Google Reviews</span>
+                  <span>→</span>
+                </a>
+              </div>
+            </>
+          ) : (
+            <div className="relative z-10 mx-auto mt-8 flex w-full max-w-350 justify-center px-5 md:px-12 lg:px-20">
+              <div className="relative w-full max-w-xl overflow-hidden rounded-3xl border border-white/8 bg-linear-to-b from-white/3 to-transparent p-6 text-center shadow-2xl backdrop-blur-xl sm:rounded-[2.5rem] sm:p-10">
+                {/* Glowing Ambient light */}
+                <div className="pointer-events-none absolute top-0 right-0 size-32 rounded-full bg-amber-500/5 blur-2xl" />
+
+                <div className="relative z-10 flex flex-col items-center gap-6">
+                  {/* Google Icon Facade */}
+                  <div className="flex size-16 items-center justify-center rounded-3xl border border-white/10 bg-white/5 shadow-xl">
+                    <LuMapPin className="animate-slow-bounce size-8 fill-amber-400/10 text-amber-400" />
+                  </div>
+
+                  {/* CTA Text */}
+                  <div className="flex flex-col gap-2">
+                    <h3 className="font-heading text-xl font-extrabold text-white sm:text-2xl">
+                      Google Reviews Synced Live
+                    </h3>
+                    <p className="mx-auto max-w-md text-sm leading-relaxed text-gray-400 sm:text-base">
+                      We sync our student success stories directly from Google
+                      Maps in real-time. Feel free to browse all verified 5.0
+                      star student reviews on our official profile.
+                    </p>
+                  </div>
+
+                  {/* Rating stars & verification */}
+                  <div className="flex items-center gap-3 rounded-full border border-white/5 bg-white/2 px-4 py-2 backdrop-blur-md">
+                    <div className="flex gap-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <LuStar
+                          key={i}
+                          className="size-4 fill-amber-400 text-amber-400"
+                        />
+                      ))}
+                    </div>
+                    <span className="font-heading text-xs font-black tracking-wider text-amber-300 uppercase">
+                      5.0 Google Rating
+                    </span>
+                  </div>
+
+                  {/* Redirect Button */}
+                  <a
+                    href="https://maps.app.goo.gl/sYFmaYbfmikB9MRb7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 rounded-full bg-linear-to-r from-amber-500 to-orange-500 px-6 py-3.5 text-sm font-black tracking-wide text-white shadow-lg shadow-amber-500/10 transition-all hover:scale-105 hover:from-amber-600 hover:to-orange-600 active:scale-95"
+                  >
+                    <span>Browse Verified Reviews on Google</span>
+                    <span>→</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
         </section>
 
         {/* ==========================================================
