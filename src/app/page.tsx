@@ -199,7 +199,7 @@ export default async function Home() {
          ========================================================== */}
         <section className="relative z-10 border-y border-white/5 bg-[#07070F]/50 py-10 backdrop-blur-sm">
           <div className="mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
-            <div className="grid grid-cols-2 gap-8 text-center md:grid-cols-4">
+            <div className="grid grid-cols-2 gap-8 text-center md:grid-cols-5">
               <div className="space-y-1">
                 <div className="font-heading text-3xl font-black text-cyan-400 sm:text-4xl">
                   {new Date().getFullYear() - 2015}+
@@ -232,6 +232,14 @@ export default async function Home() {
                   Practical Syllabus
                 </div>
               </div>
+              <div className="col-span-2 space-y-1 md:col-span-1">
+                <div className="font-heading text-3xl font-black text-fuchsia-400 sm:text-4xl">
+                  Global
+                </div>
+                <div className="text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                  US • UK • India • Canada
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -239,7 +247,7 @@ export default async function Home() {
         {/* Brand Endorsements */}
         <BrandEndorsements
           layout="marquee"
-          className="relative z-10 mx-auto max-w-6xl border-b border-white/5 py-4"
+          className="relative z-10 mx-auto my-10 max-w-6xl border-b border-white/5 py-4"
         />
 
         {/* ==========================================================
