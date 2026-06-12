@@ -37,7 +37,7 @@ export default async function PerformanceHighlightsPage() {
       populate: 1,
     });
   } catch (error) {
-    console.error('Error fetching performances from Cockpit CMS:', error);
+    console.error('Error fetching performances from database:', error);
   }
 
   if (!performances || performances.length === 0) {

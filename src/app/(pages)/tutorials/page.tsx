@@ -39,7 +39,7 @@ export default async function TutorialsPage() {
       },
     });
   } catch (error) {
-    console.error('Error fetching tutorials from Cockpit CMS:', error);
+    console.error('Error fetching tutorials from database:', error);
   }
 
   return (

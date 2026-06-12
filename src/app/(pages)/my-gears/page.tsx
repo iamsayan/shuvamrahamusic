@@ -7,45 +7,60 @@ import cockpit from '@/lib/client';
 import { SCHEMA } from '@/lib/schema';
 import { GearItem } from '@/types';
 
-export const metadata: Metadata = {
-  title: 'My Gears',
-  description:
-    'Explore the professional guitars, strings, pickups, cables, recording gear, and accessories personally used and recommended by Shuvam Raha.',
-  alternates: {
-    canonical: '/my-gears',
-  },
-  openGraph: {
+export async function generateMetadata(): Promise<Metadata> {
+  const gears = await cockpit.getContentTree<GearItem[]>('gears', {
+    fields: {
+      images: true,
+    },
+  });
+
+  const images = new Map();
+  gears.forEach((gear) => {
+    gear.images.forEach((image) => {
+      images.set(image._id, image.altText);
+    });
+  });
+
+  return {
     title: 'My Gears',
     description:
       'Explore the professional guitars, strings, pickups, cables, recording gear, and accessories personally used and recommended by Shuvam Raha.',
-    url: '/my-gears',
-    type: 'website',
-    images: [
-      {
-        url: 'https://www.shuvamrahamusic.com/wp-content/uploads/2026/02/Elixir-Electric-Guitar-Strings-2-819x1024.jpg',
-        width: 819,
-        height: 1024,
-        alt: 'Elixir Electric Guitar Strings Nanoweb 10-46 Light',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'My Gears',
-    description:
-      'Explore the professional guitars, strings, pickups, cables, recording gear, and accessories personally used and recommended by Shuvam Raha.',
-    images: [
-      'https://www.shuvamrahamusic.com/wp-content/uploads/2026/02/Elixir-Electric-Guitar-Strings-2-819x1024.jpg',
-    ],
-  },
-};
+    alternates: {
+      canonical: '/my-gears',
+    },
+    openGraph: {
+      title: 'My Gears',
+      description:
+        'Explore the professional guitars, strings, pickups, cables, recording gear, and accessories personally used and recommended by Shuvam Raha.',
+      url: '/my-gears',
+      type: 'website',
+      images: Array.from(images.entries()).map(
+        ([img_id, altText]: [string, string]) => ({
+          url: cockpit.getImagePresetUrl(img_id, 'medium'),
+          width: 819,
+          height: 1024,
+          alt: altText,
+        })
+      ),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'My Gears',
+      description:
+        'Explore the professional guitars, strings, pickups, cables, recording gear, and accessories personally used and recommended by Shuvam Raha.',
+      images: Array.from(images.keys()).map((img_id: string) =>
+        cockpit.getImagePresetUrl(img_id, 'medium')
+      ),
+    },
+  };
+}
 
 export default async function MyGearsPage() {
   let gears: GearItem[] = [];
   try {
     gears = await cockpit.getContentTree<GearItem[]>('gears');
   } catch (error) {
-    console.error('Error fetching gears from Cockpit CMS:', error);
+    console.error('Error fetching gears from database:', error);
   }
 
   return (

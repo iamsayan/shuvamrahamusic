@@ -89,8 +89,10 @@ function mapPostToBlogPost(entry: Post): BlogPost {
     categories: Array.isArray(entry.categories) ? entry.categories : [],
     tags: Array.isArray(entry.tags) ? entry.tags : [],
     date: formatDate(entry._created),
+    modifiedDate: formatDate(entry._modified),
     readTime: calculateReadTime(entry.content),
     author: AUTHOR_SHUVAM,
+    raw: entry,
   };
 }
 
@@ -139,12 +141,12 @@ export async function getPaginatedBlogPosts(
 
     return { posts: [], total: 0 };
   } catch (error) {
-    console.error('Error fetching posts from Cockpit CMS:', error);
+    console.error('Error fetching posts from database:', error);
     return { posts: [], total: 0 };
   }
 }
 
-// Plug-and-play fetcher: Queries Cockpit CMS when configured, otherwise falls back to static content
+// Plug-and-play fetcher: Queries database when configured, otherwise falls back to static content
 export async function getBlogPosts(
   options: ContentItemsListOptions = {}
 ): Promise<BlogPost[]> {
@@ -152,7 +154,7 @@ export async function getBlogPosts(
   return result.posts;
 }
 
-// Plug-and-play item fetcher by slug: Queries Cockpit CMS when configured, otherwise falls back to static content
+// Plug-and-play item fetcher by slug: Queries database when configured, otherwise falls back to static content
 export async function getBlogPostBySlug(
   slug: string,
   options: ContentItemGetByFilterOptions = {}
@@ -172,7 +174,7 @@ export async function getBlogPostBySlug(
     return undefined;
   } catch (error) {
     console.error(
-      `Error fetching post by slug "${slug}" from Cockpit CMS:`,
+      `Error fetching post by slug "${slug}" from database:`,
       error
     );
     return undefined;
@@ -183,20 +185,19 @@ export async function getBlogPostBySlug(
 export async function getBlogPostsByCategory(
   categorySlug: string,
   options: ContentItemsListOptions = {}
-): Promise<BlogPost[]> {
+): Promise<PaginatedBlogPosts> {
   try {
     const category = await cockpit.getContentItemByFilter<Category>(
       'categories',
       {
         filter: { slug: categorySlug },
+        fields: { _id: true },
       }
     );
 
-    if (!category?._id) {
-      return [];
-    }
+    if (!category?._id) return { posts: [], total: 0 };
 
-    const posts = await getBlogPosts({
+    const posts = await getPaginatedBlogPosts({
       ...options,
       filter: {
         ...(options.filter && typeof options.filter === 'object'
@@ -208,7 +209,7 @@ export async function getBlogPostsByCategory(
     return posts;
   } catch (error) {
     console.error('Error fetching posts by category:', error);
-    return [];
+    return { posts: [], total: 0 };
   }
 }
 
@@ -216,17 +217,15 @@ export async function getBlogPostsByCategory(
 export async function getBlogPostsByTag(
   tagSlug: string,
   options: ContentItemsListOptions = {}
-): Promise<BlogPost[]> {
+): Promise<PaginatedBlogPosts> {
   try {
     const tag = await cockpit.getContentItemByFilter<Tag>('tags', {
       filter: { slug: tagSlug },
     });
 
-    if (!tag?._id) {
-      return [];
-    }
+    if (!tag?._id) return { posts: [], total: 0 };
 
-    const posts = await getBlogPosts({
+    const posts = await getPaginatedBlogPosts({
       ...options,
       filter: {
         ...(options.filter && typeof options.filter === 'object'
@@ -238,6 +237,6 @@ export async function getBlogPostsByTag(
     return posts;
   } catch (error) {
     console.error('Error fetching posts by tag:', error);
-    return [];
+    return { posts: [], total: 0 };
   }
 }

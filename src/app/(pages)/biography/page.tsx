@@ -173,8 +173,8 @@ export default function BiographyPage() {
             }),
             {
               '@type': 'ImageObject',
-              '@id': 'https://www.shuvamrahamusic.com/biography/#thumbnail',
-              url: 'https://www.shuvamrahamusic.com/wp-content/uploads/2025/04/Shuvam-Raha-Signature-Logo-Png.png',
+              '@id': `${SCHEMA.BASE_URL}/biography/#thumbnail`,
+              url: `${SCHEMA.BASE_URL}/hero-guitarist.jpg`,
             },
           ],
         }}
@@ -189,14 +189,15 @@ export default function BiographyPage() {
              ========================================== */}
           <div className="flex flex-col gap-10 lg:flex-row lg:items-center">
             {/* Desktop Side Profile Frame */}
-            <div className="relative mx-auto w-full max-w-[340px] shrink-0 lg:mx-0">
+            <div className="relative mx-auto w-full max-w-85 shrink-0 lg:mx-0">
               <div className="group relative aspect-3/4 overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/2 shadow-[0_30px_70px_rgba(0,0,0,0.6)] backdrop-blur-md">
                 <Image
+                  id="thumbnail"
                   width={600}
                   height={600}
                   src="/hero-guitarist.jpg"
                   alt="Shuvam Raha"
-                  className="size-full object-cover opacity-90 transition-transform duration-[1500ms] group-hover:scale-105"
+                  className="size-full object-cover opacity-90 transition-transform duration-1500 group-hover:scale-105"
                   loading="eager"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-[#020205]/80 via-transparent to-transparent opacity-60" />

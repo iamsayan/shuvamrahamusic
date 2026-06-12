@@ -537,7 +537,7 @@ export default function PerformanceHighlightsClient({
 
         {artists.length === 0 ? (
           <p className="text-sm text-gray-500">
-            No collaborators loaded from CMS.
+            No collaborators loaded from database.
           </p>
         ) : (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -606,7 +606,7 @@ export default function PerformanceHighlightsClient({
 
         {categories.length === 0 ? (
           <p className="text-sm text-gray-500">
-            No venue categories loaded from CMS.
+            No venue categories loaded from database.
           </p>
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">

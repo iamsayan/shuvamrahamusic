@@ -32,10 +32,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Fetch dynamic blog posts
   try {
-    const posts = await getBlogPosts({
-      skip: 0,
-      limit: 1000,
-    });
+    const posts = await getBlogPosts({ limit: -1 });
+
     // Add blog posts
     const blogEntries = posts.map((post) => ({
       url: `${baseUrl}/blog/${post.slug}`,

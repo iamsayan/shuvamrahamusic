@@ -284,7 +284,7 @@ export default function VideosGalleryPage() {
                 </div>
 
                 <div className="flex items-center gap-2 border-t border-white/4 p-5 pt-3 text-[9px] font-bold text-gray-500 uppercase">
-                  <LuVideo className="text-cyan-400 size-3" />
+                  <LuVideo className="size-3 text-cyan-400" />
                   <span>Standard Video</span>
                 </div>
               </div>
@@ -324,7 +324,7 @@ export default function VideosGalleryPage() {
                 </div>
 
                 <div className="flex items-center gap-1.5 border-t border-white/4 p-4 pt-2.5 text-[8px] font-bold text-gray-500 uppercase">
-                  <LuPlay className="text-cyan-400 size-3" />
+                  <LuPlay className="size-3 text-cyan-400" />
                   <span>YouTube Short</span>
                 </div>
               </div>
@@ -333,7 +333,7 @@ export default function VideosGalleryPage() {
         )}
 
         {/* Channel Promotion CTA Box */}
-        <div className="group/card relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#07070F]/85 p-8 shadow-2xl backdrop-blur-3xl transition-all duration-500 hover:border-cyan-500/20 sm:p-12">
+        <div className="group/card relative overflow-hidden rounded-4xl border border-white/10 bg-[#07070F]/85 p-8 shadow-2xl backdrop-blur-3xl transition-all duration-500 hover:border-cyan-500/20 sm:p-12">
           {/* Glowing Top Accent Strip */}
           <div className="absolute top-0 left-0 h-1 w-full bg-linear-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-60" />
           <div className="pointer-events-none absolute -top-[40%] -right-[10%] size-75 rounded-full bg-cyan-600/10 blur-[100px]" />
