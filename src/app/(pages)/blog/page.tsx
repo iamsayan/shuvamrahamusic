@@ -70,13 +70,12 @@ export default async function BlogListingPage({
             '@context': 'https://schema.org',
             '@type': 'WebSite',
             name: 'Shuvam Raha Music',
-            url: 'https://www.shuvamrahamusic.com',
+            url: SCHEMA.BASE_URL,
             potentialAction: {
               '@type': 'SearchAction',
               target: {
                 '@type': 'EntryPoint',
-                urlTemplate:
-                  'https://www.shuvamrahamusic.com/blog?search={search_term_string}',
+                urlTemplate: `${SCHEMA.BASE_URL}/blog?search={search_term_string}`,
               },
               'query-input': 'required name=search_term_string',
             },
@@ -87,17 +86,17 @@ export default async function BlogListingPage({
             name: 'Shuvam Raha Music Blog',
             description:
               'Practical guides, finger exercises, gear reviews, and roadmaps from Shuvam Raha to help you learn guitar and master your favorite songs.',
-            url: 'https://www.shuvamrahamusic.com/blog',
+            url: SCHEMA.BASE_URL + '/blog',
             publisher: {
               '@type': 'Person',
               name: 'Shuvam Raha',
-              sameAs: 'https://www.shuvamrahamusic.com',
+              sameAs: SCHEMA.BASE_URL,
             },
             blogPost: posts.map((post) => ({
               '@type': 'BlogPosting',
               headline: post.title,
               description: post.excerpt,
-              url: `https://www.shuvamrahamusic.com/blog/${post.slug}`,
+              url: `${SCHEMA.BASE_URL}/blog/${post.slug}`,
               datePublished: post.date,
               keywords: post.tags.map((t) => t.title).join(', '),
               author: {

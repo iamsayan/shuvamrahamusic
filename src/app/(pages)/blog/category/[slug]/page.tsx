@@ -118,24 +118,24 @@ export default async function CategoryArchivePage({
             '@type': 'CollectionPage',
             name: `${categoryName} Guitar Articles - Shuvam Raha Music`,
             description: `All articles and learning resources categorized under ${categoryName}.`,
-            url: `https://www.shuvamrahamusic.com/blog/category/${slug}`,
+            url: `${SCHEMA.BASE_URL}/blog/category/${slug}`,
           },
           {
             '@context': 'https://schema.org',
             '@type': 'Blog',
             name: `${categoryName} Guitar Articles`,
             description: `All articles and learning resources categorized under ${categoryName}.`,
-            url: `https://www.shuvamrahamusic.com/blog/category/${slug}`,
+            url: `${SCHEMA.BASE_URL}/blog/category/${slug}`,
             publisher: {
               '@type': 'Person',
               name: 'Shuvam Raha',
-              sameAs: 'https://www.shuvamrahamusic.com',
+              sameAs: SCHEMA.BASE_URL,
             },
             blogPost: posts.map((post) => ({
               '@type': 'BlogPosting',
               headline: post.title,
               description: post.excerpt,
-              url: `https://www.shuvamrahamusic.com/blog/${post.slug}`,
+              url: `${SCHEMA.BASE_URL}/blog/${post.slug}`,
               datePublished: post.date,
               keywords: post.tags.map((t) => t.title).join(', '),
               author: {

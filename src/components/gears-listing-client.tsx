@@ -2,8 +2,6 @@
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
-import Link from 'next/link';
-
 import CockpitImage from '@/components/cockpit-image';
 import { GearItem } from '@/types';
 
@@ -235,7 +233,7 @@ export default function GearsListingClient({
           {/* Search input capsule */}
           <div className="relative flex-1">
             <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-gray-500">
-              <LuSearch className="transition-colors duration-300 size-5" />
+              <LuSearch className="size-5 transition-colors duration-300" />
             </div>
             <input
               type="text"
@@ -328,7 +326,7 @@ export default function GearsListingClient({
       {/* Gears Inventory Listing Grid */}
       {filteredGears.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-3xl border border-white/5 bg-[#080812]/30 py-24 text-center backdrop-blur-xl">
-          <LuSearch className="mb-4 animate-bounce text-gray-600 size-10" />
+          <LuSearch className="mb-4 size-10 animate-bounce text-gray-600" />
           <p className="max-w-md text-base text-gray-500 sm:text-lg">
             No gear matches &quot;{searchQuery}&quot;. Try exploring other
             categories or type a different search term.
@@ -350,7 +348,7 @@ export default function GearsListingClient({
       {/* Affiliate support and support text footer section */}
       <div className="mt-20 rounded-3xl border border-white/5 bg-[#080812]/40 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-3xl sm:p-8 md:p-10">
         <div className="flex flex-col gap-6 md:flex-row md:items-center">
-          <div className="inline-flex shrink-0 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-400 size-12">
+          <div className="inline-flex size-12 shrink-0 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-400">
             <LuInfo className="size-6" />
           </div>
           <div>
@@ -430,6 +428,7 @@ function GearCard({
 
   return (
     <article
+      id={`gear-item-${idx + 1}`}
       ref={ref}
       className={`group relative flex flex-col md:flex-row ${isEven ? '' : 'md:flex-row-reverse'} overflow-hidden rounded-[2.5rem] border border-white/4 bg-white/1 transition-all duration-500 hover:border-white/10 hover:bg-white/2 hover:shadow-[0_30px_70px_rgba(0,0,0,0.6)]`}
     >
@@ -440,7 +439,7 @@ function GearCard({
 
       {/* Inner Corner Accent Glow (fades in on hover) */}
       <div
-        className={`pointer-events-none absolute ${isEven ? '-right-24' : '-left-24'} -bottom-24 rounded-full ${hoverGlowClass} z-0 opacity-0 blur-[70px] transition-opacity duration-700 group-hover:opacity-100 size-60`}
+        className={`pointer-events-none absolute ${isEven ? '-right-24' : '-left-24'} -bottom-24 rounded-full ${hoverGlowClass} z-0 size-60 opacity-0 blur-[70px] transition-opacity duration-700 group-hover:opacity-100`}
       />
 
       {/* Image Slider Wrapper */}
@@ -450,14 +449,14 @@ function GearCard({
             {item.images.map((img, imgIdx) => (
               <div
                 key={imgIdx}
-                className="absolute inset-0 transition-all duration-700 ease-in-out size-full"
+                className="absolute inset-0 size-full transition-all duration-700 ease-in-out"
                 style={{
                   transform: `translateX(${(imgIdx - activeImgIdx) * 100}%)`,
                 }}
               >
                 <CockpitImage
                   asset={img}
-                  className="object-cover object-top transition-transform duration-[1500ms] group-hover:scale-[1.03] size-full"
+                  className="size-full object-cover object-top transition-transform duration-[1500ms] group-hover:scale-[1.03]"
                   fill
                   mode="resize"
                   quality={50}
@@ -466,7 +465,7 @@ function GearCard({
             ))}
           </div>
         ) : (
-          <div className="flex items-center justify-center bg-gray-900 text-gray-700 size-full">
+          <div className="flex size-full items-center justify-center bg-gray-900 text-gray-700">
             No Photo Available
           </div>
         )}
@@ -476,13 +475,13 @@ function GearCard({
           <>
             <button
               onClick={handlePrevImage}
-              className="absolute top-1/2 left-3 z-10 flex -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-black/40 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:bg-black/70 active:scale-95 size-9"
+              className="absolute top-1/2 left-3 z-10 flex size-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-black/40 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:bg-black/70 active:scale-95"
             >
               <LuChevronLeft className="size-5" />
             </button>
             <button
               onClick={handleNextImage}
-              className="absolute top-1/2 right-3 z-10 flex -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-black/40 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:bg-black/70 active:scale-95 size-9"
+              className="absolute top-1/2 right-3 z-10 flex size-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/15 bg-black/40 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:opacity-100 hover:bg-black/70 active:scale-95"
             >
               <LuChevronRight className="size-5" />
             </button>
@@ -548,7 +547,7 @@ function GearCard({
                 key={idx}
                 className="inline-flex items-center rounded-lg border border-white/5 bg-white/2 px-2.5 py-1 text-[11px] font-bold text-gray-300 backdrop-blur-sm"
               >
-                <LuCheck className="mr-1.5 shrink-0 text-emerald-400 size-3.5" />
+                <LuCheck className="mr-1.5 size-3.5 shrink-0 text-emerald-400" />
                 {feature}
               </span>
             ))}
@@ -563,7 +562,7 @@ function GearCard({
           <div className="relative z-10 flex flex-col gap-3">
             {/* Subtitle / Header */}
             <div className="flex items-center gap-1.5 text-[10px] font-black tracking-widest text-gray-500 uppercase">
-              <LuSparkles className="animate-pulse text-amber-400 size-3.5" />
+              <LuSparkles className="size-3.5 animate-pulse text-amber-400" />
               <span>Instructor Recommendation</span>
             </div>
 
@@ -575,9 +574,9 @@ function GearCard({
                     className={`mt-0.5 flex shrink-0 items-center justify-center rounded-full ${hIdx === 0 ? 'bg-amber-500/10 text-amber-400' : 'bg-cyan-500/10 text-cyan-400'} size-5`}
                   >
                     {hIdx === 0 ? (
-                      <LuStar className="fill-amber-400/20 size-3" />
+                      <LuStar className="size-3 fill-amber-400/20" />
                     ) : (
-                      <LuTarget className="animate-pulse size-3" />
+                      <LuTarget className="size-3 animate-pulse" />
                     )}
                   </div>
                   <p

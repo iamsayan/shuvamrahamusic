@@ -14,7 +14,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.shuvamrahamusic.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL!),
   title: {
     default: 'Guitar Classes Online & Offline',
     template: '%s - Shuvam Raha Music',

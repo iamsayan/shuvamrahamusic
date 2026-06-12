@@ -3,7 +3,7 @@ import type { MetadataRoute } from 'next';
 import { getBlogPosts } from '@/lib/blog-data';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://www.shuvamrahamusic.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
   // Static routes
   const staticRoutes = [

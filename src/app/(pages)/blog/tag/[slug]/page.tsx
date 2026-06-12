@@ -118,24 +118,24 @@ export default async function TagArchivePage({
             '@type': 'CollectionPage',
             name: `#${tagName} Guitar Articles - Shuvam Raha Music`,
             description: `All articles and learning resources tagged with #${tagName}.`,
-            url: `https://www.shuvamrahamusic.com/blog/tag/${slug}`,
+            url: `${SCHEMA.BASE_URL}/blog/tag/${slug}`,
           },
           {
             '@context': 'https://schema.org',
             '@type': 'Blog',
             name: `#${tagName} Guitar Articles`,
             description: `All articles and learning resources tagged with #${tagName}.`,
-            url: `https://www.shuvamrahamusic.com/blog/tag/${slug}`,
+            url: `${SCHEMA.BASE_URL}/blog/tag/${slug}`,
             publisher: {
               '@type': 'Person',
               name: 'Shuvam Raha',
-              sameAs: 'https://www.shuvamrahamusic.com',
+              sameAs: SCHEMA.BASE_URL,
             },
             blogPost: posts.map((post) => ({
               '@type': 'BlogPosting',
               headline: post.title,
               description: post.excerpt,
-              url: `https://www.shuvamrahamusic.com/blog/${post.slug}`,
+              url: `${SCHEMA.BASE_URL}/blog/${post.slug}`,
               datePublished: post.date,
               keywords: post.tags.map((t) => t.title).join(', '),
               author: {

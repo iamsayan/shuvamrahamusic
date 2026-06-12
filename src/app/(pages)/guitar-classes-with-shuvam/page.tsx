@@ -199,42 +199,19 @@ export default async function Page() {
             provider: {
               '@type': 'Person',
               name: 'Shuvam Raha',
-              sameAs: 'https://www.shuvamrahamusic.com',
+              sameAs: SCHEMA.BASE_URL,
             },
             courseCode: 'SR-GUITAR-30',
             educationalLevel: 'Beginner to Advanced',
-            offers: [
-              {
-                '@type': 'Offer',
-                category: 'Subscription',
-                priceCurrency: 'INR',
-                price: '1500.00',
-                name: 'Offline Coaching (Studio)',
-                description:
-                  'Physical presence, real-time correction & faster progress at the studio in Kolkata.',
-                url: 'https://www.shuvamrahamusic.com/guitar-classes-with-shuvam',
-              },
-              {
-                '@type': 'Offer',
-                category: 'Subscription',
-                priceCurrency: 'INR',
-                price: '1800.00',
-                name: 'Starter Online Plan',
-                description:
-                  '4 sessions per month online with a fixed weekly schedule.',
-                url: 'https://www.shuvamrahamusic.com/guitar-classes-with-shuvam',
-              },
-              {
-                '@type': 'Offer',
-                category: 'Subscription',
-                priceCurrency: 'USD',
-                price: '45.00',
-                name: 'Global Guitar Program',
-                description:
-                  'Song-based learning with flexible scheduling across time zones.',
-                url: 'https://www.shuvamrahamusic.com/guitar-classes-with-shuvam',
-              },
-            ],
+            offers: (pricingPlans || []).map((plan) => ({
+              '@type': 'Offer',
+              category: 'Subscription',
+              priceCurrency: plan.region === 'India' ? 'INR' : 'USD',
+              price: plan.amount.toFixed(2),
+              name: plan.name,
+              description: plan.description,
+              url: `${SCHEMA.BASE_URL}/guitar-classes-with-shuvam/pay?h=${plan._id}`,
+            })),
             hasCourseInstance: {
               '@type': 'CourseInstance',
               courseMode: ['online', 'offline'],
@@ -252,7 +229,7 @@ export default async function Page() {
             name: 'Shuvam Raha Music',
             description:
               'LCM certified professional guitar instruction, offering online classes globally and offline classes at the studio in Kolkata.',
-            url: 'https://www.shuvamrahamusic.com',
+            url: SCHEMA.BASE_URL,
             telephone: '+918961369468',
             address: {
               '@type': 'PostalAddress',

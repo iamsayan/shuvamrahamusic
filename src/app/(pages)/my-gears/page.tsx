@@ -72,14 +72,17 @@ export default async function MyGearsPage() {
                 '@type': 'ListItem',
                 position: index + 1,
                 name: gear.title,
-                url: `${SCHEMA.BASE_URL}/my-gears`,
+                url: `${SCHEMA.BASE_URL}/my-gears#gear-item-${index + 1}`,
               })),
             },
-            {
-              '@type': 'ImageObject',
-              '@id': 'https://www.shuvamrahamusic.com/my-gears/#thumbnail',
-              url: 'https://www.shuvamrahamusic.com/wp-content/uploads/2026/02/Elixir-Electric-Guitar-Strings-2-819x1024.jpg',
-            },
+            ...gears
+              .filter((gear) => gear.images && gear.images.length > 0)
+              .map((gear) => ({
+                '@type': 'ImageObject',
+                '@id': `${SCHEMA.BASE_URL}/my-gears/#thumbnail-${gear._id}`,
+                url: cockpit.getImagePresetUrl(gear.images[0]._id, 'medium'),
+                caption: gear.title,
+              })),
           ],
         }}
       />
