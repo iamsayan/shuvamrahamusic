@@ -36,7 +36,7 @@ const navLinks: NavLink[] = [
   },
   {
     name: 'Gallery',
-    href: '/gallery',
+    href: '#',
     subItems: [
       {
         name: 'Photos',

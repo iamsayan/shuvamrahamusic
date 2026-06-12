@@ -5,6 +5,7 @@ import BlogPostCard from '@/components/blog-post-card';
 import JsonLd from '@/components/json-ld';
 import SliderGallery from '@/components/slider-gallery';
 import YouTubeFacade from '@/components/youtube-facade';
+import BrandEndorsements from '@/components/brand-endorsements';
 import { getBlogPosts } from '@/lib/blog-data';
 import cockpit from '@/lib/client';
 import { authorityPoints, curriculum } from '@/lib/guitar-data';
@@ -219,6 +220,9 @@ export default async function Home() {
             </div>
           </div>
         </section>
+
+        {/* Brand Endorsements */}
+        <BrandEndorsements layout="marquee" className="relative z-10 border-b border-white/5 py-4" />
 
         {/* ==========================================================
           3. BIO INTRO SECTION

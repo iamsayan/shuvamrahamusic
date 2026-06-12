@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
+import BrandEndorsements from '@/components/brand-endorsements';
 // Client Components
 import CockpitImage from '@/components/cockpit-image';
 import FaqAccordion from '@/components/faq-accordion';
@@ -416,6 +417,12 @@ export default async function Page() {
             </div>
           </div>
         </section>
+
+        {/* Brand Endorsements */}
+        <BrandEndorsements
+          layout="marquee"
+          className="relative z-10 border-b border-white/5 py-4"
+        />
 
         {/* =======================================================================
           2. STUDENT RESULTS

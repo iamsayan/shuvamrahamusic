@@ -4,6 +4,7 @@ import React from 'react';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import BrandEndorsements from '@/components/brand-endorsements';
 
 interface PageLayoutProps {
   title: React.ReactNode;
@@ -13,6 +14,8 @@ interface PageLayoutProps {
   textAlign?: 'left' | 'center';
   variant?: 'card' | 'plain';
   headerRight?: React.ReactNode;
+  showEndorsements?: boolean;
+  endorsementsPosition?: 'top' | 'bottom' | 'inside';
 }
 
 const segmentNames: Record<string, string> = {
@@ -35,6 +38,8 @@ export default function PageLayout({
   textAlign = 'left',
   variant = 'card',
   headerRight,
+  showEndorsements = true,
+  endorsementsPosition = 'bottom',
 }: PageLayoutProps) {
   const pathname = usePathname();
   const pathSegments = pathname ? pathname.split('/').filter(Boolean) : [];
@@ -177,6 +182,11 @@ export default function PageLayout({
           )}
         </div>
 
+        {/* Endorsements Section - Top Position */}
+        {showEndorsements && endorsementsPosition === 'top' && (
+          <BrandEndorsements layout="marquee" className="mb-8" />
+        )}
+
         {/* Main Content Card or Plain Wrapper */}
         {variant === 'card' ? (
           <div
@@ -189,11 +199,32 @@ export default function PageLayout({
             <div className="w-full text-xs leading-relaxed text-gray-300 sm:text-sm md:text-base">
               {children}
             </div>
+
+            {/* Endorsements Section - Inside Position */}
+            {showEndorsements && endorsementsPosition === 'inside' && (
+              <BrandEndorsements
+                layout="compact"
+                className="mt-8 w-full border-t border-white/5 pt-8"
+              />
+            )}
           </div>
         ) : (
           <div className="w-full text-xs leading-relaxed text-gray-300 sm:text-sm md:text-base">
             {children}
+            
+            {/* Endorsements Section - Inside Position for Plain Variant */}
+            {showEndorsements && endorsementsPosition === 'inside' && (
+              <BrandEndorsements
+                layout="compact"
+                className="mt-8 w-full border-t border-white/5 pt-8"
+              />
+            )}
           </div>
+        )}
+
+        {/* Endorsements Section - Bottom Position */}
+        {showEndorsements && endorsementsPosition === 'bottom' && (
+          <BrandEndorsements layout="marquee" className="mt-8" />
         )}
       </div>
     </main>
