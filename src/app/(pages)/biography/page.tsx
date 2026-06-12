@@ -5,6 +5,7 @@ import Link from 'next/link';
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
 import YouTubeFacade from '@/components/youtube-facade';
+import BrandEndorsements from '@/components/brand-endorsements';
 import { SCHEMA } from '@/lib/schema';
 
 import {
@@ -182,6 +183,7 @@ export default function BiographyPage() {
       <PageLayout
         title="Biography"
         subtitle="Professional Guitarist • Guitar Coach / Instructor • Live Performer • Music Producer"
+        showEndorsements={false}
       >
         <div className="flex flex-col gap-16 text-left">
           {/* ==========================================
@@ -453,52 +455,7 @@ export default function BiographyPage() {
           {/* ==========================================
               SECTION 7: ENDORSEMENTS & PARTNERSHIPS
              ========================================== */}
-          <div className="space-y-6">
-            <div className="flex flex-col gap-2">
-              <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
-                Brand Relations
-              </span>
-              <h3 className="font-heading text-2xl font-extrabold text-white sm:text-3xl">
-                Endorsements &amp; Partnerships
-              </h3>
-            </div>
-
-            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#0A0A15]/60 p-6 shadow-xl backdrop-blur-md transition-all duration-500 hover:border-cyan-500/20 sm:p-8">
-              <div className="pointer-events-none absolute -top-10 -left-10 size-32 rounded-full bg-cyan-500/5 blur-2xl" />
-              <div className="pointer-events-none absolute -right-10 -bottom-10 size-32 rounded-full bg-violet-500/5 blur-2xl" />
-
-              <div className="space-y-6">
-                {/* Text info */}
-                <p className="text-sm leading-relaxed text-gray-400 sm:text-base">
-                  Shuvam is associated with leading music brands through artist
-                  collaborations and endorsement programs, reflecting his
-                  commitment to professional sound quality, performance
-                  excellence, and music education.
-                </p>
-
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/1 p-4 text-sm text-gray-300 transition-all duration-300 hover:border-white/10 hover:bg-white/2">
-                    <LuFlame className="size-5 text-rose-400" />
-                    <span>Laney Amplification India Endorsed Artist</span>
-                  </div>
-                  <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/1 p-4 text-sm text-gray-300 transition-all duration-300 hover:border-white/10 hover:bg-white/2">
-                    <LuGuitar className="size-5 text-cyan-400" />
-                    <span>Collaborating Artist with Furtados</span>
-                  </div>
-                  <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/1 p-4 text-sm text-gray-300 transition-all duration-300 hover:border-white/10 hover:bg-white/2">
-                    <LuSparkles className="size-5 text-amber-400" />
-                    <span>
-                      Feature Artist – Tone Connoisseur (The Stockist)
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/1 p-4 text-sm text-gray-300 transition-all duration-300 hover:border-white/10 hover:bg-white/2">
-                    <LuHeadphones className="size-5 text-violet-400" />
-                    <span>Representing DiMarzio Guitar Cables</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <BrandEndorsements layout="grid" title="Endorsements & Partnerships" />
 
           <hr className="border-white/5" />
 

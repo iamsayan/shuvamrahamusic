@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 
 import CockpitImage from '@/components/cockpit-image';
+import GeographicMap from '@/components/geographic-map';
 import { Artist, Performance } from '@/types';
 
 import {
@@ -356,6 +357,24 @@ export default function PerformanceHighlightsClient({
     };
   }, [performances]);
 
+  const mapLocations = useMemo(() => {
+    const locsMap = new Map<string, { name: string; state?: string; count: number; country: string }>();
+
+    performances.forEach((p) => {
+      if (!p.city) return;
+      const key = p.city.trim().toLowerCase();
+      const count = locsMap.get(key)?.count || 0;
+      locsMap.set(key, {
+        name: p.city.trim(),
+        state: p.state?.trim(),
+        count: count + 1,
+        country: p.country ? p.country.trim() : 'India',
+      });
+    });
+
+    return Array.from(locsMap.values());
+  }, [performances]);
+
   // Filter shows based on search query, year and artist select
   const filteredShows = useMemo(() => {
     return timeline.filter((show) => {
@@ -475,46 +494,81 @@ export default function PerformanceHighlightsClient({
           </h3>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <div className="space-y-2.5 rounded-2xl border border-white/4 bg-[#0A0A15]/60 p-5">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-widest text-cyan-400 uppercase">
-              Strong Regional Hubs
-            </span>
-            <div>
-              <p className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
-                Primary Locations
-              </p>
-              <p className="mt-1 text-xs leading-relaxed text-gray-300 sm:text-sm">
-                {primaryLocations || 'Kolkata, Siliguri, Guwahati'}
-              </p>
-            </div>
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          {/* Visual Interactive Map - 2 Columns wide on large screens */}
+          <div className="lg:col-span-2 w-full flex">
+            <GeographicMap locations={mapLocations} />
           </div>
 
-          <div className="space-y-2.5 rounded-2xl border border-white/4 bg-[#0A0A15]/60 p-5">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/20 bg-violet-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-widest text-violet-400 uppercase">
-              Interstate Touring
-            </span>
-            <div>
-              <p className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
-                {statesData.count} States Covered
-              </p>
-              <p className="mt-1 text-xs leading-relaxed text-gray-300 sm:text-sm">
-                {statesData.list || 'No interstate tours listed'}
-              </p>
+          {/* Right Column Stack: Details Cards - 1 Column wide */}
+          <div className="flex flex-col gap-6 lg:col-span-1">
+            {/* Strong Regional Hubs */}
+            <div className="group relative overflow-hidden rounded-[2rem] border border-white/5 bg-[#0A0A16]/60 p-6 shadow-xl backdrop-blur-md transition-all duration-300 hover:border-cyan-500/20">
+              <div className="pointer-events-none absolute -top-10 -left-10 size-32 rounded-full bg-cyan-500/5 blur-2xl" />
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex size-9 items-center justify-center rounded-xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400">
+                    <LuMapPin className="size-4.5" />
+                  </div>
+                  <span className="inline-flex items-center rounded-full border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-widest text-cyan-400 uppercase">
+                    Strong Regional Hubs
+                  </span>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
+                    Primary Locations
+                  </p>
+                  <p className="text-xs leading-relaxed text-gray-300 sm:text-sm">
+                    {primaryLocations || 'Kolkata, Siliguri, Guwahati'}
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div className="space-y-2.5 rounded-2xl border border-white/4 bg-[#0A0A15]/60 p-5">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-widest text-emerald-400 uppercase">
-              International Tours
-            </span>
-            <div>
-              <p className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
-                Global Concerts
-              </p>
-              <p className="mt-1 text-xs leading-relaxed text-gray-300 sm:text-sm">
-                {internationalTours || 'No international tours listed'}
-              </p>
+            {/* Interstate Touring */}
+            <div className="group relative overflow-hidden rounded-[2rem] border border-white/5 bg-[#0A0A16]/60 p-6 shadow-xl backdrop-blur-md transition-all duration-300 hover:border-violet-500/20">
+              <div className="pointer-events-none absolute -top-10 -left-10 size-32 rounded-full bg-violet-500/5 blur-2xl" />
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex size-9 items-center justify-center rounded-xl border border-violet-500/20 bg-violet-500/10 text-violet-400">
+                    <LuCompass className="size-4.5" />
+                  </div>
+                  <span className="inline-flex items-center rounded-full border border-violet-500/20 bg-violet-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-widest text-violet-400 uppercase">
+                    Interstate Touring
+                  </span>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
+                    {statesData.count} States Covered
+                  </p>
+                  <p className="text-xs leading-relaxed text-gray-300 sm:text-sm">
+                    {statesData.list || 'No interstate tours listed'}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* International Tours */}
+            <div className="group relative overflow-hidden rounded-[2rem] border border-white/5 bg-[#0A0A16]/60 p-6 shadow-xl backdrop-blur-md transition-all duration-300 hover:border-emerald-500/20">
+              <div className="pointer-events-none absolute -top-10 -left-10 size-32 rounded-full bg-emerald-500/5 blur-2xl" />
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex size-9 items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-400">
+                    <LuGlobe className="size-4.5" />
+                  </div>
+                  <span className="inline-flex items-center rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-widest text-emerald-400 uppercase">
+                    International Tours
+                  </span>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
+                    Global Concerts
+                  </p>
+                  <p className="text-xs leading-relaxed text-gray-300 sm:text-sm">
+                    {internationalTours || 'No international tours listed'}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
