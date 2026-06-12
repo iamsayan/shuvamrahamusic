@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "*.css": "tailwindcss"
+    },
+    "tailwindCSS.classFunctions": [
+        "tw",
+        "clsx",
+        "tw\\.[a-z-]+"
+    ],
+    "editor.quickSuggestions": {
+        "strings": "on"
+    }
+}

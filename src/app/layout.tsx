@@ -6,7 +6,7 @@ import Footer from '@/components/footer';
 import Header from '@/components/header';
 import WhatsappButton from '@/components/whatsapp-button';
 
-import './globals.scss';
+import './globals.css';
 
 const outfit = Outfit({
   variable: '--font-outfit',
