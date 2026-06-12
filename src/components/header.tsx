@@ -42,14 +42,23 @@ const navLinks: NavLink[] = [
   {
     name: 'Gallery',
     href: '/gallery',
+    raw: process.env.NODE_ENV !== 'production',
     subItems: [
-      { name: 'Photos', href: '/gallery/photos', raw: true },
+      {
+        name: 'Photos',
+        href: '/gallery/photos',
+        raw: process.env.NODE_ENV !== 'production',
+      },
       {
         name: 'Audios',
         href: '/gallery/audios',
         raw: process.env.NODE_ENV !== 'production',
       },
-      { name: 'Videos', href: '/gallery/videos', raw: true },
+      {
+        name: 'Videos',
+        href: '/gallery/videos',
+        raw: process.env.NODE_ENV !== 'production',
+      },
     ],
   },
   { name: 'Gears', href: '/my-gears', raw: true },
@@ -149,7 +158,7 @@ export default function Header() {
                       {link.name}
                     </Link>
                     <div className="group/chevron relative flex cursor-pointer items-center justify-center p-1">
-                      <LuChevronDown className="relative z-10 text-gray-400 transition-transform duration-300 group-hover/chevron:rotate-180 group-hover/chevron:text-white size-3" />
+                      <LuChevronDown className="relative z-10 size-3 text-gray-400 transition-transform duration-300 group-hover/chevron:rotate-180 group-hover/chevron:text-white" />
 
                       {/* Dropdown triggered only by Chevron hover */}
                       <div className="invisible absolute top-full left-1/2 z-50 -translate-x-1/2 translate-y-3 pt-3 opacity-0 transition-all duration-300 ease-out group-hover/chevron:visible group-hover/chevron:opacity-100">
@@ -182,7 +191,7 @@ export default function Header() {
                       {link.name}
                     </span>
                     {link.subItems && (
-                      <LuChevronDown className="relative z-10 text-gray-400 transition-transform duration-300 group-hover:rotate-180 group-hover:text-white size-3" />
+                      <LuChevronDown className="relative z-10 size-3 text-gray-400 transition-transform duration-300 group-hover:rotate-180 group-hover:text-white" />
                     )}
                     {/* Pill Hover Effect */}
                     <span className="pointer-events-none absolute inset-0 scale-75 rounded-full bg-white/10 opacity-0 transition-all duration-300 ease-out group-hover:scale-100 group-hover:opacity-100" />
@@ -213,16 +222,16 @@ export default function Header() {
           <div className="relative z-50 flex items-center gap-4">
             <a
               href="tel:+918961369468"
-              className="inline-flex items-center justify-center gap-1.5 rounded-full bg-white text-sm text-[#05050A] shadow-[0_4px_15px_rgba(255,255,255,0.15)] transition-all duration-300 hover:scale-105 hover:bg-gray-200 hover:shadow-[0_4px_25px_rgba(255,255,255,0.3)] active:scale-95 sm:h-auto sm:w-auto sm:px-6 sm:py-2 sm:font-black size-9"
+              className="inline-flex size-9 items-center justify-center gap-1.5 rounded-full bg-white text-sm text-[#05050A] shadow-[0_4px_15px_rgba(255,255,255,0.15)] transition-all duration-300 hover:scale-105 hover:bg-gray-200 hover:shadow-[0_4px_25px_rgba(255,255,255,0.3)] active:scale-95 sm:h-auto sm:w-auto sm:px-6 sm:py-2 sm:font-black"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              <LuPhone className="sm:h-3 sm:w-3 size-4" />
+              <LuPhone className="size-4 sm:h-3 sm:w-3" />
               <span className="hidden sm:inline">Call</span>
             </a>
 
             {/* Mobile Hamburger Button */}
             <button
-              className="relative flex items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition-colors hover:bg-white/10 hover:text-white xl:hidden size-9"
+              className="relative flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-300 transition-colors hover:bg-white/10 hover:text-white xl:hidden"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle Menu"
             >
@@ -269,7 +278,7 @@ export default function Header() {
                     >
                       {link.name}
                       {(!link.subItems || isRealLink) && (
-                        <LuArrowRight className="-translate-x-3 text-cyan-400 opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100 size-4" />
+                        <LuArrowRight className="size-4 -translate-x-3 text-cyan-400 opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100" />
                       )}
                     </Link>
 
@@ -294,7 +303,7 @@ export default function Header() {
             </nav>
 
             {/* Ambient Background glow in Mobile Menu */}
-            <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 rounded-full bg-cyan-600/10 blur-[90px] size-[250px]" />
+            <div className="pointer-events-none absolute bottom-0 left-1/2 size-[250px] -translate-x-1/2 rounded-full bg-cyan-600/10 blur-[90px]" />
           </div>
         )}
       </div>
