@@ -8,6 +8,7 @@ import { createRazorpayOrder } from '@/app/actions/razorpay';
 import { useRegion } from '@/hooks/use-region';
 import { loadRazorpay } from '@/lib/load-razorpay';
 import { PricingPlan } from '@/types';
+import { sendGAEvent } from '@next/third-parties/google';
 
 import { BiHome } from 'react-icons/bi';
 import {
@@ -51,8 +52,8 @@ const SuccessModal = ({
         <div className="absolute top-0 left-0 h-1.5 w-full bg-linear-to-r from-emerald-500 to-teal-400" />
 
         <div className="flex flex-col items-center">
-          <div className="mb-6 flex items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400 shadow-[0_0_30px_rgba(52,211,153,0.2)] size-16">
-            <LuShieldCheck className="animate-bounce size-10" />
+          <div className="mb-6 flex size-16 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400 shadow-[0_0_30px_rgba(52,211,153,0.2)]">
+            <LuShieldCheck className="size-10 animate-bounce" />
           </div>
 
           <h3 className="font-heading text-xl font-black text-white sm:text-2xl">
@@ -148,7 +149,7 @@ const ErrorModal = ({
       <div className="absolute top-0 left-0 h-1.5 w-full bg-linear-to-r from-rose-500 to-red-600" />
 
       <div className="flex flex-col items-center">
-        <div className="mb-6 flex animate-pulse items-center justify-center rounded-full bg-rose-500/10 text-rose-400 shadow-[0_0_30px_rgba(244,63,94,0.2)] size-16">
+        <div className="mb-6 flex size-16 animate-pulse items-center justify-center rounded-full bg-rose-500/10 text-rose-400 shadow-[0_0_30px_rgba(244,63,94,0.2)]">
           <LuTriangleAlert className="size-10" />
         </div>
 
@@ -318,6 +319,21 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
         throw new Error(orderResponse.error ?? 'Error creating order');
       }
 
+      // Track begin_checkout event
+      sendGAEvent('event', 'begin_checkout', {
+        value: activePlan.amount,
+        currency: currency,
+        items: [
+          {
+            item_id: activePlan._id,
+            item_name: activePlan.name,
+            price: activePlan.amount,
+            quantity: 1,
+            item_category: 'Guitar Classes',
+          },
+        ],
+      });
+
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
         amount: amountInUnits.toString(),
@@ -340,6 +356,22 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
           razorpay_order_id: string;
           razorpay_signature: string;
         }) {
+          // Track purchase event
+          sendGAEvent('event', 'purchase', {
+            transaction_id: response.razorpay_payment_id,
+            value: activePlan.amount,
+            currency: currency,
+            items: [
+              {
+                item_id: activePlan._id,
+                item_name: activePlan.name,
+                price: activePlan.amount,
+                quantity: 1,
+                item_category: 'Guitar Classes',
+              },
+            ],
+          });
+
           setSuccess({
             paymentId: response.razorpay_payment_id,
             amount: activePlan.amount.toString(),
@@ -416,7 +448,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
       {/* SSL Status */}
       <div className="mb-6 flex justify-center">
         <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-400">
-          <LuShieldCheck className="animate-pulse text-emerald-400 size-4" />
+          <LuShieldCheck className="size-4 animate-pulse text-emerald-400" />
           256-BIT SSL SECURE CHECKOUT
         </div>
       </div>
@@ -494,7 +526,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
               >
                 <div className="flex items-center gap-4">
                   {isPlanSelectionLocked ? (
-                    <div className="flex shrink-0 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-400 size-5">
+                    <div className="flex size-5 shrink-0 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-400">
                       <LuShieldCheck className="size-4" />
                     </div>
                   ) : (
@@ -506,7 +538,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
                       }`}
                     >
                       {isActive && (
-                        <div className="rounded-full bg-cyan-400 size-2.5" />
+                        <div className="size-2.5 rounded-full bg-cyan-400" />
                       )}
                     </div>
                   )}
@@ -788,7 +820,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
             {processing ? (
               <>
                 <svg
-                  className="mr-2 -ml-1 animate-spin text-white size-4"
+                  className="mr-2 -ml-1 size-4 animate-spin text-white"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -844,15 +876,15 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
         </div>
         <div className="flex flex-wrap justify-center gap-x-4 gap-y-1.5 text-[10px] text-gray-400 sm:text-xs">
           <span className="flex items-center gap-1">
-            <LuShieldCheck className="text-emerald-500 size-3.5" /> UPI / Net
+            <LuShieldCheck className="size-3.5 text-emerald-500" /> UPI / Net
             Banking
           </span>
           <span className="flex items-center gap-1">
-            <LuShieldCheck className="text-emerald-500 size-3.5" /> Credit /
+            <LuShieldCheck className="size-3.5 text-emerald-500" /> Credit /
             Debit Cards
           </span>
           <span className="flex items-center gap-1">
-            <LuShieldCheck className="text-emerald-500 size-3.5" /> Safe
+            <LuShieldCheck className="size-3.5 text-emerald-500" /> Safe
             Processing
           </span>
         </div>
