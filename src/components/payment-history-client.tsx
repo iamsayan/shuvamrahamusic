@@ -235,7 +235,7 @@ export default function PaymentHistoryClient() {
           <div className="flex flex-col items-center justify-center py-20">
             <LuLoader className="size-10 animate-spin text-cyan-400" />
             <p className="mt-4 text-sm text-gray-400">
-              Querying Cockpit secure database...
+              Searching payment history...
             </p>
           </div>
         )}
