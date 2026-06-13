@@ -161,6 +161,23 @@ export interface GalleryData extends SingletonEntity {
   videos: GalleryVideo[];
 }
 
+export interface Enrollment extends Entity {
+  name: string;
+  plan: {
+    _id: string;
+    model: string;
+  } | PricingPlan;
+  amount: number;
+  method: string;
+  email: string;
+  phone: string;
+  payment_id: string;
+  order_id: string;
+  city: string;
+  address: string;
+  region: string;
+}
+
 declare global {
   interface Window {
     Razorpay: new (options: unknown) => { open(): void };

@@ -29,6 +29,7 @@ export default function TermsOfServicePage() {
       <PageLayout
         title="Terms of Service"
         subtitle="Effective Date: June 1, 2026"
+        showEndorsements={false}
       >
         <div className="space-y-8 text-xs leading-relaxed sm:text-sm md:text-base">
           <p className="text-gray-300">

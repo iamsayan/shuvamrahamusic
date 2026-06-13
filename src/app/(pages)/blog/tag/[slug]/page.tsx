@@ -60,14 +60,14 @@ export async function generateMetadata({
       canonical: `/blog/tag/${slug}${pageNum > 1 ? `?page=${pageNum}` : ''}`,
     },
     openGraph: {
-      title: `#${tag.title} Guiter Articles${pageSuffix}`,
+      title: `#${tag.title} Guitar Articles${pageSuffix}`,
       description: `Read all articles, exercises, and guides tagged with #${tag.title} from Shuvam Raha.`,
       url: `/blog/tag/${slug}${pageNum > 1 ? `?page=${pageNum}` : ''}`,
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
-      title: `#${tag.title} Guiter Articles${pageSuffix}`,
+      title: `#${tag.title} Guitar Articles${pageSuffix}`,
       description: `Read all articles, exercises, and guides tagged with #${tag.title} from Shuvam Raha.`,
     },
   };
