@@ -170,7 +170,7 @@ export default function PageLayout({
               })}
             </nav>
 
-            <h1 className="font-heading mb-4 bg-linear-to-r from-white via-white to-gray-400 bg-clip-text text-3xl font-black tracking-tight text-transparent sm:text-4xl lg:text-5xl">
+            <h1 className="font-heading mb-4 bg-linear-to-r from-white via-white to-gray-400 bg-clip-text py-1 text-3xl font-black tracking-tight text-transparent sm:text-4xl lg:text-5xl">
               {title}
             </h1>
 

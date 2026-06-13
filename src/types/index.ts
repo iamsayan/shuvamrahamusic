@@ -1,4 +1,4 @@
-import type { Asset, Entity, TreeEntity, SingletonEntity } from '@/lib/cockpit';
+import type { Asset, Entity, SingletonEntity, TreeEntity } from '@/lib/cockpit';
 
 export interface Member extends Entity {
   name: string;
@@ -163,10 +163,12 @@ export interface GalleryData extends SingletonEntity {
 
 export interface Enrollment extends Entity {
   name: string;
-  plan: {
-    _id: string;
-    model: string;
-  } | PricingPlan;
+  plan:
+    | {
+        _id: string;
+        model: string;
+      }
+    | PricingPlan;
   amount: number;
   method: string;
   email: string;
@@ -176,6 +178,21 @@ export interface Enrollment extends Entity {
   city: string;
   address: string;
   region: string;
+}
+
+export interface MenuItem {
+  active: boolean;
+  title: string;
+  url: string;
+  target?: string;
+  data?: unknown[];
+  children?: MenuItem[];
+  meta?: unknown;
+}
+
+export interface Settings extends SingletonEntity {
+  header_menu: MenuItem[];
+  footer_menu: MenuItem[];
 }
 
 declare global {

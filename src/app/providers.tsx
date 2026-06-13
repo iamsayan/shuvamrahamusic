@@ -1,8 +1,16 @@
 'use client';
 
+import { SettingsProvider } from '@/context/settings-context';
+import type { Settings } from '@/types';
 import { ProgressProvider } from '@bprogress/next/app';
 
-export default function Providers({ children }: { children: React.ReactNode }) {
+export default function Providers({
+  children,
+  settings,
+}: {
+  children: React.ReactNode;
+  settings: Settings;
+}) {
   return (
     <ProgressProvider
       height="2px"
@@ -10,7 +18,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       options={{ showSpinner: false }}
       shallowRouting
     >
-      {children}
+      <SettingsProvider settings={settings}>{children}</SettingsProvider>
     </ProgressProvider>
   );
 }

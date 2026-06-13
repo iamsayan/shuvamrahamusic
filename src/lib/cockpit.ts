@@ -457,7 +457,7 @@ export class CockpitClient {
    * Get image thumbnail/optimization URL or binary
    */
   getImageUrl(id: string, options: ImageOptions = {}): string {
-    return `${this.host}/api/assets/image/${id}${this.buildQuery(options)}`;
+    return `${this.host}/api/assets/image/${id}${this.buildQuery({ w: 1024, h: 512, o: 1, ...options })}`;
   }
 
   /**
@@ -468,7 +468,10 @@ export class CockpitClient {
     preset: string,
     options: ImagePresetOptions = {}
   ): string {
-    return `${this.host}/api/assets/image/${id}/${preset}${this.buildQuery(options)}`;
+    return `${this.host}/api/assets/image/${id}/${preset}${this.buildQuery({
+      o: 1,
+      ...options,
+    })}`;
   }
 
   /**
