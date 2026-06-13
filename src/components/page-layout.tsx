@@ -29,6 +29,7 @@ const segmentNames: Record<string, string> = {
   'my-gears': 'My Gears',
   'performance-highlights': 'Performance Highlights',
   'fretboard-trainer': 'Fretboard Trainer',
+  'payment-history': 'Payment History',
 };
 
 export default function PageLayout({
@@ -94,7 +95,7 @@ export default function PageLayout({
       : 'items-start text-left';
 
   return (
-    <main className="relative min-h-screen bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
+    <div className="relative flex w-full flex-1 flex-col bg-[#05050A] pt-24 pb-24 text-[#f0f0f5]">
       {/* Floating Instrument Accents */}
       {/* <div className="animate-float-1 pointer-events-none absolute top-1/3 left-8 hidden opacity-20 xl:block">
         <LuMusic className="text-cyan-400 size-8" />
@@ -105,7 +106,7 @@ export default function PageLayout({
 
       {/* Unified Width Container - keeps Header and Card perfectly aligned */}
       <div
-        className={`relative z-10 mx-auto flex w-full ${maxWidthClass} flex-col px-5 md:px-12 lg:px-20`}
+        className={`relative z-10 mx-auto flex w-full flex-1 ${maxWidthClass} flex-col px-5 md:px-12 lg:px-20`}
       >
         {/* Top Page Header (Matching Landing Hero) */}
         <div
@@ -231,6 +232,6 @@ export default function PageLayout({
           <BrandEndorsements layout="marquee" className="mt-8" />
         )}
       </div>
-    </main>
+    </div>
   );
 }

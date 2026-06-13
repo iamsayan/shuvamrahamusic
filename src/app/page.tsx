@@ -114,7 +114,7 @@ export default async function Home() {
           ],
         }}
       />
-      <main className="relative min-h-screen overflow-x-hidden bg-[#05050A] text-[#f0f0f5]">
+      <div className="relative flex-1 overflow-x-hidden bg-[#05050A] text-[#f0f0f5]">
         {/* Ambient background glows */}
         <div className="animate-blob-1 pointer-events-none absolute top-1/4 left-1/4 size-100 rounded-full bg-cyan-600/10 blur-[150px]" />
         <div className="animate-blob-2 pointer-events-none absolute top-1/3 right-1/4 size-112.5 rounded-full bg-violet-600/10 blur-[150px]" />
@@ -673,7 +673,7 @@ export default async function Home() {
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </>
   );
 }

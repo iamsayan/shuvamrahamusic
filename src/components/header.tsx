@@ -21,12 +21,16 @@ const navLinks: NavLink[] = [
     href: '/biography',
   },
   {
-    name: 'Guiter Classes',
+    name: 'Guitar Classes',
     href: '/guitar-classes-with-shuvam',
     subItems: [
       {
-        name: 'Make Payment',
+        name: 'Pay Fees',
         href: '/guitar-classes-with-shuvam/pay',
+      },
+      {
+        name: 'Payment History',
+        href: '/guitar-classes-with-shuvam/payment-history',
       },
     ],
   },

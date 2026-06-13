@@ -50,6 +50,7 @@ export default async function SecurePayPage() {
         subtitle="Select your region and preferred coaching program below to complete checkout."
         maxWidth="5xl"
         textAlign="center"
+        showEndorsements={false}
       >
         <Suspense
           fallback={

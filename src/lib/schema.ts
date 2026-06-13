@@ -145,6 +145,7 @@ const ROUTE_NAMES: Record<string, string> = {
   'privacy-policy': 'Privacy Policy',
   'refund-policy': 'Refund Policy',
   'terms-of-service': 'Terms of Service',
+  'payment-history': 'Payment History',
   tools: 'Tools',
   tutorials: 'Learning Materials',
   'fretboard-trainer': 'Fretboard Trainer',

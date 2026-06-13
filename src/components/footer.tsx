@@ -71,10 +71,12 @@ const socialLinks = [
 ];
 
 const quickLinks = [
-  { name: 'Meet Your Coach', href: '#overview' },
-  { name: 'Student Success', href: '#reviews' },
-  { name: 'Pricing & Plans', href: '#pricing' },
-  { name: 'FAQ', href: '#faq' },
+  { name: 'Guitar Classes', href: '/guitar-classes-with-shuvam' },
+  { name: 'Biography', href: '/biography' },
+  { name: 'Performance Highlights', href: '/performance-highlights' },
+  { name: 'My Gears', href: '/my-gears' },
+  { name: 'Tutorials', href: '/tutorials' },
+  { name: 'Blog', href: '/blog' },
 ];
 
 export default function Footer() {
@@ -216,6 +218,13 @@ export default function Footer() {
             </div>
 
             <div className="flex items-center gap-2 text-xs font-semibold sm:text-sm">
+              <Link
+                href="/guitar-classes-with-shuvam/payment-history"
+                className="text-gray-500 transition-colors duration-300 hover:text-white"
+              >
+                Payment History
+              </Link>
+              <span className="text-gray-800">•</span>
               <Link
                 href="/privacy-policy"
                 className="text-gray-500 transition-colors duration-300 hover:text-white"

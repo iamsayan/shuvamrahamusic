@@ -100,7 +100,7 @@ export default async function Page() {
   const [reviews, pricingPlans, classesData] = await Promise.all([
     getReviews(),
     cockpit.listContentItems<PricingPlan[]>('pricingplans'),
-    cockpit.getContentItemByFilter<GuitarClassesData>('guiterclasses', {
+    cockpit.getContentItemByFilter<GuitarClassesData>('guitarclasses', {
       populate: -1,
     }),
   ]);
