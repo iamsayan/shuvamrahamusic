@@ -280,7 +280,7 @@ export default async function Page() {
                         </div>
                       </div>
                       <span className="mt-1 max-w-45 text-xs leading-tight text-gray-400">
-                        Trusted by 600+ students worldwide
+                        Trusted by 150+ students worldwide
                       </span>
                     </div>
                   </div>
@@ -801,7 +801,7 @@ export default async function Page() {
               <h2 className="font-heading mb-4 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
                 Trusted By{' '}
                 <span className="bg-linear-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
-                  600+ Students
+                  100+ Students
                 </span>
               </h2>
               <p className="mx-auto max-w-xl text-sm text-gray-400 sm:text-base lg:text-lg">

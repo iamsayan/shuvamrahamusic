@@ -279,7 +279,7 @@ export default function PaymentHistoryClient() {
                 return (
                   <div
                     key={item._id}
-                    className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/5 bg-white/1 p-5 transition-all duration-300 hover:border-cyan-500/30 hover:bg-white/2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] ${
+                    className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/5 bg-white/1 p-5 text-left transition-all duration-300 hover:border-cyan-500/30 hover:bg-white/2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] ${
                       isFullWidth ? 'md:col-span-2' : ''
                     }`}
                   >

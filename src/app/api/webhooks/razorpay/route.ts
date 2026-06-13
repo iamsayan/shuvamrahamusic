@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
         address: notes.address,
         plan: {
           _id: notes.plan_id,
-          model: 'pricingplans',
+          _model: 'pricingplans',
         },
         region: notes.region,
       };
