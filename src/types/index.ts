@@ -163,12 +163,7 @@ export interface GalleryData extends SingletonEntity {
 
 export interface Enrollment extends Entity {
   name: string;
-  plan:
-    | {
-        _id: string;
-        model: string;
-      }
-    | PricingPlan;
+  plan: PricingPlan;
   amount: number;
   method: string;
   email: string;

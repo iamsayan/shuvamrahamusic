@@ -321,19 +321,21 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
       }
 
       // Track begin_checkout event
-      sendGAEvent('event', 'begin_checkout', {
-        value: activePlan.amount,
-        currency: currency,
-        items: [
-          {
-            item_id: activePlan._id,
-            item_name: activePlan.name,
-            price: activePlan.amount,
-            quantity: 1,
-            item_category: 'Guitar Classes',
-          },
-        ],
-      });
+      if (process.env.NODE_ENV === 'production') {
+        sendGAEvent('event', 'begin_checkout', {
+          value: activePlan.amount,
+          currency: currency,
+          items: [
+            {
+              item_id: activePlan._id,
+              item_name: activePlan.name,
+              price: activePlan.amount,
+              quantity: 1,
+              item_category: 'Guitar Classes',
+            },
+          ],
+        });
+      }
 
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
@@ -358,20 +360,22 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
           razorpay_signature: string;
         }) {
           // Track purchase event
-          sendGAEvent('event', 'purchase', {
-            transaction_id: response.razorpay_payment_id,
-            value: activePlan.amount,
-            currency: currency,
-            items: [
-              {
-                item_id: activePlan._id,
-                item_name: activePlan.name,
-                price: activePlan.amount,
-                quantity: 1,
-                item_category: 'Guitar Classes',
-              },
-            ],
-          });
+          if (process.env.NODE_ENV === 'production') {
+            sendGAEvent('event', 'purchase', {
+              transaction_id: response.razorpay_payment_id,
+              value: activePlan.amount,
+              currency: currency,
+              items: [
+                {
+                  item_id: activePlan._id,
+                  item_name: activePlan.name,
+                  price: activePlan.amount,
+                  quantity: 1,
+                  item_category: 'Guitar Classes',
+                },
+              ],
+            });
+          }
 
           setSuccess({
             paymentId: response.razorpay_payment_id,

@@ -424,7 +424,7 @@ export default async function Home() {
               <h2 className="font-heading mb-4 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
                 Trusted By{' '}
                 <span className="bg-linear-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
-                  600+ Students
+                  150+ Students
                 </span>
               </h2>
               <p className="mx-auto max-w-xl text-sm text-gray-400 sm:text-base lg:text-lg">
