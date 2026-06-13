@@ -34,6 +34,7 @@ export default function PaymentHistoryPage() {
         title="Payment History"
         subtitle="Retrieve your past payment records and verify active class plans."
         showEndorsements={false}
+        textAlign="center"
       >
         <PaymentHistoryClient />
       </PageLayout>

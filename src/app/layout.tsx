@@ -6,6 +6,8 @@ import Providers from '@/app/providers';
 import Footer from '@/components/footer';
 import Header from '@/components/header';
 import WhatsappButton from '@/components/whatsapp-button';
+import cockpit from '@/lib/client';
+import type { Settings } from '@/types';
 import '@bprogress/core/css';
 import { GoogleTagManager } from '@next/third-parties/google';
 
@@ -62,6 +64,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const nonce = (await headers()).get('x-nonce') ?? '';
+  const settings = await cockpit.getContentItemByFilter<Settings>('settings', {
+    populate: 1,
+  });
 
   return (
     <html
@@ -85,7 +90,7 @@ export default async function RootLayout({
         </>
       )}
       <body className="overflow-x-hidden bg-[#05050A] antialiased">
-        <Providers>
+        <Providers settings={settings}>
           <div className="flex min-h-screen flex-col">
             <Header />
             <main className="relative flex flex-1 flex-col">{children}</main>

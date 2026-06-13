@@ -6,11 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'web.shuvamrahamusic.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
+        hostname: '**.shuvamrahamusic.com',
       },
     ],
   },

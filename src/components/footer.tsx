@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { useSettings } from '@/context/settings-context';
+
 import {
   FaApple,
   FaFacebookF,
@@ -70,16 +72,9 @@ const socialLinks = [
   },
 ];
 
-const quickLinks = [
-  { name: 'Guitar Classes', href: '/guitar-classes-with-shuvam' },
-  { name: 'Biography', href: '/biography' },
-  { name: 'Performance Highlights', href: '/performance-highlights' },
-  { name: 'My Gears', href: '/my-gears' },
-  { name: 'Tutorials', href: '/tutorials' },
-  { name: 'Blog', href: '/blog' },
-];
-
 export default function Footer() {
+  const { settings } = useSettings();
+
   return (
     <footer className="relative w-full overflow-hidden bg-[#020205] pt-8 pb-4 md:pt-10">
       {/* Glowing Top Border */}
@@ -132,24 +127,34 @@ export default function Footer() {
           {/* Right Columns Block (Quick Links + Contact Details) */}
           <div className="flex flex-col items-center justify-center gap-10 sm:flex-row sm:items-start sm:gap-16 lg:gap-24">
             {/* Quick Links Column */}
-            <div className="flex flex-col items-center gap-3 sm:items-start">
-              <h4 className="text-xs font-black tracking-wider text-gray-500 uppercase sm:text-sm">
-                Explore
-              </h4>
-              <ul className="flex flex-col items-center gap-2.5 sm:items-start">
-                {quickLinks.map((link, idx) => (
-                  <li key={idx}>
-                    <Link
-                      href={link.href}
-                      className="group flex items-center gap-1.5 text-xs font-bold text-gray-400 transition-colors duration-200 hover:text-white sm:text-sm"
-                    >
-                      <LuChevronRight className="size-3.5 text-cyan-400/80 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-cyan-300" />
-                      <span>{link.name}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {settings?.footer_menu && settings.footer_menu.some((item) => item.active) && (
+              <div className="flex flex-col items-center gap-3 sm:items-start">
+                <h4 className="text-xs font-black tracking-wider text-gray-500 uppercase sm:text-sm">
+                  Explore
+                </h4>
+                <ul className="flex flex-col items-center gap-2.5 sm:items-start">
+                  {settings.footer_menu
+                    .filter((item) => item.active)
+                    .map((link, idx) => (
+                      <li key={idx}>
+                        <Link
+                          href={link.url}
+                          target={link.target || undefined}
+                          rel={
+                            link.target === '_blank'
+                              ? 'noopener noreferrer'
+                              : undefined
+                          }
+                          className="group flex items-center gap-1.5 text-xs font-bold text-gray-400 transition-colors duration-200 hover:text-white sm:text-sm"
+                        >
+                          <LuChevronRight className="size-3.5 text-cyan-400/80 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-cyan-300" />
+                          <span>{link.title}</span>
+                        </Link>
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            )}
 
             {/* Contact Details Column */}
             <div className="flex flex-col items-center gap-3 sm:items-start">
@@ -218,12 +223,6 @@ export default function Footer() {
             </div>
 
             <div className="flex items-center gap-2 text-xs font-semibold sm:text-sm">
-              <Link
-                href="/guitar-classes-with-shuvam/payment-history"
-                className="text-gray-500 transition-colors duration-300 hover:text-white"
-              >
-                Payment History
-              </Link>
               <span className="text-gray-800">•</span>
               <Link
                 href="/privacy-policy"

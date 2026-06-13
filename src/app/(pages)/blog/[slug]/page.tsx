@@ -351,13 +351,12 @@ export default async function BlogPostPage({ params }: PageProps) {
                   <LuCalendar className="size-3.5 text-gray-500" />
                   {post.date}
                 </span>
-                {post.modifiedDate &&
-                  post.raw._created !== post.raw._modified && (
-                    <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-gray-400 uppercase">
-                      <LuHistory className="size-3.5 text-gray-500" />
-                      Updated: {post.modifiedDate}
-                    </span>
-                  )}
+                {post.modifiedDate && post.modifiedDate !== post.date && (
+                  <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-gray-400 uppercase">
+                    <LuHistory className="size-3.5 text-gray-500" />
+                    Updated: {post.modifiedDate}
+                  </span>
+                )}
                 <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase">
                   <LuClock className="size-3.5 text-gray-500" />
                   {post.readTime}
@@ -411,11 +410,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 )}
 
                 <div className="shrink-0">
-                  <ShareButtons
-                    title={post.title}
-                    url={postUrl}
-                    coverImage={cockpit.getImageUrl(post.coverImage._id)}
-                  />
+                  <ShareButtons post={post} />
                 </div>
               </div>
 
