@@ -9,63 +9,36 @@ export async function fetchPaymentHistory(input: string): Promise<{
   error?: string;
 }> {
   if (!input || input.trim() === '') {
-    return { success: false, error: 'Please enter an email address or phone number.' };
+    return {
+      success: false,
+      error: 'Please enter an email address or phone number.',
+    };
   }
 
   const cleanInput = input.trim();
+  const cleanPhone = cleanInput.replace(/\D/g, '');
 
   try {
-    let enrollments: Enrollment[] = [];
+    const orConditions: Record<string, string>[] = [
+      { email: cleanInput },
+      { email: cleanInput.toLowerCase() },
+      { phone: cleanInput },
+    ];
 
-    if (cleanInput.includes('@')) {
-      // Search by email (case-insensitive check by matching lowercased string)
-      enrollments = await cockpit.listContentItems<Enrollment[]>('enrollments', {
-        filter: { email: cleanInput },
-        populate: 1,
-        sort: { _created: -1 },
-      });
-
-      // Fallback search with lowercase just in case it was stored that way
-      if (enrollments.length === 0 && cleanInput.toLowerCase() !== cleanInput) {
-        enrollments = await cockpit.listContentItems<Enrollment[]>('enrollments', {
-          filter: { email: cleanInput.toLowerCase() },
-          populate: 1,
-          sort: { _created: -1 },
-        });
-      }
-    } else {
-      // Search by phone number
-      const cleanPhone = cleanInput.replace(/\D/g, '');
-      const queries = [
-        cockpit.listContentItems<Enrollment[]>('enrollments', {
-          filter: { phone: cleanInput },
-          populate: 1,
-          sort: { _created: -1 },
-        }),
-      ];
-
-      if (cleanPhone && cleanPhone !== cleanInput) {
-        queries.push(
-          cockpit.listContentItems<Enrollment[]>('enrollments', {
-            filter: { phone: cleanPhone },
-            populate: 1,
-            sort: { _created: -1 },
-          })
-        );
-      }
-
-      const responses = await Promise.all(queries);
-      const uniqueEnrollments = new Map<string, Enrollment>();
-      responses.flat().forEach((item) => {
-        if (item && item._id) {
-          uniqueEnrollments.set(item._id, item);
-        }
-      });
-      enrollments = Array.from(uniqueEnrollments.values());
+    if (cleanPhone) {
+      orConditions.push({ phone: cleanPhone });
     }
 
-    // Sort descending by creation date
-    enrollments.sort((a, b) => b._created - a._created);
+    const enrollments = await cockpit.listContentItems<Enrollment[]>(
+      'enrollments',
+      {
+        filter: {
+          $or: orConditions,
+        },
+        populate: 1,
+        sort: { _created: -1 },
+      }
+    );
 
     return {
       success: true,
@@ -75,7 +48,8 @@ export async function fetchPaymentHistory(input: string): Promise<{
     console.error('Error in fetchPaymentHistory action:', error);
     return {
       success: false,
-      error: 'An error occurred while fetching payment history. Please try again.',
+      error:
+        'An error occurred while fetching payment history. Please try again.',
     };
   }
 }
