@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 
 import { fetchPaymentHistory } from '@/app/actions/enrollments';
+import { formatCurrency, formatDate } from '@/lib/utils';
 import { Enrollment } from '@/types';
 
 import {
@@ -68,24 +69,6 @@ export default function PaymentHistoryClient() {
     setTimeout(() => setCopiedField(null), 2000);
   };
 
-  const formatDate = (timestamp?: number) => {
-    if (!timestamp) return 'N/A';
-    return new Date(timestamp * 1000).toLocaleDateString('en-IN', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-  };
-
-  const formatCurrency = (amount: number, region?: string) => {
-    const isUSD =
-      region?.toUpperCase() === 'GLOBAL' || region?.toUpperCase() === 'US';
-    if (isUSD) {
-      return `$${amount}`;
-    }
-    return `₹${amount}`;
-  };
-
   const handlePrint = (item: Enrollment, planName: string) => {
     const printWindow = window.open('', '_blank');
     if (!printWindow) return;
@@ -136,7 +119,7 @@ export default function PaymentHistoryClient() {
               </div>
               <div style="text-align: right;">
                 <div class="section-title">Receipt Details</div>
-                Date: ${formatDate(item._created)}<br>
+                Date: ${formatDate(item._created, 'en-IN')}<br>
                 Payment ID: ${item.payment_id || 'N/A'}<br>
                 Order ID: ${item.order_id || 'N/A'}<br>
                 Method: ${item.method?.toUpperCase() || 'ONLINE'}
@@ -393,7 +376,7 @@ export default function PaymentHistoryClient() {
                           </span>
                           <p className="mt-0.5 flex items-center gap-1.5 font-semibold text-gray-300">
                             <LuCalendar className="size-3.5 text-cyan-400" />
-                            {formatDate(item._created)}
+                            {formatDate(item._created, 'en-IN')}
                           </p>
                         </div>
 

@@ -4,20 +4,37 @@ import { useEffect, useMemo, useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { useSettings } from '@/context/settings-context';
+import { normalizeUrl } from '@/lib/utils';
 
 import { LuArrowRight, LuChevronDown, LuPhone } from 'react-icons/lu';
 
 export default function Header() {
   const { settings } = useSettings();
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const normalizedPathname = useMemo(() => normalizeUrl(pathname), [pathname]);
 
   // Dynamically map menu items from CMS settings if available, otherwise return null
   const currentNavLinks = useMemo(() => {
     if (settings?.header_menu && settings.header_menu.length > 0) {
-      return settings.header_menu.filter((item) => item.active);
+      return settings.header_menu
+        .filter((item) => item.active)
+        .map((item) => {
+          const children = item.children?.map((child) => ({
+            ...child,
+            url: normalizeUrl(child.url),
+          }));
+          return {
+            ...item,
+            url: normalizeUrl(item.url),
+            children,
+          };
+        });
     }
     return null;
   }, [settings]);
@@ -78,6 +95,7 @@ export default function Header() {
             <nav className="hidden items-center gap-0.5 rounded-full border border-white/10 bg-white/2 px-2 py-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.2)] backdrop-blur-md xl:flex">
               {currentNavLinks.map((link, idx) => {
                 const isRealLink = link.url && link.url !== '#';
+                const isActive = normalizedPathname === link.url || link.children?.some(sub => normalizedPathname === sub.url);
 
                 if (link.children && link.children.length > 0 && isRealLink) {
                   return (
@@ -87,32 +105,43 @@ export default function Header() {
                     >
                       <Link
                         href={link.url}
-                        className="relative z-10 text-sm font-bold whitespace-nowrap text-gray-300 transition-colors duration-300 group-hover/item:text-white hover:text-white"
+                        className={`relative z-10 text-sm font-bold whitespace-nowrap transition-colors duration-300 ${
+                          isActive ? 'text-cyan-400' : 'text-gray-300 group-hover/item:text-white hover:text-white'
+                        }`}
                       >
                         {link.title}
                       </Link>
                       <div className="group/chevron relative flex cursor-pointer items-center justify-center p-1">
-                        <LuChevronDown className="relative z-10 size-3 text-gray-400 transition-transform duration-300 group-hover/chevron:rotate-180 group-hover/chevron:text-white" />
+                        <LuChevronDown className={`relative z-10 size-3 transition-transform duration-300 group-hover/chevron:rotate-180 ${
+                          isActive ? 'text-cyan-400' : 'text-gray-400 group-hover/chevron:text-white'
+                        }`} />
 
                         {/* Dropdown triggered only by Chevron hover */}
                         <div className="invisible absolute top-full left-1/2 z-50 -translate-x-1/2 translate-y-3 pt-3 opacity-0 transition-all duration-300 ease-out group-hover/chevron:visible group-hover/chevron:opacity-100">
                           <div className="flex min-w-37.5 flex-col rounded-2xl border border-white/10 bg-[#0a0a0f]/95 p-1.5 shadow-[0_20px_40px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
                             {link.children
                               .filter((sub) => sub.active)
-                              .map((sub, sIdx) => (
-                                <Link
-                                  key={sIdx}
-                                  href={sub.url}
-                                  className="rounded-xl px-3.5 py-2 text-sm font-bold text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
-                                >
-                                  {sub.title}
-                                </Link>
-                              ))}
+                              .map((sub, sIdx) => {
+                                const isSubActive = normalizedPathname === sub.url;
+                                return (
+                                  <Link
+                                    key={sIdx}
+                                    href={sub.url}
+                                    className={`rounded-xl px-3.5 py-2 text-sm font-bold transition-colors ${
+                                      isSubActive ? 'bg-cyan-500/10 text-cyan-400' : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                                    }`}
+                                  >
+                                    {sub.title}
+                                  </Link>
+                                );
+                              })}
                           </div>
                         </div>
                       </div>
                       {/* Unified Pill Hover Effect */}
-                      <span className="pointer-events-none absolute inset-0 scale-75 rounded-full bg-white/10 opacity-0 transition-all duration-300 ease-out group-hover/item:scale-100 group-hover/item:opacity-100" />
+                      <span className={`pointer-events-none absolute inset-0 rounded-full transition-all duration-300 ease-out ${
+                        isActive ? 'scale-100 bg-white/5 opacity-100' : 'scale-75 bg-white/10 opacity-0 group-hover/item:scale-100 group-hover/item:opacity-100'
+                      }`} />
                     </div>
                   );
                 }
@@ -123,14 +152,20 @@ export default function Header() {
                       href={link.url}
                       className="relative flex items-center gap-1 overflow-hidden rounded-full px-3.5 py-1.5 transition-colors"
                     >
-                      <span className="relative z-10 text-sm font-bold whitespace-nowrap text-gray-300 transition-colors duration-300 group-hover:text-white">
+                      <span className={`relative z-10 text-sm font-bold whitespace-nowrap transition-colors duration-300 ${
+                        isActive ? 'text-cyan-400' : 'text-gray-300 group-hover:text-white'
+                      }`}>
                         {link.title}
                       </span>
                       {link.children && link.children.length > 0 && (
-                        <LuChevronDown className="relative z-10 size-3 text-gray-400 transition-transform duration-300 group-hover:rotate-180 group-hover:text-white" />
+                        <LuChevronDown className={`relative z-10 size-3 transition-transform duration-300 group-hover:rotate-180 ${
+                          isActive ? 'text-cyan-400' : 'text-gray-400 group-hover:text-white'
+                        }`} />
                       )}
                       {/* Pill Hover Effect */}
-                      <span className="pointer-events-none absolute inset-0 scale-75 rounded-full bg-white/10 opacity-0 transition-all duration-300 ease-out group-hover:scale-100 group-hover:opacity-100" />
+                      <span className={`pointer-events-none absolute inset-0 rounded-full transition-all duration-300 ease-out ${
+                        isActive ? 'scale-100 bg-white/5 opacity-100' : 'scale-75 bg-white/10 opacity-0 group-hover:scale-100 group-hover:opacity-100'
+                      }`} />
                     </Link>
 
                     {/* Dropdown for Desktop */}
@@ -139,15 +174,20 @@ export default function Header() {
                         <div className="flex min-w-37.5 flex-col rounded-2xl border border-white/10 bg-[#0a0a0f]/95 p-1.5 shadow-[0_20px_40px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
                           {link.children
                             .filter((sub) => sub.active)
-                            .map((sub, sIdx) => (
-                              <Link
-                                key={sIdx}
-                                href={sub.url}
-                                className="rounded-xl px-3.5 py-2 text-sm font-bold text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
-                              >
-                                {sub.title}
-                              </Link>
-                            ))}
+                            .map((sub, sIdx) => {
+                              const isSubActive = normalizedPathname === sub.url;
+                              return (
+                                <Link
+                                  key={sIdx}
+                                  href={sub.url}
+                                  className={`rounded-xl px-3.5 py-2 text-sm font-bold transition-colors ${
+                                    isSubActive ? 'bg-cyan-500/10 text-cyan-400' : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                                  }`}
+                                >
+                                  {sub.title}
+                                </Link>
+                              );
+                            })}
                         </div>
                       </div>
                     )}
@@ -201,6 +241,7 @@ export default function Header() {
             <nav className="flex w-full flex-1 flex-col gap-1 overflow-y-auto pr-1">
               {currentNavLinks.map((link, idx) => {
                 const isRealLink = link.url && link.url !== '#';
+                const isActive = normalizedPathname === link.url || link.children?.some(sub => normalizedPathname === sub.url);
                 return (
                   <div
                     key={idx}
@@ -209,19 +250,19 @@ export default function Header() {
                   >
                     <Link
                       href={link.url}
-                      className="group flex items-center justify-between py-2 text-base font-bold text-gray-300 transition-all duration-300 hover:text-white"
+                      className={`group flex items-center justify-between py-2 text-base font-bold transition-all duration-300 ${
+                        isActive ? 'text-cyan-400' : 'text-gray-300 hover:text-white'
+                      }`}
                       onClick={() =>
-                        (!link.children ||
-                          link.children.length === 0 ||
-                          isRealLink) &&
+                        (!link.children || link.children.length === 0 || isRealLink) &&
                         setIsMobileMenuOpen(false)
                       }
                     >
                       {link.title}
-                      {(!link.children ||
-                        link.children.length === 0 ||
-                        isRealLink) && (
-                        <LuArrowRight className="size-4 -translate-x-3 text-cyan-400 opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100" />
+                      {(!link.children || link.children.length === 0 || isRealLink) && (
+                        <LuArrowRight className={`size-4 transition-all duration-300 ease-out ${
+                          isActive ? 'translate-x-0 opacity-100 text-cyan-400' : '-translate-x-3 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 text-cyan-400'
+                        }`} />
                       )}
                     </Link>
 
@@ -230,16 +271,21 @@ export default function Header() {
                       <div className="mb-1 ml-2 flex flex-col gap-2 border-l-2 border-white/10 pb-2 pl-4">
                         {link.children
                           .filter((sub) => sub.active)
-                          .map((sub, sIdx) => (
-                            <Link
-                              key={sIdx}
-                              href={sub.url}
-                              className="py-1 text-sm font-semibold text-gray-400 transition-colors hover:text-cyan-400"
-                              onClick={() => setIsMobileMenuOpen(false)}
-                            >
-                              {sub.title}
-                            </Link>
-                          ))}
+                          .map((sub, sIdx) => {
+                            const isSubActive = normalizedPathname === sub.url;
+                            return (
+                              <Link
+                                key={sIdx}
+                                href={sub.url}
+                                className={`py-1 text-sm font-semibold transition-colors ${
+                                  isSubActive ? 'text-cyan-400' : 'text-gray-400 hover:text-cyan-400'
+                                }`}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                              >
+                                {sub.title}
+                              </Link>
+                            );
+                          })}
                       </div>
                     )}
                   </div>

@@ -1,9 +1,12 @@
 'use client';
 
+import { useMemo } from 'react';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { useSettings } from '@/context/settings-context';
+import { normalizeUrl } from '@/lib/utils';
 
 import {
   FaApple,
@@ -75,6 +78,18 @@ const socialLinks = [
 export default function Footer() {
   const { settings } = useSettings();
 
+  const currentQuickLinks = useMemo(() => {
+    if (settings?.footer_menu && settings.footer_menu.length > 0) {
+      return settings.footer_menu
+        .filter((item) => item.active)
+        .map((item) => ({
+          ...item,
+          url: normalizeUrl(item.url),
+        }));
+    }
+    return null;
+  }, [settings]);
+
   return (
     <footer className="relative w-full overflow-hidden bg-[#020205] pt-8 pb-4 md:pt-10">
       {/* Glowing Top Border */}
@@ -127,31 +142,29 @@ export default function Footer() {
           {/* Right Columns Block (Quick Links + Contact Details) */}
           <div className="flex flex-col items-center justify-center gap-10 sm:flex-row sm:items-start sm:gap-16 lg:gap-24">
             {/* Quick Links Column */}
-            {settings?.footer_menu && settings.footer_menu.some((item) => item.active) && (
+            {currentQuickLinks && currentQuickLinks.length > 0 && (
               <div className="flex flex-col items-center gap-3 sm:items-start">
                 <h4 className="text-xs font-black tracking-wider text-gray-500 uppercase sm:text-sm">
                   Explore
                 </h4>
                 <ul className="flex flex-col items-center gap-2.5 sm:items-start">
-                  {settings.footer_menu
-                    .filter((item) => item.active)
-                    .map((link, idx) => (
-                      <li key={idx}>
-                        <Link
-                          href={link.url}
-                          target={link.target || undefined}
-                          rel={
-                            link.target === '_blank'
-                              ? 'noopener noreferrer'
-                              : undefined
-                          }
-                          className="group flex items-center gap-1.5 text-xs font-bold text-gray-400 transition-colors duration-200 hover:text-white sm:text-sm"
-                        >
-                          <LuChevronRight className="size-3.5 text-cyan-400/80 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-cyan-300" />
-                          <span>{link.title}</span>
-                        </Link>
-                      </li>
-                    ))}
+                  {currentQuickLinks.map((link, idx) => (
+                    <li key={idx}>
+                      <Link
+                        href={link.url}
+                        target={link.target || undefined}
+                        rel={
+                          link.target === '_blank'
+                            ? 'noopener noreferrer'
+                            : undefined
+                        }
+                        className="group flex items-center gap-1.5 text-xs font-bold text-gray-400 transition-colors duration-200 hover:text-white sm:text-sm"
+                      >
+                        <LuChevronRight className="size-3.5 text-cyan-400/80 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-cyan-300" />
+                        <span>{link.title}</span>
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
             )}
@@ -206,7 +219,7 @@ export default function Footer() {
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div className="flex flex-col items-center gap-2 text-center sm:flex-row sm:text-left">
               <p className="text-xs font-semibold text-gray-500 sm:text-sm">
-                &copy; {new Date().getFullYear()} Shuvam Raha Music.
+                &copy; {new Date().getFullYear()} Shuvam Raha Music
               </p>
               <span className="hidden text-gray-800 sm:inline">•</span>
               <p className="flex items-center gap-1 text-xs font-semibold text-gray-500 sm:text-sm">

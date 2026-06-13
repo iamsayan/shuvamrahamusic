@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import Link from 'next/link';
 
 import { useRegion } from '@/hooks/use-region';
+import { getCurrencySymbol } from '@/lib/utils';
 import { PricingPlan } from '@/types';
 
 import {
@@ -138,7 +139,7 @@ export default function PricingTable({ plans }: PricingTableProps) {
             const styles = themeMap[themeName];
             const isFirst = i === 0;
             const popular = plan.is_popular === true;
-            const currency = plan.region === 'India' ? '₹' : '$';
+             const currency = getCurrencySymbol(plan.region);
 
             return (
               <div
