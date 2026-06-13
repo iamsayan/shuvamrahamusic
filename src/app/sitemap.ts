@@ -11,6 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/biography',
     '/guitar-classes-with-shuvam',
     '/guitar-classes-with-shuvam/pay',
+    '/guitar-classes-with-shuvam/paymeny-history',
     '/my-gears',
     '/performance-highlights',
     '/privacy-policy',
@@ -20,9 +21,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/gallery/audios',
     '/gallery/videos',
     '/gallery/photos',
+    '/blog',
     //'/tools/fretboard-trainer',
     // '/tools/rhythm-workshop',
-    '/blog',
   ];
 
   const sitemapEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
