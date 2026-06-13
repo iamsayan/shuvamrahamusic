@@ -1,11 +1,19 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  SubmitEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
+import { searchBlogPostsAction } from '@/app/actions/blog-search';
 import BlogPostCard from '@/components/blog-post-card';
 import CockpitImage from '@/components/cockpit-image';
 import PageLayout from '@/components/page-layout';
@@ -16,6 +24,7 @@ import {
   GLOW_COLORS,
   getThemeKey,
 } from '@/lib/blog-shared';
+import { useRouter } from '@bprogress/next/app';
 
 import {
   LuArrowRight,
@@ -44,11 +53,48 @@ export default function BlogListingClient({
   const searchQuery = searchParams.get('search') || '';
 
   const [localSearch, setLocalSearch] = useState(searchQuery);
+  const [suggestions, setSuggestions] = useState<
+    { id: string; title: string; slug: string; category: string }[]
+  >([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const searchRef = useRef<HTMLFormElement>(null);
 
   // Sync localSearch when URL query changes (e.g. on reset or back navigation)
   useEffect(() => {
     setLocalSearch(searchQuery);
   }, [searchQuery]);
+
+  // Click outside to close autocomplete
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, []);
+
+  // Fetch autocomplete suggestions with a slight debounce
+  useEffect(() => {
+    // Optimization: Skip fetching if query is empty or matches the currently loaded active search query
+    if (!localSearch.trim() || localSearch === searchQuery) {
+      setSuggestions([]);
+      return;
+    }
+
+    const timer = setTimeout(async () => {
+      try {
+        const results = await searchBlogPostsAction(localSearch);
+        setSuggestions(results);
+      } catch (err) {
+        console.error(err);
+      }
+    }, 150);
+
+    return () => clearTimeout(timer);
+  }, [localSearch, searchQuery]);
 
   const updateUrl = useCallback(
     (newSearch: string, newPage: number) => {
@@ -64,31 +110,74 @@ export default function BlogListingClient({
     [router, pathname]
   );
 
-  const getPageLink = (pageNum: number) => {
-    const params = new URLSearchParams();
-    if (searchQuery) {
-      params.set('search', searchQuery);
-    }
-    if (pageNum > 1) {
-      params.set('page', String(pageNum));
-    }
-    const queryStr = params.toString();
-    return queryStr ? `${pathname}?${queryStr}` : pathname;
-  };
-
-  // Debounce search update to URL
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (localSearch !== searchQuery) {
-        updateUrl(localSearch, 1);
+  const getPageLink = useCallback(
+    (pageNum: number) => {
+      const params = new URLSearchParams();
+      if (searchQuery) {
+        params.set('search', searchQuery);
       }
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [localSearch, searchQuery, updateUrl]);
+      if (pageNum > 1) {
+        params.set('page', String(pageNum));
+      }
+      const queryStr = params.toString();
+      return queryStr ? `${pathname}?${queryStr}` : pathname;
+    },
+    [searchQuery, pathname]
+  );
 
-  const handleSearchChange = (query: string) => {
+  const handleSearchChange = useCallback((query: string) => {
     setLocalSearch(query);
-  };
+    setShowSuggestions(true);
+    setHighlightedIndex(-1);
+  }, []);
+
+  const handleFormSubmit = useCallback(
+    (e: SubmitEvent) => {
+      e.preventDefault();
+      updateUrl(localSearch, 1);
+      setShowSuggestions(false);
+    },
+    [localSearch, updateUrl]
+  );
+
+  const handleSelectSuggestion = useCallback(
+    (slug: string) => {
+      router.push(`/blog/${slug}`);
+      setShowSuggestions(false);
+      setLocalSearch('');
+    },
+    [router]
+  );
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setShowSuggestions(true);
+        setHighlightedIndex((prev) =>
+          suggestions.length > 0 ? (prev + 1) % suggestions.length : -1
+        );
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setShowSuggestions(true);
+        setHighlightedIndex((prev) =>
+          suggestions.length > 0
+            ? (prev - 1 + suggestions.length) % suggestions.length
+            : -1
+        );
+      } else if (e.key === 'Enter') {
+        if (highlightedIndex >= 0 && highlightedIndex < suggestions.length) {
+          e.preventDefault();
+          handleSelectSuggestion(suggestions[highlightedIndex].slug);
+        } else {
+          setShowSuggestions(false);
+        }
+      } else if (e.key === 'Escape') {
+        setShowSuggestions(false);
+      }
+    },
+    [suggestions, highlightedIndex, handleSelectSuggestion]
+  );
 
   // The first post of the list will be highlighted as featured when on page 1
   const featuredPost = useMemo(() => {
@@ -103,9 +192,6 @@ export default function BlogListingClient({
     if (posts.length <= 1) return [];
     return posts.slice(1);
   }, [posts, currentPage]);
-
-  // Paginated grid posts - passed directly from server
-  const paginatedGridPosts = gridPosts;
 
   const totalPages = useMemo(() => {
     return totalPostsCount <= 10
@@ -131,26 +217,70 @@ export default function BlogListingClient({
       subtitle="Practical guides, finger exercises, gear reviews, and roadmaps from Shuvam Raha to help you learn guitar and master your favorite songs."
       variant="plain"
       headerRight={
-        <div className="relative w-full">
+        <form
+          ref={searchRef}
+          onSubmit={handleFormSubmit}
+          className="relative w-full"
+        >
           <input
             type="text"
             placeholder="Search articles..."
             value={localSearch}
             onChange={(e) => handleSearchChange(e.target.value)}
+            onKeyDown={handleKeyDown}
+            onFocus={() => setShowSuggestions(true)}
             className="w-full rounded-full border border-white/10 bg-white/2 py-3 pr-12 pl-12 text-sm text-white placeholder-gray-500 backdrop-blur-md transition-all duration-300 outline-none focus:border-cyan-500/30 focus:bg-white/4 focus:shadow-[0_0_15px_rgba(6,182,212,0.15)]"
           />
           <LuSearch className="absolute top-1/2 left-4.5 size-4.5 -translate-y-1/2 text-gray-500" />
           {localSearch && (
             <button
               type="button"
-              onClick={() => handleSearchChange('')}
+              onClick={() => {
+                handleSearchChange('');
+                setShowSuggestions(false);
+                updateUrl('', 1);
+              }}
               className="absolute top-1/2 right-4.5 -translate-y-1/2 text-gray-500 transition-colors hover:text-white"
               aria-label="Clear search"
             >
               <LuX className="size-4" />
             </button>
           )}
-        </div>
+
+          {/* Autocomplete Dropdown */}
+          {showSuggestions && suggestions.length > 0 && (
+            <div className="absolute top-full left-0 z-50 mt-2.5 w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0A0A15]/95 p-1.5 shadow-2xl backdrop-blur-3xl">
+              <div className="px-3 py-1.5 text-[9px] font-black tracking-widest text-gray-500 uppercase">
+                Suggestions
+              </div>
+              <div className="flex flex-col gap-0.5">
+                {suggestions.map((suggestion, idx) => {
+                  const isHighlighted = idx === highlightedIndex;
+                  return (
+                    <button
+                      key={suggestion.id}
+                      type="button"
+                      onClick={() => handleSelectSuggestion(suggestion.slug)}
+                      onMouseEnter={() => setHighlightedIndex(idx)}
+                      className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-left transition-all duration-200 ${
+                        isHighlighted
+                          ? 'bg-white/10 text-cyan-400'
+                          : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                      }`}
+                    >
+                      <span className="truncate text-xs leading-normal font-bold">
+                        {suggestion.title}
+                      </span>
+                      <span className="ml-2 shrink-0 rounded-full bg-cyan-500/10 px-2 py-0.5 text-[8px] font-black tracking-widest text-cyan-400 uppercase">
+                        {suggestion.category}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </form>
       }
     >
       {/* If no articles found */}
@@ -166,7 +296,11 @@ export default function BlogListingClient({
           </p>
           <button
             type="button"
-            onClick={() => handleSearchChange('')}
+            onClick={() => {
+              handleSearchChange('');
+              setShowSuggestions(false);
+              updateUrl('', 1);
+            }}
             className="font-heading mt-6 rounded-full border border-white/10 bg-white/5 px-6 py-2.5 text-xs font-bold text-white transition-all hover:bg-white/10"
           >
             Clear Search
@@ -273,14 +407,14 @@ export default function BlogListingClient({
       )}
 
       {/* Main Grid Section */}
-      {paginatedGridPosts.length > 0 && (
+      {gridPosts.length > 0 && (
         <div className="mb-16">
           <span className="font-heading mb-6 block text-xs font-black tracking-widest text-gray-500 uppercase">
             {currentPage === 1 ? 'Latest Articles' : 'More Articles'}
           </span>
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {paginatedGridPosts.map((post) => (
+            {gridPosts.map((post) => (
               <BlogPostCard key={post.id} post={post} />
             ))}
           </div>
