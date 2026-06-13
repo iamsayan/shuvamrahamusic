@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { SubmitEvent, useState } from 'react';
 
 import { fetchPaymentHistory } from '@/app/actions/enrollments';
 import { formatCurrency, formatDate } from '@/lib/utils';
@@ -32,7 +32,7 @@ export default function PaymentHistoryClient() {
   const [hasSearched, setHasSearched] = useState(false);
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
-  const handleSearch = async (e: React.FormEvent) => {
+  const handleSearch = async (e: SubmitEvent) => {
     e.preventDefault();
     const term = searchTerm.trim();
     if (!term) {
