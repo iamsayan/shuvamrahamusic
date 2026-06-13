@@ -4,6 +4,7 @@ import cockpit, {
   ContentItemsListOptions,
   PaginatedList,
 } from '@/lib/client';
+import { formatDate } from '@/lib/utils';
 import { Category, Post, Tag } from '@/types';
 
 export * from '@/lib/blog-shared';
@@ -14,31 +15,6 @@ const AUTHOR_SHUVAM: Author = {
   role: 'LCM Certified Music Instructor',
   bio: `Professional guitarist, music producer, and educator with over ${new Date().getFullYear() - 2015} years of coaching experience, helping 600+ students globally master the guitar.`,
 };
-
-// Helper to format date from unix timestamp (seconds) or string
-function formatDate(timestamp?: number | string): string {
-  if (!timestamp) {
-    return new Date().toLocaleDateString('en-US', {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-    });
-  }
-
-  if (typeof timestamp === 'number') {
-    return new Date(timestamp * 1000).toLocaleDateString('en-US', {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-    });
-  }
-
-  return new Date(timestamp).toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
-}
 
 // Helper to calculate reading time dynamically
 function calculateReadTime(content?: string): string {

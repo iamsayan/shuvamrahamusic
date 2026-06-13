@@ -7,6 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import { createRazorpayOrder } from '@/app/actions/razorpay';
 import { useRegion } from '@/hooks/use-region';
 import { loadRazorpay } from '@/lib/load-razorpay';
+import { getCurrencySymbol } from '@/lib/utils';
 import { PricingPlan } from '@/types';
 import { sendGAEvent } from '@next/third-parties/google';
 
@@ -375,7 +376,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
           setSuccess({
             paymentId: response.razorpay_payment_id,
             amount: activePlan.amount.toString(),
-            currency: activePlan.region === 'India' ? '₹' : '$',
+            currency: getCurrencySymbol(activePlan.region),
           });
           setProcessing(false);
         },
@@ -509,7 +510,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
             const themeName = getPlanThemeName(plan.region, idx);
             const theme = themeMap[themeName] || themeMap.blue;
             const popular = plan.is_popular === true;
-            const currency = plan.region === 'India' ? '₹' : '$';
+            const currency = getCurrencySymbol(plan.region);
 
             return (
               <button
@@ -652,7 +653,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
                 <span
                   className={`font-heading text-2xl font-black sm:text-3xl ${planTheme.text}`}
                 >
-                  {activePlan.region === 'India' ? '₹' : '$'}
+                  {getCurrencySymbol(activePlan.region)}
                   {activePlan.amount}
                 </span>
                 <span className="text-xs font-semibold text-gray-400">
@@ -842,7 +843,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
               </>
             ) : (
               <>
-                Proceed to Pay {activePlan.region === 'India' ? '₹' : '$'}
+                Proceed to Pay {getCurrencySymbol(activePlan.region)}
                 {activePlan.amount}
               </>
             )}
