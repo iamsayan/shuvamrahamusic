@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { useSettings } from '@/context/settings-context';
+import { useSettings } from '@/app/providers';
 import { normalizeUrl } from '@/lib/utils';
 
 import {
@@ -76,7 +76,7 @@ const socialLinks = [
 ];
 
 export default function Footer() {
-  const { settings } = useSettings();
+  const settings = useSettings();
 
   const currentQuickLinks = useMemo(() => {
     if (settings?.footer_menu && settings.footer_menu.length > 0) {
@@ -111,6 +111,7 @@ export default function Footer() {
                 width={80}
                 height={50}
                 className="size-auto"
+                loading="eager"
               />
             </div>
 

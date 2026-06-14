@@ -1,15 +1,18 @@
 'use client';
 
-import { SettingsProvider } from '@/context/settings-context';
+import { createContext, use, useContext } from 'react';
+
 import type { Settings } from '@/types';
 import { ProgressProvider } from '@bprogress/next/app';
 
+const SettingsContext = createContext<Promise<Settings> | null>(null);
+
 export default function Providers({
   children,
-  settings,
+  settingsPromise,
 }: {
   children: React.ReactNode;
-  settings: Settings;
+  settingsPromise: Promise<Settings>;
 }) {
   return (
     <ProgressProvider
@@ -18,7 +21,16 @@ export default function Providers({
       options={{ showSpinner: false }}
       shallowRouting
     >
-      <SettingsProvider settings={settings}>{children}</SettingsProvider>
+      <SettingsContext value={settingsPromise}>{children}</SettingsContext>
     </ProgressProvider>
   );
+}
+
+export function useSettings() {
+  const settingsPromise = useContext(SettingsContext);
+  if (!settingsPromise) {
+    throw new Error('useSettings must be used within SettingsProvider');
+  }
+
+  return use(settingsPromise);
 }

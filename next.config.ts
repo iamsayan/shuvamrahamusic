@@ -10,19 +10,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'X-Robots-Tag',
-            value: 'noindex, follow',
-          },
-        ],
-      },
-    ];
-  },
+  poweredByHeader: false,
+  reactCompiler: true,
 };
 
 export default nextConfig;
