@@ -1,4 +1,7 @@
+import { Suspense } from 'react';
+
 import type { Metadata } from 'next';
+import type { Viewport } from 'next';
 import { Outfit } from 'next/font/google';
 import { headers } from 'next/headers';
 
@@ -6,10 +9,10 @@ import Providers from '@/app/providers';
 import Footer from '@/components/footer';
 import Header from '@/components/header';
 import WhatsappButton from '@/components/whatsapp-button';
-import cockpit from '@/lib/client';
-import type { Settings } from '@/types';
+import { getSettings } from '@/lib/data';
 import '@bprogress/core/css';
 import { GoogleTagManager } from '@next/third-parties/google';
+import { LuMusic } from 'react-icons/lu';
 
 import './globals.css';
 
@@ -58,15 +61,65 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: '#05050a',
+  colorScheme: 'dark',
+};
+
+function RootLoader() {
+  return (
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#05050A]">
+      {/* Background glows */}
+      <div className="absolute h-[300px] w-[300px] rounded-full bg-cyan-500/10 blur-[80px]" />
+      <div className="absolute h-[300px] w-[300px] rounded-full bg-indigo-500/5 blur-[100px]" />
+      
+      {/* Loader Content */}
+      <div className="relative flex flex-col items-center gap-6">
+        {/* Animated Icon Ring */}
+        <div className="relative flex size-20 items-center justify-center">
+          {/* Pulsing outer rings */}
+          <div className="absolute inset-0 animate-ping rounded-full border-2 border-cyan-500/20 opacity-75" style={{ animationDuration: '3s' }} />
+          <div className="absolute inset-2 animate-pulse rounded-full border border-indigo-500/30" />
+          
+          {/* Rotating gradient ring */}
+          <div className="absolute inset-0 rounded-full border-t-2 border-r-2 border-transparent border-t-cyan-400 border-r-cyan-400/30 animate-spin" style={{ animationDuration: '1.5s' }} />
+          
+          {/* Center icon */}
+          <div className="relative z-10 flex size-12 items-center justify-center rounded-full bg-white/5 backdrop-blur-md border border-white/10">
+            <LuMusic className="size-6 text-cyan-400 animate-pulse" />
+          </div>
+        </div>
+
+        {/* Text details */}
+        <div className="flex flex-col items-center gap-1.5 text-center">
+          <h2 className="font-heading text-lg font-black tracking-wider text-white uppercase sm:text-xl">
+            Shuvam Raha Music
+          </h2>
+          <p className="flex items-center gap-1.5 text-xs font-semibold text-gray-500">
+            <span>Tuning your experience</span>
+            <span className="flex gap-0.5">
+              <span className="size-1 rounded-full bg-cyan-400 animate-bounce" style={{ animationDelay: '0ms' }} />
+              <span className="size-1 rounded-full bg-cyan-400 animate-bounce" style={{ animationDelay: '150ms' }} />
+              <span className="size-1 rounded-full bg-cyan-400 animate-bounce" style={{ animationDelay: '300ms' }} />
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const nonce = (await headers()).get('x-nonce') ?? '';
-  const settings = await cockpit.getContentItemByFilter<Settings>('settings', {
-    populate: 1,
-  });
+  const settings = getSettings();
 
   return (
     <html
@@ -90,12 +143,14 @@ export default async function RootLayout({
         </>
       )}
       <body className="overflow-x-hidden bg-[#05050A] antialiased">
-        <Providers settings={settings}>
+        <Providers settingsPromise={settings}>
           <div className="flex min-h-screen flex-col">
-            <Header />
-            <main className="relative flex flex-1 flex-col">{children}</main>
-            <Footer />
-            <WhatsappButton />
+            <Suspense fallback={<RootLoader />}>
+              <Header />
+              <main className="relative flex flex-1 flex-col">{children}</main>
+              <Footer />
+              <WhatsappButton />
+            </Suspense>
           </div>
         </Providers>
       </body>

@@ -2,6 +2,8 @@
 
 import { useActionState, useEffect, useRef } from 'react';
 
+import Form from 'next/form';
+
 import { type ContactFormState, submitContactForm } from '@/app/actions/form';
 
 import {
@@ -61,7 +63,7 @@ export default function ContactForm() {
   }
 
   return (
-    <form ref={formRef} action={formAction} className="w-full space-y-5">
+    <Form ref={formRef} action={formAction} className="w-full space-y-5">
       <h3 className="font-heading text-lg font-extrabold text-white sm:text-xl">
         Send us a Message
       </h3>
@@ -283,6 +285,6 @@ export default function ContactForm() {
           </>
         )}
       </button>
-    </form>
+    </Form>
   );
 }
