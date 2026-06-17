@@ -1,9 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-
 import PageLayout from '@/components/page-layout';
-
 import { FaAmazon, FaApple, FaSpotify } from 'react-icons/fa6';
 import { LuMusic, LuRadio, LuSparkles } from 'react-icons/lu';
 import { SiYoutubemusic } from 'react-icons/si';
@@ -48,7 +46,7 @@ const SHUVAM_TRACKS: AudioTrack[] = [
   },
 ];
 
-export default function AudiosGalleryPage() {
+export default function AudiosGalleryClient() {
   const [activeTrack, setActiveTrack] = useState<AudioTrack>(SHUVAM_TRACKS[0]);
   const [activePlayer, setActivePlayer] = useState<'spotify' | 'apple'>(
     'spotify'

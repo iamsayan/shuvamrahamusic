@@ -18,9 +18,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/refund-policy',
     '/terms-of-service',
     '/tutorials',
-    '/gallery/audios',
-    '/gallery/videos',
-    '/gallery/photos',
+    '/audios',
+    '/videos',
+    '/photos',
     '/blog',
   ];
 
