@@ -2,17 +2,22 @@
 
 import { createContext, use, useContext } from 'react';
 
-import type { Settings } from '@/types';
+import type { PricingPlan, Settings } from '@/types';
 import { ProgressProvider } from '@bprogress/next/app';
 
-const SettingsContext = createContext<Promise<Settings> | null>(null);
+const SettingsContext = createContext<{
+  settingsPromise: Promise<Settings>;
+  pricingPlansPromise: Promise<PricingPlan[]>;
+} | null>(null);
 
 export default function Providers({
   children,
   settingsPromise,
+  pricingPlansPromise,
 }: {
   children: React.ReactNode;
   settingsPromise: Promise<Settings>;
+  pricingPlansPromise: Promise<PricingPlan[]>;
 }) {
   return (
     <ProgressProvider
@@ -21,16 +26,24 @@ export default function Providers({
       options={{ showSpinner: false }}
       shallowRouting
     >
-      <SettingsContext value={settingsPromise}>{children}</SettingsContext>
+      <SettingsContext value={{ settingsPromise, pricingPlansPromise }}>
+        {children}
+      </SettingsContext>
     </ProgressProvider>
   );
 }
 
 export function useSettings() {
-  const settingsPromise = useContext(SettingsContext);
-  if (!settingsPromise) {
-    throw new Error('useSettings must be used within SettingsProvider');
+  const context = useContext(SettingsContext);
+  if (!context) {
+    throw new Error('useSettings must be used within Providers');
   }
 
-  return use(settingsPromise);
+  const settings = use(context.settingsPromise);
+  const pricingPlans = use(context.pricingPlansPromise);
+
+  return {
+    settings,
+    pricing_plans: pricingPlans,
+  };
 }

@@ -1,7 +1,5 @@
 'use client';
 
-import { useMemo } from 'react';
-
 import Link from 'next/link';
 
 import { useRegion } from '@/hooks/use-region';
@@ -31,55 +29,53 @@ const getPlanTheme = (planRegion: string, idx: number) => {
       : 'violet';
 };
 
+// Tailwind purge-safe theme mappings
+const THEME_MAP: Record<string, Record<string, string>> = {
+  emerald: {
+    card: 'border-emerald-500/20 bg-emerald-950/10 hover:border-emerald-500/40 hover:bg-emerald-900/10 shadow-[0_0_30px_rgba(16,185,129,0.02)]',
+    glow: 'bg-emerald-500/10',
+    button:
+      'bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.3)]',
+    icon: 'text-emerald-400 bg-emerald-500/20',
+    text: 'text-emerald-400',
+    price: 'text-white',
+  },
+  amber: {
+    card: 'border-amber-500/20 bg-amber-950/10 hover:border-amber-500/40 hover:bg-amber-900/10 shadow-[0_0_30px_rgba(245,158,11,0.02)]',
+    glow: 'bg-amber-500/10',
+    button:
+      'bg-amber-600 hover:bg-amber-500 text-white shadow-[0_0_20px_rgba(245,158,11,0.3)]',
+    icon: 'text-amber-400 bg-amber-500/20',
+    text: 'text-amber-400',
+    price: 'text-white',
+  },
+  blue: {
+    card: 'border-blue-500/40 bg-blue-900/20 hover:border-blue-400/60 hover:bg-blue-900/30 shadow-[0_0_50px_rgba(59,130,246,0.15)]',
+    glow: 'bg-blue-500/20',
+    button:
+      'bg-linear-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-[0_0_30px_rgba(59,130,246,0.5)]',
+    icon: 'text-blue-400 bg-blue-500/20',
+    text: 'text-blue-400',
+    price:
+      'text-transparent bg-clip-text bg-linear-to-r from-white to-blue-200',
+  },
+  violet: {
+    card: 'border-violet-500/20 bg-violet-950/10 hover:border-violet-500/40 hover:bg-violet-900/10 shadow-[0_0_30px_rgba(139,92,246,0.02)]',
+    glow: 'bg-violet-500/10',
+    button:
+      'bg-violet-600 hover:bg-violet-500 text-white shadow-[0_0_20px_rgba(139,92,246,0.3)]',
+    icon: 'text-violet-400 bg-violet-500/20',
+    text: 'text-violet-400',
+    price: 'text-white',
+  },
+};
+
 export default function PricingTable({ plans }: PricingTableProps) {
   const [region, setRegion] = useRegion();
 
-  // Tailwind purge-safe theme mappings
-  const themeMap: Record<string, Record<string, string>> = {
-    emerald: {
-      card: 'border-emerald-500/20 bg-emerald-950/10 hover:border-emerald-500/40 hover:bg-emerald-900/10 shadow-[0_0_30px_rgba(16,185,129,0.02)]',
-      glow: 'bg-emerald-500/10',
-      button:
-        'bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.3)]',
-      icon: 'text-emerald-400 bg-emerald-500/20',
-      text: 'text-emerald-400',
-      price: 'text-white',
-    },
-    amber: {
-      card: 'border-amber-500/20 bg-amber-950/10 hover:border-amber-500/40 hover:bg-amber-900/10 shadow-[0_0_30px_rgba(245,158,11,0.02)]',
-      glow: 'bg-amber-500/10',
-      button:
-        'bg-amber-600 hover:bg-amber-500 text-white shadow-[0_0_20px_rgba(245,158,11,0.3)]',
-      icon: 'text-amber-400 bg-amber-500/20',
-      text: 'text-amber-400',
-      price: 'text-white',
-    },
-    blue: {
-      card: 'border-blue-500/40 bg-blue-900/20 hover:border-blue-400/60 hover:bg-blue-900/30 shadow-[0_0_50px_rgba(59,130,246,0.15)]',
-      glow: 'bg-blue-500/20',
-      button:
-        'bg-linear-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-[0_0_30px_rgba(59,130,246,0.5)]',
-      icon: 'text-blue-400 bg-blue-500/20',
-      text: 'text-blue-400',
-      price:
-        'text-transparent bg-clip-text bg-linear-to-r from-white to-blue-200',
-    },
-    violet: {
-      card: 'border-violet-500/20 bg-violet-950/10 hover:border-violet-500/40 hover:bg-violet-900/10 shadow-[0_0_30px_rgba(139,92,246,0.02)]',
-      glow: 'bg-violet-500/10',
-      button:
-        'bg-violet-600 hover:bg-violet-500 text-white shadow-[0_0_20px_rgba(139,92,246,0.3)]',
-      icon: 'text-violet-400 bg-violet-500/20',
-      text: 'text-violet-400',
-      price: 'text-white',
-    },
-  };
-
-  const currentPlans = useMemo(() => {
-    return plans.filter((p) =>
-      region === 'IN' ? p.region === 'India' : p.region === 'Outside India'
-    );
-  }, [plans, region]);
+  const currentPlans = plans.filter((p) =>
+    region === 'IN' ? p.region === 'India' : p.region === 'Outside India'
+  );
 
   return (
     <div className="flex w-full flex-col items-center">
@@ -101,7 +97,7 @@ export default function PricingTable({ plans }: PricingTableProps) {
                 : 'text-gray-400 hover:text-gray-200'
             }`}
           >
-            <LuMapPin className="sm:h-5 sm:w-5 size-4" />
+            <LuMapPin className="size-4 sm:h-5 sm:w-5" />
             India (INR)
           </button>
 
@@ -113,7 +109,7 @@ export default function PricingTable({ plans }: PricingTableProps) {
                 : 'text-gray-400 hover:text-gray-200'
             }`}
           >
-            <LuGlobe className="sm:h-5 sm:w-5 size-4" />
+            <LuGlobe className="size-4 sm:h-5 sm:w-5" />
             Global (USD)
           </button>
         </div>
@@ -124,22 +120,22 @@ export default function PricingTable({ plans }: PricingTableProps) {
         {/* Ambient Corner Glows (Dynamic based on selected plans) */}
         {currentPlans[0] && (
           <div
-            className={`pointer-events-none absolute top-0 left-0 rounded-full opacity-30 blur-[100px] transition-colors duration-700 ${themeMap[getPlanTheme(currentPlans[0].region, 0)].glow} size-64`}
+            className={`pointer-events-none absolute top-0 left-0 rounded-full opacity-30 blur-[100px] transition-colors duration-700 ${THEME_MAP[getPlanTheme(currentPlans[0].region, 0)].glow} size-64`}
           />
         )}
         {currentPlans[1] && (
           <div
-            className={`pointer-events-none absolute right-0 bottom-0 rounded-full opacity-30 blur-[100px] transition-colors duration-700 ${themeMap[getPlanTheme(currentPlans[1].region, 1)].glow} size-64`}
+            className={`pointer-events-none absolute right-0 bottom-0 rounded-full opacity-30 blur-[100px] transition-colors duration-700 ${THEME_MAP[getPlanTheme(currentPlans[1].region, 1)].glow} size-64`}
           />
         )}
 
         <div className="relative z-10 grid grid-cols-1 md:grid-cols-2">
           {currentPlans.map((plan: PricingPlan, i: number) => {
             const themeName = getPlanTheme(plan.region, i);
-            const styles = themeMap[themeName];
+            const styles = THEME_MAP[themeName];
             const isFirst = i === 0;
             const popular = plan.is_popular === true;
-             const currency = getCurrencySymbol(plan.region);
+            const currency = getCurrencySymbol(plan.region);
 
             return (
               <div
@@ -154,7 +150,7 @@ export default function PricingTable({ plans }: PricingTableProps) {
                 {popular && (
                   <div className="absolute top-3 right-3 z-20 sm:top-6 sm:right-10">
                     <div className="flex items-center gap-1.5 rounded-full bg-linear-to-r from-amber-500 to-orange-400 px-3 py-1 shadow-[0_0_15px_rgba(245,158,11,0.4)]">
-                      <LuSparkles className="text-white size-3" />
+                      <LuSparkles className="size-3 text-white" />
                       <span className="text-[9px] font-bold tracking-widest whitespace-nowrap text-white uppercase sm:text-xs">
                         Most Popular
                       </span>
@@ -198,9 +194,9 @@ export default function PricingTable({ plans }: PricingTableProps) {
                           className="group/li flex items-start gap-3 text-gray-300"
                         >
                           <div
-                            className={`flex shrink-0 items-center justify-center rounded-full ${styles.icon} transition-transform duration-300 group-hover/li:scale-110 size-5`}
+                            className={`flex shrink-0 items-center justify-center rounded-full ${styles.icon} size-5 transition-transform duration-300 group-hover/li:scale-110`}
                           >
-                            <LuCheck className="stroke-[3] size-3" />
+                            <LuCheck className="size-3 stroke-[3]" />
                           </div>
                           <span className="text-sm sm:text-base">
                             {feature}
@@ -223,7 +219,7 @@ export default function PricingTable({ plans }: PricingTableProps) {
                   </div>
 
                   <Link
-                    href={`/guitar-classes-with-shuvam/pay?h=${btoa(JSON.stringify({ plan: plan._id, region }))}`}
+                    href={`/guitar-classes-with-shuvam/pay?plan=${plan._id}`}
                     className={`w-full rounded-xl py-3.5 text-sm font-bold tracking-wide transition-all duration-300 active:scale-[0.98] sm:text-base ${styles.button} font-heading text-center`}
                   >
                     {plan.button_text}
@@ -240,7 +236,7 @@ export default function PricingTable({ plans }: PricingTableProps) {
         {/* Card 1: Residence Policy */}
         <div className="group/note relative flex gap-4 rounded-2xl border border-white/4 bg-white/1 p-5 backdrop-blur-xl transition-all duration-300 hover:border-white/8 hover:bg-white/2">
           <div className="pointer-events-none absolute inset-0 rounded-2xl bg-cyan-500/1 opacity-0 blur-xl transition-all duration-500 group-hover/note:bg-cyan-500/2 group-hover/note:opacity-100" />
-          <div className="flex shrink-0 items-center justify-center rounded-xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400 transition-transform duration-300 group-hover/note:scale-105 size-10">
+          <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400 transition-transform duration-300 group-hover/note:scale-105">
             <LuGlobe className="size-5" />
           </div>
           <div className="flex flex-col justify-center">
@@ -257,7 +253,7 @@ export default function PricingTable({ plans }: PricingTableProps) {
         {/* Card 2: Slots Notice */}
         <div className="group/note relative flex gap-4 rounded-2xl border border-amber-500/10 bg-amber-500/2 p-5 backdrop-blur-xl transition-all duration-300 hover:border-amber-500/20 hover:bg-amber-500/4">
           <div className="pointer-events-none absolute inset-0 rounded-2xl bg-amber-500/1 opacity-0 blur-xl transition-all duration-500 group-hover/note:bg-amber-500/2 group-hover/note:opacity-100" />
-          <div className="flex shrink-0 items-center justify-center rounded-xl border border-amber-500/20 bg-amber-500/10 text-amber-400 transition-transform duration-300 group-hover/note:scale-105 size-10">
+          <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-amber-500/20 bg-amber-500/10 text-amber-400 transition-transform duration-300 group-hover/note:scale-105">
             <LuTriangleAlert className="size-5" />
           </div>
           <div className="flex flex-col justify-center">

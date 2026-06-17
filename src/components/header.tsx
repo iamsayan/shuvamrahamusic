@@ -12,7 +12,7 @@ import { normalizeUrl } from '@/lib/utils';
 import { LuArrowRight, LuChevronDown, LuPhone } from 'react-icons/lu';
 
 export default function Header() {
-  const settings = useSettings();
+  const { settings } = useSettings();
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

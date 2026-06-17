@@ -5,9 +5,7 @@ import type { Metadata } from 'next';
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
 import SecurePayPortal from '@/components/secure-pay-portal';
-import { getPricingPlans } from '@/lib/data';
 import { SCHEMA } from '@/lib/schema';
-import { PricingPlan } from '@/types';
 
 export const metadata: Metadata = {
   title: 'Secure Payment Portal | Guitar Classes with Shuvam',
@@ -19,16 +17,6 @@ export const metadata: Metadata = {
 };
 
 export default async function SecurePayPage() {
-  let fetchedPlans: PricingPlan[] = [];
-  try {
-    const cockpitPlans = await getPricingPlans();
-    if (cockpitPlans && cockpitPlans.length > 0) {
-      fetchedPlans = cockpitPlans;
-    }
-  } catch (error) {
-    console.error('Error fetching plans in SecurePayPage:', error);
-  }
-
   return (
     <>
       <JsonLd
@@ -59,7 +47,7 @@ export default async function SecurePayPage() {
             </div>
           }
         >
-          <SecurePayPortal plans={fetchedPlans} />
+          <SecurePayPortal />
         </Suspense>
       </PageLayout>
     </>
