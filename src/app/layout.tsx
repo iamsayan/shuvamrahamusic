@@ -8,12 +8,12 @@ import Providers from '@/app/providers';
 import Footer from '@/components/footer';
 import Header from '@/components/header';
 import WhatsappButton from '@/components/whatsapp-button';
-import { getSettings } from '@/lib/data';
+import { getPricingPlans, getSettings } from '@/lib/data';
 import '@bprogress/core/css';
 import { GoogleTagManager } from '@next/third-parties/google';
-import { LuMusic } from 'react-icons/lu';
 
 import './globals.css';
+import { LuMusic } from 'react-icons/lu';
 
 const outfit = Outfit({
   variable: '--font-outfit',
@@ -75,21 +75,27 @@ function RootLoader() {
       {/* Background glows */}
       <div className="absolute h-[300px] w-[300px] rounded-full bg-cyan-500/10 blur-[80px]" />
       <div className="absolute h-[300px] w-[300px] rounded-full bg-indigo-500/5 blur-[100px]" />
-      
+
       {/* Loader Content */}
       <div className="relative flex flex-col items-center gap-6">
         {/* Animated Icon Ring */}
         <div className="relative flex size-20 items-center justify-center">
           {/* Pulsing outer rings */}
-          <div className="absolute inset-0 animate-ping rounded-full border-2 border-cyan-500/20 opacity-75" style={{ animationDuration: '3s' }} />
+          <div
+            className="absolute inset-0 animate-ping rounded-full border-2 border-cyan-500/20 opacity-75"
+            style={{ animationDuration: '3s' }}
+          />
           <div className="absolute inset-2 animate-pulse rounded-full border border-indigo-500/30" />
-          
+
           {/* Rotating gradient ring */}
-          <div className="absolute inset-0 rounded-full border-t-2 border-r-2 border-transparent border-t-cyan-400 border-r-cyan-400/30 animate-spin" style={{ animationDuration: '1.5s' }} />
-          
+          <div
+            className="absolute inset-0 animate-spin rounded-full border-t-2 border-r-2 border-transparent border-t-cyan-400 border-r-cyan-400/30"
+            style={{ animationDuration: '1.5s' }}
+          />
+
           {/* Center icon */}
-          <div className="relative z-10 flex size-12 items-center justify-center rounded-full bg-white/5 backdrop-blur-md border border-white/10">
-            <LuMusic className="size-6 text-cyan-400 animate-pulse" />
+          <div className="relative z-10 flex size-12 items-center justify-center rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
+            <LuMusic className="size-6 animate-pulse text-cyan-400" />
           </div>
         </div>
 
@@ -101,9 +107,18 @@ function RootLoader() {
           <p className="flex items-center gap-1.5 text-xs font-semibold text-gray-500">
             <span>Tuning your experience</span>
             <span className="flex gap-0.5">
-              <span className="size-1 rounded-full bg-cyan-400 animate-bounce" style={{ animationDelay: '0ms' }} />
-              <span className="size-1 rounded-full bg-cyan-400 animate-bounce" style={{ animationDelay: '150ms' }} />
-              <span className="size-1 rounded-full bg-cyan-400 animate-bounce" style={{ animationDelay: '300ms' }} />
+              <span
+                className="size-1 animate-bounce rounded-full bg-cyan-400"
+                style={{ animationDelay: '0ms' }}
+              />
+              <span
+                className="size-1 animate-bounce rounded-full bg-cyan-400"
+                style={{ animationDelay: '150ms' }}
+              />
+              <span
+                className="size-1 animate-bounce rounded-full bg-cyan-400"
+                style={{ animationDelay: '300ms' }}
+              />
             </span>
           </p>
         </div>
@@ -118,6 +133,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const settings = getSettings();
+  const pricingPlans = getPricingPlans();
 
   return (
     <html
@@ -140,7 +156,10 @@ export default async function RootLayout({
         </>
       )}
       <body className="overflow-x-hidden bg-[#05050A] antialiased">
-        <Providers settingsPromise={settings}>
+        <Providers
+          settingsPromise={settings}
+          pricingPlansPromise={pricingPlans}
+        >
           <div className="flex min-h-screen flex-col">
             <Suspense fallback={<RootLoader />}>
               <Header />

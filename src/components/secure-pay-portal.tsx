@@ -1,10 +1,11 @@
 'use client';
 
-import { SubmitEvent, useCallback, useEffect, useState } from 'react';
+import { SubmitEvent, useEffect, useState } from 'react';
 
 import { useSearchParams } from 'next/navigation';
 
 import { createRazorpayOrder } from '@/app/actions/razorpay';
+import { useSettings } from '@/app/providers';
 import { useRegion } from '@/hooks/use-region';
 import { loadRazorpay } from '@/lib/load-razorpay';
 import { getCurrencySymbol } from '@/lib/utils';
@@ -40,11 +41,11 @@ const SuccessModal = ({
 }: SuccessModalProps) => {
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = useCallback(() => {
+  const handleCopy = () => {
     navigator.clipboard.writeText(paymentId);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-  }, [paymentId]);
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#020205]/80 backdrop-blur-md transition-all duration-300">
@@ -106,7 +107,7 @@ const SuccessModal = ({
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
+                        d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
                       />
                     </svg>
                   )}
@@ -180,9 +181,24 @@ const ErrorModal = ({
   </div>
 );
 
-interface SecurePayPortalProps {
-  plans: PricingPlan[];
-}
+const THEME_MAP: Record<string, Record<string, string>> = {
+  emerald: {
+    btn: 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.3)] border-emerald-500/30',
+    text: 'text-emerald-400',
+  },
+  amber: {
+    btn: 'bg-amber-600 hover:bg-amber-500 text-white shadow-[0_0_20px_rgba(245,158,11,0.3)] border-amber-500/30',
+    text: 'text-amber-400',
+  },
+  blue: {
+    btn: 'bg-linear-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-[0_0_20px_rgba(59,130,246,0.3)] border-blue-500/30',
+    text: 'text-cyan-400',
+  },
+  violet: {
+    btn: 'bg-violet-600 hover:bg-violet-500 text-white shadow-[0_0_20px_rgba(139,92,246,0.3)] border-violet-500/30',
+    text: 'text-violet-400',
+  },
+};
 
 const getPlanThemeName = (planRegion: string, idx: number) => {
   const isIndia = planRegion === 'India';
@@ -195,44 +211,20 @@ const getPlanThemeName = (planRegion: string, idx: number) => {
       : 'violet';
 };
 
-export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
+export default function SecurePayPortal() {
+  const { pricing_plans } = useSettings();
   const [region, setRegion] = useRegion();
-  const [selectedPlanId, setSelectedPlanId] = useState<string | null>(null);
-
   const searchParams = useSearchParams();
-  const hasPlanParam = !!(searchParams?.get('h') || searchParams?.get('plan'));
-  const isPlanSelectionLocked = hasPlanParam && searchParams?.get('e') !== '1';
 
-  // Sync plan and region from search query params if provided (handles hashed 'h' param, falls back to raw query params)
-  useEffect(() => {
-    const hashParam = searchParams?.get('h');
-    if (hashParam) {
-      try {
-        const decoded = JSON.parse(atob(hashParam));
-        if (decoded.plan) {
-          setSelectedPlanId(decoded.plan);
-        }
-        if (
-          decoded.region &&
-          (decoded.region === 'IN' || decoded.region === 'GLOBAL')
-        ) {
-          setRegion(decoded.region);
-        }
-      } catch (e) {
-        console.error('Failed to parse query hash:', e);
-      }
-    } else {
-      const planParam = searchParams?.get('plan');
-      const regionParam = searchParams?.get('region');
+  const planParam = searchParams?.get('plan') || null;
+  const matchedPlan = planParam
+    ? pricing_plans?.find((p) => p._id === planParam)
+    : null;
+  const isPlanSelectionLocked = !!matchedPlan;
 
-      if (planParam) {
-        setSelectedPlanId(planParam);
-      }
-      if (regionParam && (regionParam === 'IN' || regionParam === 'GLOBAL')) {
-        setRegion(regionParam);
-      }
-    }
-  }, [searchParams, setRegion]);
+  const [selectedPlanId, setSelectedPlanId] = useState<string | null>(
+    matchedPlan ? planParam : null
+  );
 
   const [success, setSuccess] = useState<{
     paymentId: string;
@@ -249,29 +241,28 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
     address: '',
   });
 
-  const currentPlans = plans.filter((p) =>
+  const currentPlans = (pricing_plans || []).filter((p) =>
     region === 'IN' ? p.region === 'India' : p.region === 'Outside India'
   );
-  const activePlan =
-    currentPlans.find((p) => p._id === selectedPlanId) || currentPlans[0];
-  const activePlanIdx = activePlan ? currentPlans.indexOf(activePlan) : 0;
+
+  const activePlan = matchedPlan ||
+    currentPlans.find((p) => p._id === selectedPlanId) ||
+    currentPlans[0];
+  const activePlanIdx = activePlan ? Math.max(0, currentPlans.indexOf(activePlan)) : 0;
   const activePlanThemeName = activePlan
     ? getPlanThemeName(activePlan.region, activePlanIdx)
     : 'blue';
 
-  const closeError = useCallback(() => setError(null), []);
+  const closeError = () => setError(null);
   const resetForm = () => window.location.reload();
 
-  const handleInputChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = e.target;
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    },
-    []
-  );
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handlePayment = async (e: SubmitEvent) => {
     e.preventDefault();
@@ -350,7 +341,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
           phone: formData.phone.replace(/\D+/g, ''),
           plan_name: activePlan.name,
           plan_id: activePlan._id,
-          region: region,
+          region: activePlan.region === 'India' ? 'IN' : 'GLOBAL',
           city: formData.city,
           address: formData.address,
         },
@@ -415,27 +406,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
     }
   };
 
-  // Theme mapping for interactive styling
-  const themeMap: Record<string, Record<string, string>> = {
-    emerald: {
-      btn: 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.3)] border-emerald-500/30',
-      text: 'text-emerald-400',
-    },
-    amber: {
-      btn: 'bg-amber-600 hover:bg-amber-500 text-white shadow-[0_0_20px_rgba(245,158,11,0.3)] border-amber-500/30',
-      text: 'text-amber-400',
-    },
-    blue: {
-      btn: 'bg-linear-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-[0_0_20px_rgba(59,130,246,0.3)] border-blue-500/30',
-      text: 'text-cyan-400',
-    },
-    violet: {
-      btn: 'bg-violet-600 hover:bg-violet-500 text-white shadow-[0_0_20px_rgba(139,92,246,0.3)] border-violet-500/30',
-      text: 'text-violet-400',
-    },
-  };
-
-  const planTheme = themeMap[activePlanThemeName] || themeMap.blue;
+  const planTheme = THEME_MAP[activePlanThemeName] || THEME_MAP.blue;
 
   return (
     <div className="w-full">
@@ -504,15 +475,11 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
             Your Selected Plan
           </div>
         )}
-        {currentPlans
-          .filter(
-            (plan: PricingPlan) =>
-              !isPlanSelectionLocked || activePlan?._id === plan._id
-          )
-          .map((plan: PricingPlan, idx: number) => {
+        {(isPlanSelectionLocked && activePlan ? [activePlan] : currentPlans).map(
+          (plan: PricingPlan, idx: number) => {
             const isActive = activePlan?._id === plan._id;
             const themeName = getPlanThemeName(plan.region, idx);
-            const theme = themeMap[themeName] || themeMap.blue;
+            const theme = THEME_MAP[themeName] || THEME_MAP.blue;
             const popular = plan.is_popular === true;
             const currency = getCurrencySymbol(plan.region);
 
@@ -601,7 +568,7 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
 
           <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
-              <div>
+              <div className="text-left">
                 <span className="font-heading text-[10px] font-bold tracking-widest text-gray-500 uppercase">
                   Selected Program
                 </span>
@@ -619,10 +586,10 @@ export default function SecurePayPortal({ plans }: SecurePayPortalProps) {
               </div>
             </div>
 
-            <div className="space-y-3">
-              <span className="font-heading text-[10px] font-bold tracking-widest text-gray-500 uppercase">
+            <div className="space-y-3 text-left">
+              <div className="font-heading mb-4 text-[10px] font-bold tracking-widest text-gray-500 uppercase">
                 Features Included:
-              </span>
+              </div>
               <ul className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
                 {(activePlan.features || []).map((feature, fIdx) => (
                   <li
