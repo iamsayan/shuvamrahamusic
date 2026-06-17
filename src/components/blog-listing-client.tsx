@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  SubmitEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { SubmitEvent, useEffect, useRef, useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -96,108 +89,83 @@ export default function BlogListingClient({
     return () => clearTimeout(timer);
   }, [localSearch, searchQuery]);
 
-  const updateUrl = useCallback(
-    (newSearch: string, newPage: number) => {
-      const params = new URLSearchParams();
-      if (newSearch) {
-        params.set('search', newSearch);
-      }
-      if (newPage > 1) {
-        params.set('page', String(newPage));
-      }
-      router.push(`${pathname}?${params.toString()}`);
-    },
-    [router, pathname]
-  );
+  const updateUrl = (newSearch: string, newPage: number) => {
+    const params = new URLSearchParams();
+    if (newSearch) {
+      params.set('search', newSearch);
+    }
+    if (newPage > 1) {
+      params.set('page', String(newPage));
+    }
+    router.push(`${pathname}?${params.toString()}`);
+  };
 
-  const getPageLink = useCallback(
-    (pageNum: number) => {
-      const params = new URLSearchParams();
-      if (searchQuery) {
-        params.set('search', searchQuery);
-      }
-      if (pageNum > 1) {
-        params.set('page', String(pageNum));
-      }
-      const queryStr = params.toString();
-      return queryStr ? `${pathname}?${queryStr}` : pathname;
-    },
-    [searchQuery, pathname]
-  );
+  const getPageLink = (pageNum: number) => {
+    const params = new URLSearchParams();
+    if (searchQuery) {
+      params.set('search', searchQuery);
+    }
+    if (pageNum > 1) {
+      params.set('page', String(pageNum));
+    }
+    const queryStr = params.toString();
+    return queryStr ? `${pathname}?${queryStr}` : pathname;
+  };
 
-  const handleSearchChange = useCallback((query: string) => {
+  const handleSearchChange = (query: string) => {
     setLocalSearch(query);
     setShowSuggestions(true);
     setHighlightedIndex(-1);
-  }, []);
+  };
 
-  const handleFormSubmit = useCallback(
-    (e: SubmitEvent) => {
+  const handleFormSubmit = (e: SubmitEvent) => {
+    e.preventDefault();
+    updateUrl(localSearch, 1);
+    setShowSuggestions(false);
+  };
+
+  const handleSelectSuggestion = (slug: string) => {
+    router.push(`/blog/${slug}`);
+    setShowSuggestions(false);
+    setLocalSearch('');
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'ArrowDown') {
       e.preventDefault();
-      updateUrl(localSearch, 1);
-      setShowSuggestions(false);
-    },
-    [localSearch, updateUrl]
-  );
-
-  const handleSelectSuggestion = useCallback(
-    (slug: string) => {
-      router.push(`/blog/${slug}`);
-      setShowSuggestions(false);
-      setLocalSearch('');
-    },
-    [router]
-  );
-
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'ArrowDown') {
+      setShowSuggestions(true);
+      setHighlightedIndex((prev) =>
+        suggestions.length > 0 ? (prev + 1) % suggestions.length : -1
+      );
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setShowSuggestions(true);
+      setHighlightedIndex((prev) =>
+        suggestions.length > 0
+          ? (prev - 1 + suggestions.length) % suggestions.length
+          : -1
+      );
+    } else if (e.key === 'Enter') {
+      if (highlightedIndex >= 0 && highlightedIndex < suggestions.length) {
         e.preventDefault();
-        setShowSuggestions(true);
-        setHighlightedIndex((prev) =>
-          suggestions.length > 0 ? (prev + 1) % suggestions.length : -1
-        );
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        setShowSuggestions(true);
-        setHighlightedIndex((prev) =>
-          suggestions.length > 0
-            ? (prev - 1 + suggestions.length) % suggestions.length
-            : -1
-        );
-      } else if (e.key === 'Enter') {
-        if (highlightedIndex >= 0 && highlightedIndex < suggestions.length) {
-          e.preventDefault();
-          handleSelectSuggestion(suggestions[highlightedIndex].slug);
-        } else {
-          setShowSuggestions(false);
-        }
-      } else if (e.key === 'Escape') {
+        handleSelectSuggestion(suggestions[highlightedIndex].slug);
+      } else {
         setShowSuggestions(false);
       }
-    },
-    [suggestions, highlightedIndex, handleSelectSuggestion]
-  );
+    } else if (e.key === 'Escape') {
+      setShowSuggestions(false);
+    }
+  };
 
   // The first post of the list will be highlighted as featured when on page 1
-  const featuredPost = useMemo(() => {
-    if (currentPage > 1) return null;
-    if (posts.length === 0) return null;
-    return posts[0];
-  }, [posts, currentPage]);
+  const featuredPost = currentPage > 1 || posts.length === 0 ? null : posts[0];
 
   // The remaining posts will be displayed in the grid
-  const gridPosts = useMemo(() => {
-    if (currentPage > 1) return posts;
-    if (posts.length <= 1) return [];
-    return posts.slice(1);
-  }, [posts, currentPage]);
+  const gridPosts =
+    currentPage > 1 ? posts : posts.length <= 1 ? [] : posts.slice(1);
 
-  const totalPages = useMemo(() => {
-    return totalPostsCount <= 10
-      ? 1
-      : 1 + Math.ceil((totalPostsCount - 10) / 9);
-  }, [totalPostsCount]);
+  const totalPages =
+    totalPostsCount <= 10 ? 1 : 1 + Math.ceil((totalPostsCount - 10) / 9);
 
   const themeKey = featuredPost
     ? getThemeKey(featuredPost.categories[0]?.title || '')

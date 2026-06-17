@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface JsonLdProps {
   schema: Record<string, unknown> | Array<Record<string, unknown>>;
 }
