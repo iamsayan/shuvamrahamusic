@@ -75,7 +75,6 @@ const socialLinks = [
 
 export default function Footer() {
   const { settings } = useSettings();
-  console.log(settings);
 
   const currentQuickLinks = (() => {
     if (settings?.footer_menu && settings.footer_menu.length > 0) {
