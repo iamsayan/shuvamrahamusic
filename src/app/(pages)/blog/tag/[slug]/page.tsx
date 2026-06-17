@@ -3,12 +3,11 @@ import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import SectionLoader from '@/components/section-loader';
 import BlogArchiveClient from '@/components/blog-archive-client';
 import JsonLd from '@/components/json-ld';
-import { getBlogPostsByTag } from '@/lib/blog-data';
-import cockpit from '@/lib/client';
+import { getBlogPostsByTag, getTags, getTagBySlug } from '@/lib/blog-data';
 import { SCHEMA } from '@/lib/schema';
-import { Tag } from '@/types';
 
 interface PageProps {
   params: Promise<{
@@ -21,63 +20,53 @@ interface PageProps {
 
 // Generate static params for tags dynamically at build time (SSG)
 export async function generateStaticParams() {
-  const tags = await cockpit.listContentItems('tags', {
-    limit: -1,
-    fields: {
-      slug: true,
-    },
-  });
-
+  const tags = await getTags();
   return tags.map((tag) => ({
     slug: tag.slug,
   }));
 }
 
-// Generate dynamic SEO metadata
+// Generate static SEO metadata
 export async function generateMetadata({
   params,
-  searchParams,
 }: {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ page?: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const { page } = await searchParams;
-  const pageNum = Number(page) || 1;
-  const pageSuffix = pageNum > 1 ? ` - Page ${pageNum}` : '';
+  const tag = await getTagBySlug(slug);
 
-  const tag = await cockpit.getContentItemByFilter<Tag>('tags', {
-    filter: { slug },
-    fields: {
-      title: true,
-    },
-  });
+  if (!tag) {
+    return {
+      title: 'Tag Articles',
+    };
+  }
 
   return {
-    title: `#${tag.title} Articles${pageSuffix}`,
+    title: `#${tag.title} Articles`,
     description: `Read all guitar articles, exercises, and guides tagged with #${tag.title} by instructor Shuvam Raha.`,
     alternates: {
-      canonical: `/blog/tag/${slug}${pageNum > 1 ? `?page=${pageNum}` : ''}`,
+      canonical: `/blog/tag/${slug}`,
     },
     openGraph: {
-      title: `#${tag.title} Guitar Articles${pageSuffix}`,
+      title: `#${tag.title} Guitar Articles`,
       description: `Read all articles, exercises, and guides tagged with #${tag.title} from Shuvam Raha.`,
-      url: `/blog/tag/${slug}${pageNum > 1 ? `?page=${pageNum}` : ''}`,
+      url: `/blog/tag/${slug}`,
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
-      title: `#${tag.title} Guitar Articles${pageSuffix}`,
+      title: `#${tag.title} Guitar Articles`,
       description: `Read all articles, exercises, and guides tagged with #${tag.title} from Shuvam Raha.`,
     },
   };
 }
 
-export default async function TagArchivePage({
-  params,
-  searchParams,
-}: PageProps) {
-  const { slug } = await params;
+interface ContentProps {
+  slug: string;
+  searchParams: Promise<{ page?: string }>;
+}
+
+async function TagArchiveContent({ slug, searchParams }: ContentProps) {
   const { page } = await searchParams;
   const pageNum = Number(page) || 1;
 
@@ -135,16 +124,27 @@ export default async function TagArchivePage({
           },
         ]}
       />
-      <Suspense fallback={<div className="min-h-screen bg-[#05050A]" />}>
-        <BlogArchiveClient
-          title="Tag:"
-          subtitle={`Browse all articles, patterns, and guides tagged with #${tagName}.`}
-          type="tag"
-          term={`#${tagName}`}
-          posts={posts}
-          totalPostsCount={total}
-        />
-      </Suspense>
+      <BlogArchiveClient
+        title="Tag:"
+        subtitle={`Browse all articles, patterns, and guides tagged with #${tagName}.`}
+        type="tag"
+        term={`#${tagName}`}
+        posts={posts}
+        totalPostsCount={total}
+      />
     </>
+  );
+}
+
+export default async function TagArchivePage({
+  params,
+  searchParams,
+}: PageProps) {
+  const { slug } = await params;
+
+  return (
+    <Suspense fallback={<SectionLoader message="Loading tag archive..." />}>
+      <TagArchiveContent slug={slug} searchParams={searchParams} />
+    </Suspense>
   );
 }

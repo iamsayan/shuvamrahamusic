@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 
 import type { Metadata } from 'next';
 
+import SectionLoader from '@/components/section-loader';
 import BlogListingClient from '@/components/blog-listing-client';
 import JsonLd from '@/components/json-ld';
 import { getPaginatedBlogPosts } from '@/lib/blog-data';
@@ -136,7 +137,7 @@ export default async function BlogListingPage({
           },
         ]}
       />
-      <Suspense fallback={<div className="min-h-screen bg-[#05050A]" />}>
+      <Suspense fallback={<SectionLoader message="Loading articles..." />}>
         <BlogListingClient posts={posts} totalPostsCount={total} />
       </Suspense>
     </>

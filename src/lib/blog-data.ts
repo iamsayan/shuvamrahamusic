@@ -1,3 +1,5 @@
+import { cacheLife, cacheTag } from 'next/cache';
+
 import { Author, BlogPost } from '@/lib/blog-shared';
 import cockpit, {
   ContentItemGetByFilterOptions,
@@ -13,7 +15,7 @@ const AUTHOR_SHUVAM: Author = {
   name: 'Shuvam Raha',
   avatar: '/hero-guitarist.jpg',
   role: 'LCM Certified Music Instructor',
-  bio: `Professional guitarist, music producer, and educator with over ${new Date().getFullYear() - 2015} years of coaching experience, helping 600+ students globally master the guitar.`,
+  bio: `Professional guitarist, music producer, and educator with over 11 years of coaching experience, helping 600+ students globally master the guitar.`,
 };
 
 // Helper to calculate reading time dynamically
@@ -81,6 +83,10 @@ export interface PaginatedBlogPosts {
 export async function getPaginatedBlogPosts(
   options: ContentItemsListOptions = {}
 ): Promise<PaginatedBlogPosts> {
+  'use cache';
+  cacheLife('weeks');
+  cacheTag('posts');
+
   try {
     // Queries the Cockpit collection named 'posts'
     const response = await cockpit.listContentItems<
@@ -135,6 +141,10 @@ export async function getBlogPostBySlug(
   slug: string,
   options: ContentItemGetByFilterOptions = {}
 ): Promise<BlogPost | undefined> {
+  'use cache';
+  cacheLife('weeks');
+  cacheTag('posts', `post-${slug}`);
+
   try {
     // Queries the Cockpit collection named 'posts' filtered by slug
     const entry = await cockpit.getContentItemByFilter<Post>('posts', {
@@ -162,6 +172,10 @@ export async function getBlogPostsByCategory(
   categorySlug: string,
   options: ContentItemsListOptions = {}
 ): Promise<PaginatedBlogPosts> {
+  'use cache';
+  cacheLife('weeks');
+  cacheTag('posts', 'categories', `category-${categorySlug}`);
+
   try {
     const category = await cockpit.getContentItemByFilter<Category>(
       'categories',
@@ -194,6 +208,10 @@ export async function getBlogPostsByTag(
   tagSlug: string,
   options: ContentItemsListOptions = {}
 ): Promise<PaginatedBlogPosts> {
+  'use cache';
+  cacheLife('weeks');
+  cacheTag('posts', 'tags', `tag-${tagSlug}`);
+
   try {
     const tag = await cockpit.getContentItemByFilter<Tag>('tags', {
       filter: { slug: tagSlug },
@@ -215,4 +233,42 @@ export async function getBlogPostsByTag(
     console.error('Error fetching posts by tag:', error);
     return { posts: [], total: 0 };
   }
+}
+
+export async function getCategories(): Promise<Category[]> {
+  'use cache';
+  cacheLife('weeks');
+  cacheTag('categories');
+  return cockpit.listContentItems<Category[]>('categories', {
+    sort: { name: 1 },
+  });
+}
+
+export async function getCategoryBySlug(
+  slug: string
+): Promise<Category | null> {
+  'use cache';
+  cacheLife('weeks');
+  cacheTag('categories', `category-${slug}`);
+  return cockpit.getContentItemByFilter<Category>('categories', {
+    filter: { slug },
+  });
+}
+
+export async function getTags(): Promise<Tag[]> {
+  'use cache';
+  cacheLife('weeks');
+  cacheTag('tags');
+  return cockpit.listContentItems<Tag[]>('tags', {
+    sort: { name: 1 },
+  });
+}
+
+export async function getTagBySlug(slug: string): Promise<Tag | null> {
+  'use cache';
+  cacheLife('weeks');
+  cacheTag('tags', `tag-${slug}`);
+  return cockpit.getContentItemByFilter<Tag>('tags', {
+    filter: { slug },
+  });
 }

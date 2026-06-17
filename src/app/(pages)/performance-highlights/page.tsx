@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
 import PerformanceHighlightsClient from '@/components/performance-highlights-client';
-import cockpit from '@/lib/client';
+import { getPerformances } from '@/lib/data';
 import { SCHEMA } from '@/lib/schema';
 import { Performance } from '@/types';
 
@@ -33,9 +33,7 @@ export const metadata: Metadata = {
 export default async function PerformanceHighlightsPage() {
   let performances: Performance[] = [];
   try {
-    performances = await cockpit.getContentTree<Performance[]>('performances', {
-      populate: 1,
-    });
+    performances = await getPerformances();
   } catch (error) {
     console.error('Error fetching performances from database:', error);
   }

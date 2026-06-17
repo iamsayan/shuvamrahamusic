@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
   },
   poweredByHeader: false,
   reactCompiler: true,
+  cacheComponents: true,
 };
 
 export default nextConfig;

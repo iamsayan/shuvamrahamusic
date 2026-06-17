@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
 import SecurePayPortal from '@/components/secure-pay-portal';
-import cockpit from '@/lib/client';
+import { getPricingPlans } from '@/lib/data';
 import { SCHEMA } from '@/lib/schema';
 import { PricingPlan } from '@/types';
 
@@ -21,8 +21,7 @@ export const metadata: Metadata = {
 export default async function SecurePayPage() {
   let fetchedPlans: PricingPlan[] = [];
   try {
-    const cockpitPlans =
-      await cockpit.listContentItems<PricingPlan[]>('pricingplans');
+    const cockpitPlans = await getPricingPlans();
     if (cockpitPlans && cockpitPlans.length > 0) {
       fetchedPlans = cockpitPlans;
     }

@@ -3,12 +3,11 @@ import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import SectionLoader from '@/components/section-loader';
 import BlogArchiveClient from '@/components/blog-archive-client';
 import JsonLd from '@/components/json-ld';
-import { getBlogPostsByCategory } from '@/lib/blog-data';
-import cockpit from '@/lib/client';
+import { getBlogPostsByCategory, getCategories, getCategoryBySlug } from '@/lib/blog-data';
 import { SCHEMA } from '@/lib/schema';
-import { Category } from '@/types';
 
 interface PageProps {
   params: Promise<{
@@ -21,93 +20,53 @@ interface PageProps {
 
 // Generate static params for categories dynamically at build time (SSG)
 export async function generateStaticParams() {
-  const categories = await cockpit.listContentItems('categories', {
-    limit: -1,
-    fields: {
-      slug: true,
-    },
-  });
-
+  const categories = await getCategories();
   return categories.map((category) => ({
     slug: category.slug,
   }));
 }
 
-// Generate dynamic SEO metadata
+// Generate static SEO metadata
 export async function generateMetadata({
   params,
-  searchParams,
 }: {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ page?: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const { page } = await searchParams;
-  const pageNum = Number(page) || 1;
-  const pageSuffix = pageNum > 1 ? ` - Page ${pageNum}` : '';
+  const category = await getCategoryBySlug(slug);
 
-  const category = await cockpit.getContentItemByFilter<Category>(
-    'categories',
-    {
-      filter: { slug },
-      fields: {
-        title: true,
-      },
-    }
-  );
-
-  // Retrieve total count for this category to compute pagination limits
-  let total = 0;
-  try {
-    const res = await getBlogPostsByCategory(slug, { limit: 1, skip: 0 });
-    total = res.total;
-  } catch (err) {
-    console.error(
-      'Failed to get total posts in category generateMetadata:',
-      err
-    );
+  if (!category) {
+    return {
+      title: 'Category Articles',
+    };
   }
 
-  const limit = 6;
-  const hasPrev = pageNum > 1;
-  const hasNext = pageNum * limit < total;
-
-  const prevUrl = hasPrev
-    ? `${SCHEMA.BASE_URL}/blog/category/${slug}${pageNum - 1 > 1 ? `?page=${pageNum - 1}` : ''}`
-    : null;
-  const nextUrl = hasNext
-    ? `${SCHEMA.BASE_URL}/blog/category/${slug}?page=${pageNum + 1}`
-    : null;
-
   return {
-    title: `${category.title} Articles${pageSuffix}`,
+    title: `${category.title} Articles`,
     description: `Read all guitar articles, roadmaps, and guides categorized under ${category.title} by instructor Shuvam Raha.`,
     alternates: {
-      canonical: `/blog/category/${slug}${pageNum > 1 ? `?page=${pageNum}` : ''}`,
-    },
-    pagination: {
-      ...(prevUrl ? { previous: prevUrl } : {}),
-      ...(nextUrl ? { next: nextUrl } : {}),
+      canonical: `/blog/category/${slug}`,
     },
     openGraph: {
-      title: `${category.title} Guitar Articles${pageSuffix}`,
+      title: `${category.title} Guitar Articles`,
       description: `Read all articles, exercises, and guides categorized under ${category.title} from Shuvam Raha.`,
-      url: `/blog/category/${slug}${pageNum > 1 ? `?page=${pageNum}` : ''}`,
+      url: `/blog/category/${slug}`,
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${category.title} Guitar Articles${pageSuffix}`,
+      title: `${category.title} Guitar Articles`,
       description: `Read all articles, exercises, and guides categorized under ${category.title} from Shuvam Raha.`,
     },
   };
 }
 
-export default async function CategoryArchivePage({
-  params,
-  searchParams,
-}: PageProps) {
-  const { slug } = await params;
+interface ContentProps {
+  slug: string;
+  searchParams: Promise<{ page?: string }>;
+}
+
+async function CategoryArchiveContent({ slug, searchParams }: ContentProps) {
   const { page } = await searchParams;
   const pageNum = Number(page) || 1;
 
@@ -165,16 +124,27 @@ export default async function CategoryArchivePage({
           },
         ]}
       />
-      <Suspense fallback={<div className="min-h-screen bg-[#05050A]" />}>
-        <BlogArchiveClient
-          title="Category:"
-          subtitle={`Browse all articles, patterns, and guides published under ${categoryName}.`}
-          type="category"
-          term={categoryName}
-          posts={posts}
-          totalPostsCount={total}
-        />
-      </Suspense>
+      <BlogArchiveClient
+        title="Category:"
+        subtitle={`Browse all articles, patterns, and guides published under ${categoryName}.`}
+        type="category"
+        term={categoryName}
+        posts={posts}
+        totalPostsCount={total}
+      />
     </>
+  );
+}
+
+export default async function CategoryArchivePage({
+  params,
+  searchParams,
+}: PageProps) {
+  const { slug } = await params;
+
+  return (
+    <Suspense fallback={<SectionLoader message="Loading category archive..." />}>
+      <CategoryArchiveContent slug={slug} searchParams={searchParams} />
+    </Suspense>
   );
 }

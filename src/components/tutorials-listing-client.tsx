@@ -2,8 +2,6 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
-import Link from 'next/link';
-
 import YouTubeFacade from '@/components/youtube-facade';
 import { TutorialItem } from '@/types';
 

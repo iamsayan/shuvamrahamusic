@@ -3,7 +3,6 @@ import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import type { Viewport } from 'next';
 import { Outfit } from 'next/font/google';
-import { headers } from 'next/headers';
 
 import Providers from '@/app/providers';
 import Footer from '@/components/footer';
@@ -118,7 +117,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const nonce = (await headers()).get('x-nonce') ?? '';
   const settings = getSettings();
 
   return (
@@ -132,7 +130,6 @@ export default async function RootLayout({
         <>
           <GoogleTagManager
             gtmId={process.env.NEXT_PUBLIC_GA4_ID!}
-            nonce={nonce}
             dataLayer={{
               cookie_prefix: 'srmGtag',
               cookie_domain: process.env.NEXT_PUBLIC_SITE_URL!,

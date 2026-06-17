@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import ExperienceYears from '@/components/experience-years';
 import BlogPostCard from '@/components/blog-post-card';
 import BrandEndorsements from '@/components/brand-endorsements';
 import JsonLd from '@/components/json-ld';
@@ -8,11 +9,10 @@ import ReviewCard from '@/components/review-card';
 import SliderGallery from '@/components/slider-gallery';
 import YouTubeFacade from '@/components/youtube-facade';
 import { getBlogPosts } from '@/lib/blog-data';
-import cockpit from '@/lib/client';
+import { getPricingPlans } from '@/lib/data';
 import { authorityPoints, curriculum } from '@/lib/guitar-data';
 import { getReviews } from '@/lib/reviews';
 import { SCHEMA } from '@/lib/schema';
-import { PricingPlan } from '@/types';
 
 import {
   LuArrowRight,
@@ -45,7 +45,7 @@ export default async function Home() {
   // Fetch latest posts and GMB reviews dynamically
   const [latestPosts, pricingPlans, reviews] = await Promise.all([
     getBlogPosts({ limit: 3 }),
-    cockpit.listContentItems<PricingPlan[]>('pricingplans'),
+    getPricingPlans(),
     getReviews(),
   ]);
 
@@ -202,7 +202,7 @@ export default async function Home() {
             <div className="grid grid-cols-2 gap-8 text-center md:grid-cols-5">
               <div className="space-y-1">
                 <div className="font-heading text-3xl font-black text-cyan-400 sm:text-4xl">
-                  {new Date().getFullYear() - 2015}+
+                  <ExperienceYears />
                 </div>
                 <div className="text-xs font-semibold tracking-widest text-gray-500 uppercase">
                   Years Experience
