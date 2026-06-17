@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
-
 import { usePathname } from 'next/navigation';
+
+import { sendGAEvent } from '@next/third-parties/google';
 
 import { FaWhatsapp } from 'react-icons/fa';
 
@@ -14,11 +14,21 @@ export default function WhatsappButton() {
     return null;
   }
 
+  const handleTrackClick = () => {
+    if (process.env.NODE_ENV === 'production') {
+      sendGAEvent('event', 'click_whatsapp', {
+        event_category: 'Engagement',
+        event_label: 'Floating WhatsApp Button',
+      });
+    }
+  };
+
   return (
     <a
       href="https://wa.me/918961369468"
       target="_blank"
       rel="noopener noreferrer"
+      onClick={handleTrackClick}
       className="group fixed right-6 bottom-6 z-50 flex items-center gap-0 overflow-hidden rounded-full border border-emerald-500/30 bg-emerald-950/40 px-3.5 py-3.5 text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.2)] backdrop-blur-xl transition-all duration-500 group-hover:gap-2 hover:scale-105 hover:text-white hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] active:scale-95"
       aria-label="Chat on WhatsApp"
     >
@@ -34,7 +44,7 @@ export default function WhatsappButton() {
       </span>
 
       {/* Icon */}
-      <FaWhatsapp className="shrink-0 transition-transform duration-300 group-hover:rotate-[12deg] size-5" />
+      <FaWhatsapp className="size-5 shrink-0 transition-transform duration-300 group-hover:rotate-[12deg]" />
     </a>
   );
 }

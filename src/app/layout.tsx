@@ -7,6 +7,7 @@ import { Outfit } from 'next/font/google';
 import Providers from '@/app/providers';
 import Footer from '@/components/footer';
 import Header from '@/components/header';
+import UTMTracker from '@/components/utm-tracker';
 import WhatsappButton from '@/components/whatsapp-button';
 import { getPricingPlans, getSettings } from '@/lib/data';
 import '@bprogress/core/css';
@@ -166,6 +167,9 @@ export default async function RootLayout({
               <main className="relative flex flex-1 flex-col">{children}</main>
               <Footer />
               <WhatsappButton />
+              <Suspense fallback={null}>
+                <UTMTracker />
+              </Suspense>
             </Suspense>
           </div>
         </Providers>
