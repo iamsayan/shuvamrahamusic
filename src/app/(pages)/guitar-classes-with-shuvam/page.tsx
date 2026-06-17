@@ -350,7 +350,8 @@ export default async function Page() {
         {/* Brand Endorsements */}
         <BrandEndorsements
           layout="marquee"
-          className="relative z-10 border-b border-white/5 py-4"
+          isSection={true}
+          className="relative z-10 py-4"
         />
 
         {/* =======================================================================

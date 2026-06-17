@@ -247,7 +247,8 @@ export default async function Home() {
         {/* Brand Endorsements */}
         <BrandEndorsements
           layout="marquee"
-          className="relative z-10 mx-auto my-10 max-w-6xl border-b border-white/5 py-4"
+          isSection={true}
+          className="relative z-10 my-10 border-b border-white/5 py-4"
         />
 
         {/* ==========================================================
