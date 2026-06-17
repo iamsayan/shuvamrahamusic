@@ -328,6 +328,25 @@ export default function SecurePayPortal() {
         });
       }
 
+      // Capture stored UTM parameters for marketing attribution
+      const utmNotes: Record<string, string> = {};
+      const utmKeys = [
+        'utm_source',
+        'utm_medium',
+        'utm_campaign',
+        'utm_term',
+        'utm_content',
+        'gclid',
+      ];
+      utmKeys.forEach((key) => {
+        if (typeof window !== 'undefined') {
+          const val = sessionStorage.getItem(key);
+          if (val) {
+            utmNotes[key] = val;
+          }
+        }
+      });
+
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
         amount: amountInUnits.toString(),
@@ -344,6 +363,7 @@ export default function SecurePayPortal() {
           region: activePlan.region === 'India' ? 'IN' : 'GLOBAL',
           city: formData.city,
           address: formData.address,
+          ...utmNotes,
         },
         handler: function (response: {
           razorpay_payment_id: string;

@@ -67,7 +67,8 @@ export default function ShareButtons({ post }: ShareButtonsProps) {
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(url);
+      const copyUrl = `${url}?utm_source=copy_link&utm_medium=social&utm_campaign=blog_share`;
+      await navigator.clipboard.writeText(copyUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
@@ -77,10 +78,11 @@ export default function ShareButtons({ post }: ShareButtonsProps) {
 
   const handleNativeShare = async () => {
     if (typeof navigator !== 'undefined' && 'share' in navigator) {
+      const nativeShareUrl = `${url}?utm_source=native_share&utm_medium=social&utm_campaign=blog_share`;
       const shareData: ShareData = {
         title: title,
         text: `Check out this article: ${title}`,
-        url: url,
+        url: nativeShareUrl,
       };
 
       if (shareFile) {
@@ -107,7 +109,13 @@ export default function ShareButtons({ post }: ShareButtonsProps) {
     }
   };
 
-  const encodedUrl = encodeURIComponent(url);
+  const twitterShareUrl = `${url}?utm_source=twitter&utm_medium=social&utm_campaign=blog_share`;
+  const facebookShareUrl = `${url}?utm_source=facebook&utm_medium=social&utm_campaign=blog_share`;
+  const whatsappShareUrl = `${url}?utm_source=whatsapp&utm_medium=social&utm_campaign=blog_share`;
+
+  const encodedTwitterUrl = encodeURIComponent(twitterShareUrl);
+  const encodedFacebookUrl = encodeURIComponent(facebookShareUrl);
+  const encodedWhatsappUrl = encodeURIComponent(whatsappShareUrl);
   const encodedTitle = encodeURIComponent(title);
 
   return (
@@ -149,7 +157,7 @@ export default function ShareButtons({ post }: ShareButtonsProps) {
 
       {/* Twitter / X */}
       <a
-        href={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`}
+        href={`https://twitter.com/intent/tweet?url=${encodedTwitterUrl}&text=${encodedTitle}`}
         target="_blank"
         rel="noopener noreferrer"
         className="group flex size-9 items-center justify-center rounded-full border border-white/5 bg-white/2 text-gray-400 transition-all duration-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
@@ -160,7 +168,7 @@ export default function ShareButtons({ post }: ShareButtonsProps) {
 
       {/* Facebook */}
       <a
-        href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
+        href={`https://www.facebook.com/sharer/sharer.php?u=${encodedFacebookUrl}`}
         target="_blank"
         rel="noopener noreferrer"
         className="group flex size-9 items-center justify-center rounded-full border border-white/5 bg-white/2 text-gray-400 transition-all duration-300 hover:border-blue-500/20 hover:bg-blue-500/10 hover:text-blue-400"
@@ -171,7 +179,7 @@ export default function ShareButtons({ post }: ShareButtonsProps) {
 
       {/* WhatsApp */}
       <a
-        href={`https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`}
+        href={`https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedWhatsappUrl}`}
         target="_blank"
         rel="noopener noreferrer"
         className="group flex size-9 items-center justify-center rounded-full border border-white/5 bg-white/2 text-gray-400 transition-all duration-300 hover:border-emerald-500/20 hover:bg-emerald-500/10 hover:text-emerald-400"
