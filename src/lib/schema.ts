@@ -29,6 +29,11 @@ function webSite() {
     description: 'Easy To Learn & Easy To Play',
     inLanguage: 'en-US',
     publisher: { '@id': `${BASE_URL}/#person` },
+    creator: {
+      '@type': 'Person',
+      name: 'Sayan Datta',
+      url: 'https://sayandatta.co.in',
+    },
   };
 }
 

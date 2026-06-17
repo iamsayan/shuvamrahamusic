@@ -348,6 +348,7 @@ export default function BlogListingClient({
                       src={featuredPost.author.avatar}
                       alt={featuredPost.author.name}
                       fill
+                      sizes="40px"
                       className="object-cover"
                     />
                   </div>

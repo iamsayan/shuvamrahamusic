@@ -358,37 +358,65 @@ export class CockpitClient {
       }
     }
 
-    const response = await fetch(url, options);
+    let attempts = 0;
+    const maxAttempts = 3;
+    let delay = 1000;
+    let lastError: unknown = null;
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(
-        `Cockpit request failed with status ${response.status}: ${errorText}`
-      );
+    while (attempts < maxAttempts) {
+      try {
+        attempts++;
+        const response = await fetch(url, options);
+
+        if (!response.ok) {
+          if ([502, 503, 504].includes(response.status)) {
+            throw new Error(`Transient status ${response.status}`);
+          }
+          const errorText = await response.text();
+          throw new Error(
+            `Cockpit request failed with status ${response.status}: ${errorText}`
+          );
+        }
+
+        if (response.status === 204 || response.status === 205) {
+          return {} as T;
+        }
+
+        const contentType = response.headers.get('content-type') || '';
+
+        if (contentType.includes('application/json')) {
+          const text = await response.text();
+          return text ? (JSON.parse(text) as T) : ({} as T);
+        }
+
+        if (
+          contentType.startsWith('image/') ||
+          contentType.startsWith('video/') ||
+          contentType.startsWith('audio/') ||
+          contentType.includes('application/octet-stream')
+        ) {
+          return (await response.blob()) as unknown as T;
+        }
+
+        const text = await response.text();
+        return text as unknown as T;
+      } catch (err) {
+        lastError = err;
+        if (method !== 'GET') {
+          throw err;
+        }
+        if (attempts >= maxAttempts) {
+          break;
+        }
+        console.warn(
+          `Cockpit request attempt ${attempts} failed for ${path}, retrying in ${delay}ms... Error:`,
+          err
+        );
+        await new Promise((resolve) => setTimeout(resolve, delay));
+        delay *= 2;
+      }
     }
-
-    if (response.status === 204 || response.status === 205) {
-      return {} as T;
-    }
-
-    const contentType = response.headers.get('content-type') || '';
-
-    if (contentType.includes('application/json')) {
-      const text = await response.text();
-      return text ? (JSON.parse(text) as T) : ({} as T);
-    }
-
-    if (
-      contentType.startsWith('image/') ||
-      contentType.startsWith('video/') ||
-      contentType.startsWith('audio/') ||
-      contentType.includes('application/octet-stream')
-    ) {
-      return (await response.blob()) as unknown as T;
-    }
-
-    const text = await response.text();
-    return text as unknown as T;
+    throw lastError;
   }
 
   // ==========================================

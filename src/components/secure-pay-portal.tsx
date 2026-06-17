@@ -1,6 +1,6 @@
 'use client';
 
-import { SubmitEvent, useEffect, useState } from 'react';
+import { SubmitEvent, useState } from 'react';
 
 import { useSearchParams } from 'next/navigation';
 
