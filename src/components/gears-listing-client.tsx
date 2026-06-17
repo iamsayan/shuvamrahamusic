@@ -255,7 +255,7 @@ export default function GearsListingClient({
           </div>
 
           {/* Custom Category Dropdown selector */}
-          <div ref={dropdownRef} className="relative w-full shrink-0 md:w-60">
+          <div ref={dropdownRef} className="relative w-full shrink-0 md:w-72">
             <button
               type="button"
               onClick={() => setIsDropdownOpen((prev) => !prev)}
@@ -265,7 +265,7 @@ export default function GearsListingClient({
                 <span
                   className={`rounded-full bg-linear-to-r ${activeTheme.gradient} ${activeTheme.glow} size-2.5`}
                 />
-                <span className="font-semibold tracking-wide">
+                <span className="font-semibold tracking-wide whitespace-nowrap">
                   {selectedCategory}
                 </span>
               </div>
@@ -565,27 +565,45 @@ function GearCard({
               <LuSparkles className="size-3.5 animate-pulse text-amber-400" />
               <span>Instructor Recommendation</span>
             </div>
-
             {/* Badges list */}
             <div className="flex flex-col gap-2.5">
-              {item.highlights?.map((highlight: string, hIdx: number) => (
-                <div key={hIdx} className="flex items-start gap-2.5">
-                  <div
-                    className={`mt-0.5 flex shrink-0 items-center justify-center rounded-full ${hIdx === 0 ? 'bg-amber-500/10 text-amber-400' : 'bg-cyan-500/10 text-cyan-400'} size-5`}
-                  >
-                    {hIdx === 0 ? (
-                      <LuStar className="size-3 fill-amber-400/20" />
-                    ) : (
-                      <LuTarget className="size-3 animate-pulse" />
-                    )}
+              {item.highlights?.map((highlight: string, hIdx: number) => {
+                const highlightStyles = [
+                  {
+                    icon: LuStar,
+                    iconClass: 'size-3 fill-amber-400/20',
+                    bgClass: 'bg-amber-500/10 text-amber-400',
+                    textClass: 'font-bold text-amber-200/90',
+                  },
+                  {
+                    icon: LuTarget,
+                    iconClass: 'size-3 animate-pulse',
+                    bgClass: 'bg-cyan-500/10 text-cyan-400',
+                    textClass: 'font-semibold text-cyan-200/90',
+                  },
+                  {
+                    icon: LuSparkles,
+                    iconClass: 'size-3 text-violet-400',
+                    bgClass: 'bg-violet-500/10 text-violet-400',
+                    textClass: 'font-semibold text-violet-200/90',
+                  },
+                ];
+                const style = highlightStyles[hIdx % highlightStyles.length];
+                const Icon = style.icon;
+
+                return (
+                  <div key={hIdx} className="flex items-start gap-2.5">
+                    <div
+                      className={`mt-0.5 flex shrink-0 items-center justify-center rounded-full ${style.bgClass} size-5`}
+                    >
+                      <Icon className={style.iconClass} />
+                    </div>
+                    <p className={`text-xs leading-relaxed ${style.textClass}`}>
+                      {highlight}
+                    </p>
                   </div>
-                  <p
-                    className={`text-xs leading-relaxed ${hIdx === 0 ? 'font-bold text-amber-200/90' : 'font-semibold text-cyan-200/90'}`}
-                  >
-                    {highlight}
-                  </p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

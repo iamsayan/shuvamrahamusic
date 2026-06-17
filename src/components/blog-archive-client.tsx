@@ -74,7 +74,7 @@ export default function BlogArchiveClient({
     >
       {/* If no articles found */}
       {posts.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-[2.5rem] border border-white/10 bg-[#07070F]/85 p-12 text-center backdrop-blur-3xl md:p-20">
+        <div className="mb-12 flex flex-col items-center justify-center rounded-[2.5rem] border border-white/10 bg-[#07070F]/85 p-12 text-center backdrop-blur-3xl md:p-20 lg:mb-16">
           <LuBookOpen className="mb-6 size-12 animate-pulse text-gray-600" />
           <h3 className="font-heading text-lg font-bold text-white sm:text-xl">
             No Articles Found

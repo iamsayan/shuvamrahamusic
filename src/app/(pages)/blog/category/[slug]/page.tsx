@@ -3,10 +3,14 @@ import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import SectionLoader from '@/components/section-loader';
 import BlogArchiveClient from '@/components/blog-archive-client';
 import JsonLd from '@/components/json-ld';
-import { getBlogPostsByCategory, getCategories, getCategoryBySlug } from '@/lib/blog-data';
+import SectionLoader from '@/components/section-loader';
+import {
+  getBlogPostsByCategory,
+  getCategories,
+  getCategoryBySlug,
+} from '@/lib/blog-data';
 import { SCHEMA } from '@/lib/schema';
 
 interface PageProps {
@@ -75,9 +79,9 @@ async function CategoryArchiveContent({ slug, searchParams }: ContentProps) {
   const skip = (pageNum - 1) * limit;
   const { posts, total } = await getBlogPostsByCategory(slug, { limit, skip });
 
-  if (posts.length === 0) {
-    notFound();
-  }
+  // if (posts.length === 0) {
+  //   notFound();
+  // }
 
   const categoryName =
     posts[0].categories.find((cat) => cat.slug === slug)?.title || slug;
@@ -113,8 +117,12 @@ async function CategoryArchiveContent({ slug, searchParams }: ContentProps) {
               headline: post.title,
               description: post.excerpt,
               url: `${SCHEMA.BASE_URL}/blog/${post.slug}`,
-              datePublished: post.raw?._created ? new Date(post.raw._created * 1000).toISOString() : undefined,
-              dateModified: post.raw?._modified ? new Date(post.raw._modified * 1000).toISOString() : undefined,
+              datePublished: post.raw?._created
+                ? new Date(post.raw._created * 1000).toISOString()
+                : undefined,
+              dateModified: post.raw?._modified
+                ? new Date(post.raw._modified * 1000).toISOString()
+                : undefined,
               keywords: post.tags.map((t) => t.title).join(', '),
               author: {
                 '@type': 'Person',
@@ -143,7 +151,9 @@ export default async function CategoryArchivePage({
   const { slug } = await params;
 
   return (
-    <Suspense fallback={<SectionLoader message="Loading category archive..." />}>
+    <Suspense
+      fallback={<SectionLoader message="Loading category archive..." />}
+    >
       <CategoryArchiveContent slug={slug} searchParams={searchParams} />
     </Suspense>
   );
