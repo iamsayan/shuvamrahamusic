@@ -37,12 +37,14 @@ interface BrandEndorsementsProps {
   layout?: 'marquee' | 'grid' | 'compact';
   title?: string;
   className?: string;
+  isSection?: boolean;
 }
 
 export default function BrandEndorsements({
   layout = 'marquee',
   title,
   className = '',
+  isSection = false,
 }: BrandEndorsementsProps) {
   const defaultTitle =
     layout === 'grid' ? 'Official Endorsements & Partners' : 'Endorsed By';
@@ -129,8 +131,12 @@ export default function BrandEndorsements({
 
   // Default layout: marquee
   return (
-    <div className={`w-full overflow-hidden py-6 ${className}`}>
-      <div className="mx-auto w-full max-w-350">
+    <div
+      className={`w-full overflow-hidden py-6 ${
+        isSection ? 'mx-auto max-w-350 px-5 md:px-12 lg:px-20' : ''
+      } ${className}`}
+    >
+      <div className="mx-auto w-full">
         {title !== '' && (
           <div className="mb-4 text-center">
             <span className="text-[10px] font-black tracking-[0.2em] text-gray-500 uppercase">
