@@ -3,10 +3,10 @@ import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import SectionLoader from '@/components/section-loader';
 import BlogArchiveClient from '@/components/blog-archive-client';
 import JsonLd from '@/components/json-ld';
-import { getBlogPostsByTag, getTags, getTagBySlug } from '@/lib/blog-data';
+import SectionLoader from '@/components/section-loader';
+import { getBlogPostsByTag, getTagBySlug, getTags } from '@/lib/blog-data';
 import { SCHEMA } from '@/lib/schema';
 
 interface PageProps {
@@ -75,11 +75,12 @@ async function TagArchiveContent({ slug, searchParams }: ContentProps) {
   const skip = (pageNum - 1) * limit;
   const { posts, total } = await getBlogPostsByTag(slug, { limit, skip });
 
-  if (posts.length === 0) {
-    notFound();
-  }
+  // if (posts.length === 0) {
+  //   notFound();
+  // }
 
-  const tagName = posts[0].tags.find((tag) => tag.slug === slug)?.title || slug;
+  const tagName =
+    posts[0]?.tags.find((tag) => tag.slug === slug)?.title || slug;
 
   return (
     <>
