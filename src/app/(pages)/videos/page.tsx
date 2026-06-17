@@ -4,36 +4,37 @@ import { getGalleryData } from '@/lib/data';
 import { SCHEMA } from '@/lib/schema';
 
 export const metadata = {
-  title: 'Video Gallery | Shuvam Raha',
+  title: 'Video Gallery',
   description:
     'Watch official music videos, gear unboxings, tone playthroughs, student results, and premium guitar lessons.',
 };
 
 export default async function VideosGalleryPage() {
-  const gallery = await getGalleryData()
-    .catch((err) => {
-      console.error('Failed to fetch gallery videos:', err);
-      return null;
-    });
+  const gallery = await getGalleryData().catch((err) => {
+    console.error('Failed to fetch gallery videos:', err);
+    return null;
+  });
 
   const videos = gallery?.videos || [];
 
   const pageSchema = SCHEMA.webPage({
-    path: '/gallery/videos',
-    name: 'Video Gallery | Shuvam Raha',
+    path: '/videos',
+    name: 'Video Gallery - Shuvam Raha Music',
     description:
       'Watch official music videos, gear unboxings, tone playthroughs, student results, and premium guitar lessons.',
   });
 
+  const breadcrumbSchema = SCHEMA.breadcrumb('/videos');
+
   const gallerySchema = {
     '@context': 'https://schema.org',
     '@type': 'VideoGallery',
-    '@id': `${SCHEMA.BASE_URL}/gallery/videos/#gallery`,
-    url: `${SCHEMA.BASE_URL}/gallery/videos/`,
+    '@id': `${SCHEMA.BASE_URL}/videos/#gallery`,
+    url: `${SCHEMA.BASE_URL}/videos/`,
     name: 'Video Gallery',
     description:
       'Watch official music videos, gear unboxings, tone playthroughs, student results, and premium guitar lessons.',
-    isPartOf: { '@id': `${SCHEMA.BASE_URL}/gallery/videos/#webpage` },
+    isPartOf: { '@id': `${SCHEMA.BASE_URL}/videos/#webpage` },
     video: videos.map((v) => ({
       '@type': 'VideoObject',
       name: v.title,
@@ -46,7 +47,7 @@ export default async function VideosGalleryPage() {
 
   return (
     <>
-      <JsonLd schema={[pageSchema, gallerySchema]} />
+      <JsonLd schema={[pageSchema, breadcrumbSchema, gallerySchema]} />
       <VideosGalleryClient videos={videos} />
     </>
   );
