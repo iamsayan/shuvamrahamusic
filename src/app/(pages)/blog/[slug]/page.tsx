@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import CockpitImage from '@/components/cockpit-image';
+import CommentsSection from '@/components/comments-section';
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
 import ShareButtons from '@/components/share-buttons';
@@ -16,6 +17,7 @@ import {
   getThemeKey,
 } from '@/lib/blog-data';
 import cockpit from '@/lib/client';
+import { getCommentsForPost } from '@/lib/comments';
 import { SCHEMA } from '@/lib/schema';
 
 import {
@@ -198,7 +200,7 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
-  const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/blog/${post.slug}`;
+  const comments = await getCommentsForPost(post.id);
 
   const primaryCat = post.categories[0]?.title || '';
   const themeKey = getThemeKey(primaryCat);
@@ -413,6 +415,13 @@ export default async function BlogPostPage({ params }: PageProps) {
                   <ShareButtons post={post} />
                 </div>
               </div>
+
+              {/* Comments Section */}
+              <CommentsSection
+                postSlug={post.slug}
+                postId={post.id}
+                initialComments={comments}
+              />
 
               {/* Previous & Next Article Navigation */}
               {(prevPost || nextPost) && (
