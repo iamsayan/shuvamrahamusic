@@ -8,7 +8,7 @@ This is a Next.js 16 (App Router) application used to showcase guitar learning w
 
 ## ⚙️ Tech Stack
 
-* Next.js 16 (App Router)
+* Next.js 16 (App Router with `cacheComponents` and `reactCompiler` enabled)
 * TypeScript (strict mode)
 * Tailwind CSS v4
 
@@ -74,6 +74,12 @@ This is a Next.js 16 (App Router) application used to showcase guitar learning w
 ## ⚡ Performance Rules
 
 * Prefer **Server Components**
+* **React Compiler**: The project is configured with React Compiler. Do **NOT** use manual `useMemo` or `useCallback` hooks as function and component memoization is handled automatically at compile-time.
+* **Avoid Render Storms**: For scroll or other high-frequency DOM event handlers, restrict state updates to trigger only when the state value actually changes to prevent unnecessary re-rendering and layout thrashing.
+* **Cache Components (`use cache`)**: The project has Next.js `cacheComponents: true` enabled, which sets Partial Prerendering (PPR) as the default model.
+  * Use the `'use cache'` directive at the top of Server Components or functions to cache their outputs.
+  * Use Next.js 16 `cacheLife` to configure dynamic revalidation lifetimes (e.g. `'minutes'`, `'hours'`).
+  * Do not use legacy route segment configs like `export const dynamic = 'force-dynamic'` or `revalidate = 0` unless specifically required.
 * Avoid unnecessary re-renders
 * Use dynamic imports where needed
 * Optimize images and API calls
@@ -121,6 +127,9 @@ This is a Next.js 16 (App Router) application used to showcase guitar learning w
 ## 📌 Notes for AI Agents
 
 * Always follow existing patterns before introducing new ones
+* **React Compiler awareness**: Do not introduce manual React memoization hooks (`useMemo`, `useCallback`) as they are redundant.
+* **Unified useSettings Hook**: Site settings and pricing plans are accessed via the `useSettings()` hook. Avoid fetching these individually or passing separate promises when layout context is available.
+* **Caching with `use cache`**: Utilize the `'use cache'` directive and standard `cacheLife` profiles for data caching instead of custom caching variables or dynamic configuration exports.
 * Prefer minimal and clean solutions
 * Do not over-engineer
 * Respect project structure strictly

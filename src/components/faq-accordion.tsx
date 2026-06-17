@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { allFaqs, categories } from '@/lib/guitar-data';
 
@@ -10,11 +10,10 @@ export default function FaqAccordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const [activeCategory, setActiveCategory] = useState('All');
 
-  const filteredFaqs = useMemo(() => {
-    return activeCategory === 'All'
+  const filteredFaqs =
+    activeCategory === 'All'
       ? allFaqs
       : allFaqs.filter((f) => f.category === activeCategory);
-  }, [activeCategory]);
 
   const toggleFaq = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -26,7 +25,7 @@ export default function FaqAccordion() {
       <div className="flex w-full flex-col gap-8 lg:sticky lg:top-24 lg:w-1/3">
         <div>
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-3 py-1.5 shadow-[0_0_15px_rgba(99,102,241,0.15)]">
-            <LuCircleHelp className="text-indigo-400 size-4" />
+            <LuCircleHelp className="size-4 text-indigo-400" />
             <span className="text-xs font-bold tracking-widest text-indigo-400 uppercase">
               FAQ
             </span>
@@ -60,7 +59,7 @@ export default function FaqAccordion() {
             >
               {cat}
               {activeCategory === cat && (
-                <div className="animate-pulse rounded-full bg-indigo-400 size-1.5" />
+                <div className="size-1.5 animate-pulse rounded-full bg-indigo-400" />
               )}
             </button>
           ))}
@@ -68,10 +67,10 @@ export default function FaqAccordion() {
 
         {/* Contact Card */}
         <div className="group relative hidden flex-col gap-4 overflow-hidden rounded-[2rem] border border-indigo-500/10 bg-linear-to-br from-indigo-900/10 to-purple-900/10 p-6 shadow-2xl transition-colors hover:border-indigo-500/20 lg:flex">
-          <div className="absolute top-0 right-0 rounded-full bg-indigo-500/10 blur-[40px] transition-colors duration-500 group-hover:bg-indigo-500/20 size-32" />
+          <div className="absolute top-0 right-0 size-32 rounded-full bg-indigo-500/10 blur-[40px] transition-colors duration-500 group-hover:bg-indigo-500/20" />
           <div className="relative z-10">
-            <div className="mb-4 flex items-center justify-center rounded-xl border border-indigo-500/20 bg-indigo-500/10 text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.15)] size-12">
-              <LuMessageCircle className="animate-pulse size-6" />
+            <div className="mb-4 flex size-12 items-center justify-center rounded-xl border border-indigo-500/20 bg-indigo-500/10 text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.15)]">
+              <LuMessageCircle className="size-6 animate-pulse" />
             </div>
             <h4 className="font-heading mb-1 text-lg font-bold text-white">
               Still have questions?

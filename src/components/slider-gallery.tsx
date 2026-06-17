@@ -1,12 +1,6 @@
 'use client';
 
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 
@@ -24,22 +18,25 @@ export default function SliderGallery({
   const [isHovered, setIsHovered] = useState(false);
   const itemsCount = React.Children.count(children);
 
-  const handleScroll = useCallback(() => {
+  const handleScroll = () => {
     if (!scrollRef.current) return;
-    const scrollLeft = scrollRef.current.scrollLeft;
-    const scrollWidth =
-      scrollRef.current.scrollWidth - scrollRef.current.clientWidth;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+    const maxScroll = scrollWidth - clientWidth;
 
     // Protect against division by zero
-    if (scrollWidth <= 0) {
-      setActiveIndex(0);
+    if (maxScroll <= 0) {
+      setActiveIndex((prev) => (prev === 0 ? prev : 0));
       return;
     }
 
-    const percentage = scrollLeft / scrollWidth;
-    const index = Math.round(percentage * (itemsCount - 1));
-    setActiveIndex(Math.min(itemsCount - 1, Math.max(0, index)));
-  }, [itemsCount]);
+    const percentage = scrollLeft / maxScroll;
+    const index = Math.min(
+      itemsCount - 1,
+      Math.max(0, Math.round(percentage * (itemsCount - 1)))
+    );
+
+    setActiveIndex((prev) => (prev === index ? prev : index));
+  };
 
   const scrollToIndex = (index: number) => {
     if (!scrollRef.current) return;
@@ -63,11 +60,12 @@ export default function SliderGallery({
 
   // Check initial state in case screen size prevents scrolling
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const frameId = requestAnimationFrame(() => {
       handleScroll();
-    }, 0);
-    return () => clearTimeout(timer);
-  }, [handleScroll]);
+    });
+    return () => cancelAnimationFrame(frameId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Autoscroll timer effect (pauses on hover and handles multiple visible items correctly)
   useEffect(() => {
@@ -93,11 +91,6 @@ export default function SliderGallery({
     return () => clearInterval(interval);
   }, [autoScroll, itemsCount, isHovered, itemWidth]);
 
-  const dotsArray = useMemo(
-    () => Array.from({ length: itemsCount }),
-    [itemsCount]
-  );
-
   return (
     <div
       className="relative w-full"
@@ -117,22 +110,22 @@ export default function SliderGallery({
         {/* Nav Buttons (Visible all the time) */}
         <button
           onClick={scrollLeft}
-          className="absolute top-1/2 left-0 z-20 flex -translate-x-2 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#05050A]/90 text-white shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white/10 md:-translate-x-6 size-12"
+          className="absolute top-1/2 left-0 z-20 flex size-12 -translate-x-2 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#05050A]/90 text-white shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white/10 md:-translate-x-6"
         >
-          <LuChevronLeft className="pr-0.5 size-6" />
+          <LuChevronLeft className="size-6 pr-0.5" />
         </button>
 
         <button
           onClick={scrollRight}
-          className="absolute top-1/2 right-0 z-20 flex translate-x-2 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#05050A]/90 text-white shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white/10 md:translate-x-6 size-12"
+          className="absolute top-1/2 right-0 z-20 flex size-12 translate-x-2 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#05050A]/90 text-white shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white/10 md:translate-x-6"
         >
-          <LuChevronRight className="pl-0.5 size-6" />
+          <LuChevronRight className="size-6 pl-0.5" />
         </button>
       </div>
 
       {/* Pagination Dots */}
       <div className="pointer-events-none mt-6 flex justify-center gap-2">
-        {dotsArray.map((_, i) => (
+        {React.Children.map(children, (_, i) => (
           <button
             key={i}
             onClick={() => scrollToIndex(i)}
@@ -140,7 +133,7 @@ export default function SliderGallery({
             className={`rounded-full transition-all duration-300 ${
               activeIndex === i
                 ? 'h-2 w-8 bg-orange-500 shadow-[0_0_10px_rgba(245,158,11,0.5)]'
-                : 'bg-white/20 size-2'
+                : 'size-2 bg-white/20'
             }`}
             aria-label={`Go to slide ${i + 1}`}
           />

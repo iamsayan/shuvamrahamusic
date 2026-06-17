@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import CockpitImage from '@/components/cockpit-image';
 import { GearItem } from '@/types';
@@ -180,7 +180,7 @@ export default function GearsListingClient({
   }, [searchQuery]);
 
   // Dynamically collect active categories from data
-  const activeCategories = useMemo(() => {
+  const activeCategories = (() => {
     const categoriesWithItems = new Set<string>();
     initialItems?.forEach((item) => {
       item.categories?.forEach((cat: string) => {
@@ -188,10 +188,10 @@ export default function GearsListingClient({
       });
     });
     return ['All', ...Array.from(categoriesWithItems).sort()];
-  }, [initialItems]);
+  })();
 
   // Dynamically assign a color theme to each category based on its sorted index
-  const categoryThemes = useMemo(() => {
+  const categoryThemes = (() => {
     const themes: Record<string, typeof DEFAULT_THEME> = {
       All: DEFAULT_THEME,
     };
@@ -200,10 +200,10 @@ export default function GearsListingClient({
       themes[cat] = THEME_PALETTE[idx % THEME_PALETTE.length];
     });
     return themes;
-  }, [activeCategories]);
+  })();
 
   // Filter products based on search and category tab
-  const filteredGears = useMemo(() => {
+  const filteredGears = (() => {
     const items = initialItems || [];
     const query = debouncedSearchQuery.trim().toLowerCase();
 
@@ -221,7 +221,7 @@ export default function GearsListingClient({
 
       return matchesSearch && matchesCategory;
     });
-  }, [initialItems, debouncedSearchQuery, selectedCategory]);
+  })();
 
   const activeTheme = categoryThemes[selectedCategory] || DEFAULT_THEME;
 

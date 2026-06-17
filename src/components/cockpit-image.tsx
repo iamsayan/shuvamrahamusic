@@ -1,6 +1,6 @@
 'use client';
 
-import { type ReactNode, useCallback, useMemo, useRef, useState } from 'react';
+import { type ReactNode, useRef, useState } from 'react';
 
 import Image, { type ImageProps } from 'next/image';
 
@@ -58,41 +58,20 @@ export default function CockpitImage({
   const restWidth = rest.width;
   const restHeight = rest.height;
 
-  const url = useMemo(
-    () =>
-      preset
-        ? cockpit.getImagePresetUrl(asset._id, preset, { o: 1 })
-        : cockpit.getImageUrl(asset._id, {
-            o: 1,
-            w: asset.width || (restWidth as number) || twidth,
-            h: asset.height || (restHeight as number) || theight,
-            q: quality,
-            m: mode,
-          }),
-    [
-      asset._id,
-      asset.width,
-      asset.height,
-      twidth,
-      theight,
-      quality,
-      restWidth,
-      restHeight,
-      preset,
-      mode,
-    ]
-  );
+  const url = preset
+    ? cockpit.getImagePresetUrl(asset._id, preset, { o: 1 })
+    : cockpit.getImageUrl(asset._id, {
+        o: 1,
+        w: asset.width || (restWidth as number) || twidth,
+        h: asset.height || (restHeight as number) || theight,
+        q: quality,
+        m: mode,
+      });
 
-  const objectPosition = useMemo(() => {
-    if (
-      asset.fp &&
-      typeof asset.fp.x === 'number' &&
-      typeof asset.fp.y === 'number'
-    ) {
-      return `${asset.fp.x * 100}% ${asset.fp.y * 100}%`;
-    }
-    return undefined;
-  }, [asset.fp]);
+  const objectPosition =
+    asset.fp && typeof asset.fp.x === 'number' && typeof asset.fp.y === 'number'
+      ? `${asset.fp.x * 100}% ${asset.fp.y * 100}%`
+      : undefined;
 
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -102,16 +81,16 @@ export default function CockpitImage({
     ...intersectionOptions,
   });
 
-  const handleLoad = useCallback(() => {
+  const handleLoad = () => {
     setImageState((prev) => ({
       ...prev,
       isLoading: false,
       error: false,
     }));
     hasAttemptedFallback.current = false;
-  }, []);
+  };
 
-  const handleError = useCallback(() => {
+  const handleError = () => {
     if (imageState.useTransform && !hasAttemptedFallback.current) {
       hasAttemptedFallback.current = true;
       setImageState((prev) => ({
@@ -126,27 +105,23 @@ export default function CockpitImage({
         useTransform: false,
       });
     }
-  }, [imageState.useTransform]);
+  };
 
   const shouldRenderImage = !lazy || inView;
   const shouldShowPlaceholder =
     imageState.isLoading && loaderPlaceholder !== false;
 
-  const containerClasses = useMemo(
-    () =>
-      cn(
-        'relative bg-gray-200 size-full',
-        imageState.error && 'bg-red-100',
-        containerClassName
-      ),
-    [imageState.error, containerClassName]
+  const containerClasses = cn(
+    'relative bg-gray-200 size-full',
+    imageState.error && 'bg-red-100',
+    containerClassName
   );
 
   return (
     <div ref={ref} className={containerClasses}>
       {shouldShowPlaceholder &&
         (typeof loaderPlaceholder === 'boolean' ? (
-          <div className="relative flex flex-col items-center justify-center bg-linear-to-br from-blue-50 to-indigo-100 size-full">
+          <div className="relative flex size-full flex-col items-center justify-center bg-linear-to-br from-blue-50 to-indigo-100">
             <div className="mb-3 flex size-16 items-center justify-center rounded-full bg-white shadow-lg">
               <Image
                 src={placeholderImage}

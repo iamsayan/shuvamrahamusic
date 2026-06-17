@@ -22,8 +22,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/gallery/videos',
     '/gallery/photos',
     '/blog',
-    //'/tools/fretboard-trainer',
-    // '/tools/rhythm-workshop',
   ];
 
   const sitemapEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({

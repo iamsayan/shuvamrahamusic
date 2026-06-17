@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import YouTubeFacade from '@/components/youtube-facade';
 import { TutorialItem } from '@/types';
@@ -87,21 +87,22 @@ export default function TutorialsListingClient({
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  const filteredTutorials = useMemo(() => {
-    const items = initialItems || [];
-    if (!debouncedSearchQuery.trim()) return items;
-
-    const query = debouncedSearchQuery.toLowerCase();
-    return items.filter((item) => {
-      const matchesTitle = item.title.toLowerCase().includes(query);
-      const matchesDescription =
-        item.description?.toLowerCase().includes(query) || false;
-      const matchesLinks = item.links?.some((lnk) =>
-        lnk.title.toLowerCase().includes(query)
-      );
-      return matchesTitle || matchesDescription || matchesLinks;
-    });
-  }, [initialItems, debouncedSearchQuery]);
+  const items = initialItems || [];
+  const filteredTutorials = !debouncedSearchQuery.trim()
+    ? items
+    : items.filter((item) => {
+        const matchesTitle = item.title
+          .toLowerCase()
+          .includes(debouncedSearchQuery.toLowerCase());
+        const matchesDescription =
+          item.description
+            ?.toLowerCase()
+            .includes(debouncedSearchQuery.toLowerCase()) || false;
+        const matchesLinks = item.links?.some((lnk) =>
+          lnk.title.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
+        );
+        return matchesTitle || matchesDescription || matchesLinks;
+      });
 
   // Construct absolute URL for PDF assets
   const getAssetUrl = (path: string) => {
@@ -116,7 +117,7 @@ export default function TutorialsListingClient({
       <div className="relative z-30 mb-12">
         <div className="relative w-full">
           <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-gray-500">
-            <LuSearch className="transition-colors duration-300 size-5" />
+            <LuSearch className="size-5 transition-colors duration-300" />
           </div>
           <input
             type="text"
@@ -141,7 +142,7 @@ export default function TutorialsListingClient({
       {/* Tutorials Inventory Grid */}
       {filteredTutorials.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-3xl border border-white/5 bg-[#080812]/30 py-24 text-center backdrop-blur-xl">
-          <LuSearch className="mb-4 animate-bounce text-gray-600 size-10" />
+          <LuSearch className="mb-4 size-10 animate-bounce text-gray-600" />
           <p className="max-w-md text-base text-gray-500 sm:text-lg">
             No materials match &quot;{searchQuery}&quot;. Try typing a different
             search term.
@@ -166,7 +167,7 @@ export default function TutorialsListingClient({
 
                 {/* Inner Corner Accent Glow */}
                 <div
-                  className={`pointer-events-none absolute -right-24 -bottom-24 rounded-full ${hoverGlowClass} z-0 opacity-0 blur-[70px] transition-opacity duration-700 group-hover:opacity-100 size-60`}
+                  className={`pointer-events-none absolute -right-24 -bottom-24 rounded-full ${hoverGlowClass} z-0 size-60 opacity-0 blur-[70px] transition-opacity duration-700 group-hover:opacity-100`}
                 />
 
                 {/* YouTube Video Section or Themed Placeholder */}
@@ -180,7 +181,7 @@ export default function TutorialsListingClient({
                   >
                     <div className="absolute inset-0 bg-[#05050A]/70 backdrop-blur-[2px]" />
                     <div
-                      className={`relative flex items-center justify-center rounded-2xl border ${theme.border} ${theme.bg} ${theme.text} ${theme.glow} transition-transform duration-500 group-hover:scale-110 size-16`}
+                      className={`relative flex items-center justify-center rounded-2xl border ${theme.border} ${theme.bg} ${theme.text} ${theme.glow} size-16 transition-transform duration-500 group-hover:scale-110`}
                     >
                       <LuFileText className="size-8" />
                     </div>
@@ -220,7 +221,7 @@ export default function TutorialsListingClient({
                             className="flex flex-col justify-between gap-3 rounded-2xl border border-white/3 bg-white/1 p-4 transition-all duration-300 hover:border-white/10 hover:bg-white/3 sm:flex-row sm:items-center"
                           >
                             <div className="flex min-w-0 items-center gap-3">
-                              <div className="flex shrink-0 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400 size-10">
+                              <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400">
                                 <LuFileText className="size-5" />
                               </div>
                               <div className="min-w-0">

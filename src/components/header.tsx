@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,10 +17,10 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const normalizedPathname = useMemo(() => normalizeUrl(pathname), [pathname]);
+  const normalizedPathname = normalizeUrl(pathname);
 
   // Dynamically map menu items from CMS settings if available, otherwise return null
-  const currentNavLinks = useMemo(() => {
+  const currentNavLinks = (() => {
     if (settings?.header_menu && settings.header_menu.length > 0) {
       return settings.header_menu
         .filter((item) => item.active)
@@ -37,7 +37,7 @@ export default function Header() {
         });
     }
     return null;
-  }, [settings]);
+  })();
 
   // Handle scroll effect for dynamic glassmorphism
   useEffect(() => {

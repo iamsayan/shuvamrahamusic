@@ -1,7 +1,5 @@
 'use client';
 
-import { useMemo } from 'react';
-
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -79,7 +77,7 @@ export default function Footer() {
   const { settings } = useSettings();
   console.log(settings);
 
-  const currentQuickLinks = useMemo(() => {
+  const currentQuickLinks = (() => {
     if (settings?.footer_menu && settings.footer_menu.length > 0) {
       return settings.footer_menu
         .filter((item) => item.active)
@@ -89,7 +87,7 @@ export default function Footer() {
         }));
     }
     return null;
-  }, [settings]);
+  })();
 
   return (
     <footer className="relative w-full overflow-hidden bg-[#020205] pt-8 pb-4 md:pt-10">

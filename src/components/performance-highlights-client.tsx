@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 
@@ -172,7 +172,7 @@ export default function PerformanceHighlightsClient({
   }, [searchQuery]);
 
   // 1. Mapped artists list
-  const artists = useMemo(() => {
+  const artists = (() => {
     const artistsMap = new Map<string, Artist>();
     performances.forEach((p) => {
       if (
@@ -187,10 +187,10 @@ export default function PerformanceHighlightsClient({
     return Array.from(artistsMap.values()).sort(
       (a, b) => (a._o || 0) - (b._o || 0)
     );
-  }, [performances]);
+  })();
 
   // 2. Mapped categories/circuits list
-  const categories = useMemo(() => {
+  const categories = (() => {
     const circuitsMap = new Map<string, Set<string>>();
     performances.forEach((p) => {
       if (p.circuit && p.venue) {
@@ -206,101 +206,100 @@ export default function PerformanceHighlightsClient({
       subtitle: getCircuitSubtitle(title),
       places: Array.from(placesSet),
     }));
-  }, [performances]);
+  })();
 
   // 3. Mapped timeline list and associated statistics/years
-  const { timeline, years, touringYearsRange, timelineArtists } =
-    useMemo(() => {
-      const yearsSet = new Set<number>();
+  const { timeline, years, touringYearsRange, timelineArtists } = (() => {
+    const yearsSet = new Set<number>();
 
-      const list = performances.map((p) => {
-        const dateArray = Array.isArray(p.date)
-          ? p.date
-          : [p.date].filter(Boolean);
-        let year = 2026;
-        let dateFormatted = '';
+    const list = performances.map((p) => {
+      const dateArray = Array.isArray(p.date)
+        ? p.date
+        : [p.date].filter(Boolean);
+      let year = 2026;
+      let dateFormatted = '';
 
-        if (dateArray.length > 0) {
-          const sortedDates = [...dateArray].sort();
-          const firstDateStr = sortedDates[0];
-          const lastDateStr = sortedDates[sortedDates.length - 1];
+      if (dateArray.length > 0) {
+        const sortedDates = [...dateArray].sort();
+        const firstDateStr = sortedDates[0];
+        const lastDateStr = sortedDates[sortedDates.length - 1];
 
-          const firstDateObj = new Date(firstDateStr);
-          year = firstDateObj.getFullYear() || 2026;
+        const firstDateObj = new Date(firstDateStr);
+        year = firstDateObj.getFullYear() || 2026;
 
-          const formatOptions: Intl.DateTimeFormatOptions = {
-            day: 'numeric',
-            month: 'short',
-          };
+        const formatOptions: Intl.DateTimeFormatOptions = {
+          day: 'numeric',
+          month: 'short',
+        };
 
-          if (sortedDates.length === 1) {
-            try {
-              dateFormatted = firstDateObj.toLocaleDateString(
-                'en-US',
-                formatOptions
-              );
-            } catch {
-              dateFormatted = firstDateStr;
-            }
-          } else {
-            try {
-              const firstFormatted = firstDateObj.toLocaleDateString(
-                'en-US',
-                formatOptions
-              );
-              const lastFormatted = new Date(lastDateStr).toLocaleDateString(
-                'en-US',
-                formatOptions
-              );
-              dateFormatted = `${firstFormatted} – ${lastFormatted}`;
-            } catch {
-              dateFormatted = `${firstDateStr} – ${lastDateStr}`;
-            }
+        if (sortedDates.length === 1) {
+          try {
+            dateFormatted = firstDateObj.toLocaleDateString(
+              'en-US',
+              formatOptions
+            );
+          } catch {
+            dateFormatted = firstDateStr;
+          }
+        } else {
+          try {
+            const firstFormatted = firstDateObj.toLocaleDateString(
+              'en-US',
+              formatOptions
+            );
+            const lastFormatted = new Date(lastDateStr).toLocaleDateString(
+              'en-US',
+              formatOptions
+            );
+            dateFormatted = `${firstFormatted} – ${lastFormatted}`;
+          } catch {
+            dateFormatted = `${firstDateStr} – ${lastDateStr}`;
           }
         }
-
-        yearsSet.add(year);
-
-        return {
-          date: dateFormatted || 'May 30',
-          year,
-          artist: p.artist?.name || '',
-          location: p.state
-            ? `${p.city}, ${p.state}, ${p.country}`
-            : `${p.city}, ${p.country}`,
-          venue: p.venue || null,
-          details: p.details || null,
-        };
-      });
-
-      const uniqueYears = Array.from(yearsSet);
-      const sortedYears = ['All', ...uniqueYears.sort((a, b) => b - a)];
-
-      let touringRange = 'N/A';
-      if (uniqueYears.length > 0) {
-        const minYear = Math.min(...uniqueYears);
-        const maxYear = Math.max(...uniqueYears);
-        touringRange =
-          minYear === maxYear ? `${minYear}` : `${minYear} – ${maxYear}`;
       }
 
-      // Sort existing non-hidden artists by name for the dropdown filter list
-      const artistsSortedNames = artists
-        .map((a) => a.name)
-        .sort((a, b) => a.localeCompare(b));
+      yearsSet.add(year);
 
       return {
-        timeline: list,
-        years: sortedYears,
-        touringYearsRange: touringRange,
-        timelineArtists: artistsSortedNames,
+        date: dateFormatted || 'May 30',
+        year,
+        artist: p.artist?.name || '',
+        location: p.state
+          ? `${p.city}, ${p.state}, ${p.country}`
+          : `${p.city}, ${p.country}`,
+        venue: p.venue || null,
+        details: p.details || null,
       };
-    }, [performances, artists]);
+    });
+
+    const uniqueYears = Array.from(yearsSet);
+    const sortedYears = ['All', ...uniqueYears.sort((a, b) => b - a)];
+
+    let touringRange = 'N/A';
+    if (uniqueYears.length > 0) {
+      const minYear = Math.min(...uniqueYears);
+      const maxYear = Math.max(...uniqueYears);
+      touringRange =
+        minYear === maxYear ? `${minYear}` : `${minYear} – ${maxYear}`;
+    }
+
+    // Sort existing non-hidden artists by name for the dropdown filter list
+    const artistsSortedNames = artists
+      .map((a) => a.name)
+      .sort((a, b) => a.localeCompare(b));
+
+    return {
+      timeline: list,
+      years: sortedYears,
+      touringYearsRange: touringRange,
+      timelineArtists: artistsSortedNames,
+    };
+  })();
 
   const totalShowsCount = timeline.length;
 
   // Dynamically identify regional hubs / countries from show locations
-  const hubsCovered = useMemo(() => {
+  const hubsCovered = (() => {
     const countries = new Set<string>();
     countries.add('India'); // Default
     performances.forEach((p) => {
@@ -312,12 +311,12 @@ export default function PerformanceHighlightsClient({
       }
     });
     return Array.from(countries).join(', ');
-  }, [performances]);
+  })();
 
   const categoriesCount = `${categories.length} Key Segments`;
 
   // Dynamically compute Geographic Performance Reach details in a single pass
-  const { primaryLocations, statesData, internationalTours } = useMemo(() => {
+  const { primaryLocations, statesData, internationalTours } = (() => {
     const cityCounts = new Map<string, number>();
     const statesSet = new Set<string>();
     const tourSet = new Set<string>();
@@ -355,10 +354,13 @@ export default function PerformanceHighlightsClient({
       },
       internationalTours: Array.from(tourSet).join(', '),
     };
-  }, [performances]);
+  })();
 
-  const mapLocations = useMemo(() => {
-    const locsMap = new Map<string, { name: string; state?: string; count: number; country: string }>();
+  const mapLocations = (() => {
+    const locsMap = new Map<
+      string,
+      { name: string; state?: string; count: number; country: string }
+    >();
 
     performances.forEach((p) => {
       if (!p.city) return;
@@ -373,28 +375,26 @@ export default function PerformanceHighlightsClient({
     });
 
     return Array.from(locsMap.values());
-  }, [performances]);
+  })();
 
   // Filter shows based on search query, year and artist select
-  const filteredShows = useMemo(() => {
-    return timeline.filter((show) => {
-      const matchesYear =
-        selectedYear === 'All' || show.year === Number(selectedYear);
+  const filteredShows = timeline.filter((show) => {
+    const matchesYear =
+      selectedYear === 'All' || show.year === Number(selectedYear);
 
-      const query = debouncedSearchQuery.toLowerCase();
-      const matchesSearch =
-        show.location.toLowerCase().includes(query) ||
-        (show.venue && show.venue.toLowerCase().includes(query)) ||
-        (show.details && show.details.toLowerCase().includes(query)) ||
-        show.artist.toLowerCase().includes(query);
+    const query = debouncedSearchQuery.toLowerCase();
+    const matchesSearch =
+      show.location.toLowerCase().includes(query) ||
+      (show.venue && show.venue.toLowerCase().includes(query)) ||
+      (show.details && show.details.toLowerCase().includes(query)) ||
+      show.artist.toLowerCase().includes(query);
 
-      const matchesArtist =
-        selectedArtistFilter === 'All' ||
-        show.artist.toLowerCase().includes(selectedArtistFilter.toLowerCase());
+    const matchesArtist =
+      selectedArtistFilter === 'All' ||
+      show.artist.toLowerCase().includes(selectedArtistFilter.toLowerCase());
 
-      return matchesYear && matchesSearch && matchesArtist;
-    });
-  }, [timeline, selectedYear, debouncedSearchQuery, selectedArtistFilter]);
+    return matchesYear && matchesSearch && matchesArtist;
+  });
 
   return (
     <div className="flex flex-col gap-16 text-left">
@@ -496,7 +496,7 @@ export default function PerformanceHighlightsClient({
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
           {/* Visual Interactive Map - 2 Columns wide on large screens */}
-          <div className="lg:col-span-2 w-full flex">
+          <div className="flex w-full lg:col-span-2">
             <GeographicMap locations={mapLocations} />
           </div>
 

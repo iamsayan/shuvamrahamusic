@@ -1,7 +1,5 @@
 'use client';
 
-import { useMemo } from 'react';
-
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 
@@ -46,9 +44,7 @@ export default function BlogArchiveClient({
   // Already paginated on the server
   const paginatedPosts = posts;
 
-  const totalPages = useMemo(() => {
-    return Math.ceil(totalPostsCount / posts.length);
-  }, [totalPostsCount, posts.length]);
+  const totalPages = Math.ceil(totalPostsCount / posts.length);
 
   const getPageLink = (pageNum: number) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -57,9 +53,7 @@ export default function BlogArchiveClient({
   };
 
   // Determine theme based on category name (or default for tags)
-  const themeKey = useMemo(() => {
-    return type === 'category' ? getThemeKey(term) : 'default';
-  }, [type, term]);
+  const themeKey = type === 'category' ? getThemeKey(term) : 'default';
 
   const primaryTheme = CATEGORY_THEMES[themeKey] || CATEGORY_THEMES['default'];
 
