@@ -2,27 +2,48 @@ import { Suspense } from 'react';
 
 import type { Metadata } from 'next';
 
-import SectionLoader from '@/components/section-loader';
 import BlogListingClient from '@/components/blog-listing-client';
 import JsonLd from '@/components/json-ld';
+import SectionLoader from '@/components/section-loader';
 import { getPaginatedBlogPosts } from '@/lib/blog-data';
 import { SCHEMA } from '@/lib/schema';
+
+interface BlogQueryParams {
+  pageNum: number;
+  limit: number;
+  skip: number;
+  filter: Record<string, unknown>;
+}
+
+function parseBlogQueryParams(page?: string, search?: string): BlogQueryParams {
+  const pageNum = Number(page) || 1;
+  const limit = pageNum === 1 ? 10 : 9;
+  const skip = pageNum === 1 ? 0 : 10 + (pageNum - 2) * 9;
+
+  const filter: Record<string, unknown> = {};
+  if (search) {
+    filter.title = { $regex: search, $options: 'i' };
+  }
+
+  return { pageNum, limit, skip, filter };
+}
 
 export async function generateMetadata({
   searchParams,
 }: {
   searchParams: Promise<{ page?: string; search?: string }>;
 }): Promise<Metadata> {
-  const { page } = await searchParams;
-  const pageNum = Number(page) || 1;
+  const { page, search } = await searchParams;
+  const { pageNum, limit, skip, filter } = parseBlogQueryParams(page, search);
   const pageSuffix = pageNum > 1 ? ` - Page ${pageNum}` : '';
 
-  // Retrieve the total post count to check if a next page exists
+  // Retrieve the total post count using the exact same query parameters so Next.js fetch cache deduplicates it
   let total = 0;
   try {
     const res = await getPaginatedBlogPosts({
-      limit: 1,
-      skip: 0,
+      filter,
+      limit,
+      skip,
     });
     total = res.total;
   } catch (err) {
@@ -72,15 +93,7 @@ export default async function BlogListingPage({
   }>;
 }) {
   const { page, search } = await searchParams;
-  const pageNum = Number(page) || 1;
-  const limit = pageNum === 1 ? 10 : 9;
-  const skip = pageNum === 1 ? 0 : 10 + (pageNum - 2) * 9;
-
-  // Build query filter
-  const filter: Record<string, unknown> = {};
-  if (search) {
-    filter.title = { $regex: search, $options: 'i' };
-  }
+  const { pageNum, limit, skip, filter } = parseBlogQueryParams(page, search);
 
   const { posts, total } = await getPaginatedBlogPosts({
     filter,
@@ -91,7 +104,7 @@ export default async function BlogListingPage({
   const lastSegName = pageNum > 1 ? `Blog (Page ${pageNum})` : 'Blog';
 
   return (
-    <>
+    <Suspense fallback={<SectionLoader message="Loading articles..." />}>
       <JsonLd
         schema={[
           SCHEMA.breadcrumb('/blog', lastSegName),
@@ -126,8 +139,12 @@ export default async function BlogListingPage({
               headline: post.title,
               description: post.excerpt,
               url: `${SCHEMA.BASE_URL}/blog/${post.slug}`,
-              datePublished: post.raw?._created ? new Date(post.raw._created * 1000).toISOString() : undefined,
-              dateModified: post.raw?._modified ? new Date(post.raw._modified * 1000).toISOString() : undefined,
+              datePublished: post.raw?._created
+                ? new Date(post.raw._created * 1000).toISOString()
+                : undefined,
+              dateModified: post.raw?._modified
+                ? new Date(post.raw._modified * 1000).toISOString()
+                : undefined,
               keywords: post.tags.map((t) => t.title).join(', '),
               author: {
                 '@type': 'Person',
@@ -137,9 +154,7 @@ export default async function BlogListingPage({
           },
         ]}
       />
-      <Suspense fallback={<SectionLoader message="Loading articles..." />}>
-        <BlogListingClient posts={posts} totalPostsCount={total} />
-      </Suspense>
-    </>
+      <BlogListingClient posts={posts} totalPostsCount={total} />
+    </Suspense>
   );
 }

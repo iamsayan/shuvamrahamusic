@@ -3,5 +3,6 @@ Developer: Sayan Datta
 Site: https://sayandatta.co.in
 
 /* TECHNOLOGY */
-Next.js 15
-Tailwind CSS
+Next.js 16
+Tailwind CSS v4
+TypeScript
