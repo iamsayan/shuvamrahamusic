@@ -53,7 +53,7 @@ export default function PaymentHistoryClient() {
           res.error || 'Failed to fetch payment records. Please try again.'
         );
       }
-    } catch (err) {
+    } catch {
       setError(
         'A network error occurred. Please check your connection and try again.'
       );

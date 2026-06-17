@@ -198,8 +198,6 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
-  const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/blog/${post.slug}`;
-
   const primaryCat = post.categories[0]?.title || '';
   const themeKey = getThemeKey(primaryCat);
   const primaryTheme = CATEGORY_THEMES[themeKey] || CATEGORY_THEMES['default'];

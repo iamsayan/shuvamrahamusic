@@ -86,19 +86,17 @@ export default function GeographicMap({ locations = [] }: GeographicMapProps) {
   const [hoveredPin, setHoveredPin] = useState<Pin | null>(null);
   const [resolvedCoords, setResolvedCoords] = useState<
     Record<string, { lat: number; lon: number }>
-  >({});
-
-  // 1. Load coordinates from cache or localStorage on mount
-  useEffect(() => {
-    try {
-      const cached = localStorage.getItem('shuvam_geocoded_cache');
-      if (cached) {
-        setResolvedCoords(JSON.parse(cached));
+  >(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const cached = localStorage.getItem('shuvam_geocoded_cache');
+        return cached ? JSON.parse(cached) : {};
+      } catch (e) {
+        console.error('Failed to parse geocoding cache:', e);
       }
-    } catch (e) {
-      console.error('Failed to parse geocoding cache:', e);
     }
-  }, []);
+    return {};
+  });
 
   // 2. Rate-limited geocoding effect for any dynamic locations missing coordinates
   useEffect(() => {

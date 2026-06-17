@@ -1,8 +1,7 @@
 import JsonLd from '@/components/json-ld';
 import VideosGalleryClient from '@/components/videos-gallery-client';
-import cockpit from '@/lib/client';
+import { getGalleryData } from '@/lib/data';
 import { SCHEMA } from '@/lib/schema';
-import type { GalleryData } from '@/types';
 
 export const metadata = {
   title: 'Video Gallery | Shuvam Raha',
@@ -11,12 +10,7 @@ export const metadata = {
 };
 
 export default async function VideosGalleryPage() {
-  const gallery = await cockpit
-    .getContentItemByFilter<GalleryData>('gallery', {
-      fields: {
-        videos: true,
-      },
-    })
+  const gallery = await getGalleryData()
     .catch((err) => {
       console.error('Failed to fetch gallery videos:', err);
       return null;

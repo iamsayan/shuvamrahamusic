@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
 import TutorialsListingClient from '@/components/tutorials-listing-client';
-import cockpit from '@/lib/client';
+import { getTutorials } from '@/lib/data';
 import { SCHEMA } from '@/lib/schema';
 import { TutorialItem } from '@/types';
 
@@ -32,12 +32,7 @@ export const metadata: Metadata = {
 export default async function TutorialsPage() {
   let tutorials: TutorialItem[] = [];
   try {
-    tutorials = await cockpit.listContentItems<TutorialItem[]>('tutorials', {
-      sort: {
-        title: 1,
-        _created: -1,
-      },
-    });
+    tutorials = await getTutorials();
   } catch (error) {
     console.error('Error fetching tutorials from database:', error);
   }

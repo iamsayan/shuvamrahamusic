@@ -21,6 +21,8 @@ export interface CockpitConfig {
   apiKey: string;
   /** Custom options for fetch requests (e.g. headers, Next.js cache configurations) */
   fetchOptions?: NextRequestInit;
+  /** Enable auto tags for fetch requests */
+  autoTags?: boolean;
 }
 
 // ==========================================
@@ -224,11 +226,13 @@ export class CockpitClient {
   private host: string;
   private apiKey: string;
   private fetchOptions: NextRequestInit;
+  private autoTags: boolean;
 
   constructor(config: CockpitConfig) {
     this.host = config.host.replace(/\/+$/, '');
     this.apiKey = config.apiKey;
     this.fetchOptions = config.fetchOptions || {};
+    this.autoTags = config.autoTags || true;
   }
 
   /**
@@ -250,6 +254,34 @@ export class CockpitClient {
   }
 
   /**
+   * Helper method to merge headers of any standard HeadersInit format
+   */
+  private mergeHeaders(
+    ...headersList: Array<HeadersInit | Record<string, string> | undefined>
+  ): Record<string, string> {
+    const merged: Record<string, string> = {};
+    for (const headers of headersList) {
+      if (!headers) continue;
+      if (headers instanceof Headers) {
+        headers.forEach((value, key) => {
+          merged[key] = value;
+        });
+      } else if (Array.isArray(headers)) {
+        headers.forEach(([key, value]) => {
+          merged[key] = value;
+        });
+      } else {
+        Object.entries(headers).forEach(([key, value]) => {
+          if (value !== undefined && value !== null) {
+            merged[key] = String(value);
+          }
+        });
+      }
+    }
+    return merged;
+  }
+
+  /**
    * Helper method to perform requests to Cockpit API
    */
   private async request<T = unknown>(
@@ -261,17 +293,17 @@ export class CockpitClient {
   ): Promise<T> {
     const url = `${this.host}/api${path}`;
 
-    const headers: Record<string, string> = {
-      'api-key': this.apiKey,
-      ...customHeaders,
-      ...(this.fetchOptions.headers as Record<string, string>),
-      ...(extraFetchOptions?.headers as Record<string, string>),
-    };
+    const headers = this.mergeHeaders(
+      { 'api-key': this.apiKey },
+      customHeaders,
+      this.fetchOptions.headers,
+      extraFetchOptions?.headers
+    );
 
     // Automatically determine default Next.js cache revalidation tags from Cockpit model paths
     let tags: string[] | undefined = extraFetchOptions?.next?.tags;
 
-    if (!tags && method === 'GET') {
+    if (!tags && this.autoTags && method === 'GET') {
       const [cleanPath, query] = path.split('?');
       const parts = cleanPath.replace(/^\/|\/$/g, '').split('/');
 
@@ -282,7 +314,9 @@ export class CockpitClient {
             try {
               const modelsParam = new URLSearchParams(query).get('models');
               if (modelsParam) {
-                tags = Object.keys(JSON.parse(modelsParam));
+                tags = Object.keys(
+                  JSON.parse(modelsParam) as Record<string, unknown>
+                );
               }
             } catch {
               // Ignore URL parsing or JSON parsing errors
@@ -341,7 +375,7 @@ export class CockpitClient {
 
     if (contentType.includes('application/json')) {
       const text = await response.text();
-      return text ? JSON.parse(text) : ({} as T);
+      return text ? (JSON.parse(text) as T) : ({} as T);
     }
 
     if (
@@ -350,7 +384,7 @@ export class CockpitClient {
       contentType.startsWith('audio/') ||
       contentType.includes('application/octet-stream')
     ) {
-      return response.blob() as unknown as T;
+      return (await response.blob()) as unknown as T;
     }
 
     const text = await response.text();

@@ -11,11 +11,10 @@ import ProgramTabs from '@/components/program-tabs';
 import ReviewCard from '@/components/review-card';
 import SliderGallery from '@/components/slider-gallery';
 import YouTubeFacade from '@/components/youtube-facade';
-import cockpit from '@/lib/client';
+import { getGuitarClassesData, getPricingPlans } from '@/lib/data';
 import { allFaqs, notFor, perfectFor } from '@/lib/guitar-data';
 import { getReviews } from '@/lib/reviews';
 import { SCHEMA } from '@/lib/schema';
-import { GuitarClassesData, PricingPlan } from '@/types';
 
 import {
   LuArrowRight,
@@ -99,10 +98,8 @@ const VideoCard = ({
 export default async function Page() {
   const [reviews, pricingPlans, classesData] = await Promise.all([
     getReviews(),
-    cockpit.listContentItems<PricingPlan[]>('pricingplans'),
-    cockpit.getContentItemByFilter<GuitarClassesData>('guitarclasses', {
-      populate: -1,
-    }),
+    getPricingPlans(),
+    getGuitarClassesData(),
   ]);
   const hasReviews = reviews && reviews.length > 0;
 
@@ -292,7 +289,7 @@ export default async function Page() {
                     </div>
                     <div className="flex min-h-12 flex-col justify-center text-left">
                       <span className="font-heading text-sm leading-none font-extrabold text-white sm:text-base">
-                        {new Date().getFullYear() - 2015}+ Years Experience
+                        11+ Years Experience
                       </span>
                       <span className="mt-1 max-w-45 text-xs leading-tight text-gray-400">
                         LCM Certified Instructor

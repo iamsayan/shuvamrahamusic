@@ -1,5 +1,5 @@
 import cockpit from '@/lib/client';
-import type { GalleryData } from '@/types';
+import { getGalleryData } from '@/lib/data';
 import PhotosGalleryClient from '@/components/photos-gallery-client';
 import JsonLd from '@/components/json-ld';
 import { SCHEMA } from '@/lib/schema';
@@ -10,12 +10,7 @@ export const metadata = {
 };
 
 export default async function PhotosGalleryPage() {
-  const gallery = await cockpit.getContentItemByFilter<GalleryData>('gallery', {
-    fields: {
-      images: true,
-    },
-    populate: 1,
-  }).catch((err) => {
+  const gallery = await getGalleryData().catch((err) => {
     console.error('Failed to fetch gallery photos:', err);
     return null;
   });

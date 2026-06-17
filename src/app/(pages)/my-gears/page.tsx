@@ -4,15 +4,12 @@ import GearsListingClient from '@/components/gears-listing-client';
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
 import cockpit, { Asset } from '@/lib/client';
+import { getGears } from '@/lib/data';
 import { SCHEMA } from '@/lib/schema';
 import { GearItem } from '@/types';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const gears = await cockpit.getContentTree<GearItem[]>('gears', {
-    fields: {
-      images: true,
-    },
-  });
+  const gears = await getGears();
 
   const images = new Map<Asset['_id'], Asset['altText']>();
   gears.forEach((gear) => {
@@ -56,7 +53,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function MyGearsPage() {
   let gears: GearItem[] = [];
   try {
-    gears = await cockpit.getContentTree<GearItem[]>('gears');
+    gears = await getGears();
   } catch (error) {
     console.error('Error fetching gears from database:', error);
   }
