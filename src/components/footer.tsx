@@ -97,7 +97,7 @@ export default function Footer() {
       {/* Background Ambient Glows */}
       <div className="pointer-events-none absolute top-0 left-1/2 h-[150px] w-full max-w-[1000px] -translate-x-1/2 bg-linear-to-b from-cyan-950/5 via-blue-950/5 to-transparent blur-[80px]" />
 
-      <div className="relative z-10 mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
+      <div className="site-container relative z-10">
         {/* === TOP GRID LAYOUT === */}
         <div className="flex w-full flex-col items-center justify-between gap-10 lg:flex-row lg:items-start">
           {/* Left Brand block */}

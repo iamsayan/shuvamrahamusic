@@ -133,7 +133,7 @@ export default function BrandEndorsements({
   return (
     <div
       className={`w-full overflow-hidden py-6 ${
-        isSection ? 'mx-auto max-w-350 px-5 md:px-12 lg:px-20' : ''
+        isSection ? 'site-container' : ''
       } ${className}`}
     >
       <div className="mx-auto w-full">
@@ -150,9 +150,9 @@ export default function BrandEndorsements({
           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[#05050A] to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[#05050A] to-transparent" />
 
-          <div className="marquee-container flex overflow-x-hidden whitespace-nowrap">
+          <div className="flex overflow-x-hidden whitespace-nowrap group">
             {/* Track 1 */}
-            <div className="animate-marquee-left flex shrink-0 items-center justify-around gap-16 pr-16">
+            <div className="flex shrink-0 items-center justify-around gap-16 pr-16 animate-[scroll-left_40s_linear_infinite] group-hover:[animation-play-state:paused]">
               {MARQUEE_BRANDS.map((brand, idx) => (
                 <div
                   key={`t1-${idx}`}
@@ -171,10 +171,7 @@ export default function BrandEndorsements({
             </div>
 
             {/* Track 2 (Cloned for seamless infinite scroll) */}
-            <div
-              className="animate-marquee-left flex shrink-0 items-center justify-around gap-16 pr-16"
-              aria-hidden="true"
-            >
+            <div className="flex shrink-0 items-center justify-around gap-16 pr-16 animate-[scroll-left_40s_linear_infinite] group-hover:[animation-play-state:paused]" aria-hidden="true">
               {MARQUEE_BRANDS.map((brand, idx) => (
                 <div
                   key={`t2-${idx}`}

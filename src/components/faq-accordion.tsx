@@ -43,7 +43,7 @@ export default function FaqAccordion() {
         </div>
 
         {/* Categories / Filter Pills */}
-        <div className="hide-scrollbar flex flex-row gap-2 overflow-x-auto pb-4 lg:flex-col lg:pb-0">
+        <div className="scrollbar-none flex flex-row gap-2 overflow-x-auto pb-4 lg:flex-col lg:pb-0">
           {categories.map((cat) => (
             <button
               key={cat}

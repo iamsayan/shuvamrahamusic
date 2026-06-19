@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import ExperienceYears from '@/components/experience-years';
 import BlogPostCard from '@/components/blog-post-card';
 import BrandEndorsements from '@/components/brand-endorsements';
+import ExperienceYears from '@/components/experience-years';
 import JsonLd from '@/components/json-ld';
-import ReviewCard from '@/components/review-card';
+import ReviewsMarquee from '@/components/reviews-marquee';
 import SliderGallery from '@/components/slider-gallery';
 import YouTubeFacade from '@/components/youtube-facade';
 import { getBlogPosts } from '@/lib/blog-data';
@@ -135,13 +135,11 @@ export default async function Home() {
             <div className="absolute inset-0 bg-linear-to-b from-[#05050A]/90 via-[#05050A]/70 to-[#05050A]" />
           </div>
 
-          <div className="relative z-10 mx-auto grid w-full max-w-350 grid-cols-1 items-center gap-12 px-5 md:px-12 lg:grid-cols-12 lg:gap-8 lg:px-20">
+          <div className="site-container relative z-10 grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
             <div className="animate-in-1 space-y-6 text-center lg:col-span-7 lg:text-left">
-              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3.5 py-1.5 shadow-[0_0_15px_rgba(6,182,212,0.15)] backdrop-blur-md">
+              <div className="badge-trust">
                 <LuAward className="size-4 text-cyan-400" />
-                <span className="text-[10px] font-black tracking-widest text-cyan-200 uppercase">
-                  LCM Certified Music Instructor
-                </span>
+                <span>LCM Certified Music Instructor</span>
               </div>
 
               <h1 className="font-heading text-3xl leading-[1.15] font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
@@ -164,15 +162,12 @@ export default async function Home() {
               <div className="flex flex-col justify-center gap-4 pt-4 sm:flex-row lg:justify-start">
                 <Link
                   href="/guitar-classes-with-shuvam"
-                  className="group font-heading relative flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-8 py-4 text-sm font-bold text-white shadow-[0_0_20px_rgba(6,182,212,0.2)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] active:scale-95"
+                  className="group btn-primary"
                 >
                   Join Guitar Classes
                   <LuArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                 </Link>
-                <Link
-                  href="/biography"
-                  className="group font-heading flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/3 px-8 py-4 text-sm font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95"
-                >
+                <Link href="/biography" className="group btn-secondary">
                   Read Biography
                 </Link>
               </div>
@@ -198,7 +193,7 @@ export default async function Home() {
           2. STATS BAR / CREDENTIALS (Drawn from authorityPoints)
          ========================================================== */}
         <section className="relative z-10 border-y border-white/5 bg-[#07070F]/50 py-10 backdrop-blur-sm">
-          <div className="mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
+          <div className="site-container">
             <div className="grid grid-cols-2 gap-8 text-center md:grid-cols-5">
               <div className="space-y-1">
                 <div className="font-heading text-3xl font-black text-cyan-400 sm:text-4xl">
@@ -255,7 +250,7 @@ export default async function Home() {
           3. BIO INTRO SECTION
          ========================================================== */}
         <section className="relative z-10 py-20 md:py-28">
-          <div className="mx-auto grid w-full max-w-350 grid-cols-1 items-center gap-12 px-5 md:px-12 lg:grid-cols-12 lg:px-20">
+          <div className="site-container grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
             <div className="space-y-6 lg:col-span-5">
               <span className="font-heading text-sm font-bold tracking-[0.15em] text-cyan-400 uppercase">
                 Meet the Instructor
@@ -315,22 +310,20 @@ export default async function Home() {
           4. GUITAR CLASSES / CURRICULUM HIGHLIGHTS
          ========================================================== */}
         <section className="relative z-10 border-t border-white/5 bg-[#07070F]/30 py-20 md:py-28">
-          <div className="mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
+          <div className="site-container">
             {/* Section Header */}
             <div className="mx-auto mb-16 max-w-3xl space-y-4 text-center">
-              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3.5 py-1.5 shadow-[0_0_15px_rgba(6,182,212,0.15)] backdrop-blur-md">
+              <div className="badge-trust">
                 <LuMusic className="size-4 text-cyan-400" />
-                <span className="text-[10px] font-black tracking-widest text-cyan-200 uppercase">
-                  Guitar Learning Program
-                </span>
+                <span>Guitar Learning Program</span>
               </div>
-              <h2 className="font-heading text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl">
+              <h2 className="section-title">
                 What You Will{' '}
                 <span className="bg-linear-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(6,182,212,0.25)]">
                   Learn
                 </span>
               </h2>
-              <p className="mx-auto max-w-xl text-sm leading-relaxed text-gray-400 sm:text-base">
+              <p className="section-subtitle">
                 Master the acoustic or electric guitar from absolute zero. A
                 comprehensive, step-by-step roadmap structured for beginners and
                 busy working professionals.
@@ -414,13 +407,11 @@ export default async function Home() {
             <div className="absolute top-1/2 left-1/2 size-200 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-600/5 mix-blend-screen blur-[150px]" />
           </div>
 
-          <div className="relative z-10 mx-auto mb-12 w-full max-w-350 px-5 text-center sm:mb-16 md:px-12 lg:px-20">
+          <div className="site-container relative z-10 mb-12 text-center sm:mb-16">
             <div className="flex flex-col items-center">
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-500/10 px-4 py-2 shadow-[0_0_15px_rgba(245,158,11,0.15)]">
+              <div className="badge-amber">
                 <LuBadgeCheck className="size-4 text-amber-400" />
-                <span className="text-xs font-bold tracking-widest text-amber-400 uppercase sm:text-sm">
-                  Student Success Stories
-                </span>
+                <span>Student Success Stories</span>
               </div>
               <h2 className="font-heading mb-4 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
                 Trusted By{' '}
@@ -437,30 +428,10 @@ export default async function Home() {
 
           {hasReviews ? (
             <>
-              <div className="marquee-container relative z-10 flex w-full flex-col gap-6">
-                {/* Top Row (Scrolls Left) */}
-                <div className="animate-marquee-left flex w-max gap-6 px-4">
-                  {[...topRowReviews, ...topRowReviews].map((review, idx) => (
-                    <ReviewCard key={`top-${idx}`} review={review} />
-                  ))}
-                </div>
-
-                {/* Bottom Row (Scrolls Right) */}
-                <div className="animate-marquee-right flex w-max gap-4 px-4 sm:gap-6">
-                  {[...bottomRowReviews, ...bottomRowReviews].map(
-                    (review, idx) => (
-                      <ReviewCard key={`bottom-${idx}`} review={review} />
-                    )
-                  )}
-                </div>
-
-                {/* Gradient Fades for Smooth Edges */}
-                <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-linear-to-r from-[#05050A] to-transparent sm:w-40" />
-                <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-linear-to-l from-[#05050A] to-transparent sm:w-40" />
-              </div>
+              <ReviewsMarquee reviews={reviews} />
 
               {/* View GMB Reviews Button */}
-              <div className="relative z-10 mx-auto mt-12 flex w-full max-w-350 justify-center px-5 md:px-12 lg:px-20">
+              <div className="site-container relative z-10 mt-12 flex justify-center">
                 <a
                   href="https://maps.app.goo.gl/sYFmaYbfmikB9MRb7"
                   target="_blank"
@@ -473,7 +444,7 @@ export default async function Home() {
               </div>
             </>
           ) : (
-            <div className="relative z-10 mx-auto mt-8 flex w-full max-w-350 justify-center px-5 md:px-12 lg:px-20">
+            <div className="site-container relative z-10 mt-8 flex justify-center">
               <div className="relative w-full max-w-xl overflow-hidden rounded-3xl border border-white/8 bg-linear-to-b from-white/3 to-transparent p-6 text-center shadow-2xl backdrop-blur-xl sm:rounded-[2.5rem] sm:p-10">
                 {/* Glowing Ambient light */}
                 <div className="pointer-events-none absolute top-0 right-0 size-32 rounded-full bg-amber-500/5 blur-2xl" />
@@ -481,7 +452,7 @@ export default async function Home() {
                 <div className="relative z-10 flex flex-col items-center gap-6">
                   {/* Google Icon Facade */}
                   <div className="flex size-16 items-center justify-center rounded-3xl border border-white/10 bg-white/5 shadow-xl">
-                    <LuMapPin className="animate-slow-bounce size-8 fill-amber-400/10 text-amber-400" />
+                    <LuMapPin className="size-8 animate-bounce fill-amber-400/10 text-amber-400 [animation-duration:3s]" />
                   </div>
 
                   {/* CTA Text */}
@@ -531,7 +502,7 @@ export default async function Home() {
           6. MUSIC VIDEOS CAROUSEL
          ========================================================== */}
         <section className="relative z-10 border-t border-white/5 bg-[#07070F]/30 py-20 md:py-28">
-          <div className="mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
+          <div className="site-container">
             <div className="mb-12 space-y-3 text-center">
               <span className="font-heading text-sm font-bold tracking-[0.15em] text-cyan-400 uppercase">
                 Video Portfolios
@@ -574,7 +545,7 @@ export default async function Home() {
           7. STUDENT PERFORMANCE VIDEOS CAROUSEL
          ========================================================== */}
         <section className="relative z-10 bg-[#05050A] py-20 md:py-28">
-          <div className="mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
+          <div className="site-container">
             <div className="mb-12 space-y-3 text-center">
               <span className="font-heading text-sm font-bold tracking-[0.15em] text-violet-400 uppercase">
                 Student Showcases
@@ -607,7 +578,7 @@ export default async function Home() {
          ========================================================== */}
         {latestPosts.length > 0 && (
           <section className="relative z-10 bg-[#05050A] py-20 md:py-28">
-            <div className="mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
+            <div className="site-container">
               <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
                 <div className="max-w-xl space-y-4">
                   <span className="font-heading text-sm font-bold tracking-[0.15em] text-violet-400 uppercase">
@@ -660,15 +631,12 @@ export default async function Home() {
             <div className="flex flex-col justify-center gap-4 pt-4 sm:flex-row">
               <Link
                 href="/guitar-classes-with-shuvam"
-                className="group font-heading relative flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-8 py-4 text-sm font-bold text-white shadow-lg transition-all hover:scale-105 active:scale-95"
+                className="group btn-primary"
               >
                 Book Class Details
                 <LuArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link
-                href="/contact"
-                className="group font-heading flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/3 px-8 py-4 text-sm font-semibold text-white backdrop-blur-xl transition-all hover:bg-white/10 active:scale-95"
-              >
+              <Link href="/contact" className="group btn-secondary">
                 Contact Shuvam
               </Link>
             </div>

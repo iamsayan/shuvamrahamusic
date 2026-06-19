@@ -11,6 +11,7 @@ import { normalizeUrl } from '@/lib/utils';
 
 import { LuArrowRight, LuChevronDown, LuPhone } from 'react-icons/lu';
 
+
 export default function Header() {
   const { settings } = useSettings();
   const pathname = usePathname();
@@ -65,13 +66,13 @@ export default function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 flex flex-col transition-all duration-300 ease-out ${
         isMobileMenuOpen
-          ? 'mobile-menu-open h-screen bg-[#020205]/98 py-2 backdrop-blur-3xl md:py-3.5'
+          ? 'h-screen bg-[#020205]/98 py-2 backdrop-blur-3xl md:py-3.5'
           : isScrolled
             ? 'border-b border-white/10 bg-[#020205]/75 py-1 shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-xl md:py-1.5'
             : 'border-b border-transparent bg-transparent py-2 md:py-3.5'
       }`}
     >
-      <div className="mx-auto flex min-h-0 w-full max-w-350 flex-1 flex-col justify-start px-5 md:px-12 lg:px-20">
+      <div className="site-container flex min-h-0 flex-1 flex-col justify-start">
         {/* Top Header Bar */}
         <div className="flex h-15 w-full shrink-0 items-center justify-between md:h-17.5">
           {/* Logo */}
@@ -277,8 +278,10 @@ export default function Header() {
                 return (
                   <div
                     key={idx}
-                    className="mobile-menu-item flex flex-col border-b border-white/5"
-                    style={{ animationDelay: `${idx * 40}ms` }}
+                    className={`flex flex-col border-b border-white/5 transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                      isMobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
+                    }`}
+                    style={{ transitionDelay: `${idx * 40}ms` }}
                   >
                     <Link
                       href={link.url}

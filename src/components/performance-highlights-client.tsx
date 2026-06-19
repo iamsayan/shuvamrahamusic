@@ -494,14 +494,14 @@ export default function PerformanceHighlightsClient({
           </h3>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
           {/* Visual Interactive Map - 2 Columns wide on large screens */}
-          <div className="flex w-full lg:col-span-2">
+          <div className="flex w-full lg:col-span-3">
             <GeographicMap locations={mapLocations} />
           </div>
 
           {/* Right Column Stack: Details Cards - 1 Column wide */}
-          <div className="flex flex-col gap-6 lg:col-span-1">
+          <div className="flex flex-col gap-6 lg:col-span-2">
             {/* Strong Regional Hubs */}
             <div className="group relative overflow-hidden rounded-[2rem] border border-white/5 bg-[#0A0A16]/60 p-6 shadow-xl backdrop-blur-md transition-all duration-300 hover:border-cyan-500/20">
               <div className="pointer-events-none absolute -top-10 -left-10 size-32 rounded-full bg-cyan-500/5 blur-2xl" />

@@ -283,7 +283,7 @@ export default function BlogListingClient({
             Featured Article
           </span>
           <div
-            className={`group relative flex flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-[#07070F]/80 shadow-2xl backdrop-blur-3xl transition-all duration-500 lg:flex-row hover:${primaryTheme.border} hover:shadow-[0_40px_80px_rgba(0,0,0,0.6)]`}
+            className={`group relative flex flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-[#07070F]/80 shadow-2xl backdrop-blur-3xl transition-all duration-500 lg:flex-row lg:h-[500px] hover:${primaryTheme.border} hover:shadow-[0_40px_80px_rgba(0,0,0,0.6)]`}
           >
             {/* Glowing Top Accent Strip */}
             <div
@@ -291,7 +291,7 @@ export default function BlogListingClient({
             />
 
             {/* Cover Image */}
-            <div className="relative aspect-video w-full overflow-hidden lg:aspect-auto lg:w-[55%]">
+            <div className="relative aspect-video w-full overflow-hidden lg:aspect-auto lg:w-[50%] lg:h-full">
               <CockpitImage
                 asset={featuredPost.coverImage}
                 className="object-cover transition-transform duration-[1500ms] group-hover:scale-[1.03]"
@@ -301,7 +301,7 @@ export default function BlogListingClient({
             </div>
 
             {/* Content Panel */}
-            <div className="relative flex flex-col justify-between p-6 sm:p-10 lg:w-[45%]">
+            <div className="relative flex flex-col justify-between p-6 sm:p-10 lg:w-[50%] lg:h-full">
               {/* Accent glow on hover */}
               <div
                 className={`pointer-events-none absolute -right-20 -bottom-20 rounded-full ${GLOW_COLORS[themeKey] || GLOW_COLORS['default']} size-56 opacity-0 blur-[60px] transition-opacity duration-700 group-hover:opacity-100`}
@@ -327,14 +327,14 @@ export default function BlogListingClient({
                 </div>
 
                 {/* Title */}
-                <h2 className="font-heading mb-3 text-xl leading-tight font-black text-white transition-colors duration-300 group-hover:text-cyan-400 sm:text-2xl lg:text-3xl">
+                <h2 className="font-heading mb-3 text-xl leading-tight font-black text-white transition-colors duration-300 group-hover:text-cyan-400 sm:text-2xl lg:text-3xl xl:text-4xl">
                   <Link href={`/blog/${featuredPost.slug}`}>
                     {featuredPost.title}
                   </Link>
                 </h2>
 
                 {/* Excerpt */}
-                <p className="mb-6 line-clamp-3 text-xs leading-relaxed text-gray-400 sm:text-sm">
+                <p className="mb-6 line-clamp-5 text-xs leading-relaxed text-gray-400 sm:text-sm lg:line-clamp-6">
                   {featuredPost.excerpt}
                 </p>
               </div>
@@ -356,8 +356,14 @@ export default function BlogListingClient({
                     <span className="block text-xs font-black tracking-wide text-white uppercase">
                       {featuredPost.author.name}
                     </span>
-                    <span className="block text-[9px] font-bold text-gray-500 uppercase">
-                      {featuredPost.date}
+                    <span className="flex items-center gap-1.5 text-[9px] font-bold text-gray-500 uppercase mt-0.5">
+                      <span>{featuredPost.date}</span>
+                      {featuredPost.readTime && (
+                        <>
+                          <span className="text-gray-600">•</span>
+                          <span>{featuredPost.readTime}</span>
+                        </>
+                      )}
                     </span>
                   </div>
                 </div>
