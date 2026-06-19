@@ -11,7 +11,7 @@ interface PageLayoutProps {
   title: React.ReactNode;
   subtitle?: React.ReactNode;
   children: React.ReactNode;
-  maxWidth?: string; // Supports standard keys like '5xl' or custom classes like 'max-w-350'
+  maxWidth?: string; // Supports standard keys like '5xl' or custom classes like 'max-w-[1600px]'
   textAlign?: 'left' | 'center';
   variant?: 'card' | 'plain';
   headerRight?: React.ReactNode;
@@ -36,7 +36,7 @@ export default function PageLayout({
   title,
   subtitle,
   children,
-  maxWidth = 'max-w-350',
+  maxWidth = 'max-w-[1600px]',
   textAlign = 'left',
   variant = 'card',
   headerRight,
@@ -88,7 +88,11 @@ export default function PageLayout({
 
   const maxWidthClass = maxWidth.startsWith('max-w-')
     ? maxWidth
-    : maxWMap[maxWidth as keyof typeof maxWMap] || 'max-w-350';
+    : maxWMap[maxWidth as keyof typeof maxWMap] || 'max-w-[1600px]';
+  const isDefaultWidth = maxWidthClass === 'max-w-[1600px]';
+  const containerClass = isDefaultWidth
+    ? 'site-container flex flex-col'
+    : `mx-auto flex w-full ${maxWidthClass} flex-col px-5 md:px-12 lg:px-20`;
   const textAlignmentClass =
     textAlign === 'center'
       ? 'items-center text-center'
@@ -105,9 +109,7 @@ export default function PageLayout({
       </div> */}
 
       {/* Unified Width Container - keeps Header and Card perfectly aligned */}
-      <div
-        className={`relative z-10 mx-auto flex w-full flex-1 ${maxWidthClass} flex-col px-5 md:px-12 lg:px-20`}
-      >
+      <div className={`relative z-10 ${containerClass}`}>
         {/* Top Page Header (Matching Landing Hero) */}
         <div
           className={`flex w-full flex-col gap-6 pt-8 pb-6 ${

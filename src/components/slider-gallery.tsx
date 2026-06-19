@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 
+
 export default function SliderGallery({
   children,
   itemWidth = 320,
@@ -102,7 +103,7 @@ export default function SliderGallery({
         <div
           ref={scrollRef}
           onScroll={handleScroll}
-          className="scrollbar-hide -mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pt-2 pb-4 md:mx-0 md:gap-6 md:px-0"
+          className="scrollbar-none -mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pt-2 pb-4 md:mx-0 md:gap-6 md:px-0"
         >
           {children}
         </div>

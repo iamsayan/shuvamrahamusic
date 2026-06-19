@@ -107,6 +107,22 @@ export default function CockpitImage({
     }
   };
 
+  const autoSizes = (() => {
+    if (rest.sizes) return rest.sizes;
+
+    // Only apply sizes if we are in fill (responsive) mode.
+    // Fixed-size images (width/height provided) should omit the sizes prop
+    // to let Next.js generate a compact 1x/2x density-based srcset.
+    if (rest.fill) {
+      if (twidth && twidth !== 1920) {
+        return `(max-width: ${twidth}px) 100vw, ${twidth}px`;
+      }
+      return '(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 50vw';
+    }
+
+    return undefined;
+  })();
+
   const shouldRenderImage = !lazy || inView;
   const shouldShowPlaceholder =
     imageState.isLoading && loaderPlaceholder !== false;
@@ -139,7 +155,7 @@ export default function CockpitImage({
         <Image
           src={url}
           alt={asset.altText || asset.title || ''}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 50vw"
+          sizes={autoSizes}
           loading={inView ? 'eager' : 'lazy'}
           onLoad={handleLoad}
           onError={handleError}

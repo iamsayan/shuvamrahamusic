@@ -8,7 +8,7 @@ import FaqAccordion from '@/components/faq-accordion';
 import JsonLd from '@/components/json-ld';
 import PricingTable from '@/components/pricing-table';
 import ProgramTabs from '@/components/program-tabs';
-import ReviewCard from '@/components/review-card';
+import ReviewsMarquee from '@/components/reviews-marquee';
 import SliderGallery from '@/components/slider-gallery';
 import YouTubeFacade from '@/components/youtube-facade';
 import { getGuitarClassesData, getPricingPlans } from '@/lib/data';
@@ -174,14 +174,12 @@ export default async function Page() {
             containerClassName="absolute inset-0 bg-transparent size-full"
           />
 
-          <div className="relative z-20 mx-auto flex w-full max-w-350 flex-col items-center gap-12 px-5 md:px-12 lg:flex-row lg:gap-20 lg:px-20">
+          <div className="site-container relative z-20 flex flex-col items-center gap-12 lg:flex-row lg:gap-20">
             <div className="flex flex-1 flex-col items-center pt-10 text-center lg:pt-0">
               {/* Trust Badge */}
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 shadow-[0_0_20px_rgba(6,182,212,0.15)] backdrop-blur-md">
+              <div className="badge-trust">
                 <LuAward className="size-4 text-cyan-400" />
-                <span className="text-xs font-bold tracking-wide text-cyan-100 uppercase sm:text-sm">
-                  LCM Certified Music Instructor
-                </span>
+                <span>LCM Certified Music Instructor</span>
               </div>
 
               {/* Headline */}
@@ -236,19 +234,15 @@ export default async function Page() {
                 </li>
               </ul>
 
-              {/* CTAs */}
               <div className="flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row">
                 <Link
                   href="https://calendly.com/shuvamraha10/intro-call"
-                  className="group font-heading relative flex w-full items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-8 py-4 text-sm font-bold text-white shadow-[0_0_30px_rgba(6,182,212,0.3)] transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(6,182,212,0.5)] active:scale-95 sm:w-auto sm:text-base"
+                  className="group btn-primary"
                 >
                   <LuPhone className="size-5 transition-transform group-hover:translate-x-1" />
                   Book Free Intro Call
                 </Link>
-                <Link
-                  href="#pricing"
-                  className="group font-heading flex w-full items-center justify-center gap-3 rounded-full border border-white/10 bg-white/3 px-8 py-4 text-sm font-semibold text-white backdrop-blur-xl transition-all hover:border-white/20 hover:bg-white/10 active:scale-95 sm:w-auto sm:text-base"
-                >
+                <Link href="#pricing" className="group btn-secondary">
                   Explore Plans
                   <LuArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
                 </Link>
@@ -371,7 +365,7 @@ export default async function Page() {
             <div className="pointer-events-none absolute -bottom-[10%] left-[30%] size-150 rounded-full bg-indigo-600/10 mix-blend-screen blur-[120px]" />
           </div>
 
-          <div className="relative z-10 mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
+          <div className="site-container relative z-10">
             {/* Header */}
             <div className="mb-8 flex w-full flex-col items-center gap-3 pb-5 text-center sm:mb-10">
               <h2 className="font-heading text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
@@ -433,7 +427,7 @@ export default async function Page() {
           className="relative w-full overflow-hidden bg-[#05050A] pb-16 md:pb-24"
           id="overview"
         >
-          <div className="relative z-10 mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
+          <div className="site-container relative z-10">
             <div className="mt-12 flex flex-col items-center text-center sm:mt-16">
               <h2 className="font-heading mb-8 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
                 The Complete{' '}
@@ -460,7 +454,7 @@ export default async function Page() {
             <div className="absolute bottom-[20%] left-[10%] size-150 rounded-full bg-blue-600/5 mix-blend-screen blur-[120px]" />
           </div>
 
-          <div className="relative z-10 mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
+          <div className="site-container relative z-10">
             <div className="relative z-10 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
               {/* Left Pod: PERFECT FOR YOU */}
               <div className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-emerald-500/10 bg-linear-to-b from-white/3 to-white/1 px-5 py-6 backdrop-blur-3xl transition-all duration-500 hover:border-emerald-500/30 hover:shadow-[0_30px_80px_rgba(16,185,129,0.06)] sm:rounded-[2.5rem] sm:p-10">
@@ -750,7 +744,7 @@ export default async function Page() {
           className="relative w-full overflow-visible border-t border-cyan-500/10 bg-[#05050A] py-12 md:py-16"
           id="pricing"
         >
-          <div className="relative z-10 mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
+          <div className="site-container relative z-10">
             <div className="mb-12 flex w-full flex-col items-center gap-8 text-center">
               <div className="flex flex-col items-center">
                 <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-2 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
@@ -788,13 +782,11 @@ export default async function Page() {
             <div className="absolute top-1/2 left-1/2 size-200 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-600/5 mix-blend-screen blur-[150px]" />
           </div>
 
-          <div className="relative z-10 mx-auto mb-12 w-full max-w-350 px-5 text-center sm:mb-16 md:px-12 lg:px-20">
+          <div className="site-container relative z-10 mb-12 text-center sm:mb-16">
             <div className="flex flex-col items-center">
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-500/10 px-4 py-2 shadow-[0_0_15px_rgba(245,158,11,0.15)]">
+              <div className="badge-amber">
                 <LuBadgeCheck className="size-4 text-amber-400" />
-                <span className="text-xs font-bold tracking-widest text-amber-400 uppercase sm:text-sm">
-                  Student Success Stories
-                </span>
+                <span>Student Success Stories</span>
               </div>
               <h2 className="font-heading mb-4 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
                 Trusted By{' '}
@@ -811,30 +803,10 @@ export default async function Page() {
 
           {hasReviews ? (
             <>
-              <div className="marquee-container relative z-10 flex w-full flex-col gap-6">
-                {/* Top Row (Scrolls Left) */}
-                <div className="animate-marquee-left flex w-max gap-6 px-4">
-                  {[...topRowReviews, ...topRowReviews].map((review, idx) => (
-                    <ReviewCard key={`top-${idx}`} review={review} />
-                  ))}
-                </div>
-
-                {/* Bottom Row (Scrolls Right) */}
-                <div className="animate-marquee-right flex w-max gap-4 px-4 sm:gap-6">
-                  {[...bottomRowReviews, ...bottomRowReviews].map(
-                    (review, idx) => (
-                      <ReviewCard key={`bottom-${idx}`} review={review} />
-                    )
-                  )}
-                </div>
-
-                {/* Gradient Fades for Smooth Edges */}
-                <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-linear-to-r from-[#05050A] to-transparent sm:w-40" />
-                <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-linear-to-l from-[#05050A] to-transparent sm:w-40" />
-              </div>
+              <ReviewsMarquee reviews={reviews} />
 
               {/* View GMB Reviews Button */}
-              <div className="relative z-10 mx-auto mt-12 flex w-full max-w-350 justify-center px-5 md:px-12 lg:px-20">
+              <div className="site-container relative z-10 mt-12 flex justify-center">
                 <a
                   href="https://maps.app.goo.gl/sYFmaYbfmikB9MRb7"
                   target="_blank"
@@ -847,7 +819,7 @@ export default async function Page() {
               </div>
             </>
           ) : (
-            <div className="relative z-10 mx-auto mt-8 flex w-full max-w-350 justify-center px-5 md:px-12 lg:px-20">
+            <div className="site-container relative z-10 mt-8 flex justify-center">
               <div className="relative w-full max-w-xl overflow-hidden rounded-3xl border border-white/8 bg-linear-to-b from-white/3 to-transparent p-6 text-center shadow-2xl backdrop-blur-xl sm:rounded-[2.5rem] sm:p-10">
                 {/* Glowing Ambient light */}
                 <div className="pointer-events-none absolute top-0 right-0 size-32 rounded-full bg-amber-500/5 blur-2xl" />
@@ -855,7 +827,7 @@ export default async function Page() {
                 <div className="relative z-10 flex flex-col items-center gap-6">
                   {/* Google Icon Facade */}
                   <div className="flex size-16 items-center justify-center rounded-3xl border border-white/10 bg-white/5 shadow-xl">
-                    <LuMapPin className="animate-slow-bounce size-8 fill-amber-400/10 text-amber-400" />
+                    <LuMapPin className="size-8 animate-bounce fill-amber-400/10 text-amber-400 [animation-duration:3s]" />
                   </div>
 
                   {/* CTA Text */}
@@ -913,7 +885,7 @@ export default async function Page() {
             <div className="absolute right-[10%] bottom-[10%] size-150 rounded-full bg-purple-600/5 mix-blend-screen blur-[120px]" />
           </div>
 
-          <div className="relative z-10 mx-auto w-full max-w-350 px-5 md:px-12 lg:px-20">
+          <div className="site-container relative z-10">
             <FaqAccordion />
           </div>
         </section>
