@@ -153,8 +153,6 @@ const ROUTE_NAMES: Record<string, string> = {
   'payment-history': 'Payment History',
   tools: 'Tools',
   tutorials: 'Learning Materials',
-  'fretboard-trainer': 'Fretboard Trainer',
-  'rhythm-workshop': 'Rhythm Workshop',
   pay: 'Secure Checkout',
   photos: 'Photo Gallery',
   videos: 'Video Gallery',

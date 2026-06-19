@@ -1,4 +1,5 @@
 import { cacheLife, cacheTag } from 'next/cache';
+import { cache } from 'react';
 
 export interface SerpApiReview {
   user?: {
@@ -19,7 +20,7 @@ export interface Review {
   profileImage: string;
 }
 
-export async function getReviews(): Promise<Review[]> {
+export const getReviews = cache(async (): Promise<Review[]> => {
   'use cache';
   cacheLife('weeks');
   cacheTag('reviews');
@@ -34,7 +35,7 @@ export async function getReviews(): Promise<Review[]> {
     const url = `https://serpapi.com/search.json?engine=google_maps_reviews&data_id=${dataId}&api_key=${apiKey}`;
 
     // 1. Fetch First Page (returns first 8 reviews)
-    const res = await fetch(url);
+    const res = await fetch(url, { signal: AbortSignal.timeout(5000) });
     if (!res.ok) {
       return [];
     }
@@ -42,9 +43,10 @@ export async function getReviews(): Promise<Review[]> {
     let allFetchedReviews = Array.isArray(data.reviews) ? data.reviews : [];
 
     // 2. Paginate to Page 2 if needed to complete 15 reviews
-    if (data.serpapi_pagination?.next_page_token) {
-      const page2Url = `${url}&num=20&next_page_token=${encodeURIComponent(data.serpapi_pagination.next_page_token)}`;
-      const res2 = await fetch(page2Url);
+    if (data.serpapi_pagination?.next) {
+      const res2 = await fetch(data.serpapi_pagination.next, {
+        signal: AbortSignal.timeout(5000),
+      });
 
       if (res2.ok) {
         const data2 = await res2.json();
@@ -78,4 +80,4 @@ export async function getReviews(): Promise<Review[]> {
     console.error('Error fetching live GMB reviews from SerpApi:', error);
     return [];
   }
-}
+});

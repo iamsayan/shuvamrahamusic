@@ -1,12 +1,11 @@
 'use client';
 
-import { useReviews } from '@/app/providers';
 import ReviewCard from '@/components/review-card';
+import { type Review } from '@/lib/reviews';
 
 import { LuMapPin, LuStar } from 'react-icons/lu';
 
-export default function ReviewsMarquee() {
-  const reviews = useReviews();
+export default function ReviewsMarquee({ reviews }: { reviews: Review[] }) {
   const hasReviews = reviews && reviews.length > 0;
 
   if (hasReviews) {

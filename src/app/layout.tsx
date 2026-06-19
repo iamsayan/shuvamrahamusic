@@ -10,7 +10,6 @@ import Header from '@/components/header';
 import UTMTracker from '@/components/utm-tracker';
 import WhatsappButton from '@/components/whatsapp-button';
 import { getPricingPlans, getSettings } from '@/lib/data';
-import { getReviews } from '@/lib/reviews';
 import '@bprogress/core/css';
 import { GoogleTagManager } from '@next/third-parties/google';
 
@@ -139,7 +138,6 @@ export default async function RootLayout({
 }>) {
   const settings = getSettings();
   const pricingPlans = getPricingPlans();
-  const reviews = getReviews();
 
   return (
     <html
@@ -165,7 +163,6 @@ export default async function RootLayout({
         <Providers
           settingsPromise={settings}
           pricingPlansPromise={pricingPlans}
-          reviewsPromise={reviews}
         >
           <div className="flex min-h-screen flex-col">
             <Suspense fallback={<RootLoader />}>
