@@ -105,100 +105,79 @@ export default async function Page() {
     <>
       {/* JSON-LD Structured Data for SEO */}
       <JsonLd
-        schema={[
-          SCHEMA.breadcrumb('/guitar-classes-with-shuvam'),
-          {
-            '@context': 'https://schema.org',
-            '@type': 'Course',
-            name: '1-on-1 Personalized Guitar Coaching with Shuvam Raha',
-            description:
-              'Learn guitar online or offline in 30 days. Structured 1-on-1 classes covering chords, strumming, lead playing, and music theory, with support in English, Hindi, and Bengali.',
-            provider: {
-              '@type': 'Person',
-              name: 'Shuvam Raha',
-              sameAs: SCHEMA.BASE_URL,
-            },
-            courseCode: 'SR-GUITAR-30',
-            educationalLevel: 'Beginner to Advanced',
-            offers: (pricingPlans || []).map((plan) => ({
-              '@type': 'Offer',
-              category: 'Subscription',
-              priceCurrency: plan.region === 'India' ? 'INR' : 'USD',
-              price: plan.amount.toFixed(2),
-              name: plan.name,
-              description: plan.description,
-              url: `${SCHEMA.BASE_URL}/guitar-classes-with-shuvam/pay?h=${btoa(JSON.stringify({ plan: plan._id, region: plan.region === 'India' ? 'INR' : 'GLOBAL' }))}`,
-            })),
-            hasCourseInstance: {
-              '@type': 'CourseInstance',
-              courseMode: ['online', 'offline'],
-              courseWorkload: 'PT40M',
-              instructor: {
+        schema={{
+          '@context': 'https://schema.org',
+          '@graph': [
+            SCHEMA.breadcrumb('/guitar-classes-with-shuvam'),
+            {
+              '@type': 'Course',
+              name: '1-on-1 Personalized Guitar Coaching with Shuvam Raha',
+              description:
+                'Learn guitar online or offline in 30 days. Structured 1-on-1 classes covering chords, strumming, lead playing, and music theory, with support in English, Hindi, and Bengali.',
+              provider: {
                 '@type': 'Person',
                 name: 'Shuvam Raha',
-                jobTitle: 'LCM Certified Music Instructor',
+                sameAs: SCHEMA.BASE_URL,
+              },
+              courseCode: 'SR-GUITAR-30',
+              educationalLevel: 'Beginner to Advanced',
+              offers: (pricingPlans || []).map((plan) => ({
+                '@type': 'Offer',
+                category: 'Subscription',
+                priceCurrency: plan.region === 'India' ? 'INR' : 'USD',
+                price: plan.amount.toFixed(2),
+                name: plan.name,
+                description: plan.description,
+                url: `${SCHEMA.BASE_URL}/guitar-classes-with-shuvam/pay?h=${btoa(JSON.stringify({ plan: plan._id, region: plan.region === 'India' ? 'INR' : 'GLOBAL' }))}`,
+              })),
+              hasCourseInstance: {
+                '@type': 'CourseInstance',
+                courseMode: ['online', 'offline'],
+                courseWorkload: 'PT40M',
+                instructor: {
+                  '@type': 'Person',
+                  name: 'Shuvam Raha',
+                  jobTitle: 'LCM Certified Music Instructor',
+                },
               },
             },
-            ...(reviews && reviews.length > 0
-              ? {
-                  aggregateRating: {
-                    '@type': 'AggregateRating',
-                    ratingValue: '5.0',
-                    reviewCount: reviews.length,
-                  },
-                  review: reviews.map((r) => ({
-                    '@type': 'Review',
-                    author: {
-                      '@type': 'Person',
-                      name: r.author,
+            {
+              ...SCHEMA.organization(),
+              ...(reviews && reviews.length > 0
+                ? {
+                    aggregateRating: {
+                      '@type': 'AggregateRating',
+                      ratingValue: '5.0',
+                      reviewCount: reviews.length,
                     },
-                    reviewRating: {
-                      '@type': 'Rating',
-                      ratingValue: r.rating,
-                    },
-                    ...(r.review ? { reviewBody: r.review } : {}),
-                  })),
-                }
-              : {}),
-          },
-          {
-            '@context': 'https://schema.org',
-            ...SCHEMA.organization(),
-            ...(reviews && reviews.length > 0
-              ? {
-                  aggregateRating: {
-                    '@type': 'AggregateRating',
-                    ratingValue: '5.0',
-                    reviewCount: reviews.length,
-                  },
-                  review: reviews.map((r) => ({
-                    '@type': 'Review',
-                    author: {
-                      '@type': 'Person',
-                      name: r.author,
-                    },
-                    reviewRating: {
-                      '@type': 'Rating',
-                      ratingValue: r.rating,
-                    },
-                    ...(r.review ? { reviewBody: r.review } : {}),
-                  })),
-                }
-              : {}),
-          },
-          {
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: allFaqs.map((faq) => ({
-              '@type': 'Question',
-              name: faq.q,
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: faq.a,
-              },
-            })),
-          },
-        ]}
+                    review: reviews.map((r) => ({
+                      '@type': 'Review',
+                      author: {
+                        '@type': 'Person',
+                        name: r.author,
+                      },
+                      reviewRating: {
+                        '@type': 'Rating',
+                        ratingValue: r.rating,
+                      },
+                      ...(r.review ? { reviewBody: r.review } : {}),
+                    })),
+                  }
+                : {}),
+            },
+            {
+              '@type': 'FAQPage',
+              mainEntity: allFaqs.map((faq) => ({
+                '@type': 'Question',
+                name: faq.q,
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: faq.a,
+                },
+              })),
+            },
+          ],
+        }}
       />
       <div className="bg-[#05050A] text-[#f0f0f5]">
         {/* =======================================================================

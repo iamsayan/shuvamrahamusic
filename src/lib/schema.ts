@@ -80,7 +80,7 @@ function person() {
 /** Organization / Business entity */
 function organization() {
   return {
-    '@type': 'MusicInstructionBusiness',
+    '@type': 'MusicSchool',
     '@id': `${BASE_URL}/#organization`,
     name: 'Shuvam Raha Music',
     url: BASE_URL,
