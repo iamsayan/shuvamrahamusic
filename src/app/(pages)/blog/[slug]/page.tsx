@@ -132,7 +132,6 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  'use cache';
   const { slug } = await params;
   const post = await getBlogPostBySlug(slug);
 

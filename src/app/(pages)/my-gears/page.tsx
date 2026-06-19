@@ -9,7 +9,6 @@ import { SCHEMA } from '@/lib/schema';
 import { GearItem } from '@/types';
 
 export async function generateMetadata(): Promise<Metadata> {
-  'use cache';
   const gears = await getGears();
 
   const images = new Map<Asset['_id'], Asset['altText']>();
