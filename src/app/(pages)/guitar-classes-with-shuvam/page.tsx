@@ -26,12 +26,12 @@ import {
   LuClock,
   LuGlobe,
   LuGraduationCap,
-  LuMapPin,
   LuMic,
   LuMonitorSmartphone,
   LuPhone,
   LuStar,
 } from 'react-icons/lu';
+import { getReviews } from '@/lib/reviews';
 
 export const metadata: Metadata = {
   title:
@@ -95,9 +95,10 @@ const VideoCard = ({
 );
 
 export default async function Page() {
-  const [pricingPlans, classesData] = await Promise.all([
+  const [pricingPlans, classesData, reviews] = await Promise.all([
     getPricingPlans(),
     getGuitarClassesData(),
+    getReviews(),
   ]);
 
   return (
@@ -138,8 +139,53 @@ export default async function Page() {
                 jobTitle: 'LCM Certified Music Instructor',
               },
             },
+            ...(reviews && reviews.length > 0
+              ? {
+                  aggregateRating: {
+                    '@type': 'AggregateRating',
+                    ratingValue: '5.0',
+                    reviewCount: reviews.length,
+                  },
+                  review: reviews.map((r) => ({
+                    '@type': 'Review',
+                    author: {
+                      '@type': 'Person',
+                      name: r.author,
+                    },
+                    reviewRating: {
+                      '@type': 'Rating',
+                      ratingValue: r.rating,
+                    },
+                    ...(r.review ? { reviewBody: r.review } : {}),
+                  })),
+                }
+              : {}),
           },
-          SCHEMA.organization(),
+          {
+            '@context': 'https://schema.org',
+            ...SCHEMA.organization(),
+            ...(reviews && reviews.length > 0
+              ? {
+                  aggregateRating: {
+                    '@type': 'AggregateRating',
+                    ratingValue: '5.0',
+                    reviewCount: reviews.length,
+                  },
+                  review: reviews.map((r) => ({
+                    '@type': 'Review',
+                    author: {
+                      '@type': 'Person',
+                      name: r.author,
+                    },
+                    reviewRating: {
+                      '@type': 'Rating',
+                      ratingValue: r.rating,
+                    },
+                    ...(r.review ? { reviewBody: r.review } : {}),
+                  })),
+                }
+              : {}),
+          },
           {
             '@context': 'https://schema.org',
             '@type': 'FAQPage',
@@ -795,7 +841,7 @@ export default async function Page() {
             </div>
           </div>
 
-          <ReviewsMarquee />
+          <ReviewsMarquee reviews={reviews} />
         </section>
 
         {/* =======================================================================

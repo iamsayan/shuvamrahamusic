@@ -14,6 +14,7 @@ import { authorityPoints, curriculum } from '@/lib/guitar-data';
 import { SCHEMA } from '@/lib/schema';
 
 import { LuArrowRight, LuAward, LuBadgeCheck, LuMusic } from 'react-icons/lu';
+import { getReviews } from '@/lib/reviews';
 
 const videos = [
   { title: 'Purano Sei Diner Kotha', year: '2024', id: 'Mldyf1c3uxc' },
@@ -35,9 +36,10 @@ const studentVideos = [
 
 export default async function Home() {
   // Fetch latest posts dynamically
-  const [latestPosts, pricingPlans] = await Promise.all([
+  const [latestPosts, pricingPlans, reviews] = await Promise.all([
     getBlogPosts({ limit: 3 }),
     getPricingPlans(),
+    getReviews()
   ]);
 
   return (
@@ -58,7 +60,30 @@ export default async function Home() {
               },
             },
             SCHEMA.person(),
-            SCHEMA.organization(),
+            {
+              ...SCHEMA.organization(),
+              ...(reviews && reviews.length > 0
+                ? {
+                    aggregateRating: {
+                      '@type': 'AggregateRating',
+                      ratingValue: '5.0',
+                      reviewCount: reviews.length,
+                    },
+                    review: reviews.map((r) => ({
+                      '@type': 'Review',
+                      author: {
+                        '@type': 'Person',
+                        name: r.author,
+                      },
+                      reviewRating: {
+                        '@type': 'Rating',
+                        ratingValue: r.rating,
+                      },
+                      ...(r.review ? { reviewBody: r.review } : {}),
+                    })),
+                  }
+                : {}),
+            },
             {
               '@type': 'Course',
               name: '1-on-1 Personalized Guitar Coaching with Shuvam Raha',
@@ -83,6 +108,27 @@ export default async function Home() {
                 courseMode: ['online', 'offline'],
                 courseWorkload: 'PT40M',
               },
+              ...(reviews && reviews.length > 0
+                ? {
+                    aggregateRating: {
+                      '@type': 'AggregateRating',
+                      ratingValue: '5.0',
+                      reviewCount: reviews.length,
+                    },
+                    review: reviews.map((r) => ({
+                      '@type': 'Review',
+                      author: {
+                        '@type': 'Person',
+                        name: r.author,
+                      },
+                      reviewRating: {
+                        '@type': 'Rating',
+                        ratingValue: r.rating,
+                      },
+                      ...(r.review ? { reviewBody: r.review } : {}),
+                    })),
+                  }
+                : {}),
             },
             {
               '@type': 'SiteNavigationElement',
@@ -412,7 +458,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <ReviewsMarquee />
+          <ReviewsMarquee reviews={reviews} />
         </section>
 
         {/* ==========================================================
