@@ -86,6 +86,7 @@ export default async function Home() {
             },
             {
               '@type': 'Course',
+              '@id': `${SCHEMA.BASE_URL}/#course`,
               name: '1-on-1 Personalized Guitar Coaching with Shuvam Raha',
               description:
                 'Learn guitar online or offline in 30 days. Structured 1-on-1 classes covering chords, strumming, lead playing, and music theory.',
@@ -108,19 +109,6 @@ export default async function Home() {
                 courseMode: ['online', 'offline'],
                 courseWorkload: 'PT40M',
               },
-            },
-            {
-              '@type': 'SiteNavigationElement',
-              name: [
-                'Guitar Classes',
-                'Biography',
-                'Blog',
-                'Gallery',
-                'Performance Highlights',
-                'My Gears',
-                'Tutorials',
-                'Contact',
-              ],
             },
           ],
         }}

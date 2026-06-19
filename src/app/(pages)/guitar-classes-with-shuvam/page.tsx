@@ -111,16 +111,15 @@ export default async function Page() {
             SCHEMA.breadcrumb('/guitar-classes-with-shuvam'),
             {
               '@type': 'Course',
+              '@id': `${SCHEMA.BASE_URL}/#course`,
               name: '1-on-1 Personalized Guitar Coaching with Shuvam Raha',
               description:
                 'Learn guitar online or offline in 30 days. Structured 1-on-1 classes covering chords, strumming, lead playing, and music theory, with support in English, Hindi, and Bengali.',
-              provider: {
-                '@type': 'Person',
-                name: 'Shuvam Raha',
-                sameAs: SCHEMA.BASE_URL,
-              },
+              provider: { '@id': `${SCHEMA.BASE_URL}/#organization` },
               courseCode: 'SR-GUITAR-30',
               educationalLevel: 'Beginner to Advanced',
+              inLanguage: ['en', 'hi', 'bn'],
+              url: `${SCHEMA.BASE_URL}/guitar-classes-with-shuvam`,
               offers: (pricingPlans || []).map((plan) => ({
                 '@type': 'Offer',
                 category: 'Subscription',
@@ -134,11 +133,7 @@ export default async function Page() {
                 '@type': 'CourseInstance',
                 courseMode: ['online', 'offline'],
                 courseWorkload: 'PT40M',
-                instructor: {
-                  '@type': 'Person',
-                  name: 'Shuvam Raha',
-                  jobTitle: 'LCM Certified Music Instructor',
-                },
+                instructor: { '@id': `${SCHEMA.BASE_URL}/#person` },
               },
             },
             {
