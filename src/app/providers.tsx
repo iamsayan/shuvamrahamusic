@@ -2,22 +2,26 @@
 
 import { createContext, use, useContext } from 'react';
 
+import type { Review } from '@/lib/reviews';
 import type { PricingPlan, Settings } from '@/types';
 import { ProgressProvider } from '@bprogress/next/app';
 
-const SettingsContext = createContext<{
+const SiteContext = createContext<{
   settingsPromise: Promise<Settings>;
   pricingPlansPromise: Promise<PricingPlan[]>;
+  reviewsPromise: Promise<Review[]>;
 } | null>(null);
 
 export default function Providers({
   children,
   settingsPromise,
   pricingPlansPromise,
+  reviewsPromise,
 }: {
   children: React.ReactNode;
   settingsPromise: Promise<Settings>;
   pricingPlansPromise: Promise<PricingPlan[]>;
+  reviewsPromise: Promise<Review[]>;
 }) {
   return (
     <ProgressProvider
@@ -26,24 +30,35 @@ export default function Providers({
       options={{ showSpinner: false }}
       shallowRouting
     >
-      <SettingsContext value={{ settingsPromise, pricingPlansPromise }}>
+      <SiteContext
+        value={{ settingsPromise, pricingPlansPromise, reviewsPromise }}
+      >
         {children}
-      </SettingsContext>
+      </SiteContext>
     </ProgressProvider>
   );
 }
 
-export function useSettings() {
-  const context = useContext(SettingsContext);
+export function useSiteSettings() {
+  const context = useContext(SiteContext);
   if (!context) {
-    throw new Error('useSettings must be used within Providers');
+    throw new Error('useSiteSettings must be used within Providers');
   }
+  return use(context.settingsPromise);
+}
 
-  const settings = use(context.settingsPromise);
-  const pricingPlans = use(context.pricingPlansPromise);
+export function usePricingPlans() {
+  const context = useContext(SiteContext);
+  if (!context) {
+    throw new Error('usePricingPlans must be used within Providers');
+  }
+  return use(context.pricingPlansPromise);
+}
 
-  return {
-    settings,
-    pricing_plans: pricingPlans,
-  };
+export function useReviews() {
+  const context = useContext(SiteContext);
+  if (!context) {
+    throw new Error('useReviews must be used within Providers');
+  }
+  return use(context.reviewsPromise);
 }

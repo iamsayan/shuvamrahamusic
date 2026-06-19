@@ -5,7 +5,7 @@ import { SubmitEvent, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 import { createRazorpayOrder } from '@/app/actions/razorpay';
-import { useSettings } from '@/app/providers';
+import { usePricingPlans } from '@/app/providers';
 import { useRegion } from '@/hooks/use-region';
 import { loadRazorpay } from '@/lib/load-razorpay';
 import { getCurrencySymbol } from '@/lib/utils';
@@ -212,13 +212,13 @@ const getPlanThemeName = (planRegion: string, idx: number) => {
 };
 
 export default function SecurePayPortal() {
-  const { pricing_plans } = useSettings();
+  const plans = usePricingPlans();
   const [region, setRegion] = useRegion();
   const searchParams = useSearchParams();
 
   const planParam = searchParams?.get('plan') || null;
   const matchedPlan = planParam
-    ? pricing_plans?.find((p) => p._id === planParam)
+    ? plans?.find((p) => p._id === planParam)
     : null;
   const isPlanSelectionLocked = !!matchedPlan;
 
@@ -241,14 +241,17 @@ export default function SecurePayPortal() {
     address: '',
   });
 
-  const currentPlans = (pricing_plans || []).filter((p) =>
+  const currentPlans = (plans || []).filter((p) =>
     region === 'IN' ? p.region === 'India' : p.region === 'Outside India'
   );
 
-  const activePlan = matchedPlan ||
+  const activePlan =
+    matchedPlan ||
     currentPlans.find((p) => p._id === selectedPlanId) ||
     currentPlans[0];
-  const activePlanIdx = activePlan ? Math.max(0, currentPlans.indexOf(activePlan)) : 0;
+  const activePlanIdx = activePlan
+    ? Math.max(0, currentPlans.indexOf(activePlan))
+    : 0;
   const activePlanThemeName = activePlan
     ? getPlanThemeName(activePlan.region, activePlanIdx)
     : 'blue';
@@ -495,80 +498,82 @@ export default function SecurePayPortal() {
             Your Selected Plan
           </div>
         )}
-        {(isPlanSelectionLocked && activePlan ? [activePlan] : currentPlans).map(
-          (plan: PricingPlan, idx: number) => {
-            const isActive = activePlan?._id === plan._id;
-            const themeName = getPlanThemeName(plan.region, idx);
-            const theme = THEME_MAP[themeName] || THEME_MAP.blue;
-            const popular = plan.is_popular === true;
-            const currency = getCurrencySymbol(plan.region);
+        {(isPlanSelectionLocked && activePlan
+          ? [activePlan]
+          : currentPlans
+        ).map((plan: PricingPlan, idx: number) => {
+          const isActive = activePlan?._id === plan._id;
+          const themeName = getPlanThemeName(plan.region, idx);
+          const theme = THEME_MAP[themeName] || THEME_MAP.blue;
+          const popular = plan.is_popular === true;
+          const currency = getCurrencySymbol(plan.region);
 
-            return (
-              <button
-                key={idx}
-                disabled={isPlanSelectionLocked}
-                onClick={() => setSelectedPlanId(plan._id)}
-                className={`group/plan-btn relative flex w-full items-center justify-between rounded-2xl border p-5 text-left transition-all duration-300 ${
-                  isPlanSelectionLocked
-                    ? 'cursor-default border-cyan-500/20 bg-white/2'
-                    : isActive
-                      ? 'cursor-pointer border-cyan-500/40 bg-white/3 shadow-[0_10px_35px_rgba(6,182,212,0.06)]'
-                      : 'cursor-pointer border-white/4 bg-white/0.5 hover:border-white/10 hover:bg-white/1'
-                }`}
-              >
-                <div className="flex items-center gap-4">
-                  {isPlanSelectionLocked ? (
-                    <div className="flex size-5 shrink-0 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-400">
-                      <LuShieldCheck className="size-4" />
-                    </div>
-                  ) : (
-                    <div
-                      className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300 ${
-                        isActive
-                          ? 'border-cyan-400 bg-cyan-400/10'
-                          : 'border-gray-600'
-                      }`}
-                    >
-                      {isActive && (
-                        <div className="size-2.5 rounded-full bg-cyan-400" />
-                      )}
-                    </div>
-                  )}
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-heading text-sm font-bold text-white sm:text-base">
-                        {plan.name}
-                      </span>
-                      {popular && (
-                        <span className="rounded-full bg-linear-to-r from-amber-500 to-orange-400 px-2 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase">
-                          Popular
-                        </span>
-                      )}
-                    </div>
-                    <p className="mt-1 line-clamp-1 max-w-[200px] text-xs text-gray-400 sm:max-w-none">
-                      {plan.description}
-                    </p>
+          return (
+            <button
+              key={idx}
+              disabled={isPlanSelectionLocked}
+              onClick={() => setSelectedPlanId(plan._id)}
+              className={`group/plan-btn relative flex w-full items-center justify-between rounded-2xl border p-5 text-left transition-all duration-300 ${
+                isPlanSelectionLocked
+                  ? 'cursor-default border-cyan-500/20 bg-white/2'
+                  : isActive
+                    ? 'cursor-pointer border-cyan-500/40 bg-white/3 shadow-[0_10px_35px_rgba(6,182,212,0.06)]'
+                    : 'cursor-pointer border-white/4 bg-white/0.5 hover:border-white/10 hover:bg-white/1'
+              }`}
+            >
+              <div className="flex items-center gap-4">
+                {isPlanSelectionLocked ? (
+                  <div className="flex size-5 shrink-0 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-400">
+                    <LuShieldCheck className="size-4" />
                   </div>
-                </div>
-
-                <div className="text-right">
-                  <span
-                    className={`font-heading text-base font-black transition-colors duration-300 sm:text-lg ${
-                      isActive || isPlanSelectionLocked
-                        ? theme.text
-                        : 'text-gray-400'
+                ) : (
+                  <div
+                    className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300 ${
+                      isActive
+                        ? 'border-cyan-400 bg-cyan-400/10'
+                        : 'border-gray-600'
                     }`}
                   >
-                    {currency}
-                    {plan.amount}
-                  </span>
-                  <span className="mt-0.5 block text-[10px] text-gray-500 lowercase">
-                    /{plan.duration || 'month'}
-                  </span>
+                    {isActive && (
+                      <div className="size-2.5 rounded-full bg-cyan-400" />
+                    )}
+                  </div>
+                )}
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-heading text-sm font-bold text-white sm:text-base">
+                      {plan.name}
+                    </span>
+                    {popular && (
+                      <span className="rounded-full bg-linear-to-r from-amber-500 to-orange-400 px-2 py-0.5 text-[9px] font-bold tracking-wider text-white uppercase">
+                        Popular
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-1 line-clamp-1 max-w-[200px] text-xs text-gray-400 sm:max-w-none">
+                    {plan.description}
+                  </p>
                 </div>
-              </button>
-            );
-          })}
+              </div>
+
+              <div className="text-right">
+                <span
+                  className={`font-heading text-base font-black transition-colors duration-300 sm:text-lg ${
+                    isActive || isPlanSelectionLocked
+                      ? theme.text
+                      : 'text-gray-400'
+                  }`}
+                >
+                  {currency}
+                  {plan.amount}
+                </span>
+                <span className="mt-0.5 block text-[10px] text-gray-500 lowercase">
+                  /{plan.duration || 'month'}
+                </span>
+              </div>
+            </button>
+          );
+        })}
       </div>
 
       {/* Detailed Order Summary Panel */}
