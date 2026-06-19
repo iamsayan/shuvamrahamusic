@@ -36,6 +36,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  'use cache';
   const { slug } = await params;
   const category = await getCategoryBySlug(slug);
 

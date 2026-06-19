@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { useSettings } from '@/app/providers';
+import { useSiteSettings } from '@/app/providers';
 import { normalizeUrl } from '@/lib/utils';
 
 import {
@@ -74,7 +74,7 @@ const socialLinks = [
 ];
 
 export default function Footer() {
-  const { settings } = useSettings();
+  const settings = useSiteSettings();
 
   const currentQuickLinks = (() => {
     if (settings?.footer_menu && settings.footer_menu.length > 0) {

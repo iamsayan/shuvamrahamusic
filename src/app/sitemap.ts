@@ -33,7 +33,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Fetch dynamic blog posts
   try {
-    const posts = await getBlogPosts({ limit: -1 });
+    // Stagger the fetch to avoid concurrent connection drops with page rendering workers
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    const posts = await getBlogPosts({ limit: 999 });
 
     // Add blog posts
     const blogEntries = posts.map((post) => ({

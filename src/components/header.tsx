@@ -6,14 +6,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { useSettings } from '@/app/providers';
+import { useSiteSettings } from '@/app/providers';
 import { normalizeUrl } from '@/lib/utils';
 
 import { LuArrowRight, LuChevronDown, LuPhone } from 'react-icons/lu';
 
-
 export default function Header() {
-  const { settings } = useSettings();
+  const settings = useSiteSettings();
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -279,7 +278,9 @@ export default function Header() {
                   <div
                     key={idx}
                     className={`flex flex-col border-b border-white/5 transition-[transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                      isMobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
+                      isMobileMenuOpen
+                        ? 'translate-y-0 opacity-100'
+                        : 'translate-y-5 opacity-0'
                     }`}
                     style={{ transitionDelay: `${idx * 40}ms` }}
                   >

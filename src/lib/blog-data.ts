@@ -241,6 +241,7 @@ export async function getCategories(): Promise<Category[]> {
   cacheTag('categories');
   return cockpit.listContentItems<Category[]>('categories', {
     sort: { name: 1 },
+    limit: 999,
   });
 }
 
@@ -261,6 +262,7 @@ export async function getTags(): Promise<Tag[]> {
   cacheTag('tags');
   return cockpit.listContentItems<Tag[]>('tags', {
     sort: { name: 1 },
+    limit: 999,
   });
 }
 
