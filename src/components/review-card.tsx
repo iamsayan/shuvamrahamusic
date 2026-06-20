@@ -59,6 +59,7 @@ export default function ReviewCard({ review }: ReviewCardProps) {
               alt={review.author}
               className="size-full rounded-full object-cover transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
+              referrerPolicy="no-referrer"
             />
           </div>
         </div>

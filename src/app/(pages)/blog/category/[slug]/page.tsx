@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 
 import BlogArchiveClient from '@/components/blog-archive-client';
 import JsonLd from '@/components/json-ld';
@@ -78,10 +77,6 @@ async function CategoryArchiveContent({ slug, searchParams }: ContentProps) {
   const limit = 6;
   const skip = (pageNum - 1) * limit;
   const { posts, total } = await getBlogPostsByCategory(slug, { limit, skip });
-
-  // if (posts.length === 0) {
-  //   notFound();
-  // }
 
   const categoryName =
     posts[0].categories.find((cat) => cat.slug === slug)?.title || slug;

@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import BrandEndorsements from '@/components/brand-endorsements';
+import DynamicText from '@/components/dynamic-text';
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
 import YouTubeFacade from '@/components/youtube-facade';
@@ -66,7 +67,7 @@ export const metadata: Metadata = {
 
 const highlights = [
   {
-    title: '11+ Years of Guitar Playing & Teaching Experience',
+    title: '{years}+ Years of Guitar Playing & Teaching Experience',
     icon: LuGuitar,
     color: 'text-cyan-400 border-cyan-500/20 bg-cyan-500/5',
   },
@@ -226,7 +227,7 @@ export default function BiographyPage() {
                   </span>
                   <span className="inline-flex items-center gap-1.5 rounded-md border border-white/5 bg-white/2 px-2.5 py-1">
                     <LuGuitar className="size-3.5 text-cyan-400" />
-                    <span>11+ Years of Experience</span>
+                    <DynamicText text="{years}+ Years of Experience" />
                   </span>
                   <span className="inline-flex items-center gap-1.5 rounded-md border border-white/5 bg-white/2 px-2.5 py-1">
                     <LuGlobe className="size-3.5 text-cyan-400" />
@@ -312,7 +313,7 @@ export default function BiographyPage() {
                       </div>
                       <div className="space-y-1">
                         <h4 className="font-heading text-sm leading-snug font-bold text-white transition-colors duration-300 group-hover:text-cyan-300 sm:text-base">
-                          {item.title}
+                          <DynamicText text={item.title} />
                         </h4>
                       </div>
                     </div>

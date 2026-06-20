@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { useSiteSettings } from '@/app/providers';
+import DynamicText from '@/components/dynamic-text';
 import { normalizeUrl } from '@/lib/utils';
 
 import {
@@ -113,7 +114,6 @@ export default function Footer() {
 
   const mediaLinks = [
     { title: 'Performance Highlights', url: '/performance-highlights' },
-    { title: 'Tutorials', url: '/tutorials' },
     { title: 'Videos', url: '/videos' },
     { title: 'Photos', url: '/photos' },
     { title: 'Audios', url: '/audios' },
@@ -272,7 +272,7 @@ export default function Footer() {
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div className="flex flex-col items-center gap-2 text-center sm:flex-row sm:text-left">
               <p className="text-xs font-semibold text-gray-500 sm:text-sm">
-                &copy; {new Date().getFullYear()} Shuvam Raha Music
+                &copy; <DynamicText text="{currentYear}" /> Shuvam Raha Music
               </p>
               <span className="hidden text-gray-800 sm:inline">•</span>
               <p className="flex items-center gap-1 text-xs font-semibold text-gray-500 sm:text-sm">

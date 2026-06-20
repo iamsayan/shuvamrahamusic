@@ -26,7 +26,7 @@ export const authorityPoints = [
     border: 'border-rose-500/20',
   },
   {
-    title: '11+ Years Experience',
+    title: '{years}+ Years Experience',
     desc: 'Over a decade of experience teaching students at all levels.',
     icon: LuClock,
     color: 'text-amber-400',

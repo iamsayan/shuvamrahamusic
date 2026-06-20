@@ -15,7 +15,7 @@ const AUTHOR_SHUVAM: Author = {
   name: 'Shuvam Raha',
   avatar: '/hero-guitarist.jpg',
   role: 'LCM Certified Music Instructor',
-  bio: `Professional guitarist, music producer, and educator with over 11 years of coaching experience, helping 600+ students globally master the guitar.`,
+  bio: 'Professional guitarist, music producer, and educator with over {years} years of coaching experience, helping 600+ students globally master the guitar.',
 };
 
 // Helper to calculate reading time dynamically

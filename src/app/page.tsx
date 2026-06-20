@@ -3,18 +3,23 @@ import Link from 'next/link';
 
 import BlogPostCard from '@/components/blog-post-card';
 import BrandEndorsements from '@/components/brand-endorsements';
-import ExperienceYears from '@/components/experience-years';
 import JsonLd from '@/components/json-ld';
+import DynamicText from '@/components/dynamic-text';
 import ReviewsMarquee from '@/components/reviews-marquee';
 import SliderGallery from '@/components/slider-gallery';
 import YouTubeFacade from '@/components/youtube-facade';
 import { getBlogPosts } from '@/lib/blog-data';
-import { getPricingPlans } from '@/lib/data';
 import { authorityPoints, curriculum } from '@/lib/guitar-data';
 import { getReviews } from '@/lib/reviews';
 import { SCHEMA } from '@/lib/schema';
 
-import { LuArrowRight, LuAward, LuBadgeCheck, LuMusic } from 'react-icons/lu';
+import {
+  LuArrowRight,
+  LuAward,
+  LuBadgeCheck,
+  LuMusic,
+  LuStar,
+} from 'react-icons/lu';
 
 const videos = [
   { title: 'Purano Sei Diner Kotha', year: '2024', id: 'Mldyf1c3uxc' },
@@ -35,11 +40,14 @@ const studentVideos = [
 ];
 
 export default async function Home() {
-  // Fetch latest posts dynamically
   const [latestPosts, reviews] = await Promise.all([
     getBlogPosts({ limit: 3 }),
     getReviews(),
   ]);
+
+  const reviewsWithImages = reviews.filter(
+    (rev) => rev.profileImage && !rev.profileImage.includes('default-user')
+  );
 
   return (
     <>
@@ -70,40 +78,52 @@ export default async function Home() {
         <div className="animate-blob-3 pointer-events-none absolute bottom-1/4 left-1/3 size-100 rounded-full bg-amber-600/5 blur-[150px]" />
 
         {/* ==========================================================
-          1. HERO SECTION
+          1. HERO SECTION (UI OVERHAULED)
          ========================================================== */}
-        <section className="relative flex min-h-svh items-center pt-28 pb-20 md:pt-36">
+        <section className="relative flex min-h-svh items-center overflow-hidden pt-28 pb-24 md:pt-36 md:pb-32">
+          {/* Base Background Grid Pattern & Spotlights */}
           <div className="absolute inset-0 z-0">
             <Image
               src="/bg.png"
               alt="Hero Background Grid"
               fill
               priority
-              className="object-cover object-center opacity-40 mix-blend-color-dodge"
+              className="object-cover object-center opacity-30 mix-blend-color-dodge"
             />
-            <div className="absolute inset-0 bg-linear-to-b from-[#05050A]/90 via-[#05050A]/70 to-[#05050A]" />
+            {/* Subtle Tech Grid overlay */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] bg-[size:3rem_3rem]" />
+
+            {/* Radial light spotlight */}
+            <div className="absolute inset-0 bg-radial-[ellipse_80%_60%_at_50%_-10%] from-cyan-500/10 via-transparent to-[#05050A]" />
+            <div className="absolute inset-0 bg-linear-to-b from-[#05050A]/90 via-[#05050A]/60 to-[#05050A]" />
           </div>
 
-          {/* Floating decorative elements in the background */}
-          <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            {/* Soft ambient music notes drifting in background */}
-            <div className="animate-float-1 absolute top-[20%] left-[10%] text-2xl text-cyan-500/20">
+          {/* Floating decorative music notes and sparkles in background */}
+          <div className="pointer-events-none absolute inset-0 overflow-hidden select-none">
+            <div className="animate-float-1 absolute top-[18%] left-[8%] text-3xl text-cyan-400/20 drop-shadow-[0_0_8px_rgba(34,211,238,0.2)]">
               ♫
             </div>
-            <div className="animate-float-2 absolute top-[40%] right-[15%] text-3xl text-violet-500/20">
+            <div className="animate-float-2 absolute top-[35%] right-[10%] text-4xl text-violet-400/20 drop-shadow-[0_0_8px_rgba(167,139,250,0.2)]">
               ♪
             </div>
-            <div className="animate-float-3 absolute bottom-[25%] left-[45%] text-xl text-amber-500/10">
+            <div className="animate-float-3 absolute bottom-[30%] left-[40%] text-2xl text-amber-400/10 drop-shadow-[0_0_8px_rgba(251,191,36,0.1)]">
               🎸
+            </div>
+            <div className="absolute top-[25%] right-[45%] animate-pulse text-lg text-cyan-400/15">
+              ✦
+            </div>
+            <div className="absolute bottom-[40%] left-[15%] animate-pulse text-xl text-violet-400/15">
+              ✦
             </div>
           </div>
 
-          <div className="site-container relative z-10 grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
-            <div className="animate-in-1 space-y-8 text-center lg:col-span-7 lg:text-left">
-              {/* Premium Trust Badge wrapper */}
-              <div className="inline-flex flex-col items-center gap-3 sm:flex-row sm:gap-4 lg:items-start">
-                <div className="badge-trust">
-                  <LuAward />
+          <div className="site-container relative z-10 grid grid-cols-1 items-center gap-16 lg:grid-cols-12 lg:gap-8">
+            {/* Left Content Column */}
+            <div className="animate-in-1 space-y-10 text-center lg:col-span-7 lg:text-left">
+              {/* Premium Trust Badges wrapper with glassmorphism */}
+              <div className="inline-flex flex-wrap justify-center gap-3.5 sm:gap-4 lg:justify-start">
+                <div className="group badge-trust transition-all duration-300 hover:border-cyan-500/40 hover:bg-cyan-500/15">
+                  <LuAward className="text-cyan-400 transition-transform duration-500 group-hover:rotate-12" />
                   <span>LCM Certified Music Instructor</span>
                 </div>
                 {/* Floating dynamic status pill */}
@@ -117,18 +137,20 @@ export default async function Home() {
               </div>
 
               {/* Redesigned Rich Typography Heading */}
-              <div className="space-y-4">
-                <h1 className="font-heading text-4xl leading-[1.1] font-black tracking-tight text-white sm:text-6xl lg:text-7xl">
+              <div className="space-y-5">
+                <h1 className="font-heading text-5xl leading-[1.05] font-black tracking-tight text-white sm:text-7xl lg:text-8xl">
                   Shuvam Raha{' '}
-                  <span className="block bg-linear-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(6,182,212,0.35)]">
+                  <span className="block bg-linear-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(6,182,212,0.4)]">
                     Music
                   </span>
                 </h1>
 
                 {/* Premium tag style for Subheading */}
-                <div className="font-heading inline-flex items-center gap-2.5 rounded-xl border border-cyan-500/10 bg-cyan-500/5 px-4 py-2 text-sm font-black tracking-widest text-cyan-300 uppercase shadow-[0_0_20px_rgba(6,182,212,0.05)]">
-                  <LuMusic className="size-4 animate-bounce" />
-                  <span>Easy To Learn &amp; Easy To Play</span>
+                <div className="inline-flex items-center gap-3.5 rounded-xl border border-cyan-500/15 bg-cyan-500/5 px-5 py-2.5 text-xs font-black tracking-widest text-cyan-300 uppercase shadow-[0_0_25px_rgba(6,182,212,0.08)] backdrop-blur-md">
+                  <LuMusic className="size-4 animate-bounce text-cyan-400" />
+                  <span className="font-heading">
+                    Easy To Learn &amp; Easy To Play
+                  </span>
                 </div>
               </div>
 
@@ -138,55 +160,117 @@ export default async function Home() {
                 and music producer. Play your first favorite songs in 30 days.
               </p>
 
+              {/* Social Proof Avatar Stack */}
+              <div className="flex flex-col items-center justify-center gap-4.5 pt-2 sm:flex-row sm:gap-5 lg:justify-start">
+                {/* Overlapping Avatar Stack */}
+                <div className="flex -space-x-3.5 overflow-hidden">
+                  {reviewsWithImages && reviewsWithImages.length > 0 ? (
+                    reviewsWithImages.slice(0, 4).map((rev, idx) => (
+                      <div
+                        key={idx}
+                        className="relative flex size-9.5 items-center justify-center overflow-hidden rounded-full border border-[#05050A] bg-[#131320] shadow-md select-none"
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={rev.profileImage}
+                          alt={rev.author}
+                          className="size-full object-cover"
+                          referrerPolicy="no-referrer"
+                        />
+                      </div>
+                    ))
+                  ) : (
+                    <>
+                      <div className="flex size-9.5 items-center justify-center rounded-full border border-[#05050A] bg-linear-to-tr from-cyan-500 to-blue-500 text-[10px] font-black text-white shadow-md select-none">
+                        R
+                      </div>
+                      <div className="flex size-9.5 items-center justify-center rounded-full border border-[#05050A] bg-linear-to-tr from-violet-500 to-indigo-500 text-[10px] font-black text-white shadow-md select-none">
+                        S
+                      </div>
+                      <div className="flex size-9.5 items-center justify-center rounded-full border border-[#05050A] bg-linear-to-tr from-amber-500 to-orange-500 text-[10px] font-black text-white shadow-md select-none">
+                        A
+                      </div>
+                      <div className="flex size-9.5 items-center justify-center rounded-full border border-[#05050A] bg-linear-to-tr from-emerald-500 to-teal-500 text-[10px] font-black text-white shadow-md select-none">
+                        M
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                {/* Ratings details */}
+                <div className="text-center sm:text-left">
+                  <div className="flex items-center justify-center gap-1 sm:justify-start">
+                    {[1, 2, 3, 4, 5].map((val) => (
+                      <LuStar
+                        key={val}
+                        className="size-3.5 fill-amber-400 text-amber-400"
+                      />
+                    ))}
+                    <span className="ml-1.5 text-xs font-black text-white">
+                      4.9/5 Rating
+                    </span>
+                  </div>
+                  <p className="mt-0.5 text-[11px] font-medium text-gray-400">
+                    Loved by 150+ students in US, UK, India &amp; Canada
+                  </p>
+                </div>
+              </div>
+
               {/* Redesigned Button Actions wrapper */}
-              <div className="flex flex-col justify-center gap-4 pt-4 sm:flex-row lg:justify-start">
+              <div className="flex flex-col justify-center gap-4.5 pt-4 sm:flex-row lg:justify-start">
                 <Link
                   href="/guitar-classes-with-shuvam"
-                  className="group relative flex items-center justify-center gap-2.5 rounded-full bg-linear-to-r from-cyan-500 via-blue-500 to-indigo-600 px-8 py-4 text-sm font-bold text-white shadow-[0_0_25px_rgba(6,182,212,0.25)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_35px_rgba(6,182,212,0.45)] active:scale-95"
+                  className="group relative flex items-center justify-center gap-3 rounded-full bg-linear-to-r from-cyan-500 via-blue-500 to-indigo-600 px-9 py-4.5 text-sm font-bold text-white shadow-[0_0_25px_rgba(6,182,212,0.25)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_35px_rgba(6,182,212,0.45)] active:scale-95"
                 >
                   Join Guitar Classes
                   <LuArrowRight className="size-4.5 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
                 <Link
                   href="/biography"
-                  className="group flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/3 px-8 py-4 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/30 hover:bg-cyan-500/5 active:scale-95"
+                  className="group flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/3 px-9 py-4.5 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/30 hover:bg-cyan-500/5 active:scale-95"
                 >
                   Read Biography
                 </Link>
               </div>
             </div>
 
-            {/* Right Column: Redesigned premium photo frame showcase with backdrop rings */}
-            <div className="animate-in-3 relative flex justify-center lg:col-span-5 lg:justify-end">
+            {/* Right Column: Redesigned premium photo frame showcase with backdrop rings and floating cards */}
+            <div className="animate-in-3 relative flex justify-center lg:col-span-5 lg:justify-center">
               {/* Rotating backdrop decorative circles */}
-              <div className="pointer-events-none absolute top-1/2 left-1/2 size-100 -translate-x-1/2 -translate-y-1/2 [animation:spin_60s_linear_infinite] rounded-full border border-dashed border-cyan-500/10" />
-              <div className="pointer-events-none absolute top-1/2 left-1/2 size-80 -translate-x-1/2 -translate-y-1/2 [animation:spin_40s_linear_infinite_reverse] rounded-full border border-cyan-500/5" />
-
-              <div className="group relative aspect-3/4 w-full max-w-[440px] overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#0C0C16]/40 p-2 shadow-2xl backdrop-blur-md transition-all duration-700 hover:border-cyan-500/30 hover:shadow-cyan-500/10">
-                <div className="relative size-full overflow-hidden rounded-[2rem]">
+              <div className="pointer-events-none absolute top-1/2 left-1/2 size-112.5 -translate-x-1/2 -translate-y-1/2 [animation:spin_60s_linear_infinite] rounded-full border border-dashed border-cyan-500/10" />
+              <div className="pointer-events-none absolute top-1/2 left-1/2 size-96 -translate-x-1/2 -translate-y-1/2 [animation:spin_40s_linear_infinite_reverse] rounded-full border border-cyan-500/5" />
+              <div className="pointer-events-none absolute top-1/2 left-1/2 size-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/5 blur-3xl" />
+              {/* Main premium photo frame container */}
+              <div className="group relative aspect-3/4 w-full max-w-[450px] overflow-hidden rounded-[2.75rem] border border-white/10 bg-[#0C0C16]/40 p-2.5 shadow-2xl backdrop-blur-md transition-all duration-700 hover:scale-[1.02] hover:border-cyan-500/30 hover:shadow-cyan-500/10">
+                <div className="relative size-full overflow-hidden rounded-[2.25rem]">
                   <Image
                     src="/hero-guitarist.jpg"
                     alt="Shuvam Raha playing guitar"
                     fill
                     priority
-                    className="object-cover opacity-90 transition-transform duration-1500 group-hover:scale-105"
+                    className="object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105"
                     sizes="(max-width: 1024px) 380px, 450px"
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-[#05050A]/85 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-[#05050A]/90 via-[#05050A]/20 to-transparent" />
 
                   {/* Floating floating mini-badge inside photo */}
-                  <div className="absolute right-5 bottom-5 left-5 flex items-center justify-between rounded-2xl border border-white/10 bg-[#05050A]/70 px-4 py-3 backdrop-blur-md transition-all duration-500 group-hover:border-cyan-500/30">
+                  <div className="absolute right-5 bottom-5 left-5 flex items-center justify-between rounded-2xl border border-white/10 bg-[#05050A]/85 px-4.5 py-3.5 backdrop-blur-md transition-all duration-500 group-hover:border-cyan-500/30">
                     <div className="flex flex-col text-left">
                       <span className="text-[9px] font-black tracking-widest text-cyan-400 uppercase">
                         Artist / Coach
                       </span>
-                      <span className="text-xs font-bold text-white">
+                      <span className="text-sm font-bold text-white">
                         Shuvam Raha
                       </span>
                     </div>
-                    <span className="rounded-full bg-cyan-500/20 px-2 py-0.5 text-[8px] font-black tracking-wider text-cyan-200 uppercase">
-                      Distinction
-                    </span>
+                    <div className="flex flex-col items-end">
+                      <span className="rounded-full bg-cyan-500/20 px-2.5 py-0.5 text-[8px] font-black tracking-wider text-cyan-200 uppercase">
+                        LCM Distinction
+                      </span>
+                      <span className="mt-0.5 text-[8px] text-gray-400">
+                        London College of Music
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -202,7 +286,7 @@ export default async function Home() {
             <div className="grid grid-cols-2 gap-8 text-center md:grid-cols-5">
               <div className="space-y-1">
                 <div className="font-heading text-3xl font-black text-cyan-400 sm:text-4xl">
-                  <ExperienceYears />
+                  <DynamicText text="{years}+" />
                 </div>
                 <div className="text-xs font-semibold tracking-widest text-gray-500 uppercase">
                   Years Experience
@@ -315,7 +399,7 @@ export default async function Home() {
                         <Icon className="size-5.5" />
                       </div>
                       <h4 className="font-heading text-base font-extrabold text-white transition-colors duration-300 group-hover:text-white">
-                        {point.title}
+                        <DynamicText text={point.title} />
                       </h4>
                       <p className="mt-2 text-xs leading-relaxed text-gray-400 sm:text-sm">
                         {point.desc}

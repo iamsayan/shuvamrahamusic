@@ -71,3 +71,4 @@ export function formatCurrency(amount: number, region?: string): string {
   const symbol = getCurrencySymbol(region);
   return `${symbol}${amount}`;
 }
+
