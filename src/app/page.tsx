@@ -84,55 +84,101 @@ export default async function Home() {
             <div className="absolute inset-0 bg-linear-to-b from-[#05050A]/90 via-[#05050A]/70 to-[#05050A]" />
           </div>
 
+          {/* Floating decorative elements in the background */}
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            {/* Soft ambient music notes drifting in background */}
+            <div className="animate-float-1 absolute top-[20%] left-[10%] text-2xl text-cyan-500/20">♫</div>
+            <div className="animate-float-2 absolute top-[40%] right-[15%] text-3xl text-violet-500/20">♪</div>
+            <div className="animate-float-3 absolute bottom-[25%] left-[45%] text-xl text-amber-500/10">🎸</div>
+          </div>
+
           <div className="site-container relative z-10 grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
-            <div className="animate-in-1 space-y-6 text-center lg:col-span-7 lg:text-left">
-              <div className="badge-trust">
-                <LuAward className="size-4 text-cyan-400" />
-                <span>LCM Certified Music Instructor</span>
+            <div className="animate-in-1 space-y-8 text-center lg:col-span-7 lg:text-left">
+              {/* Premium Trust Badge wrapper */}
+              <div className="inline-flex flex-col items-center gap-3 sm:flex-row sm:gap-4 lg:items-start">
+                <div className="badge-trust">
+                  <LuAward />
+                  <span>LCM Certified Music Instructor</span>
+                </div>
+                {/* Floating dynamic status pill */}
+                <div className="badge-success">
+                  <span className="relative flex size-2 shrink-0">
+                    <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex size-2 rounded-full bg-emerald-500"></span>
+                  </span>
+                  <span>Classes Open</span>
+                </div>
               </div>
 
-              <h1 className="font-heading text-3xl leading-[1.15] font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
-                Shuvam Raha{' '}
-                <span className="bg-linear-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(6,182,212,0.3)]">
-                  Music
-                </span>
-              </h1>
+              {/* Redesigned Rich Typography Heading */}
+              <div className="space-y-4">
+                <h1 className="font-heading text-4xl leading-[1.1] font-black tracking-tight text-white sm:text-6xl lg:text-7xl">
+                  Shuvam Raha{' '}
+                  <span className="block bg-linear-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(6,182,212,0.35)]">
+                    Music
+                  </span>
+                </h1>
+                
+                {/* Premium tag style for Subheading */}
+                <div className="inline-flex items-center gap-2.5 rounded-xl border border-cyan-500/10 bg-cyan-500/5 px-4 py-2 font-heading text-sm font-black tracking-widest text-cyan-300 uppercase shadow-[0_0_20px_rgba(6,182,212,0.05)]">
+                  <LuMusic className="size-4 animate-bounce" />
+                  <span>Easy To Learn &amp; Easy To Play</span>
+                </div>
+              </div>
 
-              <p className="font-heading text-xl font-medium tracking-wider text-cyan-400">
-                Easy To Learn & Easy To Play
-              </p>
-
-              <p className="mx-auto max-w-xl text-sm leading-relaxed text-gray-400 sm:text-base lg:mx-0 lg:text-lg">
+              <p className="mx-auto max-w-2xl text-sm leading-relaxed text-gray-400 sm:text-base lg:mx-0 lg:text-lg">
                 Welcome to the professional domain of Shuvam Raha — an LCM
                 distinction certified guitarist, instructor, stage performer,
                 and music producer. Play your first favorite songs in 30 days.
               </p>
 
+              {/* Redesigned Button Actions wrapper */}
               <div className="flex flex-col justify-center gap-4 pt-4 sm:flex-row lg:justify-start">
                 <Link
                   href="/guitar-classes-with-shuvam"
-                  className="group btn-primary"
+                  className="group relative flex items-center justify-center gap-2.5 rounded-full bg-linear-to-r from-cyan-500 via-blue-500 to-indigo-600 px-8 py-4 text-sm font-bold text-white shadow-[0_0_25px_rgba(6,182,212,0.25)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_35px_rgba(6,182,212,0.45)] active:scale-95"
                 >
                   Join Guitar Classes
-                  <LuArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                  <LuArrowRight className="size-4.5 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
-                <Link href="/biography" className="group btn-secondary">
+                <Link 
+                  href="/biography" 
+                  className="group flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/3 px-8 py-4 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/30 hover:bg-cyan-500/5 active:scale-95"
+                >
                   Read Biography
                 </Link>
               </div>
             </div>
 
-            <div className="animate-in-3 flex justify-center lg:col-span-5 lg:justify-end">
-              <div className="relative aspect-3/4 w-full max-w-95 overflow-hidden rounded-3xl border border-white/10 shadow-2xl shadow-cyan-500/5">
-                <Image
-                  src="/hero-guitarist.jpg"
-                  alt="Shuvam Raha playing guitar"
-                  fill
-                  priority
-                  className="object-cover opacity-90 transition-transform duration-1000 hover:scale-105"
-                  sizes="(max-width: 1024px) 380px, 450px"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-[#05050A]/70 via-transparent to-transparent" />
+            {/* Right Column: Redesigned premium photo frame showcase with backdrop rings */}
+            <div className="animate-in-3 relative flex justify-center lg:col-span-5 lg:justify-end">
+              {/* Rotating backdrop decorative circles */}
+              <div className="pointer-events-none absolute top-1/2 left-1/2 size-100 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-cyan-500/10 [animation:spin_60s_linear_infinite]" />
+              <div className="pointer-events-none absolute top-1/2 left-1/2 size-80 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-500/5 [animation:spin_40s_linear_infinite_reverse]" />
+              
+              <div className="group relative aspect-3/4 w-full max-w-[440px] overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#0C0C16]/40 p-2 shadow-2xl backdrop-blur-md transition-all duration-700 hover:border-cyan-500/30 hover:shadow-cyan-500/10">
+                <div className="relative size-full overflow-hidden rounded-[2rem]">
+                  <Image
+                    src="/hero-guitarist.jpg"
+                    alt="Shuvam Raha playing guitar"
+                    fill
+                    priority
+                    className="object-cover opacity-90 transition-transform duration-1500 group-hover:scale-105"
+                    sizes="(max-width: 1024px) 380px, 450px"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-[#05050A]/85 via-transparent to-transparent" />
+                  
+                  {/* Floating floating mini-badge inside photo */}
+                  <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between rounded-2xl border border-white/10 bg-[#05050A]/70 px-4 py-3 backdrop-blur-md transition-all duration-500 group-hover:border-cyan-500/30">
+                    <div className="flex flex-col text-left">
+                      <span className="text-[9px] font-black tracking-widest text-cyan-400 uppercase">Artist / Coach</span>
+                      <span className="text-xs font-bold text-white">Shuvam Raha</span>
+                    </div>
+                    <span className="rounded-full bg-cyan-500/20 px-2 py-0.5 text-[8px] font-black tracking-wider text-cyan-200 uppercase">
+                      Distinction
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
