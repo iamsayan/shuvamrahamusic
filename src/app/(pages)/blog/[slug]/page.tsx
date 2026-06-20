@@ -7,6 +7,7 @@ import CockpitImage from '@/components/cockpit-image';
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
 import ShareButtons from '@/components/share-buttons';
+import DynamicText from '@/components/dynamic-text';
 import {
   BRIGHT_GRADIENTS,
   CATEGORY_THEMES,
@@ -481,7 +482,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                     </div>
                   </div>
                   <p className="text-xs leading-relaxed text-gray-400">
-                    {post.author.bio}
+                    <DynamicText text={post.author.bio} />
                   </p>
                 </div>
 

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import BrandEndorsements from '@/components/brand-endorsements';
 // Client Components
 import CockpitImage from '@/components/cockpit-image';
+import DynamicText from '@/components/dynamic-text';
 import FaqAccordion from '@/components/faq-accordion';
 import JsonLd from '@/components/json-ld';
 import PricingTable from '@/components/pricing-table';
@@ -322,7 +323,7 @@ export default async function Page() {
                     </div>
                     <div className="flex min-h-12 flex-col justify-center text-left">
                       <span className="font-heading text-sm leading-none font-extrabold text-white sm:text-base">
-                        11+ Years Experience
+                        <DynamicText text="{years}+ Years Experience" />
                       </span>
                       <span className="mt-1 max-w-45 text-xs leading-tight text-gray-400">
                         LCM Certified Instructor

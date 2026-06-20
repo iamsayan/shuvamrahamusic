@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 
 import BlogArchiveClient from '@/components/blog-archive-client';
 import JsonLd from '@/components/json-ld';
@@ -74,10 +73,6 @@ async function TagArchiveContent({ slug, searchParams }: ContentProps) {
   const limit = 6;
   const skip = (pageNum - 1) * limit;
   const { posts, total } = await getBlogPostsByTag(slug, { limit, skip });
-
-  // if (posts.length === 0) {
-  //   notFound();
-  // }
 
   const tagName =
     posts[0]?.tags.find((tag) => tag.slug === slug)?.title || slug;
