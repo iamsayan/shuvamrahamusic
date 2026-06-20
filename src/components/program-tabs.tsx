@@ -111,20 +111,12 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
                     return (
                       <div
                         key={idx}
-                        className={`group relative flex flex-col gap-4 overflow-hidden rounded-[1.8rem] border border-white/5 bg-[#0C0C16]/50 p-5 shadow-lg backdrop-blur-md transition-all duration-500 hover:-translate-y-0.5 hover:bg-[#0E0E22]/80 hover:shadow-2xl sm:flex-row sm:items-start sm:gap-6
-                          ${idx === 0 ? 'hover:border-rose-500/30' : ''}
-                          ${idx === 1 ? 'hover:border-amber-500/30' : ''}
-                          ${idx === 2 ? 'hover:border-emerald-500/30' : ''}
-                          ${idx === 3 ? 'hover:border-violet-500/30' : ''}
-                        `}
+                        className={`group relative flex flex-col gap-4 overflow-hidden rounded-[1.8rem] border border-white/5 bg-[#0C0C16]/50 p-5 shadow-lg backdrop-blur-md transition-all duration-500 hover:-translate-y-0.5 hover:bg-[#0E0E22]/80 hover:shadow-2xl sm:flex-row sm:items-start sm:gap-6 ${idx === 0 ? 'hover:border-rose-500/30' : ''} ${idx === 1 ? 'hover:border-amber-500/30' : ''} ${idx === 2 ? 'hover:border-emerald-500/30' : ''} ${idx === 3 ? 'hover:border-violet-500/30' : ''} `}
                       >
                         {/* Huge high-tech serial number on left */}
-                        <div className={`font-heading w-10 sm:w-12 shrink-0 text-3xl font-black tracking-tight select-none opacity-25 transition-all duration-500 group-hover:scale-110 group-hover:opacity-100 sm:text-4xl sm:mt-0.5
-                          ${idx === 0 ? 'text-rose-400 drop-shadow-[0_0_15px_rgba(244,63,94,0.3)]' : ''}
-                          ${idx === 1 ? 'text-amber-400 drop-shadow-[0_0_15px_rgba(245,158,11,0.3)]' : ''}
-                          ${idx === 2 ? 'text-emerald-400 drop-shadow-[0_0_15px_rgba(16,185,129,0.3)]' : ''}
-                          ${idx === 3 ? 'text-violet-400 drop-shadow-[0_0_15px_rgba(139,92,246,0.3)]' : ''}
-                        `}>
+                        <div
+                          className={`font-heading w-10 shrink-0 text-3xl font-black tracking-tight opacity-25 transition-all duration-500 select-none group-hover:scale-110 group-hover:opacity-100 sm:mt-0.5 sm:w-12 sm:text-4xl ${idx === 0 ? 'text-rose-400 drop-shadow-[0_0_15px_rgba(244,63,94,0.3)]' : ''} ${idx === 1 ? 'text-amber-400 drop-shadow-[0_0_15px_rgba(245,158,11,0.3)]' : ''} ${idx === 2 ? 'text-emerald-400 drop-shadow-[0_0_15px_rgba(16,185,129,0.3)]' : ''} ${idx === 3 ? 'text-violet-400 drop-shadow-[0_0_15px_rgba(139,92,246,0.3)]' : ''} `}
+                        >
                           0{idx + 1}
                         </div>
 
@@ -146,12 +138,9 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
                         </div>
 
                         {/* Dynamic glow element on hover matching point theme color */}
-                        <div className={`pointer-events-none absolute -right-12 -bottom-12 size-32 rounded-full opacity-0 blur-3xl transition-all duration-700 group-hover:scale-125 group-hover:opacity-100
-                          ${idx === 0 ? 'bg-rose-500/10' : ''}
-                          ${idx === 1 ? 'bg-amber-500/10' : ''}
-                          ${idx === 2 ? 'bg-emerald-500/10' : ''}
-                          ${idx === 3 ? 'bg-violet-500/10' : ''}
-                        `} />
+                        <div
+                          className={`pointer-events-none absolute -right-12 -bottom-12 size-32 rounded-full opacity-0 blur-3xl transition-all duration-700 group-hover:scale-125 group-hover:opacity-100 ${idx === 0 ? 'bg-rose-500/10' : ''} ${idx === 1 ? 'bg-amber-500/10' : ''} ${idx === 2 ? 'bg-emerald-500/10' : ''} ${idx === 3 ? 'bg-violet-500/10' : ''} `}
+                        />
                       </div>
                     );
                   })}
@@ -164,48 +153,137 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
         {/* TAB 2: CURRICULUM */}
         {activeTab === 'curriculum' && (
           <div className="animate-in fade-in zoom-in-95 duration-500">
-            <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-6">
-              {curriculum.map((item, i) => (
-                <div
-                  key={i}
-                  className={`group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/2 p-6 backdrop-blur-3xl transition-colors hover:bg-white/4 sm:p-8 ${item.colSpan}`}
-                >
-                  <div
-                    className={`absolute top-0 right-0 ${item.styles.ambientGlow} size-40 rounded-full opacity-0 blur-[60px] transition-transform duration-700 group-hover:scale-150 group-hover:opacity-100`}
-                  />
-                  <div className="relative z-10 flex h-full flex-col">
-                    <div className="mb-6 flex items-center gap-4">
-                      <div
-                        className={`flex items-center justify-center rounded-2xl ${item.styles.iconBg} border ${item.styles.iconBorder} ${item.styles.iconText} size-14 shrink-0`}
-                      >
-                        <item.icon className="size-7" />
-                      </div>
-                      <div>
-                        <h3 className="font-heading text-lg leading-tight font-bold text-white sm:text-xl">
-                          {item.title}
-                        </h3>
-                        <p
-                          className={`text-xs font-medium sm:text-sm ${item.styles.iconText} mt-1 opacity-80`}
-                        >
-                          {item.subtitle}
-                        </p>
-                      </div>
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
+              {/* Left Column: Interactive learning roadmap tracker (Sticky) */}
+              <div className="space-y-6 lg:sticky lg:top-28 lg:col-span-4 lg:h-fit lg:self-start">
+                <div className="group relative overflow-hidden rounded-[2rem] border border-white/5 bg-[#0C0C16]/60 p-6 shadow-2xl backdrop-blur-2xl transition-all duration-500 hover:border-indigo-500/20 md:p-8">
+                  {/* Subtle background glow */}
+                  <div className="pointer-events-none absolute -top-12 -left-12 size-40 rounded-full bg-indigo-500/10 blur-[60px]" />
+                  <div className="pointer-events-none absolute -right-12 -bottom-12 size-40 rounded-full bg-blue-500/10 blur-[60px]" />
+
+                  <div className="relative z-10 space-y-6">
+                    <div>
+                      <span className="text-[10px] font-black tracking-widest text-indigo-400 uppercase">
+                        Roadmap Overview
+                      </span>
+                      <h3 className="font-heading mt-1 text-xl font-bold text-white sm:text-2xl">
+                        Your Learning Path
+                      </h3>
+                      <p className="mt-2 text-xs leading-relaxed text-gray-400">
+                        A logically structured syllabus designed to transform
+                        you from absolute zero to a confident, independent
+                        guitar player.
+                      </p>
                     </div>
-                    <ul className="mt-auto flex flex-col gap-3">
-                      {item.points.map((point, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                          <LuCircleCheck
-                            className={`${item.styles.iconText} mt-0.5 size-5 shrink-0 opacity-60 transition-opacity group-hover:opacity-100`}
+
+                    {/* Timeline Tracker */}
+                    <div className="relative pl-6 before:absolute before:top-2 before:bottom-2 before:left-2 before:w-0.5 before:bg-linear-to-b before:from-emerald-500 before:via-blue-500 before:to-rose-500/30">
+                      {curriculum.map((item, idx) => (
+                        <div
+                          key={idx}
+                          className="group/step relative mb-6 last:mb-0"
+                        >
+                          {/* Indicator Dot */}
+                          <div
+                            className={`absolute top-1 -left-6.5 size-3 rounded-full border border-[#05050A] transition-all duration-300 group-hover/step:scale-125 ${
+                              idx === 0
+                                ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]'
+                                : ''
+                            } ${
+                              idx === 1
+                                ? 'bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]'
+                                : ''
+                            } ${
+                              idx === 2
+                                ? 'bg-orange-500 shadow-[0_0_8px_rgba(245,158,11,0.6)]'
+                                : ''
+                            } ${
+                              idx === 3
+                                ? 'bg-violet-500 shadow-[0_0_8px_rgba(139,92,246,0.6)]'
+                                : ''
+                            } ${
+                              idx === 4
+                                ? 'bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.6)]'
+                                : ''
+                            } `}
                           />
-                          <span className="text-xs text-gray-300 transition-colors group-hover:text-white sm:text-sm">
-                            {point}
-                          </span>
-                        </li>
+
+                          <div className="flex flex-col">
+                            <span className="text-[10px] font-black text-gray-500 uppercase transition-colors duration-300 group-hover/step:text-indigo-400">
+                              Phase 0{idx + 1}
+                            </span>
+                            <span className="text-xs font-bold text-white transition-colors duration-300 group-hover/step:text-white sm:text-sm">
+                              {item.title}
+                            </span>
+                          </div>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   </div>
                 </div>
-              ))}
+              </div>
+
+              {/* Right Column: Redesigned Asymmetric Glassmorphic Curriculum Cards */}
+              {/* Right Column: Redesigned Asymmetric Glassmorphic Curriculum Cards */}
+              <div className="space-y-4 lg:col-span-8">
+                {curriculum.map((item, i) => {
+                  const Icon = item.icon;
+                  return (
+                    <div
+                      key={i}
+                      className="group relative overflow-hidden rounded-[1.8rem] border border-white/10 bg-white/2 p-5 backdrop-blur-3xl transition-colors hover:bg-white/4 sm:p-6"
+                    >
+                      <div
+                        className={`absolute top-0 right-0 ${item.styles.ambientGlow} size-40 rounded-full opacity-0 blur-[60px] transition-transform duration-700 group-hover:scale-150 group-hover:opacity-100`}
+                      />
+                      <div className="relative z-10 flex h-full flex-col">
+                        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                          <div className="flex items-center gap-4">
+                            <div
+                              className={`flex size-14 shrink-0 items-center justify-center rounded-2xl border ${item.styles.iconBorder} ${item.styles.iconBg} ${item.styles.iconText} transition-transform duration-500 group-hover:scale-110`}
+                            >
+                              <Icon className="size-7" />
+                            </div>
+                            <div>
+                              <span
+                                className={`text-[10px] font-black tracking-widest ${item.styles.iconText} mt-1 uppercase opacity-80`}
+                              >
+                                Phase 0{i + 1} • {item.subtitle}
+                              </span>
+                              <h3 className="font-heading text-xl leading-tight font-bold text-white sm:text-2xl">
+                                {item.title}
+                              </h3>
+                            </div>
+                          </div>
+                          <div className="self-start rounded-full border border-white/5 bg-white/2 px-3 py-1 text-[10px] font-bold text-gray-400 backdrop-blur-md transition-all duration-300 group-hover:border-white/10 group-hover:bg-white/5 group-hover:text-white sm:self-center">
+                            Curriculum Module
+                          </div>
+                        </div>
+
+                        <div className="mt-4 border-t border-white/5 pt-4">
+                          <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:gap-3">
+                            {item.points.map((point, idx) => (
+                              <li
+                                key={idx}
+                                className="group/item flex items-center gap-3 rounded-xl border border-transparent p-0.5 transition-all duration-300 hover:translate-x-1 hover:border-white/2 hover:bg-white/1"
+                              >
+                                <div
+                                  className={`flex size-5.5 shrink-0 items-center justify-center rounded-lg border ${item.styles.iconBorder} ${item.styles.iconBg} ${item.styles.iconText} shadow-sm transition-transform duration-300 group-hover/item:scale-110`}
+                                >
+                                  <LuCircleCheck className="size-3.5" />
+                                </div>
+                                <span className="text-xs text-gray-300 transition-colors group-hover/item:text-white sm:text-sm">
+                                  {point}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
             <div className="mt-12 flex w-full justify-center px-5">
               <p className="max-w-2xl rounded-full border border-white/5 bg-white/2 px-6 py-3 text-center text-sm font-medium text-gray-500 md:text-base">

@@ -463,7 +463,7 @@ export default async function Page() {
           3. PROGRAM OVERVIEW
           ======================================================================= */}
         <section
-          className="relative w-full overflow-hidden bg-[#05050A] pb-16 md:pb-24"
+          className="relative w-full overflow-x-clip bg-[#05050A] pb-16 md:pb-24"
           id="overview"
         >
           <div className="site-container relative z-10">
@@ -512,16 +512,16 @@ export default async function Page() {
                     </span>
                   </div>
 
-                  <div className="flex flex-col gap-3">
+                  <div className="divide-y divide-white/5">
                     {perfectFor.map((item, i) => (
                       <div
                         key={i}
-                        className="group/item flex items-start gap-4 rounded-2xl border border-white/4 bg-white/1 p-3.5 transition-all duration-300 hover:translate-x-1 hover:border-emerald-500/20 hover:bg-emerald-500/3"
+                        className="group/item flex items-center gap-4 py-3.5 transition-all duration-300"
                       >
-                        <div className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 transition-transform group-hover/item:scale-110">
-                          <LuCircleCheck className="size-3" />
+                        <div className="flex size-6 shrink-0 items-center justify-center rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 transition-all duration-300 group-hover/item:scale-110 group-hover/item:bg-emerald-500/20">
+                          <LuCircleCheck className="size-3.5" />
                         </div>
-                        <span className="text-xs leading-relaxed font-medium text-gray-300 transition-colors duration-300 group-hover/item:text-white sm:text-sm md:text-base">
+                        <span className="text-xs leading-relaxed font-semibold text-gray-300 transition-colors duration-300 group-hover/item:text-white sm:text-sm">
                           {item}
                         </span>
                       </div>
@@ -547,16 +547,16 @@ export default async function Page() {
                     </span>
                   </div>
 
-                  <div className="flex flex-col gap-3">
+                  <div className="divide-y divide-white/5">
                     {notFor.map((item, i) => (
                       <div
                         key={i}
-                        className="group/item flex items-start gap-4 rounded-2xl border border-white/4 bg-white/1 p-3.5 transition-all duration-300 hover:translate-x-1 hover:border-rose-500/20 hover:bg-rose-500/3"
+                        className="group/item flex items-center gap-4 py-3.5 transition-all duration-300"
                       >
-                        <div className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded border border-rose-500/20 bg-rose-500/10 text-rose-400 transition-transform group-hover/item:scale-110">
-                          <LuCircleX className="size-3" />
+                        <div className="flex size-6 shrink-0 items-center justify-center rounded-full border border-rose-500/20 bg-rose-500/10 text-rose-400 transition-all duration-300 group-hover/item:scale-110 group-hover/item:bg-rose-500/20">
+                          <LuCircleX className="size-3.5" />
                         </div>
-                        <span className="text-xs leading-relaxed font-medium text-gray-300 transition-colors duration-300 group-hover/item:text-white sm:text-sm md:text-base">
+                        <span className="text-xs leading-relaxed font-semibold text-gray-300 transition-colors duration-300 group-hover/item:text-white sm:text-sm">
                           {item}
                         </span>
                       </div>
@@ -830,7 +830,7 @@ export default async function Page() {
               <h2 className="font-heading mb-4 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
                 Trusted By{' '}
                 <span className="bg-linear-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
-                  100+ Students
+                  150+ Students
                 </span>
               </h2>
               <p className="mx-auto max-w-xl text-sm text-gray-400 sm:text-base lg:text-lg">

@@ -419,13 +419,13 @@ export default async function Home() {
               </div>
 
               {/* Right Column: Redesigned Asymmetric Glassmorphic Curriculum Cards */}
-              <div className="space-y-6 lg:col-span-8">
+              <div className="space-y-4 lg:col-span-8">
                 {curriculum.map((item, idx) => {
                   const Icon = item.icon;
                   return (
                     <div
                       key={idx}
-                      className={`group relative overflow-hidden rounded-[2rem] border border-white/5 bg-[#0C0C16]/50 p-6 shadow-xl backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:bg-[#0E0E22]/80 md:p-8 ${item.styles.hoverBorder}`}
+                      className={`group relative overflow-hidden rounded-[1.8rem] border border-white/5 bg-[#0C0C16]/50 p-5 shadow-xl backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:bg-[#0E0E22]/80 md:p-6 ${item.styles.hoverBorder}`}
                     >
                       {/* Interactive glowing background element */}
                       <div
@@ -433,7 +433,7 @@ export default async function Home() {
                       />
 
                       {/* Header visual line */}
-                      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                         <div className="flex items-center gap-4">
                           <div
                             className={`flex items-center justify-center rounded-2xl border ${item.styles.iconBorder} ${item.styles.iconBg} ${item.styles.iconText} ${item.styles.iconShadow} size-14 transition-transform duration-500 group-hover:scale-110`}
@@ -451,21 +451,21 @@ export default async function Home() {
                         </div>
 
                         {/* Asymmetric indicator pill */}
-                        <div className="self-start rounded-full border border-white/5 bg-white/2 px-3 py-1 text-[10px] font-bold text-gray-400 backdrop-blur-md transition-all duration-300 group-hover:border-white/10 group-hover:bg-white/5 group-hover:text-white">
+                        <div className="self-start rounded-full border border-white/5 bg-white/2 px-3 py-1 text-[10px] font-bold text-gray-400 backdrop-blur-md transition-all duration-300 group-hover:border-white/10 group-hover:bg-white/5 group-hover:text-white sm:self-center">
                           Curriculum Module
                         </div>
                       </div>
 
                       {/* List of points formatted as premium columns */}
-                      <div className="mt-6 border-t border-white/5 pt-6">
-                        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <div className="mt-4 border-t border-white/5 pt-4">
+                        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:gap-3">
                           {item.points.map((pt, pIdx) => (
                             <li
                               key={pIdx}
-                              className="group/item flex items-start gap-3 rounded-xl border border-transparent p-1 transition-all duration-300 hover:translate-x-1 hover:border-white/2 hover:bg-white/1"
+                              className="group/item flex items-center gap-3 rounded-xl border border-transparent p-0.5 transition-all duration-300 hover:translate-x-1 hover:border-white/2 hover:bg-white/1"
                             >
                               <div
-                                className={`mt-0.5 flex size-5.5 shrink-0 items-center justify-center rounded-lg border ${item.styles.iconBorder} ${item.styles.iconBg} ${item.styles.iconText} shadow-sm transition-transform duration-300 group-hover/item:scale-110`}
+                                className={`flex size-5.5 shrink-0 items-center justify-center rounded-lg border ${item.styles.iconBorder} ${item.styles.iconBg} ${item.styles.iconText} shadow-sm transition-transform duration-300 group-hover/item:scale-110`}
                               >
                                 <span className="size-1.5 rounded-full bg-current opacity-85" />
                               </div>
