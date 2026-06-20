@@ -289,7 +289,6 @@ export default function Footer() {
             </div>
 
             <div className="flex items-center gap-2 text-xs font-semibold sm:text-sm">
-              <span className="text-gray-800">•</span>
               <Link
                 href="/privacy-policy"
                 className="text-gray-500 transition-colors duration-300 hover:text-white"

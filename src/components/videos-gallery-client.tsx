@@ -6,6 +6,7 @@ import PageLayout from '@/components/page-layout';
 import YouTubeFacade from '@/components/youtube-facade';
 import type { GalleryVideo } from '@/types';
 
+import { format, isValid } from 'date-fns';
 import { LuCalendar, LuPlay, LuSparkles, LuVideo } from 'react-icons/lu';
 
 type VideoFormat = 'Video' | 'Shorts';
@@ -24,7 +25,7 @@ export default function VideosGalleryClient({
   const getYear = (dateStr: string) => {
     if (!dateStr) return '';
     const date = new Date(dateStr);
-    return isNaN(date.getTime()) ? dateStr : date.getFullYear().toString();
+    return isValid(date) ? format(date, 'yyyy') : dateStr;
   };
 
   // Filter items by format (Video/Shorts). Mapped from DB field: type: 'Video' | 'Short'

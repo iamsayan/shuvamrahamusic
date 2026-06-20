@@ -1,6 +1,7 @@
 'use server';
 
 import cockpit from '@/lib/client';
+import { formatSchemaDate } from '@/lib/utils';
 
 export interface ContactFormState {
   success?: boolean;
@@ -57,7 +58,7 @@ export async function submitContactForm(
       subject: subject ? subject.trim() : 'General Inquiry',
       message: message.trim(),
       _honeypot: honeypot || '',
-      submittedAt: new Date().toISOString(),
+      submittedAt: formatSchemaDate(new Date()) || new Date().toISOString(),
     };
 
     // Submit via Cockpit's submitInbox helper
