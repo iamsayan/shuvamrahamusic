@@ -822,7 +822,7 @@ export default async function Page() {
           </div>
 
           <div className="site-container relative z-10 mb-12 text-center sm:mb-16">
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center space-y-4">
               <div className="badge-amber">
                 <LuBadgeCheck className="size-4 text-amber-400" />
                 <span>Student Success Stories</span>

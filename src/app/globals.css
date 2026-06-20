@@ -2,7 +2,6 @@
 @plugin 'fluid-tailwindcss';
 @plugin 'tailwind-scrollbar';
 
-
 :root {
   --background: #05050a;
   --foreground: #f0f0f5;
@@ -169,19 +168,43 @@ h6 {
    4. Custom Utilities & Classes
    ========================================================================== */
 @utility site-container {
-  @apply mx-auto w-full max-w-[1600px] px-5 md:px-12 lg:px-20;
+  @apply mx-auto w-full max-w-400 px-5 md:px-12 lg:px-20;
 }
 
 @utility badge-trust {
-  @apply inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3.5 py-1.5 shadow-[0_0_15px_rgba(6,182,212,0.15)] backdrop-blur-md;
+  @apply inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-4 py-1.5 shadow-[0_0_15px_rgba(6,182,212,0.15)] backdrop-blur-md;
+
+  & span {
+    @apply text-[10px] font-black tracking-widest text-cyan-200 uppercase;
+  }
+
+  & svg {
+    @apply size-4.5 text-cyan-400;
+  }
 }
 
 @utility badge-amber {
-  @apply inline-flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-500/10 px-4 py-2 font-bold tracking-widest text-amber-400 uppercase shadow-[0_0_15px_rgba(245,158,11,0.15)] sm:text-sm;
+  @apply inline-flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-500/10 px-4 py-1.5 shadow-[0_0_15px_rgba(245,158,11,0.15)] backdrop-blur-md;
+
+  & span {
+    @apply text-[10px] font-black tracking-widest text-amber-200 uppercase;
+  }
+
+  & svg {
+    @apply size-4.5 text-amber-400;
+  }
 }
 
 @utility badge-success {
-  @apply flex items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-0.5 text-[9px] font-black tracking-wider text-emerald-400 uppercase sm:text-[10px];
+  @apply inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 shadow-[0_0_15px_rgba(16,185,129,0.15)] backdrop-blur-md;
+
+  & span {
+    @apply text-[10px] font-black tracking-widest text-emerald-200 uppercase;
+  }
+
+  & svg {
+    @apply size-4.5 text-emerald-400;
+  }
 }
 
 @utility btn-primary {
