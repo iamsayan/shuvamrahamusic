@@ -20,9 +20,18 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
   const themeKey = getThemeKey(primaryCat);
   const theme = CATEGORY_THEMES[themeKey] || CATEGORY_THEMES['default'];
 
+  // Clean raw YouTube and external links from the excerpt text to look professional
+  const cleanExcerpt = post.excerpt
+    ? post.excerpt
+        .replace(/https?:\/\/(?:www\.)?(?:youtube\.com|youtu\.be)\/[^\s]*/gi, '')
+        .replace(/https?:\/\/[^\s]*/gi, '')
+        .replace(/^[\s|•*-]+/, '')
+        .trim()
+    : '';
+
   return (
     <div
-      className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/4 bg-white/1 transition-all duration-500 hover:${theme.border} hover:bg-white/3 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)]`}
+      className={`group relative flex flex-col justify-between overflow-hidden rounded-[1.8rem] border border-white/5 bg-[#0C0C16]/50 shadow-lg backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:bg-[#0E0E22]/80 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)] hover:${theme.border}`}
     >
       {/* Glowing Top Accent Strip */}
       <div
@@ -40,7 +49,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
           {post.coverImage && (
             <CockpitImage
               asset={post.coverImage}
-              className="object-cover transition-transform duration-[1500ms] group-hover:scale-[1.04]"
+              className="object-cover transition-transform duration-[1500ms] group-hover:scale-[1.03]"
               fill
             />
           )}
@@ -48,7 +57,7 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
         </div>
 
         {/* Metadata & Title */}
-        <div className="p-5.5">
+        <div className="p-5">
           {/* Date & Read Time metadata */}
           <div className="mb-2.5 flex items-center gap-3 text-[10px] font-bold text-gray-500 uppercase">
             <span className="flex items-center gap-1">
@@ -73,9 +82,11 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
             </Link>
           </h3>
 
-          <p className="mb-4 line-clamp-3 text-xs leading-relaxed text-gray-400">
-            {post.excerpt}
-          </p>
+          {cleanExcerpt && (
+            <p className="mb-4 line-clamp-3 text-xs leading-relaxed text-gray-400">
+              {cleanExcerpt}
+            </p>
+          )}
 
           {/* Categories (First 3 only) */}
           <div className="relative z-10 flex flex-wrap gap-1.5">
@@ -97,12 +108,12 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
 
           {/* Tags */}
           {post.tags && post.tags.length > 0 && (
-            <div className="relative z-10 mt-4 flex flex-wrap gap-1.5">
-              {post.tags.map((tag, idx) => (
+            <div className="relative z-10 mt-3.5 flex flex-wrap gap-1.5">
+              {post.tags.slice(0, 3).map((tag, idx) => (
                 <Link
                   key={idx}
                   href={`/blog/tag/${tag.slug}`}
-                  className="rounded-lg border border-white/5 bg-white/2 px-2.5 py-0.5 text-[9px] font-bold tracking-wide text-gray-400 uppercase transition-colors hover:bg-white/5 hover:text-white"
+                  className="rounded-lg border border-white/5 bg-white/2 px-2 py-0.5 text-[9px] font-bold tracking-wide text-gray-400 uppercase transition-colors hover:bg-white/5 hover:text-white"
                 >
                   #{tag.title}
                 </Link>
@@ -113,8 +124,8 @@ export default function BlogPostCard({ post }: BlogPostCardProps) {
       </div>
 
       {/* Read More link strip */}
-      <div className="flex items-center justify-between border-t border-white/4 p-5.5 pt-4">
-        <span className="text-[11px] font-bold tracking-wider text-gray-400 uppercase transition-colors duration-300 group-hover:text-white">
+      <div className="flex items-center justify-between border-t border-white/5 p-5 pt-3.5">
+        <span className="text-[10px] font-bold tracking-wider text-gray-400 uppercase transition-colors duration-300 group-hover:text-white">
           Read Article
         </span>
         <Link
