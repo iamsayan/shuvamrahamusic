@@ -11,10 +11,10 @@ import YouTubeFacade from '@/components/youtube-facade';
 import { getBlogPosts } from '@/lib/blog-data';
 import { getPricingPlans } from '@/lib/data';
 import { authorityPoints, curriculum } from '@/lib/guitar-data';
+import { getReviews } from '@/lib/reviews';
 import { SCHEMA } from '@/lib/schema';
 
 import { LuArrowRight, LuAward, LuBadgeCheck, LuMusic } from 'react-icons/lu';
-import { getReviews } from '@/lib/reviews';
 
 const videos = [
   { title: 'Purano Sei Diner Kotha', year: '2024', id: 'Mldyf1c3uxc' },
@@ -38,7 +38,7 @@ export default async function Home() {
   // Fetch latest posts dynamically
   const [latestPosts, reviews] = await Promise.all([
     getBlogPosts({ limit: 3 }),
-    getReviews()
+    getReviews(),
   ]);
 
   return (
@@ -59,7 +59,7 @@ export default async function Home() {
               },
             },
             SCHEMA.person(),
-            SCHEMA.organization()
+            SCHEMA.organization(),
           ],
         }}
       />
@@ -357,7 +357,7 @@ export default async function Home() {
           </div>
 
           <div className="site-container relative z-10 mb-12 text-center sm:mb-16">
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center space-y-4">
               <div className="badge-amber">
                 <LuBadgeCheck className="size-4 text-amber-400" />
                 <span>Student Success Stories</span>
@@ -384,9 +384,9 @@ export default async function Home() {
         <section className="relative z-10 border-t border-white/5 bg-[#07070F]/30 py-20 md:py-28">
           <div className="site-container">
             <div className="mb-12 space-y-3 text-center">
-              <span className="font-heading text-sm font-bold tracking-[0.15em] text-cyan-400 uppercase">
+              <div className="font-heading text-sm font-bold tracking-[0.15em] text-cyan-400 uppercase">
                 Video Portfolios
-              </span>
+              </div>
               <h2 className="font-heading text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl">
                 Featured Music Videos
               </h2>
@@ -427,9 +427,9 @@ export default async function Home() {
         <section className="relative z-10 bg-[#05050A] py-20 md:py-28">
           <div className="site-container">
             <div className="mb-12 space-y-3 text-center">
-              <span className="font-heading text-sm font-bold tracking-[0.15em] text-violet-400 uppercase">
+              <div className="font-heading text-sm font-bold tracking-[0.15em] text-violet-400 uppercase">
                 Student Showcases
-              </span>
+              </div>
               <h2 className="font-heading text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl">
                 Student Results &amp; Spotlights
               </h2>
