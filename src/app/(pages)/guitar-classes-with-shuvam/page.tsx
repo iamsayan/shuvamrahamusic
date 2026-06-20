@@ -13,6 +13,7 @@ import SliderGallery from '@/components/slider-gallery';
 import YouTubeFacade from '@/components/youtube-facade';
 import { getGuitarClassesData, getPricingPlans } from '@/lib/data';
 import { allFaqs, notFor, perfectFor } from '@/lib/guitar-data';
+import { getReviews } from '@/lib/reviews';
 import { SCHEMA } from '@/lib/schema';
 
 import {
@@ -31,7 +32,6 @@ import {
   LuPhone,
   LuStar,
 } from 'react-icons/lu';
-import { getReviews } from '@/lib/reviews';
 
 export const metadata: Metadata = {
   title:
@@ -109,13 +109,19 @@ export default async function Page() {
           '@context': 'https://schema.org',
           '@graph': [
             SCHEMA.breadcrumb('/guitar-classes-with-shuvam'),
+            SCHEMA.person(),
+            SCHEMA.organization(),
             {
               '@type': 'Course',
               '@id': `${SCHEMA.BASE_URL}/#course`,
               name: '1-on-1 Personalized Guitar Coaching with Shuvam Raha',
               description:
                 'Learn guitar online or offline in 30 days. Structured 1-on-1 classes covering chords, strumming, lead playing, and music theory, with support in English, Hindi, and Bengali.',
-              provider: { '@id': `${SCHEMA.BASE_URL}/#organization` },
+              provider: {
+                '@type': 'EducationalOrganization',
+                '@id': `${SCHEMA.BASE_URL}/#organization`,
+                name: 'Shuvam Raha Music',
+              },
               courseCode: 'SR-GUITAR-30',
               educationalLevel: 'Beginner to Advanced',
               inLanguage: ['en', 'hi', 'bn'],
@@ -127,23 +133,32 @@ export default async function Page() {
                 price: plan.amount.toFixed(2),
                 name: plan.name,
                 description: plan.description,
-                url: `${SCHEMA.BASE_URL}/guitar-classes-with-shuvam/pay?h=${btoa(JSON.stringify({ plan: plan._id, region: plan.region === 'India' ? 'INR' : 'GLOBAL' }))}`,
+                url: `${SCHEMA.BASE_URL}/guitar-classes-with-shuvam/pay?plan=${plan._id}`,
               })),
               hasCourseInstance: {
                 '@type': 'CourseInstance',
                 courseMode: ['online', 'offline'],
                 courseWorkload: 'PT40M',
-                instructor: { '@id': `${SCHEMA.BASE_URL}/#person` },
+                instructor: {
+                  '@type': 'Person',
+                  '@id': `${SCHEMA.BASE_URL}/#person`,
+                  name: 'Shuvam Raha',
+                },
               },
-            },
-            {
-              ...SCHEMA.organization(),
-              ...(reviews && reviews.length > 0
+              audience: {
+                '@type': 'EducationalAudience',
+                educationalRole: 'student',
+              },
+              ...(reviews?.length
                 ? {
                     aggregateRating: {
                       '@type': 'AggregateRating',
-                      ratingValue: '5.0',
+                      ratingValue:
+                        reviews.reduce((acc, r) => acc + r.rating, 0) /
+                        reviews.length,
                       reviewCount: reviews.length,
+                      bestRating: 5,
+                      worstRating: 1,
                     },
                     review: reviews.map((r) => ({
                       '@type': 'Review',
@@ -151,11 +166,21 @@ export default async function Page() {
                         '@type': 'Person',
                         name: r.author,
                       },
+                      ...(r.date
+                        ? {
+                            datePublished: r.date,
+                          }
+                        : {}),
                       reviewRating: {
                         '@type': 'Rating',
                         ratingValue: r.rating,
+                        bestRating: 5,
                       },
-                      ...(r.review ? { reviewBody: r.review } : {}),
+                      ...(r.review
+                        ? {
+                            reviewBody: r.review,
+                          }
+                        : {}),
                     })),
                   }
                 : {}),

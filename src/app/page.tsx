@@ -36,9 +36,8 @@ const studentVideos = [
 
 export default async function Home() {
   // Fetch latest posts dynamically
-  const [latestPosts, pricingPlans, reviews] = await Promise.all([
+  const [latestPosts, reviews] = await Promise.all([
     getBlogPosts({ limit: 3 }),
-    getPricingPlans(),
     getReviews()
   ]);
 
@@ -60,56 +59,7 @@ export default async function Home() {
               },
             },
             SCHEMA.person(),
-            {
-              ...SCHEMA.organization(),
-              ...(reviews && reviews.length > 0
-                ? {
-                    aggregateRating: {
-                      '@type': 'AggregateRating',
-                      ratingValue: '5.0',
-                      reviewCount: reviews.length,
-                    },
-                    review: reviews.map((r) => ({
-                      '@type': 'Review',
-                      author: {
-                        '@type': 'Person',
-                        name: r.author,
-                      },
-                      reviewRating: {
-                        '@type': 'Rating',
-                        ratingValue: r.rating,
-                      },
-                      ...(r.review ? { reviewBody: r.review } : {}),
-                    })),
-                  }
-                : {}),
-            },
-            {
-              '@type': 'Course',
-              '@id': `${SCHEMA.BASE_URL}/#course`,
-              name: '1-on-1 Personalized Guitar Coaching with Shuvam Raha',
-              description:
-                'Learn guitar online or offline in 30 days. Structured 1-on-1 classes covering chords, strumming, lead playing, and music theory.',
-              provider: { '@id': `${SCHEMA.BASE_URL}/#organization` },
-              instructor: { '@id': `${SCHEMA.BASE_URL}/#person` },
-              educationalLevel: 'Beginner to Advanced',
-              inLanguage: ['en', 'hi', 'bn'],
-              url: `${SCHEMA.BASE_URL}/guitar-classes-with-shuvam`,
-              offers: (pricingPlans || []).map((plan) => ({
-                '@type': 'Offer',
-                category: 'Subscription',
-                priceCurrency: plan.region === 'India' ? 'INR' : 'USD',
-                price: plan.amount.toFixed(2),
-                name: plan.name,
-                description: plan.description,
-                url: `${SCHEMA.BASE_URL}/guitar-classes-with-shuvam/pay?h=${btoa(JSON.stringify({ plan: plan._id, region: plan.region === 'India' ? 'INR' : 'GLOBAL' }))}`,
-              })),
-              hasCourseInstance: {
-                '@type': 'CourseInstance',
-                courseMode: ['online', 'offline'],
-                courseWorkload: 'PT40M',
-              },
-            },
+            SCHEMA.organization()
           ],
         }}
       />
