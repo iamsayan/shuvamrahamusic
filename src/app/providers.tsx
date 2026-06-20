@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, use, useContext } from 'react';
+import { createContext, use } from 'react';
 
 import type { PricingPlan, Settings } from '@/types';
 import { ProgressProvider } from '@bprogress/next/app';
@@ -36,7 +36,7 @@ export default function Providers({
 }
 
 export function useSiteSettings() {
-  const context = useContext(SiteContext);
+  const context = use(SiteContext);
   if (!context) {
     throw new Error('useSiteSettings must be used within Providers');
   }
@@ -44,7 +44,7 @@ export function useSiteSettings() {
 }
 
 export function usePricingPlans() {
-  const context = useContext(SiteContext);
+  const context = use(SiteContext);
   if (!context) {
     throw new Error('usePricingPlans must be used within Providers');
   }

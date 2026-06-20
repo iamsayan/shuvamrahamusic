@@ -80,6 +80,7 @@ export default function Footer() {
   const currentQuickLinks = (() => {
     if (settings?.footer_menu && settings.footer_menu.length > 0) {
       return settings.footer_menu
+        .slice(0, 4)
         .filter((item) => item.active)
         .map((item) => ({
           ...item,
@@ -95,6 +96,7 @@ export default function Footer() {
       settings.footer_secondary_menu.length > 0
     ) {
       return settings.footer_secondary_menu
+        .slice(0, 4)
         .filter((item) => item.active)
         .map((item) => ({
           ...item,

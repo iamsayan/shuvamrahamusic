@@ -73,93 +73,87 @@ export default function PaymentHistoryClient() {
     const printWindow = window.open('', '_blank');
     if (!printWindow) return;
 
-    const currencySymbol =
-      item.region?.toUpperCase() === 'GLOBAL' ||
-      item.region?.toUpperCase() === 'US'
-        ? '$'
-        : '₹';
+    const currencySymbol = item.region?.toUpperCase() === 'INDIA' ? '₹' : '$';
 
-    printWindow.document.write(`
-      <html>
-        <head>
-          <title>Receipt - ${item.payment_id}</title>
-          <style>
-            body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #333; padding: 40px; line-height: 1.6; }
-            .invoice-box { max-width: 600px; margin: auto; padding: 30px; border: 1px solid #eee; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); font-size: 14px; color: #555; }
-            .invoice-header { display: flex; justify-content: space-between; border-bottom: 2px solid #06b6d4; padding-bottom: 20px; margin-bottom: 20px; }
-            .logo { font-size: 20px; font-weight: bold; color: #0891b2; }
-            .title { font-size: 16px; font-weight: bold; color: #333; text-align: right; }
-            .grid { display: grid; grid-template-cols: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
-            .section-title { font-weight: bold; margin-bottom: 5px; color: #666; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
-            .table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
-            .table th { background: #f9f9f9; text-align: left; padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; }
-            .table td { padding: 10px; border-bottom: 1px solid #eee; }
-            .total { text-align: right; font-size: 18px; font-weight: bold; color: #333; margin-top: 10px; }
-            .footer { text-align: center; font-size: 11px; color: #999; margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px; }
-            @media print {
-              body { padding: 0; }
-              .invoice-box { border: none; box-shadow: none; }
-            }
-          </style>
-        </head>
-        <body>
-          <div class="invoice-box">
-            <div class="invoice-header">
-              <div class="logo">Shuvam Raha Music</div>
-              <div class="title">PAYMENT RECEIPT</div>
-            </div>
-            
-            <div class="grid">
-              <div>
-                <div class="section-title">Billed To</div>
-                <strong>${item.name}</strong><br>
-                Email: ${item.email}<br>
-                Phone: ${item.phone}<br>
-                ${item.address ? `${item.address}, ` : ''}${item.city || ''}
-              </div>
-              <div style="text-align: right;">
-                <div class="section-title">Receipt Details</div>
-                Date: ${formatDate(item._created, 'en-IN')}<br>
-                Payment ID: ${item.payment_id || 'N/A'}<br>
-                Order ID: ${item.order_id || 'N/A'}<br>
-                Method: ${item.method?.toUpperCase() || 'ONLINE'}
-              </div>
-            </div>
+    printWindow.document.title = `Receipt - ${item.payment_id || 'N/A'}`;
 
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Description</th>
-                  <th style="text-align: right;">Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Guitar coaching package - ${planName}</td>
-                  <td style="text-align: right;">${currencySymbol}${item.amount}</td>
-                </tr>
-              </tbody>
-            </table>
+    const style = printWindow.document.createElement('style');
+    style.textContent = `
+      body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #333; padding: 40px; line-height: 1.6; }
+      .invoice-box { max-width: 600px; margin: auto; padding: 30px; border: 1px solid #eee; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); font-size: 14px; color: #555; }
+      .invoice-header { display: flex; justify-content: space-between; border-bottom: 2px solid #06b6d4; padding-bottom: 20px; margin-bottom: 20px; }
+      .logo { font-size: 20px; font-weight: bold; color: #0891b2; }
+      .title { font-size: 16px; font-weight: bold; color: #333; text-align: right; }
+      .grid { display: grid; grid-template-cols: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+      .section-title { font-weight: bold; margin-bottom: 5px; color: #666; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+      .table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+      .table th { background: #f9f9f9; text-align: left; padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; }
+      .table td { padding: 10px; border-bottom: 1px solid #eee; }
+      .total { text-align: right; font-size: 18px; font-weight: bold; color: #333; margin-top: 10px; }
+      .footer { text-align: center; font-size: 11px; color: #999; margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px; }
+      @media print {
+        body { padding: 0; }
+        .invoice-box { border: none; box-shadow: none; }
+      }
+    `;
+    printWindow.document.head.appendChild(style);
 
-            <div class="total">
-              Total Paid: ${currencySymbol}${item.amount}
-            </div>
-
-            <div class="footer">
-              Thank you for learning with Shuvam Raha Music!<br>
-              South Dumdum, Kolkata, India • contact@shuvamrahamusic.com
-            </div>
+    printWindow.document.body.innerHTML = `
+      <div class="invoice-box">
+        <div class="invoice-header">
+          <div class="logo">Shuvam Raha Music</div>
+          <div class="title">PAYMENT RECEIPT</div>
+        </div>
+        
+        <div class="grid">
+          <div>
+            <div class="section-title">Billed To</div>
+            <strong>${item.name}</strong><br>
+            Email: ${item.email}<br>
+            Phone: ${item.phone}<br>
+            ${item.address ? `${item.address}, ` : ''}${item.city || ''}
           </div>
-          <script>
-            window.onload = function() {
-              window.print();
-              setTimeout(function() { window.close(); }, 500);
-            }
-          </script>
-        </body>
-      </html>
-    `);
-    printWindow.document.close();
+          <div style="text-align: right;">
+            <div class="section-title">Receipt Details</div>
+            Date: ${formatDate(item._created, 'en-IN')}<br>
+            Payment ID: ${item.payment_id || 'N/A'}<br>
+            Order ID: ${item.order_id || 'N/A'}<br>
+            Method: ${item.method?.toUpperCase() || 'ONLINE'}
+          </div>
+        </div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th style="text-align: right;">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Guitar coaching package - ${planName}</td>
+              <td style="text-align: right;">${currencySymbol}${item.amount}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="total">
+          Total Paid: ${currencySymbol}${item.amount}
+        </div>
+
+        <div class="footer">
+          Thank you for learning with Shuvam Raha Music!<br>
+          South Dumdum, Kolkata, India • contact@shuvamrahamusic.com
+        </div>
+      </div>
+    `;
+
+    const script = printWindow.document.createElement('script');
+    script.textContent = `
+      window.print();
+      setTimeout(function() { window.close(); }, 500);
+    `;
+    printWindow.document.body.appendChild(script);
   };
 
   return (

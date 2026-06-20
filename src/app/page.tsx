@@ -207,7 +207,7 @@ export default async function Home() {
                       />
                     ))}
                     <span className="ml-1.5 text-xs font-black text-white">
-                      4.9/5 Rating
+                      5/5 Rating
                     </span>
                   </div>
                   <p className="mt-0.5 text-[11px] font-medium text-gray-400">
