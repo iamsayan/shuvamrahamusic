@@ -188,6 +188,7 @@ export interface MenuItem {
 export interface Settings extends SingletonEntity {
   header_menu: MenuItem[];
   footer_menu: MenuItem[];
+  footer_secondary_menu: MenuItem[];
 }
 
 declare global {
