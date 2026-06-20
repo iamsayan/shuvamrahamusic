@@ -8,6 +8,8 @@ import CockpitImage from '@/components/cockpit-image';
 import GeographicMap from '@/components/geographic-map';
 import { Artist, Performance } from '@/types';
 
+import { format, isValid } from 'date-fns';
+import { enUS } from 'date-fns/locale';
 import {
   LuCalendarDays,
   LuCompass,
@@ -225,34 +227,27 @@ export default function PerformanceHighlightsClient({
         const lastDateStr = sortedDates[sortedDates.length - 1];
 
         const firstDateObj = new Date(firstDateStr);
-        year = firstDateObj.getFullYear() || 2026;
-
-        const formatOptions: Intl.DateTimeFormatOptions = {
-          day: 'numeric',
-          month: 'short',
-        };
+        year = isValid(firstDateObj)
+          ? firstDateObj.getFullYear() || 2026
+          : 2026;
 
         if (sortedDates.length === 1) {
-          try {
-            dateFormatted = firstDateObj.toLocaleDateString(
-              'en-US',
-              formatOptions
-            );
-          } catch {
+          if (isValid(firstDateObj)) {
+            dateFormatted = format(firstDateObj, 'MMM d', { locale: enUS });
+          } else {
             dateFormatted = firstDateStr;
           }
         } else {
-          try {
-            const firstFormatted = firstDateObj.toLocaleDateString(
-              'en-US',
-              formatOptions
-            );
-            const lastFormatted = new Date(lastDateStr).toLocaleDateString(
-              'en-US',
-              formatOptions
-            );
+          const lastDateObj = new Date(lastDateStr);
+          if (isValid(firstDateObj) && isValid(lastDateObj)) {
+            const firstFormatted = format(firstDateObj, 'MMM d', {
+              locale: enUS,
+            });
+            const lastFormatted = format(lastDateObj, 'MMM d', {
+              locale: enUS,
+            });
             dateFormatted = `${firstFormatted} – ${lastFormatted}`;
-          } catch {
+          } else {
             dateFormatted = `${firstDateStr} – ${lastDateStr}`;
           }
         }

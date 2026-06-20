@@ -2,6 +2,7 @@ import JsonLd from '@/components/json-ld';
 import VideosGalleryClient from '@/components/videos-gallery-client';
 import { getGalleryData } from '@/lib/data';
 import { SCHEMA } from '@/lib/schema';
+import { formatSchemaDate } from '@/lib/utils';
 
 export const metadata = {
   title: 'Video Gallery',
@@ -36,13 +37,7 @@ export default async function VideosGalleryPage() {
       'Watch official music videos, gear unboxings, tone playthroughs, student results, and premium guitar lessons.',
     isPartOf: { '@id': `${SCHEMA.BASE_URL}/videos/#webpage` },
     video: videos.map((v) => {
-      let isoDate = undefined;
-      if (v.date) {
-        const d = new Date(v.date);
-        if (!isNaN(d.getTime())) {
-          isoDate = d.toISOString();
-        }
-      }
+      const isoDate = formatSchemaDate(v.date);
       return {
         '@type': 'VideoObject',
         name: v.title,

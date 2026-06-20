@@ -1,8 +1,35 @@
 import cx, { ClassName } from 'classix';
+import { format, formatISO, isValid } from 'date-fns';
+import { enIN, enUS } from 'date-fns/locale';
 import { twMerge } from 'fluid-tailwindcss/tailwind-merge';
 
 export function cn(...classes: ClassName[]) {
   return twMerge(cx(...classes));
+}
+
+/**
+ * Format timestamp (Unix epoch in seconds, or string/Date) to an ISO 8601 string for schemas.
+ */
+export function formatSchemaDate(
+  timestamp?: number | string | Date
+): string | undefined {
+  if (!timestamp) return undefined;
+
+  let dateObj: Date;
+  if (timestamp instanceof Date) {
+    dateObj = timestamp;
+  } else if (typeof timestamp === 'number') {
+    dateObj =
+      timestamp < 99999999999
+        ? new Date(timestamp * 1000)
+        : new Date(timestamp);
+  } else {
+    dateObj = new Date(timestamp);
+  }
+
+  if (!isValid(dateObj)) return undefined;
+
+  return formatISO(dateObj);
 }
 
 /**
@@ -22,28 +49,24 @@ export function formatDate(
   timestamp?: number | string,
   locale: string = 'en-US'
 ): string {
+  const localeObj = locale === 'en-IN' ? enIN : enUS;
+
   if (!timestamp) {
     if (locale === 'en-IN') return 'N/A';
-    return new Date().toLocaleDateString('en-US', {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-    });
+    return format(new Date(), 'MMMM d, yyyy', { locale: localeObj });
   }
 
-  const dateObj = typeof timestamp === 'number'
-    ? new Date(timestamp * 1000)
-    : new Date(timestamp);
+  const dateObj =
+    typeof timestamp === 'number'
+      ? new Date(timestamp * 1000)
+      : new Date(timestamp);
 
-  if (isNaN(dateObj.getTime())) {
+  if (!isValid(dateObj)) {
     return 'N/A';
   }
 
-  return dateObj.toLocaleDateString(locale, {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
+  const formatStr = locale === 'en-IN' ? 'd MMMM yyyy' : 'MMMM d, yyyy';
+  return format(dateObj, formatStr, { locale: localeObj });
 }
 
 /**
@@ -71,4 +94,3 @@ export function formatCurrency(amount: number, region?: string): string {
   const symbol = getCurrencySymbol(region);
   return `${symbol}${amount}`;
 }
-

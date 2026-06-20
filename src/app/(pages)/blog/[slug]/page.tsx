@@ -4,10 +4,10 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import CockpitImage from '@/components/cockpit-image';
+import DynamicText from '@/components/dynamic-text';
 import JsonLd from '@/components/json-ld';
 import PageLayout from '@/components/page-layout';
 import ShareButtons from '@/components/share-buttons';
-import DynamicText from '@/components/dynamic-text';
 import {
   BRIGHT_GRADIENTS,
   CATEGORY_THEMES,
@@ -18,6 +18,7 @@ import {
 } from '@/lib/blog-data';
 import cockpit from '@/lib/client';
 import { SCHEMA } from '@/lib/schema';
+import { formatSchemaDate } from '@/lib/utils';
 
 import {
   LuArrowLeft,
@@ -256,12 +257,8 @@ export default async function BlogPostPage({ params }: PageProps) {
             headline: post.title,
             description: post.excerpt,
             image: cockpit.getImageUrl(post.featured_image._id),
-            datePublished: post.raw?._created
-              ? new Date(post.raw._created * 1000).toISOString()
-              : undefined,
-            dateModified: post.raw?._modified
-              ? new Date(post.raw._modified * 1000).toISOString()
-              : undefined,
+            datePublished: formatSchemaDate(post.raw?._created),
+            dateModified: formatSchemaDate(post.raw?._modified),
             wordCount: post.content
               ? post.content.replace(/<[^>]*>/g, '').split(/\s+/).length
               : undefined,

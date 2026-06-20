@@ -11,6 +11,7 @@ import {
   getCategoryBySlug,
 } from '@/lib/blog-data';
 import { SCHEMA } from '@/lib/schema';
+import { formatSchemaDate } from '@/lib/utils';
 
 interface PageProps {
   params: Promise<{
@@ -112,12 +113,8 @@ async function CategoryArchiveContent({ slug, searchParams }: ContentProps) {
               headline: post.title,
               description: post.excerpt,
               url: `${SCHEMA.BASE_URL}/blog/${post.slug}`,
-              datePublished: post.raw?._created
-                ? new Date(post.raw._created * 1000).toISOString()
-                : undefined,
-              dateModified: post.raw?._modified
-                ? new Date(post.raw._modified * 1000).toISOString()
-                : undefined,
+              datePublished: formatSchemaDate(post.raw?._created),
+              dateModified: formatSchemaDate(post.raw?._modified),
               keywords: post.tags.map((t) => t.title).join(', '),
               author: {
                 '@type': 'Person',
