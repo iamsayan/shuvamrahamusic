@@ -88,6 +88,48 @@ export default function Footer() {
     return null;
   })();
 
+  const currentQuickLinks2 = (() => {
+    if (
+      settings?.footer_secondary_menu &&
+      settings.footer_secondary_menu.length > 0
+    ) {
+      return settings.footer_secondary_menu
+        .filter((item) => item.active)
+        .map((item) => ({
+          ...item,
+          url: normalizeUrl(item.url),
+        }));
+    }
+    return null;
+  })();
+
+  const exploreLinks = [
+    { title: 'Home', url: '/' },
+    { title: 'Guitar Classes', url: '/guitar-classes-with-shuvam' },
+    { title: 'Blog', url: '/blog' },
+    { title: 'Biography', url: '/biography' },
+    { title: 'Contact', url: '/contact' },
+  ];
+
+  const mediaLinks = [
+    { title: 'Performance Highlights', url: '/performance-highlights' },
+    { title: 'Tutorials', url: '/tutorials' },
+    { title: 'Videos', url: '/videos' },
+    { title: 'Photos', url: '/photos' },
+    { title: 'Audios', url: '/audios' },
+    { title: 'My Gears', url: '/my-gears' },
+  ];
+
+  const finalExploreLinks =
+    currentQuickLinks && currentQuickLinks.length > 2
+      ? currentQuickLinks
+      : exploreLinks;
+
+  const finalMediaLinks =
+    currentQuickLinks2 && currentQuickLinks2.length > 2
+      ? currentQuickLinks2
+      : mediaLinks;
+
   return (
     <footer className="relative w-full overflow-hidden bg-[#020205] pt-8 pb-4 md:pt-10">
       {/* Glowing Top Border */}
@@ -108,7 +150,7 @@ export default function Footer() {
                 alt="Shuvam Raha Logo"
                 width={80}
                 height={50}
-                className="size-auto"
+                className="h-10 w-auto object-contain md:h-12"
                 loading="eager"
               />
             </div>
@@ -120,7 +162,7 @@ export default function Footer() {
             </p>
 
             {/* Brand Social links */}
-            <div className="flex flex-wrap items-center justify-center gap-1.5 pt-1 lg:justify-start">
+            <div className="flex flex-wrap items-center justify-center gap-1.5 pt-1 sm:justify-start">
               {socialLinks.map((social, idx) => (
                 <a
                   key={idx}
@@ -138,35 +180,47 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Right Columns Block (Quick Links + Contact Details) */}
-          <div className="flex flex-col items-center justify-center gap-10 sm:flex-row sm:items-start sm:gap-16 lg:gap-24">
+          {/* Right Columns Block (Quick Links + Media Links + Contact Details) */}
+          <div className="flex w-full flex-col items-center justify-between gap-10 sm:flex-row sm:items-start sm:gap-16 lg:flex-1 lg:justify-end lg:gap-16 xl:gap-24">
             {/* Quick Links Column */}
-            {currentQuickLinks && currentQuickLinks.length > 0 && (
-              <div className="flex flex-col items-center gap-3 sm:items-start">
-                <h4 className="text-xs font-black tracking-wider text-gray-500 uppercase sm:text-sm">
-                  Explore
-                </h4>
-                <ul className="flex flex-col items-center gap-2.5 sm:items-start">
-                  {currentQuickLinks.map((link, idx) => (
-                    <li key={idx}>
-                      <Link
-                        href={link.url}
-                        target={link.target || undefined}
-                        rel={
-                          link.target === '_blank'
-                            ? 'noopener noreferrer'
-                            : undefined
-                        }
-                        className="group flex items-center gap-1.5 text-xs font-bold text-gray-400 transition-colors duration-200 hover:text-white sm:text-sm"
-                      >
-                        <LuChevronRight className="size-3.5 text-cyan-400/80 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-cyan-300" />
-                        <span>{link.title}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <div className="flex flex-col items-center gap-3 sm:items-start">
+              <h4 className="text-xs font-black tracking-wider text-gray-500 uppercase sm:text-sm">
+                Explore
+              </h4>
+              <ul className="flex flex-col items-center gap-2.5 sm:items-start">
+                {finalExploreLinks.map((link, idx) => (
+                  <li key={idx}>
+                    <Link
+                      href={link.url}
+                      className="group flex items-center gap-1.5 text-xs font-bold text-gray-400 transition-colors duration-200 hover:text-white sm:text-sm"
+                    >
+                      <LuChevronRight className="size-3.5 text-cyan-400/80 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-cyan-300" />
+                      <span>{link.title}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Media & Gear Column */}
+            <div className="flex flex-col items-center gap-3 sm:items-start">
+              <h4 className="text-xs font-black tracking-wider text-gray-500 uppercase sm:text-sm">
+                Media &amp; Gear
+              </h4>
+              <ul className="flex flex-col items-center gap-2.5 sm:items-start">
+                {finalMediaLinks.map((link, idx) => (
+                  <li key={idx}>
+                    <Link
+                      href={link.url}
+                      className="group flex items-center gap-1.5 text-xs font-bold text-gray-400 transition-colors duration-200 hover:text-white sm:text-sm"
+                    >
+                      <LuChevronRight className="size-3.5 text-cyan-400/80 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-cyan-300" />
+                      <span>{link.title}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             {/* Contact Details Column */}
             <div className="flex flex-col items-center gap-3 sm:items-start">
