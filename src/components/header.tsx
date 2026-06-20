@@ -85,7 +85,7 @@ export default function Header() {
               alt="Shuvam Raha Logo"
               width={65}
               height={40}
-              className="-mt-2 size-auto"
+              className="-mt-2 h-9 md:h-11 w-auto object-contain"
               loading="eager"
             />
           </Link>
