@@ -298,43 +298,90 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
         {/* TAB 3: LEARNING SYSTEM */}
         {activeTab === 'system' && (
           <div className="animate-in fade-in zoom-in-95 duration-500">
-            <div className="mb-8 grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
-              {features.map((feature, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col rounded-[2rem] border border-white/10 bg-white/2 p-6 backdrop-blur-3xl transition-colors hover:bg-white/4 sm:p-8"
-                >
-                  <div className="mb-6 flex items-center gap-4 border-b border-white/10 pb-6">
-                    <div className="flex size-14 shrink-0 items-center justify-center rounded-2xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400">
-                      <feature.icon className="size-7" />
-                    </div>
-                    <div>
-                      <h3 className="font-heading mb-1 text-lg font-bold text-white sm:text-xl">
-                        {feature.title}
-                      </h3>
-                      <p className="mt-1 text-xs font-medium text-gray-400 sm:text-sm">
-                        {feature.desc}
-                      </p>
-                    </div>
-                  </div>
-                  <ul className="flex flex-1 flex-col gap-4">
-                    {feature.points.map((point, pIdx) => (
-                      <li
-                        key={pIdx}
-                        className="flex items-start gap-3 text-xs sm:text-sm"
-                      >
-                        <LuCircleCheck className="mt-0.5 size-5 shrink-0 text-cyan-500" />
-                        <div>
-                          <strong className="block text-gray-200 sm:inline">
-                            {point.t} —{' '}
-                          </strong>
-                          <span className="text-gray-400">{point.d}</span>
+            <div className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+              {features.map((feature, idx) => {
+                const Icon = feature.icon;
+                const badges = ["Support", "Resources", "Certification", "Community"];
+                return (
+                  <div
+                    key={idx}
+                    className={`group relative flex flex-col overflow-hidden rounded-[1.8rem] border border-white/10 bg-white/2 p-5 backdrop-blur-3xl transition-all duration-500 hover:bg-white/4 border-l-4
+                      ${idx === 0 ? 'border-l-cyan-500/80 hover:border-cyan-500/30' : ''}
+                      ${idx === 1 ? 'border-l-indigo-500/80 hover:border-indigo-500/30' : ''}
+                      ${idx === 2 ? 'border-l-emerald-500/80 hover:border-emerald-500/30' : ''}
+                      ${idx === 3 ? 'border-l-violet-500/80 hover:border-violet-500/30' : ''}
+                    `}
+                  >
+                    {/* Ambient Glow */}
+                    <div className={`pointer-events-none absolute -right-16 -bottom-16 size-48 rounded-full opacity-0 blur-3xl transition-all duration-700 group-hover:scale-150 group-hover:opacity-100
+                      ${idx === 0 ? 'bg-cyan-500/10' : ''}
+                      ${idx === 1 ? 'bg-indigo-500/10' : ''}
+                      ${idx === 2 ? 'bg-emerald-500/10' : ''}
+                      ${idx === 3 ? 'bg-violet-500/10' : ''}
+                    `} />
+
+                    {/* Header */}
+                    <div className="relative z-10 mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-white/5 pb-4">
+                      <div className="flex items-center gap-3">
+                        <div className={`flex size-11 shrink-0 items-center justify-center rounded-xl border transition-transform duration-500 group-hover:scale-110
+                          ${idx === 0 ? 'border-cyan-500/20 bg-cyan-500/10 text-cyan-400' : ''}
+                          ${idx === 1 ? 'border-indigo-500/20 bg-indigo-500/10 text-indigo-400' : ''}
+                          ${idx === 2 ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400' : ''}
+                          ${idx === 3 ? 'border-violet-500/20 bg-violet-500/10 text-violet-400' : ''}
+                        `}>
+                          <Icon className="size-5.5" />
                         </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+                        <div>
+                          <span className={`text-[9px] font-black tracking-widest uppercase opacity-85
+                            ${idx === 0 ? 'text-cyan-400' : ''}
+                            ${idx === 1 ? 'text-indigo-400' : ''}
+                            ${idx === 2 ? 'text-emerald-400' : ''}
+                            ${idx === 3 ? 'text-violet-400' : ''}
+                          `}>
+                            System Module 0{idx + 1}
+                          </span>
+                          <h3 className="font-heading text-lg leading-tight font-bold text-white sm:text-xl">
+                            {feature.title}
+                          </h3>
+                        </div>
+                      </div>
+                      <div className="self-start rounded-full border border-white/5 bg-white/2 px-2.5 py-0.5 text-[9px] font-bold text-gray-400 backdrop-blur-md transition-all duration-300 group-hover:border-white/10 group-hover:bg-white/5 group-hover:text-white sm:self-center">
+                        {badges[idx]}
+                      </div>
+                    </div>
+
+                    {/* Description */}
+                    <p className="relative z-10 mb-4 text-xs font-medium leading-relaxed text-gray-400">
+                      {feature.desc}
+                    </p>
+
+                    {/* Points list */}
+                    <ul className="relative z-10 flex flex-1 flex-col gap-2">
+                      {feature.points.map((point, pIdx) => (
+                        <li
+                          key={pIdx}
+                          className="group/item flex items-start gap-3 rounded-xl border border-transparent p-0.5 transition-all duration-300 hover:translate-x-1 hover:border-white/2 hover:bg-white/1"
+                        >
+                          <div className={`mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md border shadow-sm transition-transform duration-300 group-hover/item:scale-110
+                            ${idx === 0 ? 'border-cyan-500/20 bg-cyan-500/10 text-cyan-400' : ''}
+                            ${idx === 1 ? 'border-indigo-500/20 bg-indigo-500/10 text-indigo-400' : ''}
+                            ${idx === 2 ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400' : ''}
+                            ${idx === 3 ? 'border-violet-500/20 bg-violet-500/10 text-violet-400' : ''}
+                          `}>
+                            <LuCircleCheck className="size-3" />
+                          </div>
+                          <div className="text-xs sm:text-sm">
+                            <strong className="block font-extrabold text-white sm:inline">
+                              {point.t} —{' '}
+                            </strong>
+                            <span className="text-gray-400 transition-colors group-hover/item:text-gray-300">{point.d}</span>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
