@@ -87,9 +87,15 @@ export default async function Home() {
           {/* Floating decorative elements in the background */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
             {/* Soft ambient music notes drifting in background */}
-            <div className="animate-float-1 absolute top-[20%] left-[10%] text-2xl text-cyan-500/20">♫</div>
-            <div className="animate-float-2 absolute top-[40%] right-[15%] text-3xl text-violet-500/20">♪</div>
-            <div className="animate-float-3 absolute bottom-[25%] left-[45%] text-xl text-amber-500/10">🎸</div>
+            <div className="animate-float-1 absolute top-[20%] left-[10%] text-2xl text-cyan-500/20">
+              ♫
+            </div>
+            <div className="animate-float-2 absolute top-[40%] right-[15%] text-3xl text-violet-500/20">
+              ♪
+            </div>
+            <div className="animate-float-3 absolute bottom-[25%] left-[45%] text-xl text-amber-500/10">
+              🎸
+            </div>
           </div>
 
           <div className="site-container relative z-10 grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
@@ -118,9 +124,9 @@ export default async function Home() {
                     Music
                   </span>
                 </h1>
-                
+
                 {/* Premium tag style for Subheading */}
-                <div className="inline-flex items-center gap-2.5 rounded-xl border border-cyan-500/10 bg-cyan-500/5 px-4 py-2 font-heading text-sm font-black tracking-widest text-cyan-300 uppercase shadow-[0_0_20px_rgba(6,182,212,0.05)]">
+                <div className="font-heading inline-flex items-center gap-2.5 rounded-xl border border-cyan-500/10 bg-cyan-500/5 px-4 py-2 text-sm font-black tracking-widest text-cyan-300 uppercase shadow-[0_0_20px_rgba(6,182,212,0.05)]">
                   <LuMusic className="size-4 animate-bounce" />
                   <span>Easy To Learn &amp; Easy To Play</span>
                 </div>
@@ -141,8 +147,8 @@ export default async function Home() {
                   Join Guitar Classes
                   <LuArrowRight className="size-4.5 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
-                <Link 
-                  href="/biography" 
+                <Link
+                  href="/biography"
                   className="group flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/3 px-8 py-4 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/30 hover:bg-cyan-500/5 active:scale-95"
                 >
                   Read Biography
@@ -153,9 +159,9 @@ export default async function Home() {
             {/* Right Column: Redesigned premium photo frame showcase with backdrop rings */}
             <div className="animate-in-3 relative flex justify-center lg:col-span-5 lg:justify-end">
               {/* Rotating backdrop decorative circles */}
-              <div className="pointer-events-none absolute top-1/2 left-1/2 size-100 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-cyan-500/10 [animation:spin_60s_linear_infinite]" />
-              <div className="pointer-events-none absolute top-1/2 left-1/2 size-80 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-500/5 [animation:spin_40s_linear_infinite_reverse]" />
-              
+              <div className="pointer-events-none absolute top-1/2 left-1/2 size-100 -translate-x-1/2 -translate-y-1/2 [animation:spin_60s_linear_infinite] rounded-full border border-dashed border-cyan-500/10" />
+              <div className="pointer-events-none absolute top-1/2 left-1/2 size-80 -translate-x-1/2 -translate-y-1/2 [animation:spin_40s_linear_infinite_reverse] rounded-full border border-cyan-500/5" />
+
               <div className="group relative aspect-3/4 w-full max-w-[440px] overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#0C0C16]/40 p-2 shadow-2xl backdrop-blur-md transition-all duration-700 hover:border-cyan-500/30 hover:shadow-cyan-500/10">
                 <div className="relative size-full overflow-hidden rounded-[2rem]">
                   <Image
@@ -167,12 +173,16 @@ export default async function Home() {
                     sizes="(max-width: 1024px) 380px, 450px"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-[#05050A]/85 via-transparent to-transparent" />
-                  
+
                   {/* Floating floating mini-badge inside photo */}
-                  <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between rounded-2xl border border-white/10 bg-[#05050A]/70 px-4 py-3 backdrop-blur-md transition-all duration-500 group-hover:border-cyan-500/30">
+                  <div className="absolute right-5 bottom-5 left-5 flex items-center justify-between rounded-2xl border border-white/10 bg-[#05050A]/70 px-4 py-3 backdrop-blur-md transition-all duration-500 group-hover:border-cyan-500/30">
                     <div className="flex flex-col text-left">
-                      <span className="text-[9px] font-black tracking-widest text-cyan-400 uppercase">Artist / Coach</span>
-                      <span className="text-xs font-bold text-white">Shuvam Raha</span>
+                      <span className="text-[9px] font-black tracking-widest text-cyan-400 uppercase">
+                        Artist / Coach
+                      </span>
+                      <span className="text-xs font-bold text-white">
+                        Shuvam Raha
+                      </span>
                     </div>
                     <span className="rounded-full bg-cyan-500/20 px-2 py-0.5 text-[8px] font-black tracking-wider text-cyan-200 uppercase">
                       Distinction
@@ -247,15 +257,19 @@ export default async function Home() {
         <section className="relative z-10 py-20 md:py-28">
           <div className="site-container grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
             <div className="space-y-6 lg:col-span-5">
-              <span className="font-heading text-sm font-bold tracking-[0.15em] text-cyan-400 uppercase">
-                Meet the Instructor
-              </span>
+              {/* Premium tag style for Section Subtitle */}
+              <div className="font-heading inline-flex items-center gap-2 rounded-lg border border-cyan-500/15 bg-cyan-500/5 px-3.5 py-1.5 text-[10px] font-black tracking-widest text-cyan-400 uppercase shadow-[0_0_15px_rgba(6,182,212,0.05)]">
+                <LuAward className="size-3.5" />
+                <span>Meet the Instructor</span>
+              </div>
+
               <h2 className="font-heading text-3xl leading-tight font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
                 A Unique Fusion of{' '}
                 <span className="bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                   Tech &amp; Melody
                 </span>
               </h2>
+
               <p className="text-sm leading-relaxed text-gray-400 sm:text-base">
                 Shuvam holds a Bachelor&apos;s degree in Computer Application
                 (BCA) and a high distinction certification in Electric Guitar
@@ -264,13 +278,14 @@ export default async function Home() {
                 emotional musicality, optimizing sound production software and
                 structured guitar classes alike.
               </p>
+
               <div className="pt-2">
                 <Link
                   href="/biography"
-                  className="group font-heading inline-flex items-center gap-2 text-sm font-bold text-white transition-colors hover:text-cyan-400"
+                  className="group font-heading inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/3 px-6 py-3 text-xs font-semibold text-white backdrop-blur-xl transition-all duration-300 hover:border-cyan-500/30 hover:bg-cyan-500/5 active:scale-95 sm:text-sm"
                 >
                   Learn More About Shuvam
-                  <LuArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                  <LuArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </div>
             </div>
@@ -281,19 +296,31 @@ export default async function Home() {
                 return (
                   <div
                     key={idx}
-                    className={`group relative rounded-2xl border ${point.border} ${point.bg} p-6 transition-all duration-300 hover:border-white/10 hover:bg-white/2`}
+                    className={`group relative overflow-hidden rounded-[2rem] border border-white/5 bg-[#0C0C16]/50 p-6 shadow-lg backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:bg-[#0E0E22]/80 hover:shadow-2xl ${idx === 0 ? 'hover:border-rose-500/30' : ''} ${idx === 1 ? 'hover:border-amber-500/30' : ''} ${idx === 2 ? 'hover:border-emerald-500/30' : ''} ${idx === 3 ? 'hover:border-violet-500/30' : ''} `}
                   >
+                    {/* Floating premium index indicator in background */}
+                    <span className="font-heading absolute top-2 right-4 text-5xl font-black text-white/2 transition-all duration-500 select-none group-hover:translate-y-1 group-hover:text-white/5">
+                      0{idx + 1}
+                    </span>
+
+                    {/* Dynamic glow element on hover matching point theme color */}
                     <div
-                      className={`mb-4 inline-flex items-center justify-center rounded-xl border ${point.border} ${point.bg} ${point.color} size-11 transition-transform group-hover:scale-105`}
-                    >
-                      <Icon className="size-5" />
+                      className={`pointer-events-none absolute -right-12 -bottom-12 size-32 rounded-full opacity-0 blur-3xl transition-all duration-700 group-hover:scale-125 group-hover:opacity-100 ${idx === 0 ? 'bg-rose-500/10' : ''} ${idx === 1 ? 'bg-amber-500/10' : ''} ${idx === 2 ? 'bg-emerald-500/10' : ''} ${idx === 3 ? 'bg-violet-500/10' : ''} `}
+                    />
+
+                    <div className="relative z-10">
+                      <div
+                        className={`mb-5 inline-flex items-center justify-center rounded-2xl border ${point.border} ${point.bg} ${point.color} size-12 transition-transform duration-500 group-hover:scale-110`}
+                      >
+                        <Icon className="size-5.5" />
+                      </div>
+                      <h4 className="font-heading text-base font-extrabold text-white transition-colors duration-300 group-hover:text-white">
+                        {point.title}
+                      </h4>
+                      <p className="mt-2 text-xs leading-relaxed text-gray-400 sm:text-sm">
+                        {point.desc}
+                      </p>
                     </div>
-                    <h4 className="font-heading text-base font-extrabold text-white">
-                      {point.title}
-                    </h4>
-                    <p className="mt-2 text-xs leading-relaxed text-gray-400 sm:text-sm">
-                      {point.desc}
-                    </p>
                   </div>
                 );
               })}
@@ -328,12 +355,12 @@ export default async function Home() {
             {/* Split Roadmap & Cards Layout */}
             <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
               {/* Left Column: Interactive learning roadmap tracker (Sticky) */}
-              <div className="space-y-8 lg:col-span-4 lg:sticky lg:top-28 lg:self-start lg:h-fit">
+              <div className="space-y-8 lg:sticky lg:top-28 lg:col-span-4 lg:h-fit lg:self-start">
                 <div className="group relative overflow-hidden rounded-[2rem] border border-white/5 bg-[#0A0A15]/60 p-6 shadow-2xl backdrop-blur-2xl transition-all duration-500 hover:border-cyan-500/20 md:p-8">
                   {/* Subtle background glow */}
                   <div className="pointer-events-none absolute -top-12 -left-12 size-40 rounded-full bg-cyan-500/10 blur-[60px]" />
                   <div className="pointer-events-none absolute -right-12 -bottom-12 size-40 rounded-full bg-blue-500/10 blur-[60px]" />
-                  
+
                   <div className="relative z-10 space-y-6">
                     <div>
                       <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
@@ -343,25 +370,26 @@ export default async function Home() {
                         Your Learning Path
                       </h3>
                       <p className="mt-2 text-xs leading-relaxed text-gray-400">
-                        A logically structured syllabus designed to transform you from absolute zero to a confident, independent guitar player.
+                        A logically structured syllabus designed to transform
+                        you from absolute zero to a confident, independent
+                        guitar player.
                       </p>
                     </div>
 
                     {/* Timeline Tracker */}
                     <div className="relative pl-6 before:absolute before:top-2 before:bottom-2 before:left-2 before:w-0.5 before:bg-linear-to-b before:from-emerald-500 before:via-blue-500 before:to-rose-500/30">
                       {curriculum.map((item, idx) => (
-                        <div key={idx} className="group/step relative mb-6 last:mb-0">
+                        <div
+                          key={idx}
+                          className="group/step relative mb-6 last:mb-0"
+                        >
                           {/* Indicator Dot */}
-                          <div className={`absolute -left-6.5 top-1 size-3 rounded-full border border-[#05050A] transition-all duration-300 group-hover/step:scale-125
-                            ${idx === 0 ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]' : ''}
-                            ${idx === 1 ? 'bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]' : ''}
-                            ${idx === 2 ? 'bg-orange-500 shadow-[0_0_8px_rgba(245,158,11,0.6)]' : ''}
-                            ${idx === 3 ? 'bg-violet-500 shadow-[0_0_8px_rgba(139,92,246,0.6)]' : ''}
-                            ${idx === 4 ? 'bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.6)]' : ''}
-                          `} />
-                          
+                          <div
+                            className={`absolute top-1 -left-6.5 size-3 rounded-full border border-[#05050A] transition-all duration-300 group-hover/step:scale-125 ${idx === 0 ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]' : ''} ${idx === 1 ? 'bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]' : ''} ${idx === 2 ? 'bg-orange-500 shadow-[0_0_8px_rgba(245,158,11,0.6)]' : ''} ${idx === 3 ? 'bg-violet-500 shadow-[0_0_8px_rgba(139,92,246,0.6)]' : ''} ${idx === 4 ? 'bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.6)]' : ''} `}
+                          />
+
                           <div className="flex flex-col">
-                            <span className="text-[10px] font-black text-gray-500 transition-colors duration-300 group-hover/step:text-cyan-400 uppercase">
+                            <span className="text-[10px] font-black text-gray-500 uppercase transition-colors duration-300 group-hover/step:text-cyan-400">
                               Phase 0{idx + 1}
                             </span>
                             <span className="text-xs font-bold text-white transition-colors duration-300 group-hover/step:text-white sm:text-sm">
@@ -456,7 +484,7 @@ export default async function Home() {
 
             <div className="mt-16 text-center">
               <Link
-                href="/guitar-classes-with-shuvam"
+                href="/guitar-classes-with-shuvam#pricing"
                 className="group font-heading inline-flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-cyan-500 to-blue-600 px-8 py-4 text-xs font-bold text-white shadow-lg shadow-cyan-500/10 transition-all hover:scale-105 hover:shadow-cyan-500/20 active:scale-95 sm:text-sm"
               >
                 Explore Course Packages &amp; Pricing
