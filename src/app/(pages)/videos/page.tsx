@@ -35,14 +35,23 @@ export default async function VideosGalleryPage() {
     description:
       'Watch official music videos, gear unboxings, tone playthroughs, student results, and premium guitar lessons.',
     isPartOf: { '@id': `${SCHEMA.BASE_URL}/videos/#webpage` },
-    video: videos.map((v) => ({
-      '@type': 'VideoObject',
-      name: v.title,
-      description: v.description || undefined,
-      thumbnailUrl: `https://img.youtube.com/vi/${v.video_id}/maxresdefault.jpg`,
-      uploadDate: v.date || undefined,
-      embedUrl: `https://www.youtube.com/embed/${v.video_id}`,
-    })),
+    video: videos.map((v) => {
+      let isoDate = undefined;
+      if (v.date) {
+        const d = new Date(v.date);
+        if (!isNaN(d.getTime())) {
+          isoDate = d.toISOString();
+        }
+      }
+      return {
+        '@type': 'VideoObject',
+        name: v.title,
+        description: v.description || undefined,
+        thumbnailUrl: `https://img.youtube.com/vi/${v.video_id}/maxresdefault.jpg`,
+        uploadDate: isoDate,
+        embedUrl: `https://www.youtube.com/embed/${v.video_id}`,
+      };
+    }),
   };
 
   return (
