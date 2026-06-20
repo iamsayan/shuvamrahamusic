@@ -216,20 +216,20 @@ export default async function Page() {
           <div className="site-container relative z-20 flex flex-col items-center gap-12 lg:flex-row lg:gap-20">
             <div className="flex flex-1 flex-col items-center pt-10 text-center lg:pt-0">
               {/* Trust Badge */}
-              <div className="badge-trust">
+              <div className="badge-trust mb-4">
                 <LuAward className="size-4 text-cyan-400" />
                 <span>LCM Certified Music Instructor</span>
               </div>
 
               {/* Headline */}
-              <h1 className="mb-6 font-black tracking-tighter text-white">
+              <h1 className="mb-6 max-w-5xl font-black tracking-tighter text-white">
                 <span className="font-heading mb-3 ml-1 block text-sm font-bold tracking-[0.2em] text-cyan-400 uppercase sm:text-base">
                   Guitar Classes with Shuvam Raha
                 </span>
-                <span className="font-heading mb-2 block bg-linear-to-r from-white via-white to-gray-400 bg-clip-text text-[2.4rem] leading-[1.05] text-transparent sm:text-[4rem] lg:text-[5.5rem]">
+                <span className="font-heading mb-2 block bg-linear-to-r from-white via-white to-gray-400 bg-clip-text text-[2.4rem] leading-[1.05] text-transparent sm:text-[4rem] lg:text-[5rem]">
                   Learn Guitar & Play Your Favorite Songs
                 </span>
-                <span className="font-heading block text-[2.4rem] leading-[1.05] sm:text-[4rem] lg:text-[5.5rem]">
+                <span className="font-heading block text-[2.4rem] leading-[1.05] sm:text-[4rem] lg:text-[5rem]">
                   {' '}
                   <span className="bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(6,182,212,0.4)]">
                     in 30 days
@@ -237,14 +237,14 @@ export default async function Page() {
                 </span>
               </h1>
 
-              <p className="mb-8 max-w-2xl text-base leading-relaxed font-medium text-gray-400 sm:text-xl">
+              <p className="mb-8 max-w-3xl text-base leading-relaxed font-medium text-gray-400 sm:text-xl">
                 Using my proven step-by-step method, you&apos;ll master the
                 essential chords and techniques to play your first few songs in
                 just one month of guided practice.
               </p>
 
               {/* Key Benefits */}
-              <ul className="mb-10 flex flex-col items-center gap-4 text-center">
+              <ul className="mb-10 flex flex-col items-center gap-2 text-center">
                 <li className="max-w-md text-sm font-medium text-gray-300 sm:flex sm:max-w-none sm:items-center sm:justify-center sm:text-base">
                   <LuCircleCheck className="-mt-0.5 mr-2 inline-block size-5 shrink-0 align-middle text-cyan-400 sm:mt-0" />
                   <span>
@@ -413,7 +413,7 @@ export default async function Page() {
                   Student Results
                 </span>
               </h2>
-              <p className="max-w-md text-sm text-gray-400 sm:text-base lg:text-lg">
+              <p className="max-w-lg text-sm text-gray-400 sm:text-base lg:text-lg">
                 Watch how students go from beginners → confident players.
               </p>
             </div>
