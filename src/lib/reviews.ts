@@ -1,5 +1,6 @@
-import { cacheLife, cacheTag } from 'next/cache';
 import { cache } from 'react';
+
+import { cacheLife, cacheTag } from 'next/cache';
 
 export interface SerpApiReview {
   user?: {
@@ -35,7 +36,7 @@ export const getReviews = cache(async (): Promise<Review[]> => {
     const url = `https://serpapi.com/search.json?engine=google_maps_reviews&data_id=${dataId}&api_key=${apiKey}`;
 
     // 1. Fetch First Page (returns first 8 reviews)
-    const res = await fetch(url, { signal: AbortSignal.timeout(5000) });
+    const res = await fetch(url);
     if (!res.ok) {
       return [];
     }
@@ -44,9 +45,7 @@ export const getReviews = cache(async (): Promise<Review[]> => {
 
     // 2. Paginate to Page 2 if needed to complete 15 reviews
     if (data.serpapi_pagination?.next) {
-      const res2 = await fetch(data.serpapi_pagination.next, {
-        signal: AbortSignal.timeout(5000),
-      });
+      const res2 = await fetch(data.serpapi_pagination.next);
 
       if (res2.ok) {
         const data2 = await res2.json();

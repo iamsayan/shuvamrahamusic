@@ -34,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     // Stagger the fetch longer (e.g. 2.5s) to ensure concurrent page rendering workers
     // have finished their execution and populated the cache before the sitemap runs.
-    await new Promise((resolve) => setTimeout(resolve, 2500));
+    //await new Promise((resolve) => setTimeout(resolve, 2500));
 
     // Project only the necessary fields (slug, categories, tags) to reduce payload size,
     // memory footprint, and database CPU stress.
@@ -44,6 +44,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         slug: true,
         categories: true,
         tags: true,
+        _created: true,
+        _modified: true,
       },
     });
 
