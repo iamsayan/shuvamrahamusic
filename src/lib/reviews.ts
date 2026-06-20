@@ -1,5 +1,3 @@
-import { cache } from 'react';
-
 import { cacheLife, cacheTag } from 'next/cache';
 
 export interface SerpApiReview {
@@ -21,7 +19,7 @@ export interface Review {
   profileImage: string;
 }
 
-export const getReviews = cache(async (): Promise<Review[]> => {
+export async function getReviews(): Promise<Review[]> {
   'use cache';
   cacheLife('weeks');
   cacheTag('reviews');
@@ -79,4 +77,4 @@ export const getReviews = cache(async (): Promise<Review[]> => {
     console.error('Error fetching live GMB reviews from SerpApi:', error);
     return [];
   }
-});
+}
