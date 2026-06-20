@@ -105,27 +105,56 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
                   Why Learn From{' '}
                   <span className="text-rose-400">Shuvam Raha?</span>
                 </h3>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {authorityPoints.map((point, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-start gap-4 rounded-2xl border border-white/5 bg-white/2 p-5 backdrop-blur-md transition-colors hover:border-white/10 hover:bg-white/5"
-                    >
+                <div className="flex flex-col gap-4">
+                  {authorityPoints.map((point, idx) => {
+                    const Icon = point.icon;
+                    return (
                       <div
-                        className={`flex shrink-0 items-center justify-center rounded-xl ${point.bg} border ${point.border} ${point.color} size-12`}
+                        key={idx}
+                        className={`group relative flex flex-col gap-4 overflow-hidden rounded-[1.8rem] border border-white/5 bg-[#0C0C16]/50 p-5 shadow-lg backdrop-blur-md transition-all duration-500 hover:-translate-y-0.5 hover:bg-[#0E0E22]/80 hover:shadow-2xl sm:flex-row sm:items-start sm:gap-6
+                          ${idx === 0 ? 'hover:border-rose-500/30' : ''}
+                          ${idx === 1 ? 'hover:border-amber-500/30' : ''}
+                          ${idx === 2 ? 'hover:border-emerald-500/30' : ''}
+                          ${idx === 3 ? 'hover:border-violet-500/30' : ''}
+                        `}
                       >
-                        <point.icon className="size-6" />
+                        {/* Huge high-tech serial number on left */}
+                        <div className={`font-heading w-10 sm:w-12 shrink-0 text-3xl font-black tracking-tight select-none opacity-25 transition-all duration-500 group-hover:scale-110 group-hover:opacity-100 sm:text-4xl sm:mt-0.5
+                          ${idx === 0 ? 'text-rose-400 drop-shadow-[0_0_15px_rgba(244,63,94,0.3)]' : ''}
+                          ${idx === 1 ? 'text-amber-400 drop-shadow-[0_0_15px_rgba(245,158,11,0.3)]' : ''}
+                          ${idx === 2 ? 'text-emerald-400 drop-shadow-[0_0_15px_rgba(16,185,129,0.3)]' : ''}
+                          ${idx === 3 ? 'text-violet-400 drop-shadow-[0_0_15px_rgba(139,92,246,0.3)]' : ''}
+                        `}>
+                          0{idx + 1}
+                        </div>
+
+                        {/* Styled Icon Wrapper */}
+                        <div
+                          className={`flex size-12 shrink-0 items-center justify-center rounded-xl border ${point.border} ${point.bg} ${point.color} shadow-sm transition-transform duration-500 group-hover:scale-105 sm:mt-0.5`}
+                        >
+                          <Icon className="size-6" />
+                        </div>
+
+                        {/* Title and Description */}
+                        <div className="flex-1 space-y-1 text-left">
+                          <h4 className="font-heading text-base font-extrabold text-white transition-colors duration-300">
+                            {point.title}
+                          </h4>
+                          <p className="text-xs leading-relaxed text-gray-400 sm:text-sm">
+                            {point.desc}
+                          </p>
+                        </div>
+
+                        {/* Dynamic glow element on hover matching point theme color */}
+                        <div className={`pointer-events-none absolute -right-12 -bottom-12 size-32 rounded-full opacity-0 blur-3xl transition-all duration-700 group-hover:scale-125 group-hover:opacity-100
+                          ${idx === 0 ? 'bg-rose-500/10' : ''}
+                          ${idx === 1 ? 'bg-amber-500/10' : ''}
+                          ${idx === 2 ? 'bg-emerald-500/10' : ''}
+                          ${idx === 3 ? 'bg-violet-500/10' : ''}
+                        `} />
                       </div>
-                      <div>
-                        <h4 className="font-heading mb-1 text-lg font-bold text-white sm:text-xl">
-                          {point.title}
-                        </h4>
-                        <p className="mt-1 text-xs leading-relaxed text-gray-400 sm:text-sm">
-                          {point.desc}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </div>
