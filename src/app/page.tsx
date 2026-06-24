@@ -3,8 +3,8 @@ import Link from 'next/link';
 
 import BlogPostCard from '@/components/blog-post-card';
 import BrandEndorsements from '@/components/brand-endorsements';
-import JsonLd from '@/components/json-ld';
 import DynamicText from '@/components/dynamic-text';
+import JsonLd from '@/components/json-ld';
 import ReviewsMarquee from '@/components/reviews-marquee';
 import SliderGallery from '@/components/slider-gallery';
 import YouTubeFacade from '@/components/youtube-facade';
@@ -207,7 +207,7 @@ export default async function Home() {
                       />
                     ))}
                     <span className="ml-1.5 text-xs font-black text-white">
-                      5/5 Rating
+                      5 Star Rating
                     </span>
                   </div>
                   <p className="mt-0.5 text-[11px] font-medium text-gray-400">
@@ -332,7 +332,7 @@ export default async function Home() {
         <BrandEndorsements
           layout="marquee"
           isSection={true}
-          className="relative z-10 my-10 border-b border-white/5 py-4"
+          className="relative z-10 my-10 py-4"
         />
 
         {/* ==========================================================

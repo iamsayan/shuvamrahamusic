@@ -222,3 +222,10 @@ h6 {
 @utility section-subtitle {
   @apply mx-auto max-w-xl text-sm leading-relaxed text-gray-400 sm:text-base;
 }
+
+/* Fix Razorpay modal white backdrop issue caused by dark color-scheme */
+.razorpay-container,
+.razorpay-container iframe {
+  color-scheme: light !important;
+}
+

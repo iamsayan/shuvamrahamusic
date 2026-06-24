@@ -234,11 +234,11 @@ export default function SecurePayPortal() {
   const [error, setError] = useState<string | null>(null);
   const [processing, setProcessing] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    city: '',
-    address: '',
+    name: process.env.NEXT_PUBLIC_PAYMENT_TEST_NAME || '',
+    email: process.env.NEXT_PUBLIC_PAYMENT_TEST_EMAIL || '',
+    phone: process.env.NEXT_PUBLIC_PAYMENT_TEST_PHONE || '',
+    city: process.env.NEXT_PUBLIC_PAYMENT_TEST_CITY || '',
+    address: process.env.NEXT_PUBLIC_PAYMENT_TEST_ADDRESS || '',
   });
 
   const currentPlans = (plans || []).filter((p) =>

@@ -6,6 +6,7 @@ import CoachImageSlider from '@/components/coach-image-slider';
 import { authorityPoints, curriculum, features } from '@/lib/guitar-data';
 import { GuitarClassesData } from '@/types';
 
+import DynamicText from './dynamic-text';
 import {
   LuBadgeCheck,
   LuCircleCheck,
@@ -130,7 +131,7 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
                         {/* Title and Description */}
                         <div className="flex-1 space-y-1 text-left">
                           <h4 className="font-heading text-base font-extrabold text-white transition-colors duration-300">
-                            {point.title}
+                            <DynamicText text={point.title} />
                           </h4>
                           <p className="text-xs leading-relaxed text-gray-400 sm:text-sm">
                             {point.desc}
@@ -301,43 +302,34 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
             <div className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
               {features.map((feature, idx) => {
                 const Icon = feature.icon;
-                const badges = ["Support", "Resources", "Certification", "Community"];
+                const badges = [
+                  'Support',
+                  'Resources',
+                  'Certification',
+                  'Community',
+                ];
                 return (
                   <div
                     key={idx}
-                    className={`group relative flex flex-col overflow-hidden rounded-[1.8rem] border border-white/10 bg-white/2 p-5 backdrop-blur-3xl transition-all duration-500 hover:bg-white/4 border-l-4
-                      ${idx === 0 ? 'border-l-cyan-500/80 hover:border-cyan-500/30' : ''}
-                      ${idx === 1 ? 'border-l-indigo-500/80 hover:border-indigo-500/30' : ''}
-                      ${idx === 2 ? 'border-l-emerald-500/80 hover:border-emerald-500/30' : ''}
-                      ${idx === 3 ? 'border-l-violet-500/80 hover:border-violet-500/30' : ''}
-                    `}
+                    className={`group relative flex flex-col overflow-hidden rounded-[1.8rem] border border-l-4 border-white/10 bg-white/2 p-5 backdrop-blur-3xl transition-all duration-500 hover:bg-white/4 ${idx === 0 ? 'border-l-cyan-500/80 hover:border-cyan-500/30' : ''} ${idx === 1 ? 'border-l-indigo-500/80 hover:border-indigo-500/30' : ''} ${idx === 2 ? 'border-l-emerald-500/80 hover:border-emerald-500/30' : ''} ${idx === 3 ? 'border-l-violet-500/80 hover:border-violet-500/30' : ''} `}
                   >
                     {/* Ambient Glow */}
-                    <div className={`pointer-events-none absolute -right-16 -bottom-16 size-48 rounded-full opacity-0 blur-3xl transition-all duration-700 group-hover:scale-150 group-hover:opacity-100
-                      ${idx === 0 ? 'bg-cyan-500/10' : ''}
-                      ${idx === 1 ? 'bg-indigo-500/10' : ''}
-                      ${idx === 2 ? 'bg-emerald-500/10' : ''}
-                      ${idx === 3 ? 'bg-violet-500/10' : ''}
-                    `} />
+                    <div
+                      className={`pointer-events-none absolute -right-16 -bottom-16 size-48 rounded-full opacity-0 blur-3xl transition-all duration-700 group-hover:scale-150 group-hover:opacity-100 ${idx === 0 ? 'bg-cyan-500/10' : ''} ${idx === 1 ? 'bg-indigo-500/10' : ''} ${idx === 2 ? 'bg-emerald-500/10' : ''} ${idx === 3 ? 'bg-violet-500/10' : ''} `}
+                    />
 
                     {/* Header */}
-                    <div className="relative z-10 mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-white/5 pb-4">
+                    <div className="relative z-10 mb-4 flex flex-col gap-3 border-b border-white/5 pb-4 sm:flex-row sm:items-center sm:justify-between">
                       <div className="flex items-center gap-3">
-                        <div className={`flex size-11 shrink-0 items-center justify-center rounded-xl border transition-transform duration-500 group-hover:scale-110
-                          ${idx === 0 ? 'border-cyan-500/20 bg-cyan-500/10 text-cyan-400' : ''}
-                          ${idx === 1 ? 'border-indigo-500/20 bg-indigo-500/10 text-indigo-400' : ''}
-                          ${idx === 2 ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400' : ''}
-                          ${idx === 3 ? 'border-violet-500/20 bg-violet-500/10 text-violet-400' : ''}
-                        `}>
+                        <div
+                          className={`flex size-11 shrink-0 items-center justify-center rounded-xl border transition-transform duration-500 group-hover:scale-110 ${idx === 0 ? 'border-cyan-500/20 bg-cyan-500/10 text-cyan-400' : ''} ${idx === 1 ? 'border-indigo-500/20 bg-indigo-500/10 text-indigo-400' : ''} ${idx === 2 ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400' : ''} ${idx === 3 ? 'border-violet-500/20 bg-violet-500/10 text-violet-400' : ''} `}
+                        >
                           <Icon className="size-5.5" />
                         </div>
                         <div>
-                          <span className={`text-[9px] font-black tracking-widest uppercase opacity-85
-                            ${idx === 0 ? 'text-cyan-400' : ''}
-                            ${idx === 1 ? 'text-indigo-400' : ''}
-                            ${idx === 2 ? 'text-emerald-400' : ''}
-                            ${idx === 3 ? 'text-violet-400' : ''}
-                          `}>
+                          <span
+                            className={`text-[9px] font-black tracking-widest uppercase opacity-85 ${idx === 0 ? 'text-cyan-400' : ''} ${idx === 1 ? 'text-indigo-400' : ''} ${idx === 2 ? 'text-emerald-400' : ''} ${idx === 3 ? 'text-violet-400' : ''} `}
+                          >
                             System Module 0{idx + 1}
                           </span>
                           <h3 className="font-heading text-lg leading-tight font-bold text-white sm:text-xl">
@@ -351,7 +343,7 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
                     </div>
 
                     {/* Description */}
-                    <p className="relative z-10 mb-4 text-xs font-medium leading-relaxed text-gray-400">
+                    <p className="relative z-10 mb-4 text-xs leading-relaxed font-medium text-gray-400">
                       {feature.desc}
                     </p>
 
@@ -362,19 +354,18 @@ export default function ProgramTabs({ classesData }: ProgramTabsProps) {
                           key={pIdx}
                           className="group/item flex items-start gap-3 rounded-xl border border-transparent p-0.5 transition-all duration-300 hover:translate-x-1 hover:border-white/2 hover:bg-white/1"
                         >
-                          <div className={`mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md border shadow-sm transition-transform duration-300 group-hover/item:scale-110
-                            ${idx === 0 ? 'border-cyan-500/20 bg-cyan-500/10 text-cyan-400' : ''}
-                            ${idx === 1 ? 'border-indigo-500/20 bg-indigo-500/10 text-indigo-400' : ''}
-                            ${idx === 2 ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400' : ''}
-                            ${idx === 3 ? 'border-violet-500/20 bg-violet-500/10 text-violet-400' : ''}
-                          `}>
+                          <div
+                            className={`mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md border shadow-sm transition-transform duration-300 group-hover/item:scale-110 ${idx === 0 ? 'border-cyan-500/20 bg-cyan-500/10 text-cyan-400' : ''} ${idx === 1 ? 'border-indigo-500/20 bg-indigo-500/10 text-indigo-400' : ''} ${idx === 2 ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400' : ''} ${idx === 3 ? 'border-violet-500/20 bg-violet-500/10 text-violet-400' : ''} `}
+                          >
                             <LuCircleCheck className="size-3" />
                           </div>
                           <div className="text-xs sm:text-sm">
                             <strong className="block font-extrabold text-white sm:inline">
                               {point.t} —{' '}
                             </strong>
-                            <span className="text-gray-400 transition-colors group-hover/item:text-gray-300">{point.d}</span>
+                            <span className="text-gray-400 transition-colors group-hover/item:text-gray-300">
+                              {point.d}
+                            </span>
                           </div>
                         </li>
                       ))}
