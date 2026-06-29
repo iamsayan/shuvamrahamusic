@@ -80,7 +80,10 @@ export default function PaymentHistoryClient() {
 
     const style = printWindow.document.createElement('style');
     style.textContent = `
-      body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #333; padding: 40px; line-height: 1.6; }
+      @page {
+        margin: 10mm;
+      }
+      body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #333; padding: 20px; line-height: 1.6; }
       .invoice-box { max-width: 600px; margin: auto; padding: 30px; border: 1px solid #eee; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); font-size: 14px; color: #555; }
       .invoice-header { display: flex; justify-content: space-between; border-bottom: 2px solid #06b6d4; padding-bottom: 20px; margin-bottom: 20px; }
       .logo { font-size: 20px; font-weight: bold; color: #0891b2; }
@@ -152,7 +155,7 @@ export default function PaymentHistoryClient() {
     const script = printWindow.document.createElement('script');
     script.textContent = `
       window.print();
-      setTimeout(function() { window.close(); }, 500);
+      setTimeout(function() { window.close(); }, 300);
     `;
     printWindow.document.body.appendChild(script);
   };
@@ -203,7 +206,7 @@ export default function PaymentHistoryClient() {
       <div className="mt-10 space-y-6">
         {isSearching && (
           <div className="space-y-6">
-            <div className="flex items-center justify-between border-b border-white/5 pb-4">
+            <div className="flex flex-col gap-2.5 border-b border-white/5 pb-4 text-left sm:flex-row sm:items-center sm:justify-between">
               <div className="h-6 w-48 animate-pulse rounded-md bg-white/10" />
               <div className="h-6 w-20 animate-pulse rounded-full bg-white/10" />
             </div>
@@ -212,21 +215,21 @@ export default function PaymentHistoryClient() {
               {[1, 2].map((i) => (
                 <div
                   key={i}
-                  className="relative flex animate-pulse flex-col justify-between overflow-hidden rounded-3xl border border-white/5 bg-white/1 p-5 text-left"
+                  className="relative flex animate-pulse flex-col justify-between overflow-hidden rounded-3xl border border-white/5 bg-white/1 p-4 text-left sm:p-6"
                 >
                   <div className="space-y-4">
-                    <div className="flex items-start justify-between gap-4">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
                       <div className="space-y-2">
                         <div className="h-3 w-24 rounded-md bg-white/5" />
                         <div className="h-5 w-40 rounded-md bg-white/10" />
                       </div>
-                      <div className="space-y-2 text-right">
+                      <div className="space-y-2 text-left sm:text-right">
                         <div className="h-3 w-16 rounded-md bg-white/5" />
                         <div className="h-5 w-20 rounded-md bg-white/10" />
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4 border-t border-white/5 pt-4">
+                    <div className="grid grid-cols-1 gap-4 border-t border-white/5 pt-4 sm:grid-cols-2">
                       {[1, 2, 3, 4].map((j) => (
                         <div key={j} className="space-y-2">
                           <div className="h-3 w-16 rounded-md bg-white/5" />
@@ -273,12 +276,12 @@ export default function PaymentHistoryClient() {
 
         {!isSearching && enrollments.length > 0 && (
           <div className="space-y-6">
-            <div className="flex items-center justify-between border-b border-white/5 pb-4">
-              <h3 className="font-heading text-lg font-black text-white sm:text-xl">
+            <div className="flex flex-col gap-2.5 border-b border-white/5 pb-4 text-left sm:flex-row sm:items-center sm:justify-between">
+              <h3 className="font-heading text-left text-lg font-black text-white sm:text-xl">
                 Found {enrollments.length} Payment{' '}
                 {enrollments.length === 1 ? 'Record' : 'Records'}
               </h3>
-              <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-400">
+              <div className="flex w-fit items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-400">
                 <LuCircleCheck className="size-4" />
                 Verified
               </div>
@@ -302,7 +305,7 @@ export default function PaymentHistoryClient() {
                 return (
                   <div
                     key={item._id}
-                    className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/5 bg-white/1 p-5 text-left transition-all duration-300 hover:border-cyan-500/30 hover:bg-white/2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] ${
+                    className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/5 bg-white/1 p-4 text-left transition-all duration-300 hover:border-cyan-500/30 hover:bg-white/2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] sm:p-6 ${
                       isFullWidth ? 'md:col-span-2' : ''
                     }`}
                   >
@@ -311,7 +314,7 @@ export default function PaymentHistoryClient() {
 
                     <div className="space-y-4">
                       {/* Top Row: Plan Name & Amount */}
-                      <div className="flex items-start justify-between gap-4">
+                      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
                         <div>
                           <span className="text-[10px] font-black tracking-widest text-cyan-400 uppercase">
                             Enrollment Plan
@@ -320,7 +323,7 @@ export default function PaymentHistoryClient() {
                             {planName}
                           </h4>
                         </div>
-                        <div className="text-right">
+                        <div className="text-left sm:text-right">
                           <span className="text-[10px] font-black tracking-widest text-gray-500 uppercase">
                             Amount Paid
                           </span>
@@ -336,7 +339,11 @@ export default function PaymentHistoryClient() {
 
                       {/* Detail Fields */}
                       <div
-                        className={`grid gap-y-3.5 border-t border-white/5 pt-4 text-xs ${isFullWidth ? 'grid-cols-2 gap-x-4 sm:grid-cols-4' : 'grid-cols-2'}`}
+                        className={`grid gap-y-3.5 border-t border-white/5 pt-4 text-xs ${
+                          isFullWidth
+                            ? 'grid-cols-1 gap-x-4 sm:grid-cols-2 lg:grid-cols-4'
+                            : 'grid-cols-1 gap-x-4 sm:grid-cols-2'
+                        }`}
                       >
                         {/* Transaction ID */}
                         <div className="col-span-2 sm:col-span-1">
@@ -501,7 +508,7 @@ export default function PaymentHistoryClient() {
                         {/* Right: Print Invoice */}
                         <button
                           onClick={() => handlePrint(item, planName)}
-                          className="group flex items-center gap-1.5 text-xs font-bold text-gray-500 transition-colors hover:text-white"
+                          className="group flex cursor-pointer items-center gap-1.5 text-xs font-bold text-gray-500 transition-colors hover:text-white"
                           title="Print Receipt"
                         >
                           <LuPrinter className="size-3.5 transition-transform group-hover:scale-110" />
