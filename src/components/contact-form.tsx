@@ -4,6 +4,8 @@ import { useActionState, useEffect, useRef, useState } from 'react';
 
 import { type ContactFormState, submitContactForm } from '@/app/actions/form';
 import { useCountry } from '@/hooks/use-country';
+import { PhoneInputField } from '@/components/phone-input';
+import { type Country } from 'react-phone-number-input';
 
 import {
   LuMail,
@@ -14,13 +16,14 @@ import {
   LuTriangleAlert,
   LuUser,
 } from 'react-icons/lu';
-import PhoneInput, { type Country } from 'react-phone-number-input';
 
 const initialState: ContactFormState = {
   success: undefined,
   message: '',
   errors: {},
 };
+
+
 
 export default function ContactForm() {
   const countryData = useCountry();
@@ -156,11 +159,10 @@ export default function ContactForm() {
           >
             Phone Number <span className="text-gray-500">(Optional)</span>
           </label>
-          <PhoneInput
-            international
+          <PhoneInputField
             defaultCountry={(countryData?.country || 'IN') as Country}
             value={phone}
-            onChange={(val) => setPhone(val || '')}
+            onChange={setPhone}
             disabled={isPending}
             name="phone"
             placeholder="Enter phone number"

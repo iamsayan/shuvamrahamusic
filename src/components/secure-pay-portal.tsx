@@ -12,6 +12,7 @@ import { loadRazorpay } from '@/lib/load-razorpay';
 import { getCurrencySymbol } from '@/lib/utils';
 import { PricingPlan } from '@/types';
 import { sendGAEvent } from '@next/third-parties/google';
+import { PhoneInputField } from '@/components/phone-input';
 
 import { BiHome } from 'react-icons/bi';
 import {
@@ -23,10 +24,7 @@ import {
   LuTriangleAlert,
   LuUser,
 } from 'react-icons/lu';
-import PhoneInput, {
-  type Country,
-  isValidPhoneNumber,
-} from 'react-phone-number-input';
+import { type Country, isValidPhoneNumber } from 'react-phone-number-input';
 
 interface SuccessModalProps {
   paymentId: string;
@@ -214,6 +212,8 @@ const getPlanThemeName = (planRegion: string, idx: number) => {
       ? 'blue'
       : 'violet';
 };
+
+
 
 export default function SecurePayPortal() {
   const plans = usePricingPlans();
@@ -749,8 +749,7 @@ export default function SecurePayPortal() {
             >
               WhatsApp Number <span className="text-cyan-400">*</span>
             </label>
-            <PhoneInput
-              international
+            <PhoneInputField
               defaultCountry={(countryData?.country || 'IN') as Country}
               value={formData.phone}
               onChange={handlePhoneChange}
