@@ -16,18 +16,12 @@ export async function fetchPaymentHistory(input: string): Promise<{
   }
 
   const cleanInput = input.trim();
-  const cleanPhone = cleanInput.replace(/\D/g, '');
 
   try {
     const orConditions: Record<string, string>[] = [
       { email: cleanInput },
       { email: cleanInput.toLowerCase() },
-      { phone: cleanInput },
     ];
-
-    if (cleanPhone) {
-      orConditions.push({ phone: cleanPhone });
-    }
 
     const enrollments = await cockpit.listContentItems<Enrollment[]>(
       'enrollments',

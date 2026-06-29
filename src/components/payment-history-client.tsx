@@ -13,7 +13,6 @@ import {
   LuCopy,
   LuCreditCard,
   LuGlobe,
-  LuLoader,
   LuMail,
   LuMapPin,
   LuMessageSquare,
@@ -25,7 +24,9 @@ import {
 } from 'react-icons/lu';
 
 export default function PaymentHistoryClient() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState(
+    process.env.NEXT_PUBLIC_TEST_EMAIL || ''
+  );
   const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [error, setError] = useState('');
@@ -36,7 +37,7 @@ export default function PaymentHistoryClient() {
     e.preventDefault();
     const term = searchTerm.trim();
     if (!term) {
-      setError('Please enter your email or phone number.');
+      setError('Please enter your email address.');
       return;
     }
 
@@ -73,7 +74,7 @@ export default function PaymentHistoryClient() {
     const printWindow = window.open('', '_blank');
     if (!printWindow) return;
 
-    const currencySymbol = item.region?.toUpperCase() === 'INDIA' ? '₹' : '$';
+    const currencySymbol = item.region?.toUpperCase() === 'IN' ? '₹' : '$';
 
     printWindow.document.title = `Receipt - ${item.payment_id || 'N/A'}`;
 
@@ -172,7 +173,7 @@ export default function PaymentHistoryClient() {
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Enter email or phone number..."
+              placeholder="Enter email address..."
               className="w-full rounded-2xl border border-white/10 bg-white/2 py-3.5 pr-4 pl-11 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30"
               disabled={isSearching}
             />
@@ -182,19 +183,11 @@ export default function PaymentHistoryClient() {
             disabled={isSearching}
             className="group font-heading flex cursor-pointer items-center justify-center gap-2 rounded-2xl bg-linear-to-r from-cyan-500 to-blue-600 px-6 py-3.5 text-sm font-bold text-white shadow-md transition-all hover:scale-[1.01] hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] active:scale-95 disabled:pointer-events-none disabled:opacity-50"
           >
-            {isSearching ? (
-              <>
-                <LuLoader className="size-4.5 animate-spin" />
-                Searching...
-              </>
-            ) : (
-              'Check History'
-            )}
+            {isSearching ? 'Searching...' : 'Check History'}
           </button>
         </form>
         <p className="mt-2.5 text-center text-xs text-gray-500">
-          Search using the email address or phone number linked to your
-          registration.
+          Search using the email address linked to your registration.
         </p>
       </div>
 
@@ -209,11 +202,47 @@ export default function PaymentHistoryClient() {
       {/* Results Section */}
       <div className="mt-10 space-y-6">
         {isSearching && (
-          <div className="flex flex-col items-center justify-center py-20">
-            <LuLoader className="size-10 animate-spin text-cyan-400" />
-            <p className="mt-4 text-sm text-gray-400">
-              Searching payment history...
-            </p>
+          <div className="space-y-6">
+            <div className="flex items-center justify-between border-b border-white/5 pb-4">
+              <div className="h-6 w-48 animate-pulse rounded-md bg-white/10" />
+              <div className="h-6 w-20 animate-pulse rounded-full bg-white/10" />
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              {[1, 2].map((i) => (
+                <div
+                  key={i}
+                  className="relative flex animate-pulse flex-col justify-between overflow-hidden rounded-3xl border border-white/5 bg-white/1 p-5 text-left"
+                >
+                  <div className="space-y-4">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="space-y-2">
+                        <div className="h-3 w-24 rounded-md bg-white/5" />
+                        <div className="h-5 w-40 rounded-md bg-white/10" />
+                      </div>
+                      <div className="space-y-2 text-right">
+                        <div className="h-3 w-16 rounded-md bg-white/5" />
+                        <div className="h-5 w-20 rounded-md bg-white/10" />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 border-t border-white/5 pt-4">
+                      {[1, 2, 3, 4].map((j) => (
+                        <div key={j} className="space-y-2">
+                          <div className="h-3 w-16 rounded-md bg-white/5" />
+                          <div className="h-4 w-28 rounded-md bg-white/10" />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <div className="h-9 w-28 rounded-xl bg-white/5" />
+                    <div className="h-9 w-32 rounded-xl bg-white/5" />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 

@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import 'react-phone-number-input/style.css';
 @plugin 'fluid-tailwindcss';
 @plugin 'tailwind-scrollbar';
 
@@ -227,5 +228,86 @@ h6 {
 .razorpay-container,
 .razorpay-container iframe {
   color-scheme: light !important;
+}
+
+/* Custom styling for react-phone-number-input */
+.PhoneInput {
+  --PhoneInputCountryFlag-borderColor: transparent;
+  --PhoneInputCountryFlag-borderColor--focus: transparent;
+  --PhoneInputCountrySelectArrow-color: #9ca3af; /* text-gray-400 */
+  --PhoneInputCountrySelectArrow-color--focus: #06b6d4; /* text-cyan-500 */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Style the text input field */
+.PhoneInputInput {
+  width: 100%;
+  border-radius: 0.75rem !important; /* rounded-xl */
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background-color: rgba(255, 255, 255, 0.02) !important; /* bg-white/2 */
+  padding: 0.625rem 1rem !important;
+  font-size: 0.875rem !important; /* text-sm */
+  color: white !important;
+  outline: none !important;
+  transition: all 0.3s !important;
+  height: 42px !important;
+}
+
+.PhoneInputInput::placeholder {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.PhoneInputInput:focus {
+  border-color: rgba(6, 182, 212, 0.5) !important; /* focus:border-cyan-500/50 */
+  background-color: rgba(255, 255, 255, 0.04) !important; /* focus:bg-white/4 */
+  box-shadow: 0 0 0 1px rgba(6, 182, 212, 0.3) !important; /* focus:ring-1 focus:ring-cyan-500/30 */
+}
+
+.PhoneInputInput:disabled {
+  opacity: 0.5 !important;
+}
+
+/* Secure Pay Portal specific styles */
+.secure-pay-portal-phone .PhoneInputInput {
+  background-color: rgba(8, 8, 18, 0.5) !important; /* bg-[#080812]/50 */
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.secure-pay-portal-phone .PhoneInputCountry {
+  background-color: rgba(8, 8, 18, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 0.75rem !important;
+  padding: 0 0.75rem !important;
+}
+
+/* Custom styled country select container */
+.PhoneInputCountry {
+  display: flex;
+  align-items: center;
+  border-radius: 0.75rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background-color: rgba(255, 255, 255, 0.02) !important;
+  padding: 0 0.75rem !important;
+  transition: all 0.3s !important;
+  height: 42px !important;
+}
+
+.PhoneInputCountry:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.PhoneInputCountrySelect {
+  cursor: pointer !important;
+}
+
+.PhoneInputCountryIcon {
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+.PhoneInputCountryIconImg {
+  border-radius: 0.125rem !important;
 }
 

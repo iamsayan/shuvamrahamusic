@@ -26,9 +26,7 @@ export default function Providers({
       options={{ showSpinner: false }}
       shallowRouting
     >
-      <SiteContext
-        value={{ settingsPromise, pricingPlansPromise }}
-      >
+      <SiteContext value={{ settingsPromise, pricingPlansPromise }}>
         {children}
       </SiteContext>
     </ProgressProvider>

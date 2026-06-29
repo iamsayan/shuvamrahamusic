@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 
 import { createRazorpayOrder } from '@/app/actions/razorpay';
 import { usePricingPlans } from '@/app/providers';
+import { useCountry } from '@/hooks/use-country';
 import { useRegion } from '@/hooks/use-region';
 import { loadRazorpay } from '@/lib/load-razorpay';
 import { getCurrencySymbol } from '@/lib/utils';
@@ -18,11 +19,14 @@ import {
   LuGlobe,
   LuMail,
   LuMapPin,
-  LuPhone,
   LuShieldCheck,
   LuTriangleAlert,
   LuUser,
 } from 'react-icons/lu';
+import PhoneInput, {
+  type Country,
+  isValidPhoneNumber,
+} from 'react-phone-number-input';
 
 interface SuccessModalProps {
   paymentId: string;
@@ -156,10 +160,10 @@ const ErrorModal = ({
         </div>
 
         <h3 className="font-heading text-xl font-black text-white sm:text-2xl">
-          Payment Failed
+          Checkout Error
         </h3>
         <p className="mt-2 text-xs text-gray-400 sm:text-sm">
-          Something went wrong with your transaction.
+          Something went wrong while processing your request.
         </p>
 
         <div className="mt-6 w-full rounded-2xl border border-rose-500/10 bg-rose-950/20 p-5 text-left text-xs leading-relaxed text-rose-300">
@@ -213,6 +217,7 @@ const getPlanThemeName = (planRegion: string, idx: number) => {
 
 export default function SecurePayPortal() {
   const plans = usePricingPlans();
+  const countryData = useCountry();
   const [region, setRegion] = useRegion();
   const searchParams = useSearchParams();
 
@@ -234,11 +239,11 @@ export default function SecurePayPortal() {
   const [error, setError] = useState<string | null>(null);
   const [processing, setProcessing] = useState(false);
   const [formData, setFormData] = useState({
-    name: process.env.NEXT_PUBLIC_PAYMENT_TEST_NAME || '',
-    email: process.env.NEXT_PUBLIC_PAYMENT_TEST_EMAIL || '',
-    phone: process.env.NEXT_PUBLIC_PAYMENT_TEST_PHONE || '',
-    city: process.env.NEXT_PUBLIC_PAYMENT_TEST_CITY || '',
-    address: process.env.NEXT_PUBLIC_PAYMENT_TEST_ADDRESS || '',
+    name: process.env.NEXT_PUBLIC_TEST_NAME || '',
+    email: process.env.NEXT_PUBLIC_TEST_EMAIL || '',
+    phone: process.env.NEXT_PUBLIC_TEST_PHONE || '',
+    city: process.env.NEXT_PUBLIC_TEST_CITY || '',
+    address: process.env.NEXT_PUBLIC_TEST_ADDRESS || '',
   });
 
   const currentPlans = (plans || []).filter((p) =>
@@ -258,6 +263,13 @@ export default function SecurePayPortal() {
 
   const closeError = () => setError(null);
   const resetForm = () => window.location.reload();
+
+  const handlePhoneChange = (val?: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      phone: val || '',
+    }));
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -292,6 +304,11 @@ export default function SecurePayPortal() {
       return;
     }
 
+    if (!formData.phone || !isValidPhoneNumber(formData.phone)) {
+      setError('Please enter a valid WhatsApp number with country code');
+      return;
+    }
+
     try {
       setProcessing(true);
       const priceInNumber = activePlan.amount;
@@ -303,7 +320,7 @@ export default function SecurePayPortal() {
       const orderResponse = await createRazorpayOrder({
         name: formData.name,
         email: formData.email,
-        phone: formData.phone.replace(/\D+/g, ''),
+        phone: formData.phone,
         amount: amountInUnits,
         currency: currency,
         city: formData.city,
@@ -360,7 +377,7 @@ export default function SecurePayPortal() {
         notes: {
           email: formData.email,
           name: formData.name,
-          phone: formData.phone.replace(/\D+/g, ''),
+          phone: formData.phone,
           plan_name: activePlan.name,
           plan_id: activePlan._id,
           region: activePlan.region === 'India' ? 'IN' : 'GLOBAL',
@@ -406,7 +423,7 @@ export default function SecurePayPortal() {
         prefill: {
           name: formData.name,
           email: formData.email,
-          contact: formData.phone.replace(/\D+/g, ''),
+          contact: formData.phone,
         },
         theme: {
           color:
@@ -725,30 +742,22 @@ export default function SecurePayPortal() {
           </div>
 
           {/* Phone Input */}
-          <div className="space-y-1.5">
+          <div className="secure-pay-portal-phone space-y-1.5">
             <label
               htmlFor="phone"
               className="text-[10px] font-black tracking-widest text-gray-500 uppercase"
             >
               WhatsApp Number <span className="text-cyan-400">*</span>
             </label>
-            <div className="relative">
-              <div className="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-gray-500">
-                <LuPhone className="size-4" />
-              </div>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                required
-                disabled={processing}
-                value={formData.phone}
-                onChange={handleInputChange}
-                placeholder="10-digit mobile number"
-                pattern="[0-9]{10}"
-                className="w-full rounded-xl border border-white/10 bg-[#080812]/50 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30"
-              />
-            </div>
+            <PhoneInput
+              international
+              defaultCountry={(countryData?.country || 'IN') as Country}
+              value={formData.phone}
+              onChange={handlePhoneChange}
+              disabled={processing}
+              name="phone"
+              placeholder="Enter WhatsApp number"
+            />
           </div>
         </div>
 

@@ -1,20 +1,20 @@
 'use client';
 
-import { useActionState, useEffect, useRef } from 'react';
-
+import { useActionState, useEffect, useRef, useState } from 'react';
 
 import { type ContactFormState, submitContactForm } from '@/app/actions/form';
+import { useCountry } from '@/hooks/use-country';
 
 import {
   LuMail,
   LuMessageSquare,
-  LuPhone,
   LuSend,
   LuShieldCheck,
   LuTag,
   LuTriangleAlert,
   LuUser,
 } from 'react-icons/lu';
+import PhoneInput, { type Country } from 'react-phone-number-input';
 
 const initialState: ContactFormState = {
   success: undefined,
@@ -23,6 +23,10 @@ const initialState: ContactFormState = {
 };
 
 export default function ContactForm() {
+  const countryData = useCountry();
+  const [phone, setPhone] = useState<string>(
+    process.env.NEXT_PUBLIC_TEST_PHONE || ''
+  );
   const [state, formAction, isPending] = useActionState(
     submitContactForm,
     initialState
@@ -105,6 +109,7 @@ export default function ContactForm() {
             required
             disabled={isPending}
             placeholder="John Doe"
+            defaultValue={process.env.NEXT_PUBLIC_TEST_NAME}
             className="w-full rounded-xl border border-white/10 bg-white/2 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50"
           />
         </div>
@@ -133,6 +138,7 @@ export default function ContactForm() {
               name="email"
               required
               disabled={isPending}
+              defaultValue={process.env.NEXT_PUBLIC_TEST_EMAIL}
               placeholder="john@example.com"
               className="w-full rounded-xl border border-white/10 bg-white/2 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50"
             />
@@ -150,19 +156,15 @@ export default function ContactForm() {
           >
             Phone Number <span className="text-gray-500">(Optional)</span>
           </label>
-          <div className="relative">
-            <div className="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-gray-500">
-              <LuPhone className="size-4" />
-            </div>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              disabled={isPending}
-              placeholder="+91 98765 43210"
-              className="w-full rounded-xl border border-white/10 bg-white/2 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50"
-            />
-          </div>
+          <PhoneInput
+            international
+            defaultCountry={(countryData?.country || 'IN') as Country}
+            value={phone}
+            onChange={(val) => setPhone(val || '')}
+            disabled={isPending}
+            name="phone"
+            placeholder="Enter phone number"
+          />
         </div>
       </div>
 
