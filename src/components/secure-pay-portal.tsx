@@ -708,7 +708,7 @@ export default function SecurePayPortal() {
               value={formData.name}
               onChange={handleInputChange}
               placeholder="John Doe"
-              className="w-full rounded-xl border border-white/10 bg-[#080812]/50 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30"
+              className="w-full rounded-xl border border-white/10 bg-white/2 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50"
             />
           </div>
         </div>
@@ -736,7 +736,7 @@ export default function SecurePayPortal() {
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder="john@example.com"
-                className="w-full rounded-xl border border-white/10 bg-[#080812]/50 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30"
+                className="w-full rounded-xl border border-white/10 bg-white/2 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50"
               />
             </div>
           </div>
@@ -783,7 +783,7 @@ export default function SecurePayPortal() {
                 value={formData.city}
                 onChange={handleInputChange}
                 placeholder="e.g. Kolkata"
-                className="w-full rounded-xl border border-white/10 bg-[#080812]/50 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30"
+                className="w-full rounded-xl border border-white/10 bg-white/2 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50"
               />
             </div>
           </div>
@@ -809,7 +809,7 @@ export default function SecurePayPortal() {
                 value={formData.address}
                 onChange={handleInputChange}
                 placeholder="e.g. Flat 3B, 12 Park Street"
-                className="w-full rounded-xl border border-white/10 bg-[#080812]/50 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30"
+                className="w-full rounded-xl border border-white/10 bg-white/2 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50"
               />
             </div>
           </div>

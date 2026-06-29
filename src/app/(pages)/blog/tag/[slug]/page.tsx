@@ -42,20 +42,20 @@ export async function generateMetadata({
   }
 
   return {
-    title: `#${tag.title} Articles`,
+    title: `${tag.title} Articles`,
     description: `Read all guitar articles, exercises, and guides tagged with #${tag.title} by instructor Shuvam Raha.`,
     alternates: {
       canonical: `/blog/tag/${slug}`,
     },
     openGraph: {
-      title: `#${tag.title} Guitar Articles`,
+      title: `${tag.title} Guitar Articles`,
       description: `Read all articles, exercises, and guides tagged with #${tag.title} from Shuvam Raha.`,
       url: `/blog/tag/${slug}`,
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
-      title: `#${tag.title} Guitar Articles`,
+      title: `${tag.title} Guitar Articles`,
       description: `Read all articles, exercises, and guides tagged with #${tag.title} from Shuvam Raha.`,
     },
   };
@@ -82,19 +82,19 @@ async function TagArchiveContent({ slug, searchParams }: ContentProps) {
     <>
       <JsonLd
         schema={[
-          SCHEMA.breadcrumb(`/blog/tag/${slug}`, `#${tagName}`),
+          SCHEMA.breadcrumb(`/blog/tag/${slug}`, `${tagName}`),
           {
             '@context': 'https://schema.org',
             '@type': 'CollectionPage',
-            name: `#${tagName} Guitar Articles - Shuvam Raha Music`,
-            description: `All articles and learning resources tagged with #${tagName}.`,
+            name: `${tagName} Guitar Articles - Shuvam Raha Music`,
+            description: `All articles and learning resources tagged with ${tagName}.`,
             url: `${SCHEMA.BASE_URL}/blog/tag/${slug}`,
           },
           {
             '@context': 'https://schema.org',
             '@type': 'Blog',
-            name: `#${tagName} Guitar Articles`,
-            description: `All articles and learning resources tagged with #${tagName}.`,
+            name: `${tagName} Guitar Articles`,
+            description: `All articles and learning resources tagged with ${tagName}.`,
             url: `${SCHEMA.BASE_URL}/blog/tag/${slug}`,
             publisher: {
               '@type': 'Person',
@@ -121,7 +121,7 @@ async function TagArchiveContent({ slug, searchParams }: ContentProps) {
         title="Tag:"
         subtitle={`Browse all articles, patterns, and guides tagged with #${tagName}.`}
         type="tag"
-        term={`#${tagName}`}
+        term={`${tagName}`}
         posts={posts}
         totalPostsCount={total}
       />
