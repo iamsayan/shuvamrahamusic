@@ -16,6 +16,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: '/guitar-classes-with-shuvam/pay',
+        destination: '/guitar-classes-with-shuvam/enroll',
+        permanent: true,
+      },
+      {
         source: '/category/:slug',
         destination: '/blog/category/:slug',
         permanent: true,

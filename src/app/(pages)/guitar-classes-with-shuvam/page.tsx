@@ -134,7 +134,7 @@ export default async function Page() {
                 price: plan.amount.toFixed(2),
                 name: plan.name,
                 description: plan.description,
-                url: `${SCHEMA.BASE_URL}/guitar-classes-with-shuvam/pay?plan=${plan._id}`,
+                url: `${SCHEMA.BASE_URL}/guitar-classes-with-shuvam/enroll?plan=${plan._id}`,
               })),
               hasCourseInstance: {
                 '@type': 'CourseInstance',

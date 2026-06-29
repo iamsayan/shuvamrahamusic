@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description:
     'Complete your enrollment securely. Choose from starter online classes, global coaching program, or Kolkata offline studio sessions.',
   alternates: {
-    canonical: '/guitar-classes-with-shuvam/pay',
+    canonical: '/guitar-classes-with-shuvam/enroll',
   },
 };
 
@@ -21,14 +21,14 @@ export default async function SecurePayPage() {
     <>
       <JsonLd
         schema={[
-          SCHEMA.breadcrumb('/guitar-classes-with-shuvam/pay'),
+          SCHEMA.breadcrumb('/guitar-classes-with-shuvam/enroll'),
           {
             '@context': 'https://schema.org',
             '@type': 'WebPage',
             name: 'Secure Checkout',
             description:
               'Complete your enrollment securely. Choose from starter online classes, global coaching program, or Kolkata offline studio sessions.',
-            url: `${SCHEMA.BASE_URL}/guitar-classes-with-shuvam/pay`,
+            url: `${SCHEMA.BASE_URL}/guitar-classes-with-shuvam/enroll`,
           },
         ]}
       />

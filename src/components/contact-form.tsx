@@ -3,9 +3,8 @@
 import { useActionState, useEffect, useRef, useState } from 'react';
 
 import { type ContactFormState, submitContactForm } from '@/app/actions/form';
-import { useCountry } from '@/hooks/use-country';
 import { PhoneInputField } from '@/components/phone-input';
-import { type Country } from 'react-phone-number-input';
+import { useCountry } from '@/hooks/use-country';
 
 import {
   LuMail,
@@ -16,14 +15,13 @@ import {
   LuTriangleAlert,
   LuUser,
 } from 'react-icons/lu';
+import { type Country } from 'react-phone-number-input';
 
 const initialState: ContactFormState = {
   success: undefined,
   message: '',
   errors: {},
 };
-
-
 
 export default function ContactForm() {
   const countryData = useCountry();
@@ -112,7 +110,7 @@ export default function ContactForm() {
             required
             disabled={isPending}
             placeholder="John Doe"
-            defaultValue={process.env.NEXT_PUBLIC_TEST_NAME}
+            defaultValue={process.env.NEXT_PUBLIC_TEST_NAME || ''}
             className="w-full rounded-xl border border-white/10 bg-white/2 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50"
           />
         </div>
@@ -141,7 +139,7 @@ export default function ContactForm() {
               name="email"
               required
               disabled={isPending}
-              defaultValue={process.env.NEXT_PUBLIC_TEST_EMAIL}
+              defaultValue={process.env.NEXT_PUBLIC_TEST_EMAIL || ''}
               placeholder="john@example.com"
               className="w-full rounded-xl border border-white/10 bg-white/2 py-2.5 pr-4 pl-10 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50"
             />
@@ -157,7 +155,7 @@ export default function ContactForm() {
             htmlFor="phone"
             className="text-[10px] font-black tracking-widest text-gray-500 uppercase"
           >
-            Phone Number <span className="text-gray-500">(Optional)</span>
+            Phone Number
           </label>
           <PhoneInputField
             defaultCountry={(countryData?.country || 'IN') as Country}
@@ -176,7 +174,7 @@ export default function ContactForm() {
           htmlFor="subject"
           className="text-[10px] font-black tracking-widest text-gray-500 uppercase"
         >
-          Inquiry Subject
+          Inquiry Subject <span className="text-cyan-400">*</span>
         </label>
         <div className="relative">
           <div className="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-gray-500">

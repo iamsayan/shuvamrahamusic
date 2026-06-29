@@ -10,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '',
     '/biography',
     '/guitar-classes-with-shuvam',
-    '/guitar-classes-with-shuvam/pay',
+    '/guitar-classes-with-shuvam/enroll',
     '/guitar-classes-with-shuvam/payment-history',
     '/my-gears',
     '/performance-highlights',

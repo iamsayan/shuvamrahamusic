@@ -219,7 +219,7 @@ export default function PricingTable({ plans }: PricingTableProps) {
                   </div>
 
                   <Link
-                    href={`/guitar-classes-with-shuvam/pay?plan=${plan._id}`}
+                    href={`/guitar-classes-with-shuvam/enroll?plan=${plan._id}`}
                     className={`w-full rounded-xl py-3.5 text-sm font-bold tracking-wide transition-all duration-300 active:scale-[0.98] sm:text-base ${styles.button} font-heading text-center`}
                   >
                     {plan.button_text}

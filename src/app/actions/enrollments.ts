@@ -11,7 +11,7 @@ export async function fetchPaymentHistory(input: string): Promise<{
   if (!input || input.trim() === '') {
     return {
       success: false,
-      error: 'Please enter an email address or phone number.',
+      error: 'Please enter an email address.',
     };
   }
 

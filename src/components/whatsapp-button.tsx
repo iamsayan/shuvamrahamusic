@@ -10,7 +10,7 @@ export default function WhatsappButton() {
   const pathname = usePathname();
 
   // Hide floating WhatsApp button on pay page to prevent visual distraction
-  if (pathname === '/guitar-classes-with-shuvam/pay') {
+  if (pathname === '/guitar-classes-with-shuvam/enroll') {
     return null;
   }
 
