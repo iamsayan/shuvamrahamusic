@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useRef, useState } from 'react';
 
-import { LuSearch } from 'react-icons/lu';
+import { LuSearch, LuGlobe } from 'react-icons/lu';
 import PhoneInput, { type Country } from 'react-phone-number-input';
 
 interface PhoneInputFieldProps {
@@ -45,6 +45,13 @@ function TailwindCountrySelect({
   const [searchQuery, setSearchQuery] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const toggleDropdown = (open: boolean) => {
+    setIsOpen(open);
+    if (!open) {
+      setSearchQuery('');
+    }
+  };
+
   // Close dropdown on click outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -52,7 +59,7 @@ function TailwindCountrySelect({
         containerRef.current &&
         !containerRef.current.contains(event.target as Node)
       ) {
-        setIsOpen(false);
+        toggleDropdown(false);
       }
     }
     if (isOpen) {
@@ -63,28 +70,20 @@ function TailwindCountrySelect({
     };
   }, [isOpen]);
 
-  // Reset query on close
-  useEffect(() => {
-    if (!isOpen) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setSearchQuery('');
-    }
-  }, [isOpen]);
-
   const selectedOption = options.find((opt) => opt.value === value);
 
   const handleSelect = (val?: string) => {
     onChange(val === 'ZZ' ? undefined : val);
-    setIsOpen(false);
+    toggleDropdown(false);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (disabled || readOnly) return;
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      setIsOpen(!isOpen);
+      toggleDropdown(!isOpen);
     } else if (event.key === 'Escape') {
-      setIsOpen(false);
+      toggleDropdown(false);
     }
   };
 
@@ -109,19 +108,25 @@ function TailwindCountrySelect({
       onKeyDown={handleKeyDown}
       onClick={() => {
         if (!disabled && !readOnly) {
-          setIsOpen(!isOpen);
+          toggleDropdown(!isOpen);
         }
       }}
-      className="PhoneInputCountry relative cursor-pointer outline-none focus-visible:border-cyan-500/50 focus-visible:ring-1 focus-visible:ring-cyan-500/30"
+      className={`relative flex h-[42px] cursor-pointer items-center rounded-xl border border-white/10 bg-white/2 px-3 transition-all outline-none hover:bg-white/5 focus-visible:border-cyan-500/50 focus-visible:ring-1 focus-visible:ring-cyan-500/30 ${
+        disabled || readOnly
+          ? 'pointer-events-none cursor-not-allowed opacity-50'
+          : ''
+      }`}
     >
       {/* Current Flag & Arrow */}
       <span className="flex items-center gap-1.5 select-none">
         {value && Icon ? (
-          <span className="flex items-center [&_svg]:h-[14px] [&_svg]:w-[21px] [&_svg]:rounded-[2px]">
+          <span className="flex items-center [&_.PhoneInputCountryIcon]:bg-transparent [&_.PhoneInputCountryIcon]:shadow-none [&_.PhoneInputCountryIconImg]:rounded-[2px] [&_svg]:h-[14px] [&_svg]:w-[21px] [&_svg]:rounded-[2px]">
             <Icon country={value} label={selectedOption?.label || ''} />
           </span>
         ) : (
-          <span className="text-xs">🌍</span>
+          <span className="flex shrink-0 items-center justify-center h-[14px] w-[21px]">
+            <LuGlobe className="size-4 text-cyan-400" />
+          </span>
         )}
         <span className="text-[9px] font-black tracking-widest text-gray-500 uppercase transition-transform duration-200">
           {isOpen ? '▲' : '▼'}
@@ -182,9 +187,13 @@ function TailwindCountrySelect({
                         : 'text-gray-300 hover:text-white'
                     }`}
                   >
-                    {option.value && Icon && (
-                      <span className="flex shrink-0 items-center [&_svg]:h-[10px] [&_svg]:w-[15px] [&_svg]:rounded-[1px]">
-                        <Icon country={option.value} label={option.label} />
+                    {Icon && (
+                      <span className="flex shrink-0 items-center justify-center [&_svg]:h-[10px] [&_svg]:w-[15px] [&_svg]:rounded-[1px] h-[10px] w-[15px]">
+                        {option.value ? (
+                          <Icon country={option.value} label={option.label} />
+                        ) : (
+                          <LuGlobe className="size-3 text-cyan-400" />
+                        )}
                       </span>
                     )}
                     <span className="truncate">{option.label}</span>
@@ -212,12 +221,6 @@ export function PhoneInputField({
   placeholder,
   defaultCountry = 'IN',
 }: PhoneInputFieldProps) {
-  const bgClass = 'bg-white/2';
-
-  const inputClass = `w-full rounded-xl border border-white/10 ${bgClass} py-2.5 px-4 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50 h-[42px]`;
-
-  const containerClass = `flex items-center gap-2 [&>.PhoneInputCountry]:flex [&>.PhoneInputCountry]:items-center [&>.PhoneInputCountry]:rounded-xl [&>.PhoneInputCountry]:border [&>.PhoneInputCountry]:border-white/10 [&>.PhoneInputCountry]:${bgClass} [&>.PhoneInputCountry]:px-3 [&>.PhoneInputCountry]:h-[42px] [&>.PhoneInputCountry]:transition-all [&>.PhoneInputCountry:hover]:bg-white/5 [&_.PhoneInputCountryIcon]:bg-transparent [&_.PhoneInputCountryIcon]:shadow-none [&_.PhoneInputCountryIconImg]:rounded-[2px]`;
-
   return (
     <PhoneInput
       international
@@ -229,12 +232,15 @@ export function PhoneInputField({
       placeholder={placeholder}
       inputComponent={CustomInput}
       numberInputProps={
-        { className: inputClass } as React.InputHTMLAttributes<HTMLInputElement>
+        {
+          className:
+            'w-full rounded-xl border border-white/10 bg-white/2 py-2.5 px-4 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30 disabled:opacity-50 h-[42px]',
+        } as React.InputHTMLAttributes<HTMLInputElement>
       }
       countrySelectComponent={TailwindCountrySelect}
-      className={containerClass}
+      className="flex items-center gap-2"
       countryOptionsOrder={['IN', 'US', 'GB', '|', '...']}
-      countryCallingCodeEditable={false}
+      //countryCallingCodeEditable={false}
     />
   );
 }
