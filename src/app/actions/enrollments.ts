@@ -11,17 +11,32 @@ export async function fetchPaymentHistory(input: string): Promise<{
   if (!input || input.trim() === '') {
     return {
       success: false,
-      error: 'Please enter an email address.',
+      error: 'Please enter an email address or phone number.',
     };
   }
 
   const cleanInput = input.trim();
 
   try {
-    const orConditions: Record<string, string>[] = [
+    const orConditions: Record<string, unknown>[] = [
       { email: cleanInput },
       { email: cleanInput.toLowerCase() },
     ];
+
+    // Extract digits to support phone number search
+    const digits = cleanInput.replace(/\D/g, '');
+    if (digits.length >= 5) {
+      // Create a regex to match digits allowing for any spacing/characters in between
+      const regexPattern = digits.split('').join('\\D*');
+      orConditions.push({ phone: { $regex: regexPattern, $options: 'i' } });
+
+      // If search input includes a country code (or has 10+ digits), also try searching the last 10 digits
+      if (digits.length >= 10) {
+        const last10 = digits.slice(-10);
+        const regexLast10 = last10.split('').join('\\D*');
+        orConditions.push({ phone: { $regex: regexLast10, $options: 'i' } });
+      }
+    }
 
     const enrollments = await cockpit.listContentItems<Enrollment[]>(
       'enrollments',

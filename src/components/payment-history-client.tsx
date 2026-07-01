@@ -38,7 +38,7 @@ export default function PaymentHistoryClient() {
     e.preventDefault();
     const term = searchTerm.trim();
     if (!term) {
-      setError('Please enter your email address.');
+      setError('Please enter your email address or phone number.');
       return;
     }
 
@@ -177,7 +177,7 @@ export default function PaymentHistoryClient() {
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Enter email address..."
+              placeholder="Enter email address or phone number..."
               className="w-full rounded-2xl border border-white/10 bg-white/2 py-3.5 pr-4 pl-11 text-sm text-white placeholder-gray-500 transition-all duration-300 outline-none focus:border-cyan-500/50 focus:bg-white/4 focus:ring-1 focus:ring-cyan-500/30"
               disabled={isSearching}
             />
@@ -198,7 +198,8 @@ export default function PaymentHistoryClient() {
           </button>
         </form>
         <p className="mt-2.5 text-center text-xs leading-relaxed text-gray-500">
-          Search using the email address linked to your registration.
+          Search using the email address or phone number linked to your
+          registration.
           <br />
           Note: Recently completed transactions may take a few moments to
           reflect in your history.
