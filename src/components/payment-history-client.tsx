@@ -13,6 +13,7 @@ import {
   LuCopy,
   LuCreditCard,
   LuGlobe,
+  LuLoader,
   LuMail,
   LuMapPin,
   LuMessageSquare,
@@ -186,11 +187,21 @@ export default function PaymentHistoryClient() {
             disabled={isSearching}
             className="group font-heading flex cursor-pointer items-center justify-center gap-2 rounded-2xl bg-linear-to-r from-cyan-500 to-blue-600 px-6 py-3.5 text-sm font-bold text-white shadow-md transition-all hover:scale-[1.01] hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] active:scale-95 disabled:pointer-events-none disabled:opacity-50"
           >
-            {isSearching ? 'Searching...' : 'Check History'}
+            {isSearching ? (
+              <>
+                <LuLoader className="mr-2 -ml-1 size-4 animate-spin" />
+                Searching...
+              </>
+            ) : (
+              'Check History'
+            )}
           </button>
         </form>
-        <p className="mt-2.5 text-center text-xs text-gray-500">
+        <p className="mt-2.5 text-center text-xs leading-relaxed text-gray-500">
           Search using the email address linked to your registration.
+          <br />
+          Note: Recently completed transactions may take a few moments to
+          reflect in your history.
         </p>
       </div>
 
@@ -417,7 +428,9 @@ export default function PaymentHistoryClient() {
                           </span>
                           <p className="mt-0.5 flex items-center gap-1.5 font-semibold text-gray-300 capitalize">
                             <LuCreditCard className="size-3.5 text-cyan-400" />
-                            <span>{item.method || 'Online'}</span>
+                            <span className="uppercase">
+                              {item.method || 'Online'}
+                            </span>
                           </p>
                         </div>
 
@@ -466,26 +479,17 @@ export default function PaymentHistoryClient() {
                               <LuPhone className="size-3.5 shrink-0 text-gray-500" />
                               {item.phone}
                             </p>
+                            {(item.city || item.address) && (
+                              <p className="flex items-start gap-1.5">
+                                <LuMapPin className="mt-0.5 size-3.5 shrink-0 text-gray-500" />
+                                <span>
+                                  {item.address && `${item.address}, `}
+                                  {item.city}
+                                </span>
+                              </p>
+                            )}
                           </div>
                         </div>
-
-                        {/* Address */}
-                        {(item.city || item.address) && (
-                          <div
-                            className={`col-span-2 border-t border-white/5 pt-3.5 ${isFullWidth ? 'sm:col-span-2' : ''}`}
-                          >
-                            <span className="text-[10px] font-bold tracking-wider text-gray-500 uppercase">
-                              Billing Address
-                            </span>
-                            <p className="mt-1 flex items-start gap-1.5 text-xs leading-relaxed text-gray-400">
-                              <LuMapPin className="mt-0.5 size-3.5 shrink-0 text-gray-500" />
-                              <span>
-                                {item.address && `${item.address}, `}
-                                {item.city}
-                              </span>
-                            </p>
-                          </div>
-                        )}
                       </div>
 
                       {/* Card Actions Footer */}

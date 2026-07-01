@@ -45,6 +45,7 @@ export default function BlogListingClient({
   const currentPage = Number(searchParams.get('page')) || 1;
   const searchQuery = searchParams.get('search') || '';
 
+  const [prevSearchQuery, setPrevSearchQuery] = useState(searchQuery);
   const [localSearch, setLocalSearch] = useState(searchQuery);
   const [suggestions, setSuggestions] = useState<
     { id: string; title: string; slug: string; category: string }[]
@@ -54,9 +55,11 @@ export default function BlogListingClient({
   const searchRef = useRef<HTMLFormElement>(null);
 
   // Sync localSearch when URL query changes (e.g. on reset or back navigation)
-  useEffect(() => {
+  if (searchQuery !== prevSearchQuery) {
+    setPrevSearchQuery(searchQuery);
     setLocalSearch(searchQuery);
-  }, [searchQuery]);
+    setSuggestions([]);
+  }
 
   // Click outside to close autocomplete
   useEffect(() => {
@@ -73,7 +76,6 @@ export default function BlogListingClient({
   useEffect(() => {
     // Optimization: Skip fetching if query is empty or matches the currently loaded active search query
     if (!localSearch.trim() || localSearch === searchQuery) {
-      setSuggestions([]);
       return;
     }
 
@@ -114,6 +116,9 @@ export default function BlogListingClient({
 
   const handleSearchChange = (query: string) => {
     setLocalSearch(query);
+    if (!query.trim() || query === searchQuery) {
+      setSuggestions([]);
+    }
     setShowSuggestions(true);
     setHighlightedIndex(-1);
   };
@@ -128,6 +133,7 @@ export default function BlogListingClient({
     router.push(`/blog/${slug}`);
     setShowSuggestions(false);
     setLocalSearch('');
+    setSuggestions([]);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
