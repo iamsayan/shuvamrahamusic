@@ -1,14 +1,14 @@
 # Shuvam Raha Music - Guitar Coaching Website
 
-A premium, high-performance website built with Next.js 15 (App Router), TypeScript, and Tailwind CSS to showcase online and offline 1-on-1 guitar coaching programs, student testimonials, pricing tables, and a secure checkout portal.
+A premium, high-performance website built with Next.js 16 (App Router), React 19, TypeScript, and Tailwind CSS v4, created by [Sayan Datta](https://github.com/iamsayan) for Shuvam Raha. It showcases online and offline 1-on-1 guitar coaching programs, student testimonials, pricing tables, and a secure checkout portal.
 
 ---
 
 ## ⚙️ Tech Stack
 
-* **Framework**: Next.js 15 (App Router)
+* **Framework**: Next.js 16 (App Router with `cacheComponents` and `reactCompiler` enabled)
 * **Language**: TypeScript (Strict Mode)
-* **Styling**: Tailwind CSS & SCSS (Liquid Glassmorphism and modern dark mode design tokens)
+* **Styling**: Tailwind CSS v4 & SCSS (Liquid Glass design and modern dark mode design tokens)
 * **Icons**: React Icons (Lucide React & FontAwesome)
 
 ---
@@ -19,6 +19,7 @@ A premium, high-performance website built with Next.js 15 (App Router), TypeScri
 * `/src/components` → Reusable UI components (header, footer, pricing grid, FAQ accordion, secure checkout wizard, and layout wrapper).
 * `/src/hooks` → Custom React hooks for shared state logic (e.g., geolocation region detection).
 * `/src/lib` → Utility helpers and static configurations (coaching plans, course curriculum detail modules).
+* `/src/types` → TypeScript type definitions.
 
 ---
 
@@ -76,3 +77,17 @@ To verify TypeScript and generate the production bundle:
 ```bash
 npm run build
 ```
+
+---
+
+## 🔒 License & Copyright
+
+**Copyright © 2026 Sayan Datta. All rights reserved.**
+
+This repository is public for **educational and code inspection purposes only**. No part of this repository, including its code, design, layout, assets, images, or copywriting, may be:
+* Cloned, modified, or hosted to run a live version of this website.
+* Used for any commercial, non-commercial, or competing guitar learning, coaching, or music tuition services.
+* Redeployed under your own name or identity. All branding, testimonials, logos, and likeness of "Shuvam Raha" and "Shuvam Raha Music" are proprietary.
+
+For full license details, please see the [LICENSE](./LICENSE) file in the root of the repository.
+
