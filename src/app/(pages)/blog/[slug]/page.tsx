@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 
 import BlogPostClient from '@/components/blog-post-client';
 import { getBlogPostBySlug, getBlogPosts } from '@/lib/blog-data';
-import { AUTHOR_SHUVAM } from '@/lib/blog-shared';
+import { AUTHOR_SHUVAM, BlogPost } from '@/lib/blog-shared';
 import type { Asset } from '@/lib/client';
 import cockpit from '@/lib/client';
 import { SCHEMA } from '@/lib/schema';
@@ -93,11 +93,11 @@ export async function generateMetadata({
       type: 'article',
       publishedTime: post.date,
       authors: [post.author.name],
-      images: post.featured_image?._id
+      images: post.coverImage?._id
         ? [
             {
-              url: cockpit.getImageUrl(post.featured_image._id),
-              alt: post.featured_image?.altText || post.title,
+              url: cockpit.getImageUrl(post.coverImage._id),
+              alt: post.coverImage?.altText || post.title,
             },
           ]
         : [],
@@ -106,8 +106,8 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: post.title,
       description: post.excerpt,
-      images: post.featured_image?._id
-        ? [cockpit.getImageUrl(post.featured_image._id)]
+      images: post.coverImage?._id
+        ? [cockpit.getImageUrl(post.coverImage._id)]
         : [],
     },
   };
@@ -136,7 +136,6 @@ export default async function BlogPostPage({ params }: PageProps) {
         content:
           '<p>Start typing in the editor to see your live preview here.</p>',
         coverImage: { _id: '', path: '' } as unknown as Asset,
-        featured_image: { _id: '', path: '' } as unknown as Asset,
         categories: [],
         tags: [],
         date: new Date().toLocaleDateString(),
@@ -144,7 +143,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         readTime: 'Draft',
         author: AUTHOR_SHUVAM,
         raw: {} as unknown as Post,
-      };
+      } as BlogPost;
     } else {
       notFound();
     }

@@ -142,13 +142,10 @@ export default function BlogPostClient({
       if (!entryCopy.content && initialPost.content) {
         entryCopy.content = initialPost.content;
       }
-      if (!entryCopy.featured_image && initialPost.featured_image) {
-        entryCopy.featured_image = initialPost.raw?.featured_image || (initialPost.featured_image as unknown as Post['featured_image']);
+      if (!entryCopy.featured_image && initialPost.coverImage) {
+        entryCopy.featured_image = initialPost.coverImage;
       }
 
-      if (!entryCopy._created) entryCopy._created = Date.now() / 1000;
-      if (!entryCopy._modified) entryCopy._modified = Date.now() / 1000;
-      if (!entryCopy.slug) entryCopy.slug = initialPost.slug;
       return mapPostToBlogPost(entryCopy);
     }
   );
@@ -168,7 +165,9 @@ export default function BlogPostClient({
             '@type': 'BlogPosting',
             headline: post.title,
             description: post.excerpt,
-            image: post.featured_image?._id ? cockpit.getImageUrl(post.featured_image._id) : '',
+            image: post.coverImage?._id
+              ? cockpit.getImageUrl(post.coverImage._id)
+              : '',
             datePublished: formatSchemaDate(post.raw?._created),
             dateModified: formatSchemaDate(post.raw?._modified),
             wordCount: post.content
