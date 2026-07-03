@@ -1,78 +1,14 @@
 import { cacheLife, cacheTag } from 'next/cache';
 
-import { Author, BlogPost } from '@/lib/blog-shared';
+import { BlogPost, mapPostToBlogPost } from '@/lib/blog-shared';
 import cockpit, {
   ContentItemGetByFilterOptions,
   ContentItemsListOptions,
   PaginatedList,
 } from '@/lib/client';
-import { formatDate } from '@/lib/utils';
 import { Category, Post, Tag } from '@/types';
 
 export * from '@/lib/blog-shared';
-
-const AUTHOR_SHUVAM: Author = {
-  name: 'Shuvam Raha',
-  avatar: '/hero-guitarist.jpg',
-  role: 'LCM Certified Music Instructor',
-  bio: 'Professional guitarist, music producer, and educator with over {years} years of coaching experience, helping 600+ students globally master the guitar.',
-};
-
-// Helper to calculate reading time dynamically
-function calculateReadTime(content?: string): string {
-  if (!content) return '1 min read';
-  const words = content
-    .replace(/<[^>]*>/g, '')
-    .trim()
-    .split(/\s+/).length;
-  const minutes = Math.max(1, Math.round(words / 200));
-  return `${minutes} min read`;
-}
-
-// Helper to calculate excerpt if not present
-function generateExcerpt(content?: string): string {
-  if (!content) return '';
-  const plainText = content
-    .replace(/<[^>]*>/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-  if (plainText.length <= 160) return plainText;
-  return plainText.substring(0, 157) + '...';
-}
-
-export function getThemeKey(categoryName: string): string {
-  if (!categoryName) return 'default';
-  const lowerName = categoryName.toLowerCase();
-  if (lowerName === 'all') return 'all';
-  if (lowerName === 'default') return 'default';
-
-  const themeKeys = ['emerald', 'violet', 'amber', 'rose', 'cyan'];
-  let hash = 0;
-  for (let i = 0; i < categoryName.length; i++) {
-    hash = categoryName.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  const index = Math.abs(hash) % themeKeys.length;
-  return themeKeys[index];
-}
-
-function mapPostToBlogPost(entry: Post): BlogPost {
-  return {
-    id: entry._id,
-    slug: entry.slug,
-    title: entry.title,
-    excerpt: generateExcerpt(entry.content),
-    content: entry.content,
-    coverImage: entry.featured_image,
-    featured_image: entry.featured_image,
-    categories: Array.isArray(entry.categories) ? entry.categories : [],
-    tags: Array.isArray(entry.tags) ? entry.tags : [],
-    date: formatDate(entry._created),
-    modifiedDate: formatDate(entry._modified),
-    readTime: calculateReadTime(entry.content),
-    author: AUTHOR_SHUVAM,
-    raw: entry,
-  };
-}
 
 export interface PaginatedBlogPosts {
   posts: BlogPost[];

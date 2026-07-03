@@ -55,8 +55,29 @@ export default function CockpitImage({
 
   const hasAttemptedFallback = useRef(false);
 
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    rootMargin: '100px 50px',
+    fallbackInView: true,
+    skip: !lazy,
+    ...intersectionOptions,
+  });
+
   const restWidth = rest.width;
   const restHeight = rest.height;
+
+  if (!asset || !asset._id) {
+    return (
+      <div className={cn('relative bg-gray-200 size-full flex items-center justify-center', containerClassName)}>
+        <Image
+          src={placeholderImage}
+          alt="Image placeholder"
+          className="size-10 opacity-40"
+          priority={false}
+        />
+      </div>
+    );
+  }
 
   const url = preset
     ? cockpit.getImagePresetUrl(asset._id, preset, { o: 1 })
@@ -72,14 +93,6 @@ export default function CockpitImage({
     asset.fp && typeof asset.fp.x === 'number' && typeof asset.fp.y === 'number'
       ? `${asset.fp.x * 100}% ${asset.fp.y * 100}%`
       : undefined;
-
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    rootMargin: '100px 50px',
-    fallbackInView: true,
-    skip: !lazy,
-    ...intersectionOptions,
-  });
 
   const handleLoad = () => {
     setImageState((prev) => ({

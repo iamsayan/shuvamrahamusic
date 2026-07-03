@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import CockpitImage from '@/components/cockpit-image';
 import { GearItem } from '@/types';
+import { useLivePreview } from '@/hooks/use-live-preview';
 
 import { FaAmazon } from 'react-icons/fa6';
 import {
@@ -151,6 +152,7 @@ export default function GearsListingClient({
 }: {
   initialItems?: GearItem[];
 }) {
+  const gears = useLivePreview<GearItem[]>(initialItems || [], 'gears');
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
@@ -182,7 +184,7 @@ export default function GearsListingClient({
   // Dynamically collect active categories from data
   const activeCategories = (() => {
     const categoriesWithItems = new Set<string>();
-    initialItems?.forEach((item) => {
+    gears.forEach((item) => {
       item.categories?.forEach((cat: string) => {
         categoriesWithItems.add(cat);
       });
@@ -204,7 +206,7 @@ export default function GearsListingClient({
 
   // Filter products based on search and category tab
   const filteredGears = (() => {
-    const items = initialItems || [];
+    const items = gears;
     const query = debouncedSearchQuery.trim().toLowerCase();
 
     return items.filter((item) => {

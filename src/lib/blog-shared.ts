@@ -1,5 +1,54 @@
 import type { Asset } from '@/lib/cockpit';
+import { formatDate } from '@/lib/utils';
 import type { Category, Post, Tag } from '@/types';
+
+export const AUTHOR_SHUVAM: Author = {
+  name: 'Shuvam Raha',
+  avatar: '/hero-guitarist.jpg',
+  role: 'LCM Certified Music Instructor',
+  bio: 'Professional guitarist, music producer, and educator with over {years} years of coaching experience, helping 600+ students globally master the guitar.',
+};
+
+// Helper to calculate reading time dynamically
+export function calculateReadTime(content?: string): string {
+  if (!content) return '1 min read';
+  const words = content
+    .replace(/<[^>]*>/g, '')
+    .trim()
+    .split(/\s+/).length;
+  const minutes = Math.max(1, Math.round(words / 200));
+  return `${minutes} min read`;
+}
+
+// Helper to calculate excerpt if not present
+export function generateExcerpt(content?: string): string {
+  if (!content) return '';
+  const plainText = content
+    .replace(/<[^>]*>/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (plainText.length <= 160) return plainText;
+  return plainText.substring(0, 157) + '...';
+}
+
+export function mapPostToBlogPost(entry: Post): BlogPost {
+  return {
+    id: entry._id,
+    slug: entry.slug,
+    title: entry.title,
+    excerpt: generateExcerpt(entry.content),
+    content: entry.content,
+    coverImage: entry.featured_image,
+    featured_image: entry.featured_image,
+    categories: Array.isArray(entry.categories) ? entry.categories : [],
+    tags: Array.isArray(entry.tags) ? entry.tags : [],
+    date: formatDate(entry._created),
+    modifiedDate: formatDate(entry._modified),
+    readTime: calculateReadTime(entry.content),
+    author: AUTHOR_SHUVAM,
+    raw: entry,
+  };
+}
 
 export interface Author {
   name: string;

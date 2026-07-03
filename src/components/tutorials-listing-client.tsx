@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import YouTubeFacade from '@/components/youtube-facade';
 import { TutorialItem } from '@/types';
+import { useLivePreview } from '@/hooks/use-live-preview';
 
 import { LuFileText, LuSearch, LuSparkles, LuX } from 'react-icons/lu';
 
@@ -76,6 +77,7 @@ export default function TutorialsListingClient({
 }: {
   initialItems?: TutorialItem[];
 }) {
+  const tutorials = useLivePreview<TutorialItem[]>(initialItems || [], 'tutorials');
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
 
@@ -87,7 +89,7 @@ export default function TutorialsListingClient({
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  const items = initialItems || [];
+  const items = tutorials;
   const filteredTutorials = !debouncedSearchQuery.trim()
     ? items
     : items.filter((item) => {
