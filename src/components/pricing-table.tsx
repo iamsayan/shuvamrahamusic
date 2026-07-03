@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 
+import { useLivePreview } from '@/hooks/use-live-preview';
 import { useRegion } from '@/hooks/use-region';
 import { getCurrencySymbol } from '@/lib/utils';
 import { PricingPlan } from '@/types';
@@ -70,7 +71,13 @@ const THEME_MAP: Record<string, Record<string, string>> = {
   },
 };
 
-export default function PricingTable({ plans }: PricingTableProps) {
+export default function PricingTable({
+  plans: initialPlans,
+}: PricingTableProps) {
+  const plans = useLivePreview<PricingPlan[]>(
+    initialPlans || [],
+    'pricingplans'
+  );
   const [region, setRegion] = useRegion();
 
   const currentPlans = plans.filter((p) =>

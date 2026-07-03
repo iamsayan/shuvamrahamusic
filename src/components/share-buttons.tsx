@@ -29,12 +29,12 @@ export default function ShareButtons({ post }: ShareButtonsProps) {
   }, []);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !post.featured_image?._id) return;
+    if (typeof window === 'undefined' || !post.coverImage?._id) return;
 
     let active = true;
     const prepareFile = async () => {
       try {
-        const imageUrl = cockpit.getImageUrl(post.featured_image._id, {
+        const imageUrl = cockpit.getImageUrl(post.coverImage._id, {
           mime: 'png',
         });
 
@@ -63,7 +63,7 @@ export default function ShareButtons({ post }: ShareButtonsProps) {
     return () => {
       active = false;
     };
-  }, [post.featured_image?._id, post.slug]);
+  }, [post.coverImage?._id, post.slug]);
 
   const handleCopy = async () => {
     try {

@@ -6,13 +6,14 @@ import { useSearchParams } from 'next/navigation';
 
 import { createRazorpayOrder } from '@/app/actions/razorpay';
 import { usePricingPlans } from '@/app/providers';
+import { PhoneInputField } from '@/components/phone-input';
 import { useCountry } from '@/hooks/use-country';
+import { useLivePreview } from '@/hooks/use-live-preview';
 import { useRegion } from '@/hooks/use-region';
 import { loadRazorpay } from '@/lib/load-razorpay';
 import { getCurrencySymbol } from '@/lib/utils';
 import { PricingPlan } from '@/types';
 import { sendGAEvent } from '@next/third-parties/google';
-import { PhoneInputField } from '@/components/phone-input';
 
 import { BiHome } from 'react-icons/bi';
 import {
@@ -213,10 +214,12 @@ const getPlanThemeName = (planRegion: string, idx: number) => {
       : 'violet';
 };
 
-
-
 export default function SecurePayPortal() {
-  const plans = usePricingPlans();
+  const initialPlans = usePricingPlans();
+  const plans = useLivePreview<PricingPlan[]>(
+    initialPlans || [],
+    'pricingplans'
+  );
   const countryData = useCountry();
   const [region, setRegion] = useRegion();
   const searchParams = useSearchParams();

@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import Link from 'next/link';
 
 import CockpitImage from '@/components/cockpit-image';
 import GeographicMap from '@/components/geographic-map';
+import { useLivePreview } from '@/hooks/use-live-preview';
 import { Artist, Performance } from '@/types';
 
 import { format, isValid } from 'date-fns';
@@ -158,8 +159,46 @@ function getCategoryTheme(title: string) {
 }
 
 export default function PerformanceHighlightsClient({
-  performances,
+  performances: initialPerformances,
 }: PerformanceHighlightsClientProps) {
+  const rawPerformances = useLivePreview<Performance[]>(
+    initialPerformances || [],
+    'performances'
+  );
+
+  // Derive stable initial artists list
+  const initialArtists = useMemo(() => {
+    const artistsMap = new Map<string, Artist>();
+    (initialPerformances || []).forEach((p) => {
+      if (p.artist && p.artist._id && !p.artist.hidden) {
+        artistsMap.set(p.artist._id, p.artist);
+      }
+    });
+    return Array.from(artistsMap.values()).sort(
+      (a, b) => (a._o || 0) - (b._o || 0)
+    );
+  }, [initialPerformances]);
+
+  // Hook to handle live preview updates for the artists list
+  const artists = useLivePreview<Artist[]>(initialArtists, 'artists');
+
+  // Map the live performance data to use the live-updated artist records
+  const performances = useMemo(() => {
+    const artistsLookup = new Map(artists.map((a) => [a._id, a]));
+    return rawPerformances.map((p) => {
+      if (p.artist && p.artist._id && artistsLookup.has(p.artist._id)) {
+        return {
+          ...p,
+          artist: {
+            ...p.artist,
+            ...artistsLookup.get(p.artist._id),
+          },
+        };
+      }
+      return p;
+    });
+  }, [rawPerformances, artists]);
+
   const [selectedYear, setSelectedYear] = useState<string | number>('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
@@ -173,23 +212,7 @@ export default function PerformanceHighlightsClient({
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  // 1. Mapped artists list
-  const artists = (() => {
-    const artistsMap = new Map<string, Artist>();
-    performances.forEach((p) => {
-      if (
-        p.artist &&
-        p.artist._id &&
-        !artistsMap.has(p.artist._id) &&
-        !p.artist.hidden
-      ) {
-        artistsMap.set(p.artist._id, p.artist);
-      }
-    });
-    return Array.from(artistsMap.values()).sort(
-      (a, b) => (a._o || 0) - (b._o || 0)
-    );
-  })();
+  // artists is already managed in state by useLivePreview above
 
   // 2. Mapped categories/circuits list
   const categories = (() => {
