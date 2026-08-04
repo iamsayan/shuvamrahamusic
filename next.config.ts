@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactCompiler: true,
   cacheComponents: true,
+  partialPrefetching: true,
   async redirects() {
     return [
       {
