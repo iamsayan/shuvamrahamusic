@@ -491,6 +491,13 @@ export class CockpitClient {
   }
 
   /**
+   * Get asset file URL
+   */
+  getAssetUrl(asset: Asset): string {
+    return `${this.host}/uploads${asset.path}`;
+  }
+
+  /**
    * Get image thumbnail/optimization URL or binary
    */
   getImageUrl(id: string, options: ImageOptions = {}): string {
