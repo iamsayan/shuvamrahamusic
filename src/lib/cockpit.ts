@@ -494,7 +494,7 @@ export class CockpitClient {
    * Get asset file URL
    */
   getAssetUrl(asset: Asset): string {
-    return `${this.host}/uploads${asset.path}`;
+    return `https://assets.shuvamrahamusic.com/uploads${asset.path}`;
   }
 
   /**
