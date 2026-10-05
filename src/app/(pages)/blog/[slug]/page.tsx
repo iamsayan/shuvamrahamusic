@@ -96,7 +96,13 @@ export async function generateMetadata({
       images: post.coverImage?._id
         ? [
             {
-              url: cockpit.getImageUrl(post.coverImage._id),
+              url: cockpit.getImageUrl(post.coverImage._id, {
+                o: 0,
+                re: 1,
+                w: 1200,
+                h: 630,
+                mime: 'png',
+              }),
               alt: post.coverImage?.altText || post.title,
             },
           ]
@@ -107,7 +113,15 @@ export async function generateMetadata({
       title: post.title,
       description: post.excerpt,
       images: post.coverImage?._id
-        ? [cockpit.getImageUrl(post.coverImage._id)]
+        ? [
+            cockpit.getImageUrl(post.coverImage._id, {
+              o: 0,
+              re: 1,
+              w: 1600,
+              h: 900,
+              mime: 'png',
+            }),
+          ]
         : [],
     },
   };
